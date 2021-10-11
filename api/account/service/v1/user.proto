@@ -18,9 +18,7 @@ service User {
 
 message CreateUserRequest {
   string username = 1;
-  string email = 2;
-  string phone = 3;
-  string password = 4;
+  string password = 2;
 }
 message CreateUserReply {
   int64 id = 1;
