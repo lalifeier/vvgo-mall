@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package api.sms.interface.v1;
+
+import "google/api/annotations.proto";
+
+import "validate/validate.proto";
+
+option go_package = "github.com/lalifeier/vgo/api/sms/interface/v1;v1";
+
+service Sms {
+  rpc SendSmsCode(SendSmsCodeRequest) returns (SendSmsCodeReply) {
+    option (google.api.http) = {
+      post : "/v1/sms/sendCode",
+      body : "*"
+    };
+  };
+
+  rpc VerifySmsCode(VerifySmsCodeRequest) returns (VerifySmsCodeReply) {
+    option (google.api.http) = {
+      post : "/v1/sms/verifyCode",
+      body : "*"
+    };
+  };
+}
+
+message SendSmsCodeRequest { string mobile = 1; }
+
+message SendSmsCodeReply {}
+
+message VerifySmsCodeRequest {
+  string mobile = 1;
+  string code = 2 [ (validate.rules).string.len = 6 ];
+}
+
+message VerifySmsCodeReply {}

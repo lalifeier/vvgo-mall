@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package api.user.service.v1;
+
+option go_package = "api/user/service/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.user.service.v1";
+
+service User {
+  rpc CreateUser(CreateUserRequest) returns (CreateUserReply);
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserReply);
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserReply);
+  rpc GetUser(GetUserRequest) returns (GetUserReply);
+  rpc ListUser(ListUserRequest) returns (ListUserReply);
+
+  rpc VerifyPassword(VerifyPasswordRequest) returns (VerifyPasswordReply) {}
+}
+
+message CreateUserRequest {
+  string username = 1;
+  string email = 2;
+  string phone = 3;
+  string password = 4;
+}
+message CreateUserReply {
+  int64 id = 1;
+  string username = 2;
+}
+
+message UpdateUserRequest {}
+message UpdateUserReply {}
+
+message DeleteUserRequest {}
+message DeleteUserReply {}
+
+message GetUserRequest { int64 id = 1; }
+message GetUserReply {
+  int64 id = 1;
+  string username = 2;
+}
+
+message ListUserRequest { int64 id = 1; }
+message ListUserReply {
+  message User {
+    int64 id = 1;
+    string name = 2;
+  }
+  repeated User results = 1;
+}
+
+message VerifyPasswordRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message VerifyPasswordReply {
+  bool ok = 1;
+  int64 id = 2;
+}

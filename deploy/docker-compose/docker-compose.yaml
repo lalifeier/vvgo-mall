@@ -1,0 +1,58 @@
+version: 3.1
+
+networks:
+  consul-network:
+    driver: bridge
+
+services:
+  web-admin:
+    image: vgo-web-admin:0.1.0
+    ports:
+      - 80:80
+
+  user-service:
+    image: vgo-user-service:0.1.0
+    restart: always
+    hostname: user-service
+    depends_on:
+      - mysql
+      - consul
+
+  mysql:
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      - /home/docker/mysql/data:/var/lib/mysql
+
+  consul:
+    container_name: consul
+    image: bitnami/consul:latest
+    networks:
+      - consul-network
+    ports:
+      - 8300:8300
+      - 8301:8301
+      - 8301:8301/udp
+      - 8500:8500
+      - 8600:8600
+      - 8600:8600/udp
+    volumes:
+      - /home/docker/consul/data:/bitnami
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - 5775:5775/udp
+      - 6831:6831/udp
+      - 6832:6832/udp
+      - 5778:5778
+      - 16686:16686
+      - 14268:14268
+      - 14250:14250
+      - 9411:9411
+    environment:
+      COLLECTOR_ZIPKIN_HOST_PORT: 9411
