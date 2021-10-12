@@ -43,10 +43,6 @@ func (m *CreateUserRequest) Validate() error {
 
 	// no validation rules for Username
 
-	// no validation rules for Email
-
-	// no validation rules for Phone
-
 	// no validation rules for Password
 
 	return nil
