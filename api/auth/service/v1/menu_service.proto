@@ -8,4 +8,4 @@ option go_package = "api/permission/interface/v1;v1";
 option java_multiple_files = true;
 option java_package = "api.menu.interface.v1";
 
-service UserInterface {}
+service MenuInterface {}

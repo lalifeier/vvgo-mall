@@ -6,6 +6,6 @@ import "google/api/annotations.proto";
 
 option go_package = "github.com/lalifeier/vgo/api/account/interface/v1;v1";
 option java_multiple_files = true;
-option java_package = "api.user.interface.v1";
+option java_package = "api.account.interface.v1";
 
 service StaffInterface {}

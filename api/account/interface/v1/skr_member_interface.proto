@@ -6,6 +6,100 @@ import "google/api/annotations.proto";
 
 option go_package = "github.com/lalifeier/vgo/api/account/interface/v1;v1";
 option java_multiple_files = true;
-option java_package = "api.user.interface.v1";
+option java_package = "api.account.interface.v1";
 
-service SkrMemberInterface {}
+service SkrMemberInterface {
+  rpc Register(RegisterRequest) returns (RegisterReply) {
+    option (google.api.http) = {
+      post : "/v1/skrMember/register"
+      body : "*"
+    };
+  }
+
+  rpc Login(LoginRequest) returns (LoginReply) {
+    option (google.api.http) = {
+      post : "/v1/skrMember/login"
+      body : "*"
+    };
+  }
+
+  rpc QuickLogin(QuickLoginRequest) returns (QuickLoginReply) {
+    option (google.api.http) = {
+      post : "/v1/skrMember/quickLogin"
+      body : "*"
+    };
+  }
+
+  rpc PlatformLogin(PlatformLoginRequest) returns (PlatformLoginReply) {
+    option (google.api.http) = {
+      post : "/v1/skrMember/platformLogin"
+      body : "*"
+    };
+  }
+
+  rpc ChangeUserInfo(ChangeUserInfoRequest) returns (ChangeUserInfoReply) {
+    option (google.api.http) = {
+      post : "/v1/skrMember/changeUserInfo"
+      body : "*"
+    };
+  }
+
+  rpc CheckUser(CheckUserRequest) returns (CheckUserReply) {
+    option (google.api.http) = {
+      post : "/v1/skrMember/checkUser"
+      body : "*"
+    };
+  }
+}
+
+message RegisterRequest {
+  string email = 1;
+  int64 phone = 2;
+  string username = 3;
+  string password = 4;
+  string code = 5;
+}
+
+message RegisterReply { int64 id = 1; }
+
+message LoginRequest {
+  string email = 1;
+  int64 phone = 2;
+  string username = 3;
+  string password = 4;
+  string code = 5;
+}
+
+message LoginReply {  }
+
+message PlatformLoginRequest {
+  string email = 1;
+  int64 phone = 2;
+  string code = 3;
+}
+
+message QuickLoginReply {  }
+
+
+message QuickLoginRequest {
+  string type = 1;
+  int64 platform_id = 2;
+  string platform_token = 3;
+}
+
+message PlatformLoginReply {  }
+
+message ChangeUserInfoRequest {
+  string username = 1;
+  string nickname = 1;
+  string avatar = 1;
+  string gender = 1;
+}
+
+message ChangeUserInfoReply {  }
+
+message CheckUserRequest {
+  string token = 1;
+}
+
+message CheckUserReply {}
