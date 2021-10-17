@@ -4,22 +4,23 @@ import (
 	"context"
 
 	"github.com/go-kratos/kratos/v2/log"
+	"github.com/lalifeier/vgo/app/account/service/internal/data/ent"
 )
 
 type AccountUser struct {
 	Id       int64
 	Email    string
-	Phone    int64
+	Phone    string
 	Username string
 	Password string
 }
 
 type AccountUserRepo interface {
-	CreateAccountUser(ctx context.Context, u *AccountUser) (*AccountUser, error)
-	UpdateAccountUser(ctx context.Context, u *AccountUser) (*AccountUser, error)
-	DeleteAccountUser(ctx context.Context, id int64) (*AccountUser, error)
-	GetAccountUser(ctx context.Context, id int64) (*AccountUser, error)
-	ListAccountUser(ctx context.Context, id int64) (*[]AccountUser, error)
+	Create(ctx context.Context, au *ent.AccountUser) (*ent.AccountUser, error)
+	// Update(ctx context.Context, u *AccountUser) error
+	// Delete(ctx context.Context, id int64) error
+	// Get(ctx context.Context, id int64) (*AccountUser, error)
+	// List(ctx context.Context, u *AccountUser) (*[]AccountUser, error)
 }
 
 type AccountUserUsecase struct {
@@ -32,21 +33,20 @@ func NewAccountUserUsecase(repo AccountUserRepo, logger log.Logger) *AccountUser
 }
 
 func (uc *AccountUserUsecase) Create(ctx context.Context, u *AccountUser) (*AccountUser, error) {
-	out, err := uc.repo.CreateAccountUser(ctx, u)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	// out, err := uc.repo.Create(ctx, u)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// return out, nil
+	return nil, nil
 }
 
-func (uc *AccountUserUsecase) Update(ctx context.Context, u *AccountUser) (*AccountUser, error) {
-	out, err := uc.repo.UpdateAccountUser(ctx, u)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+func (uc *AccountUserUsecase) Update(ctx context.Context, u *AccountUser) error {
+	// return uc.repo.Update(ctx, u)
+	return nil
 }
 
 func (uc *AccountUserUsecase) Get(ctx context.Context, id int64) (*AccountUser, error) {
-	return uc.repo.GetAccountUser(ctx, id)
+	// return uc.repo.Get(ctx, id)
+	return nil, nil
 }

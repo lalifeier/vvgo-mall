@@ -19,15 +19,14 @@ import (
 
 // initApp init kratos application.
 func initApp(confServer *conf.Server, confData *conf.Data, logger log.Logger, registry *conf.Registry) (*kratos.App, func(), error) {
-	client := data.NewEntClient(confData, logger)
-	dataData, cleanup, err := data.NewData(client, logger)
+	dataData, cleanup, err := data.NewData(confData, logger)
 	if err != nil {
 		return nil, nil, err
 	}
-	userRepo := data.NewUserRepo(dataData, logger)
-	userUsecase := biz.NewUserUsecase(userRepo, logger)
-	userService := service.NewUserService(userUsecase, logger)
-	grpcServer := server.NewGRPCServer(confServer, userService, logger)
+	accountUserRepo := data.NewAccountUserRepo(dataData, logger)
+	accountUserUsecase := biz.NewAccountUserUsecase(accountUserRepo, logger)
+	accountService := service.NewAccountService(accountUserUsecase, logger)
+	grpcServer := server.NewGRPCServer(confServer, accountService, logger)
 	registrar := server.NewConsulCRegister(registry)
 	app := newApp(logger, grpcServer, registrar)
 	return app, func() {

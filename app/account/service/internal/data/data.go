@@ -8,6 +8,8 @@ import (
 	"github.com/lalifeier/vgo/app/account/service/internal/conf"
 	"github.com/lalifeier/vgo/app/account/service/internal/data/ent"
 	"github.com/lalifeier/vgo/app/account/service/internal/data/ent/migrate"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
@@ -15,11 +17,12 @@ import (
 )
 
 // ProviderSet is data providers.
-var ProviderSet = wire.NewSet(NewData, NewEntClient, NewUserRepo)
+var ProviderSet = wire.NewSet(NewData, NewEntClient, NewAccountUserRepo)
 
 // Data .
 type Data struct {
-	db *ent.Client
+	db     *ent.Client
+	client *mongo.Client
 }
 
 func NewEntClient(conf *conf.Data, logger log.Logger) *ent.Client {
@@ -53,9 +56,28 @@ func NewDB(conf *conf.Data, logger log.Logger) *gorm.DB {
 	return db
 }
 
+func NewMongoClient(conf *conf.Data, logger log.Logger) *mongo.Client {
+	log := log.NewHelper(log.With(logger, "module", "user-service/data/mongo"))
+
+	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+	client, err := mongo.Connect(context.TODO(), clientOptions)
+	if err != nil {
+		log.Fatalf("failed opening connection to mongo: %v", err)
+	}
+
+	err = client.Ping(context.TODO(), nil)
+	if err != nil {
+		log.Fatalf("failed opening connection to mongo: %v", err)
+	}
+
+	return client
+}
+
 // NewData .
-func NewData(entClient *ent.Client, logger log.Logger) (*Data, func(), error) {
+func NewData(confData *conf.Data, logger log.Logger) (*Data, func(), error) {
 	log := log.NewHelper(log.With(logger, "module", "user-service/data"))
+
+	entClient := NewEntClient(confData, logger)
 
 	d := &Data{
 		db: entClient,

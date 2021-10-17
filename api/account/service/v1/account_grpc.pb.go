@@ -18,16 +18,9 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AccountClient interface {
-	CreateAccountUser(ctx context.Context, in *CreateAccountUserRequest, opts ...grpc.CallOption) (*CreateAccountUserReply, error)
-	UpdateAccountUser(ctx context.Context, in *UpdateAccountUserRequest, opts ...grpc.CallOption) (*UpdateAccountUserReply, error)
-	DeleteAccountUser(ctx context.Context, in *DeleteAccountUserRequest, opts ...grpc.CallOption) (*DeleteAccountUserReply, error)
-	GetAccountUser(ctx context.Context, in *GetAccountUserRequest, opts ...grpc.CallOption) (*GetAccountUserReply, error)
-	ListAccountUser(ctx context.Context, in *ListAccountUserRequest, opts ...grpc.CallOption) (*ListAccountUserReply, error)
-	CreateAccountPlatform(ctx context.Context, in *CreateAccountPlatformRequest, opts ...grpc.CallOption) (*CreateAccountPlatformReply, error)
-	UpdateAccountPlatform(ctx context.Context, in *UpdateAccountPlatformRequest, opts ...grpc.CallOption) (*UpdateAccountPlatformReply, error)
-	DeleteAccountPlatform(ctx context.Context, in *DeleteAccountPlatformRequest, opts ...grpc.CallOption) (*DeleteAccountPlatformReply, error)
-	GetAccountPlatform(ctx context.Context, in *GetAccountPlatformRequest, opts ...grpc.CallOption) (*GetAccountPlatformReply, error)
-	ListAccountPlatform(ctx context.Context, in *ListAccountPlatformRequest, opts ...grpc.CallOption) (*ListAccountPlatformReply, error)
+	Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterReply, error)
+	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginReply, error)
+	PlatformLogin(ctx context.Context, in *PlatformLoginRequest, opts ...grpc.CallOption) (*PlatformLoginReply, error)
 }
 
 type accountClient struct {
@@ -38,90 +31,27 @@ func NewAccountClient(cc grpc.ClientConnInterface) AccountClient {
 	return &accountClient{cc}
 }
 
-func (c *accountClient) CreateAccountUser(ctx context.Context, in *CreateAccountUserRequest, opts ...grpc.CallOption) (*CreateAccountUserReply, error) {
-	out := new(CreateAccountUserReply)
-	err := c.cc.Invoke(ctx, "/api.user.service.v1.Account/CreateAccountUser", in, out, opts...)
+func (c *accountClient) Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterReply, error) {
+	out := new(RegisterReply)
+	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/Register", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *accountClient) UpdateAccountUser(ctx context.Context, in *UpdateAccountUserRequest, opts ...grpc.CallOption) (*UpdateAccountUserReply, error) {
-	out := new(UpdateAccountUserReply)
-	err := c.cc.Invoke(ctx, "/api.user.service.v1.Account/UpdateAccountUser", in, out, opts...)
+func (c *accountClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginReply, error) {
+	out := new(LoginReply)
+	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/Login", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *accountClient) DeleteAccountUser(ctx context.Context, in *DeleteAccountUserRequest, opts ...grpc.CallOption) (*DeleteAccountUserReply, error) {
-	out := new(DeleteAccountUserReply)
-	err := c.cc.Invoke(ctx, "/api.user.service.v1.Account/DeleteAccountUser", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *accountClient) GetAccountUser(ctx context.Context, in *GetAccountUserRequest, opts ...grpc.CallOption) (*GetAccountUserReply, error) {
-	out := new(GetAccountUserReply)
-	err := c.cc.Invoke(ctx, "/api.user.service.v1.Account/GetAccountUser", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *accountClient) ListAccountUser(ctx context.Context, in *ListAccountUserRequest, opts ...grpc.CallOption) (*ListAccountUserReply, error) {
-	out := new(ListAccountUserReply)
-	err := c.cc.Invoke(ctx, "/api.user.service.v1.Account/ListAccountUser", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *accountClient) CreateAccountPlatform(ctx context.Context, in *CreateAccountPlatformRequest, opts ...grpc.CallOption) (*CreateAccountPlatformReply, error) {
-	out := new(CreateAccountPlatformReply)
-	err := c.cc.Invoke(ctx, "/api.user.service.v1.Account/CreateAccountPlatform", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *accountClient) UpdateAccountPlatform(ctx context.Context, in *UpdateAccountPlatformRequest, opts ...grpc.CallOption) (*UpdateAccountPlatformReply, error) {
-	out := new(UpdateAccountPlatformReply)
-	err := c.cc.Invoke(ctx, "/api.user.service.v1.Account/UpdateAccountPlatform", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *accountClient) DeleteAccountPlatform(ctx context.Context, in *DeleteAccountPlatformRequest, opts ...grpc.CallOption) (*DeleteAccountPlatformReply, error) {
-	out := new(DeleteAccountPlatformReply)
-	err := c.cc.Invoke(ctx, "/api.user.service.v1.Account/DeleteAccountPlatform", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *accountClient) GetAccountPlatform(ctx context.Context, in *GetAccountPlatformRequest, opts ...grpc.CallOption) (*GetAccountPlatformReply, error) {
-	out := new(GetAccountPlatformReply)
-	err := c.cc.Invoke(ctx, "/api.user.service.v1.Account/GetAccountPlatform", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *accountClient) ListAccountPlatform(ctx context.Context, in *ListAccountPlatformRequest, opts ...grpc.CallOption) (*ListAccountPlatformReply, error) {
-	out := new(ListAccountPlatformReply)
-	err := c.cc.Invoke(ctx, "/api.user.service.v1.Account/ListAccountPlatform", in, out, opts...)
+func (c *accountClient) PlatformLogin(ctx context.Context, in *PlatformLoginRequest, opts ...grpc.CallOption) (*PlatformLoginReply, error) {
+	out := new(PlatformLoginReply)
+	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/PlatformLogin", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -132,16 +62,9 @@ func (c *accountClient) ListAccountPlatform(ctx context.Context, in *ListAccount
 // All implementations must embed UnimplementedAccountServer
 // for forward compatibility
 type AccountServer interface {
-	CreateAccountUser(context.Context, *CreateAccountUserRequest) (*CreateAccountUserReply, error)
-	UpdateAccountUser(context.Context, *UpdateAccountUserRequest) (*UpdateAccountUserReply, error)
-	DeleteAccountUser(context.Context, *DeleteAccountUserRequest) (*DeleteAccountUserReply, error)
-	GetAccountUser(context.Context, *GetAccountUserRequest) (*GetAccountUserReply, error)
-	ListAccountUser(context.Context, *ListAccountUserRequest) (*ListAccountUserReply, error)
-	CreateAccountPlatform(context.Context, *CreateAccountPlatformRequest) (*CreateAccountPlatformReply, error)
-	UpdateAccountPlatform(context.Context, *UpdateAccountPlatformRequest) (*UpdateAccountPlatformReply, error)
-	DeleteAccountPlatform(context.Context, *DeleteAccountPlatformRequest) (*DeleteAccountPlatformReply, error)
-	GetAccountPlatform(context.Context, *GetAccountPlatformRequest) (*GetAccountPlatformReply, error)
-	ListAccountPlatform(context.Context, *ListAccountPlatformRequest) (*ListAccountPlatformReply, error)
+	Register(context.Context, *RegisterRequest) (*RegisterReply, error)
+	Login(context.Context, *LoginRequest) (*LoginReply, error)
+	PlatformLogin(context.Context, *PlatformLoginRequest) (*PlatformLoginReply, error)
 	mustEmbedUnimplementedAccountServer()
 }
 
@@ -149,35 +72,14 @@ type AccountServer interface {
 type UnimplementedAccountServer struct {
 }
 
-func (UnimplementedAccountServer) CreateAccountUser(context.Context, *CreateAccountUserRequest) (*CreateAccountUserReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateAccountUser not implemented")
+func (UnimplementedAccountServer) Register(context.Context, *RegisterRequest) (*RegisterReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
 }
-func (UnimplementedAccountServer) UpdateAccountUser(context.Context, *UpdateAccountUserRequest) (*UpdateAccountUserReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateAccountUser not implemented")
+func (UnimplementedAccountServer) Login(context.Context, *LoginRequest) (*LoginReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
-func (UnimplementedAccountServer) DeleteAccountUser(context.Context, *DeleteAccountUserRequest) (*DeleteAccountUserReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteAccountUser not implemented")
-}
-func (UnimplementedAccountServer) GetAccountUser(context.Context, *GetAccountUserRequest) (*GetAccountUserReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAccountUser not implemented")
-}
-func (UnimplementedAccountServer) ListAccountUser(context.Context, *ListAccountUserRequest) (*ListAccountUserReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListAccountUser not implemented")
-}
-func (UnimplementedAccountServer) CreateAccountPlatform(context.Context, *CreateAccountPlatformRequest) (*CreateAccountPlatformReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateAccountPlatform not implemented")
-}
-func (UnimplementedAccountServer) UpdateAccountPlatform(context.Context, *UpdateAccountPlatformRequest) (*UpdateAccountPlatformReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateAccountPlatform not implemented")
-}
-func (UnimplementedAccountServer) DeleteAccountPlatform(context.Context, *DeleteAccountPlatformRequest) (*DeleteAccountPlatformReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteAccountPlatform not implemented")
-}
-func (UnimplementedAccountServer) GetAccountPlatform(context.Context, *GetAccountPlatformRequest) (*GetAccountPlatformReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAccountPlatform not implemented")
-}
-func (UnimplementedAccountServer) ListAccountPlatform(context.Context, *ListAccountPlatformRequest) (*ListAccountPlatformReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListAccountPlatform not implemented")
+func (UnimplementedAccountServer) PlatformLogin(context.Context, *PlatformLoginRequest) (*PlatformLoginReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PlatformLogin not implemented")
 }
 func (UnimplementedAccountServer) mustEmbedUnimplementedAccountServer() {}
 
@@ -192,182 +94,56 @@ func RegisterAccountServer(s grpc.ServiceRegistrar, srv AccountServer) {
 	s.RegisterService(&Account_ServiceDesc, srv)
 }
 
-func _Account_CreateAccountUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateAccountUserRequest)
+func _Account_Register_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegisterRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AccountServer).CreateAccountUser(ctx, in)
+		return srv.(AccountServer).Register(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.user.service.v1.Account/CreateAccountUser",
+		FullMethod: "/api.account.service.v1.Account/Register",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).CreateAccountUser(ctx, req.(*CreateAccountUserRequest))
+		return srv.(AccountServer).Register(ctx, req.(*RegisterRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Account_UpdateAccountUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateAccountUserRequest)
+func _Account_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AccountServer).UpdateAccountUser(ctx, in)
+		return srv.(AccountServer).Login(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.user.service.v1.Account/UpdateAccountUser",
+		FullMethod: "/api.account.service.v1.Account/Login",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).UpdateAccountUser(ctx, req.(*UpdateAccountUserRequest))
+		return srv.(AccountServer).Login(ctx, req.(*LoginRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Account_DeleteAccountUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteAccountUserRequest)
+func _Account_PlatformLogin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PlatformLoginRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AccountServer).DeleteAccountUser(ctx, in)
+		return srv.(AccountServer).PlatformLogin(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.user.service.v1.Account/DeleteAccountUser",
+		FullMethod: "/api.account.service.v1.Account/PlatformLogin",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).DeleteAccountUser(ctx, req.(*DeleteAccountUserRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Account_GetAccountUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAccountUserRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AccountServer).GetAccountUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.user.service.v1.Account/GetAccountUser",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).GetAccountUser(ctx, req.(*GetAccountUserRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Account_ListAccountUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListAccountUserRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AccountServer).ListAccountUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.user.service.v1.Account/ListAccountUser",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).ListAccountUser(ctx, req.(*ListAccountUserRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Account_CreateAccountPlatform_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateAccountPlatformRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AccountServer).CreateAccountPlatform(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.user.service.v1.Account/CreateAccountPlatform",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).CreateAccountPlatform(ctx, req.(*CreateAccountPlatformRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Account_UpdateAccountPlatform_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateAccountPlatformRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AccountServer).UpdateAccountPlatform(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.user.service.v1.Account/UpdateAccountPlatform",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).UpdateAccountPlatform(ctx, req.(*UpdateAccountPlatformRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Account_DeleteAccountPlatform_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteAccountPlatformRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AccountServer).DeleteAccountPlatform(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.user.service.v1.Account/DeleteAccountPlatform",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).DeleteAccountPlatform(ctx, req.(*DeleteAccountPlatformRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Account_GetAccountPlatform_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAccountPlatformRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AccountServer).GetAccountPlatform(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.user.service.v1.Account/GetAccountPlatform",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).GetAccountPlatform(ctx, req.(*GetAccountPlatformRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Account_ListAccountPlatform_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListAccountPlatformRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AccountServer).ListAccountPlatform(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.user.service.v1.Account/ListAccountPlatform",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).ListAccountPlatform(ctx, req.(*ListAccountPlatformRequest))
+		return srv.(AccountServer).PlatformLogin(ctx, req.(*PlatformLoginRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -376,48 +152,20 @@ func _Account_ListAccountPlatform_Handler(srv interface{}, ctx context.Context, 
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Account_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.user.service.v1.Account",
+	ServiceName: "api.account.service.v1.Account",
 	HandlerType: (*AccountServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CreateAccountUser",
-			Handler:    _Account_CreateAccountUser_Handler,
+			MethodName: "Register",
+			Handler:    _Account_Register_Handler,
 		},
 		{
-			MethodName: "UpdateAccountUser",
-			Handler:    _Account_UpdateAccountUser_Handler,
+			MethodName: "Login",
+			Handler:    _Account_Login_Handler,
 		},
 		{
-			MethodName: "DeleteAccountUser",
-			Handler:    _Account_DeleteAccountUser_Handler,
-		},
-		{
-			MethodName: "GetAccountUser",
-			Handler:    _Account_GetAccountUser_Handler,
-		},
-		{
-			MethodName: "ListAccountUser",
-			Handler:    _Account_ListAccountUser_Handler,
-		},
-		{
-			MethodName: "CreateAccountPlatform",
-			Handler:    _Account_CreateAccountPlatform_Handler,
-		},
-		{
-			MethodName: "UpdateAccountPlatform",
-			Handler:    _Account_UpdateAccountPlatform_Handler,
-		},
-		{
-			MethodName: "DeleteAccountPlatform",
-			Handler:    _Account_DeleteAccountPlatform_Handler,
-		},
-		{
-			MethodName: "GetAccountPlatform",
-			Handler:    _Account_GetAccountPlatform_Handler,
-		},
-		{
-			MethodName: "ListAccountPlatform",
-			Handler:    _Account_ListAccountPlatform_Handler,
+			MethodName: "PlatformLogin",
+			Handler:    _Account_PlatformLogin_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

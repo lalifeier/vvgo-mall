@@ -1,71 +1,102 @@
 syntax = "proto3";
 
-package api.user.service.v1;
+package api.account.service.v1;
 
 option go_package = "github.com/lalifeier/vgo/api/account/service/v1;v1";
 option java_multiple_files = true;
-option java_package = "api.user.service.v1";
+option java_package = "api.account.service.v1";
 
 service Account {
-  rpc CreateAccountUser(CreateAccountUserRequest)
-      returns (CreateAccountUserReply);
-  rpc UpdateAccountUser(UpdateAccountUserRequest)
-      returns (UpdateAccountUserReply);
-  rpc DeleteAccountUser(DeleteAccountUserRequest)
-      returns (DeleteAccountUserReply);
-  rpc GetAccountUser(GetAccountUserRequest) returns (GetAccountUserReply);
-  rpc ListAccountUser(ListAccountUserRequest) returns (ListAccountUserReply);
 
-  rpc CreateAccountPlatform(CreateAccountPlatformRequest)
-      returns (CreateAccountPlatformReply);
-  rpc UpdateAccountPlatform(UpdateAccountPlatformRequest)
-      returns (UpdateAccountPlatformReply);
-  rpc DeleteAccountPlatform(DeleteAccountPlatformRequest)
-      returns (DeleteAccountPlatformReply);
-  rpc GetAccountPlatform(GetAccountPlatformRequest)
-      returns (GetAccountPlatformReply);
-  rpc ListAccountPlatform(ListAccountPlatformRequest)
-      returns (ListAccountPlatformReply);
+  rpc Register(RegisterRequest) returns (RegisterReply);
+  rpc Login(LoginRequest) returns (LoginReply);
+  rpc PlatformLogin(PlatformLoginRequest) returns (PlatformLoginReply);
+
+  // rpc CreateAccountUser(CreateAccountUserRequest)
+  //     returns (CreateAccountUserReply);
+  // rpc UpdateAccountUser(UpdateAccountUserRequest)
+  //     returns (UpdateAccountUserReply);
+  // rpc DeleteAccountUser(DeleteAccountUserRequest)
+  //     returns (DeleteAccountUserReply);
+  // rpc GetAccountUser(GetAccountUserRequest) returns (GetAccountUserReply);
+  // rpc ListAccountUser(ListAccountUserRequest) returns (ListAccountUserReply);
+
+  // rpc CreateAccountPlatform(CreateAccountPlatformRequest)
+  //     returns (CreateAccountPlatformReply);
+  // rpc UpdateAccountPlatform(UpdateAccountPlatformRequest)
+  //     returns (UpdateAccountPlatformReply);
+  // rpc DeleteAccountPlatform(DeleteAccountPlatformRequest)
+  //     returns (DeleteAccountPlatformReply);
+  // rpc GetAccountPlatform(GetAccountPlatformRequest)
+  //     returns (GetAccountPlatformReply);
+  // rpc ListAccountPlatform(ListAccountPlatformRequest)
+  //     returns (ListAccountPlatformReply);
 }
 
-message CreateAccountUserRequest {
+message RegisterRequest {
   string email = 1;
-  int64 phone = 2;
+  string phone = 2;
   string username = 3;
   string password = 4;
 }
-message CreateAccountUserReply { int64 id = 1; }
 
-message UpdateAccountUserRequest {}
-message UpdateAccountUserReply {}
+message RegisterReply { int64 id = 1; }
 
-message DeleteAccountUserRequest {}
-message DeleteAccountUserReply {}
+message LoginRequest {
+  string email = 1;
+  string phone = 2;
+  string username = 3;
+  string password = 4;
+}
 
-message GetAccountUserRequest {}
-message GetAccountUserReply {}
+message LoginReply {}
 
-message ListAccountUserRequest {}
-message ListAccountUserReply {}
-
-message CreateAccountPlatformRequest {
-  int64 uid = 1;
+message PlatformLoginRequest {
+  string type = 1;
   string platform_id = 2;
   string platform_token = 3;
-  int64 type = 4;
-  string nickname = 5;
-  string avatar = 6;
 }
-message CreateAccountPlatformReply {}
 
-message UpdateAccountPlatformRequest {}
-message UpdateAccountPlatformReply {}
+message PlatformLoginReply {}
 
-message DeleteAccountPlatformRequest {}
-message DeleteAccountPlatformReply {}
+// message CreateAccountUserRequest {
+//   string email = 1;
+//   int64 phone = 2;
+//   string username = 3;
+//   string password = 4;
+// }
+// message CreateAccountUserReply { int64 id = 1; }
 
-message GetAccountPlatformRequest {}
-message GetAccountPlatformReply {}
+// message UpdateAccountUserRequest {}
+// message UpdateAccountUserReply {}
 
-message ListAccountPlatformRequest {}
-message ListAccountPlatformReply {}
+// message DeleteAccountUserRequest {}
+// message DeleteAccountUserReply {}
+
+// message GetAccountUserRequest {}
+// message GetAccountUserReply {}
+
+// message ListAccountUserRequest {}
+// message ListAccountUserReply {}
+
+// message CreateAccountPlatformRequest {
+//   int64 uid = 1;
+//   string platform_id = 2;
+//   string platform_token = 3;
+//   int64 type = 4;
+//   string nickname = 5;
+//   string avatar = 6;
+// }
+// message CreateAccountPlatformReply {}
+
+// message UpdateAccountPlatformRequest {}
+// message UpdateAccountPlatformReply {}
+
+// message DeleteAccountPlatformRequest {}
+// message DeleteAccountPlatformReply {}
+
+// message GetAccountPlatformRequest {}
+// message GetAccountPlatformReply {}
+
+// message ListAccountPlatformRequest {}
+// message ListAccountPlatformReply {}

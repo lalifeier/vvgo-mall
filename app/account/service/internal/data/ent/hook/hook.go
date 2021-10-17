@@ -9,15 +9,28 @@ import (
 	"github.com/lalifeier/vgo/app/account/service/internal/data/ent"
 )
 
-// The UserFunc type is an adapter to allow the use of ordinary
-// function as User mutator.
-type UserFunc func(context.Context, *ent.UserMutation) (ent.Value, error)
+// The AccountPlatformFunc type is an adapter to allow the use of ordinary
+// function as AccountPlatform mutator.
+type AccountPlatformFunc func(context.Context, *ent.AccountPlatformMutation) (ent.Value, error)
 
 // Mutate calls f(ctx, m).
-func (f UserFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	mv, ok := m.(*ent.UserMutation)
+func (f AccountPlatformFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.AccountPlatformMutation)
 	if !ok {
-		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.UserMutation", m)
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.AccountPlatformMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The AccountUserFunc type is an adapter to allow the use of ordinary
+// function as AccountUser mutator.
+type AccountUserFunc func(context.Context, *ent.AccountUserMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f AccountUserFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.AccountUserMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.AccountUserMutation", m)
 	}
 	return f(ctx, mv)
 }

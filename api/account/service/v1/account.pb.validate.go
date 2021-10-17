@@ -33,10 +33,10 @@ var (
 	_ = anypb.Any{}
 )
 
-// Validate checks the field values on CreateAccountUserRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *CreateAccountUserRequest) Validate() error {
+// Validate checks the field values on RegisterRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *RegisterRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -52,9 +52,9 @@ func (m *CreateAccountUserRequest) Validate() error {
 	return nil
 }
 
-// CreateAccountUserRequestValidationError is the validation error returned by
-// CreateAccountUserRequest.Validate if the designated constraints aren't met.
-type CreateAccountUserRequestValidationError struct {
+// RegisterRequestValidationError is the validation error returned by
+// RegisterRequest.Validate if the designated constraints aren't met.
+type RegisterRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -62,24 +62,22 @@ type CreateAccountUserRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e CreateAccountUserRequestValidationError) Field() string { return e.field }
+func (e RegisterRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e CreateAccountUserRequestValidationError) Reason() string { return e.reason }
+func (e RegisterRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e CreateAccountUserRequestValidationError) Cause() error { return e.cause }
+func (e RegisterRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e CreateAccountUserRequestValidationError) Key() bool { return e.key }
+func (e RegisterRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e CreateAccountUserRequestValidationError) ErrorName() string {
-	return "CreateAccountUserRequestValidationError"
-}
+func (e RegisterRequestValidationError) ErrorName() string { return "RegisterRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e CreateAccountUserRequestValidationError) Error() string {
+func (e RegisterRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -91,14 +89,14 @@ func (e CreateAccountUserRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sCreateAccountUserRequest.%s: %s%s",
+		"invalid %sRegisterRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = CreateAccountUserRequestValidationError{}
+var _ error = RegisterRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -106,12 +104,12 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = CreateAccountUserRequestValidationError{}
+} = RegisterRequestValidationError{}
 
-// Validate checks the field values on CreateAccountUserReply with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *CreateAccountUserReply) Validate() error {
+// Validate checks the field values on RegisterReply with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *RegisterReply) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -121,9 +119,9 @@ func (m *CreateAccountUserReply) Validate() error {
 	return nil
 }
 
-// CreateAccountUserReplyValidationError is the validation error returned by
-// CreateAccountUserReply.Validate if the designated constraints aren't met.
-type CreateAccountUserReplyValidationError struct {
+// RegisterReplyValidationError is the validation error returned by
+// RegisterReply.Validate if the designated constraints aren't met.
+type RegisterReplyValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -131,24 +129,22 @@ type CreateAccountUserReplyValidationError struct {
 }
 
 // Field function returns field value.
-func (e CreateAccountUserReplyValidationError) Field() string { return e.field }
+func (e RegisterReplyValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e CreateAccountUserReplyValidationError) Reason() string { return e.reason }
+func (e RegisterReplyValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e CreateAccountUserReplyValidationError) Cause() error { return e.cause }
+func (e RegisterReplyValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e CreateAccountUserReplyValidationError) Key() bool { return e.key }
+func (e RegisterReplyValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e CreateAccountUserReplyValidationError) ErrorName() string {
-	return "CreateAccountUserReplyValidationError"
-}
+func (e RegisterReplyValidationError) ErrorName() string { return "RegisterReplyValidationError" }
 
 // Error satisfies the builtin error interface
-func (e CreateAccountUserReplyValidationError) Error() string {
+func (e RegisterReplyValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -160,14 +156,14 @@ func (e CreateAccountUserReplyValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sCreateAccountUserReply.%s: %s%s",
+		"invalid %sRegisterReply.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = CreateAccountUserReplyValidationError{}
+var _ error = RegisterReplyValidationError{}
 
 var _ interface {
 	Field() string
@@ -175,12 +171,84 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = CreateAccountUserReplyValidationError{}
+} = RegisterReplyValidationError{}
 
-// Validate checks the field values on UpdateAccountUserRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *UpdateAccountUserRequest) Validate() error {
+// Validate checks the field values on LoginRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *LoginRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Email
+
+	// no validation rules for Phone
+
+	// no validation rules for Username
+
+	// no validation rules for Password
+
+	return nil
+}
+
+// LoginRequestValidationError is the validation error returned by
+// LoginRequest.Validate if the designated constraints aren't met.
+type LoginRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e LoginRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e LoginRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e LoginRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e LoginRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e LoginRequestValidationError) ErrorName() string { return "LoginRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e LoginRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sLoginRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = LoginRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = LoginRequestValidationError{}
+
+// Validate checks the field values on LoginReply with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *LoginReply) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -188,9 +256,9 @@ func (m *UpdateAccountUserRequest) Validate() error {
 	return nil
 }
 
-// UpdateAccountUserRequestValidationError is the validation error returned by
-// UpdateAccountUserRequest.Validate if the designated constraints aren't met.
-type UpdateAccountUserRequestValidationError struct {
+// LoginReplyValidationError is the validation error returned by
+// LoginReply.Validate if the designated constraints aren't met.
+type LoginReplyValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -198,24 +266,22 @@ type UpdateAccountUserRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e UpdateAccountUserRequestValidationError) Field() string { return e.field }
+func (e LoginReplyValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e UpdateAccountUserRequestValidationError) Reason() string { return e.reason }
+func (e LoginReplyValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e UpdateAccountUserRequestValidationError) Cause() error { return e.cause }
+func (e LoginReplyValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e UpdateAccountUserRequestValidationError) Key() bool { return e.key }
+func (e LoginReplyValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e UpdateAccountUserRequestValidationError) ErrorName() string {
-	return "UpdateAccountUserRequestValidationError"
-}
+func (e LoginReplyValidationError) ErrorName() string { return "LoginReplyValidationError" }
 
 // Error satisfies the builtin error interface
-func (e UpdateAccountUserRequestValidationError) Error() string {
+func (e LoginReplyValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -227,14 +293,14 @@ func (e UpdateAccountUserRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sUpdateAccountUserRequest.%s: %s%s",
+		"invalid %sLoginReply.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = UpdateAccountUserRequestValidationError{}
+var _ error = LoginReplyValidationError{}
 
 var _ interface {
 	Field() string
@@ -242,504 +308,28 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = UpdateAccountUserRequestValidationError{}
+} = LoginReplyValidationError{}
 
-// Validate checks the field values on UpdateAccountUserReply with the rules
+// Validate checks the field values on PlatformLoginRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *UpdateAccountUserReply) Validate() error {
+func (m *PlatformLoginRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
 
-	return nil
-}
-
-// UpdateAccountUserReplyValidationError is the validation error returned by
-// UpdateAccountUserReply.Validate if the designated constraints aren't met.
-type UpdateAccountUserReplyValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e UpdateAccountUserReplyValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e UpdateAccountUserReplyValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e UpdateAccountUserReplyValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e UpdateAccountUserReplyValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e UpdateAccountUserReplyValidationError) ErrorName() string {
-	return "UpdateAccountUserReplyValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e UpdateAccountUserReplyValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sUpdateAccountUserReply.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = UpdateAccountUserReplyValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = UpdateAccountUserReplyValidationError{}
-
-// Validate checks the field values on DeleteAccountUserRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *DeleteAccountUserRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	return nil
-}
-
-// DeleteAccountUserRequestValidationError is the validation error returned by
-// DeleteAccountUserRequest.Validate if the designated constraints aren't met.
-type DeleteAccountUserRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e DeleteAccountUserRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e DeleteAccountUserRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e DeleteAccountUserRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e DeleteAccountUserRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e DeleteAccountUserRequestValidationError) ErrorName() string {
-	return "DeleteAccountUserRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e DeleteAccountUserRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sDeleteAccountUserRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = DeleteAccountUserRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = DeleteAccountUserRequestValidationError{}
-
-// Validate checks the field values on DeleteAccountUserReply with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *DeleteAccountUserReply) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	return nil
-}
-
-// DeleteAccountUserReplyValidationError is the validation error returned by
-// DeleteAccountUserReply.Validate if the designated constraints aren't met.
-type DeleteAccountUserReplyValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e DeleteAccountUserReplyValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e DeleteAccountUserReplyValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e DeleteAccountUserReplyValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e DeleteAccountUserReplyValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e DeleteAccountUserReplyValidationError) ErrorName() string {
-	return "DeleteAccountUserReplyValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e DeleteAccountUserReplyValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sDeleteAccountUserReply.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = DeleteAccountUserReplyValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = DeleteAccountUserReplyValidationError{}
-
-// Validate checks the field values on GetAccountUserRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *GetAccountUserRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	return nil
-}
-
-// GetAccountUserRequestValidationError is the validation error returned by
-// GetAccountUserRequest.Validate if the designated constraints aren't met.
-type GetAccountUserRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e GetAccountUserRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e GetAccountUserRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e GetAccountUserRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e GetAccountUserRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e GetAccountUserRequestValidationError) ErrorName() string {
-	return "GetAccountUserRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e GetAccountUserRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sGetAccountUserRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = GetAccountUserRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = GetAccountUserRequestValidationError{}
-
-// Validate checks the field values on GetAccountUserReply with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *GetAccountUserReply) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	return nil
-}
-
-// GetAccountUserReplyValidationError is the validation error returned by
-// GetAccountUserReply.Validate if the designated constraints aren't met.
-type GetAccountUserReplyValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e GetAccountUserReplyValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e GetAccountUserReplyValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e GetAccountUserReplyValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e GetAccountUserReplyValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e GetAccountUserReplyValidationError) ErrorName() string {
-	return "GetAccountUserReplyValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e GetAccountUserReplyValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sGetAccountUserReply.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = GetAccountUserReplyValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = GetAccountUserReplyValidationError{}
-
-// Validate checks the field values on ListAccountUserRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *ListAccountUserRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	return nil
-}
-
-// ListAccountUserRequestValidationError is the validation error returned by
-// ListAccountUserRequest.Validate if the designated constraints aren't met.
-type ListAccountUserRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e ListAccountUserRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e ListAccountUserRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e ListAccountUserRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e ListAccountUserRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e ListAccountUserRequestValidationError) ErrorName() string {
-	return "ListAccountUserRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e ListAccountUserRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sListAccountUserRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = ListAccountUserRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = ListAccountUserRequestValidationError{}
-
-// Validate checks the field values on ListAccountUserReply with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *ListAccountUserReply) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	return nil
-}
-
-// ListAccountUserReplyValidationError is the validation error returned by
-// ListAccountUserReply.Validate if the designated constraints aren't met.
-type ListAccountUserReplyValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e ListAccountUserReplyValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e ListAccountUserReplyValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e ListAccountUserReplyValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e ListAccountUserReplyValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e ListAccountUserReplyValidationError) ErrorName() string {
-	return "ListAccountUserReplyValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e ListAccountUserReplyValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sListAccountUserReply.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = ListAccountUserReplyValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = ListAccountUserReplyValidationError{}
-
-// Validate checks the field values on CreateAccountPlatformRequest with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *CreateAccountPlatformRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	// no validation rules for Uid
+	// no validation rules for Type
 
 	// no validation rules for PlatformId
 
 	// no validation rules for PlatformToken
 
-	// no validation rules for Type
-
-	// no validation rules for Nickname
-
-	// no validation rules for Avatar
-
 	return nil
 }
 
-// CreateAccountPlatformRequestValidationError is the validation error returned
-// by CreateAccountPlatformRequest.Validate if the designated constraints
-// aren't met.
-type CreateAccountPlatformRequestValidationError struct {
+// PlatformLoginRequestValidationError is the validation error returned by
+// PlatformLoginRequest.Validate if the designated constraints aren't met.
+type PlatformLoginRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -747,24 +337,24 @@ type CreateAccountPlatformRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e CreateAccountPlatformRequestValidationError) Field() string { return e.field }
+func (e PlatformLoginRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e CreateAccountPlatformRequestValidationError) Reason() string { return e.reason }
+func (e PlatformLoginRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e CreateAccountPlatformRequestValidationError) Cause() error { return e.cause }
+func (e PlatformLoginRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e CreateAccountPlatformRequestValidationError) Key() bool { return e.key }
+func (e PlatformLoginRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e CreateAccountPlatformRequestValidationError) ErrorName() string {
-	return "CreateAccountPlatformRequestValidationError"
+func (e PlatformLoginRequestValidationError) ErrorName() string {
+	return "PlatformLoginRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e CreateAccountPlatformRequestValidationError) Error() string {
+func (e PlatformLoginRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -776,14 +366,14 @@ func (e CreateAccountPlatformRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sCreateAccountPlatformRequest.%s: %s%s",
+		"invalid %sPlatformLoginRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = CreateAccountPlatformRequestValidationError{}
+var _ error = PlatformLoginRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -791,349 +381,12 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = CreateAccountPlatformRequestValidationError{}
+} = PlatformLoginRequestValidationError{}
 
-// Validate checks the field values on CreateAccountPlatformReply with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *CreateAccountPlatformReply) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	return nil
-}
-
-// CreateAccountPlatformReplyValidationError is the validation error returned
-// by CreateAccountPlatformReply.Validate if the designated constraints aren't met.
-type CreateAccountPlatformReplyValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e CreateAccountPlatformReplyValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e CreateAccountPlatformReplyValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e CreateAccountPlatformReplyValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e CreateAccountPlatformReplyValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e CreateAccountPlatformReplyValidationError) ErrorName() string {
-	return "CreateAccountPlatformReplyValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e CreateAccountPlatformReplyValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sCreateAccountPlatformReply.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = CreateAccountPlatformReplyValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = CreateAccountPlatformReplyValidationError{}
-
-// Validate checks the field values on UpdateAccountPlatformRequest with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *UpdateAccountPlatformRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	return nil
-}
-
-// UpdateAccountPlatformRequestValidationError is the validation error returned
-// by UpdateAccountPlatformRequest.Validate if the designated constraints
-// aren't met.
-type UpdateAccountPlatformRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e UpdateAccountPlatformRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e UpdateAccountPlatformRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e UpdateAccountPlatformRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e UpdateAccountPlatformRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e UpdateAccountPlatformRequestValidationError) ErrorName() string {
-	return "UpdateAccountPlatformRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e UpdateAccountPlatformRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sUpdateAccountPlatformRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = UpdateAccountPlatformRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = UpdateAccountPlatformRequestValidationError{}
-
-// Validate checks the field values on UpdateAccountPlatformReply with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *UpdateAccountPlatformReply) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	return nil
-}
-
-// UpdateAccountPlatformReplyValidationError is the validation error returned
-// by UpdateAccountPlatformReply.Validate if the designated constraints aren't met.
-type UpdateAccountPlatformReplyValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e UpdateAccountPlatformReplyValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e UpdateAccountPlatformReplyValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e UpdateAccountPlatformReplyValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e UpdateAccountPlatformReplyValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e UpdateAccountPlatformReplyValidationError) ErrorName() string {
-	return "UpdateAccountPlatformReplyValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e UpdateAccountPlatformReplyValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sUpdateAccountPlatformReply.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = UpdateAccountPlatformReplyValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = UpdateAccountPlatformReplyValidationError{}
-
-// Validate checks the field values on DeleteAccountPlatformRequest with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *DeleteAccountPlatformRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	return nil
-}
-
-// DeleteAccountPlatformRequestValidationError is the validation error returned
-// by DeleteAccountPlatformRequest.Validate if the designated constraints
-// aren't met.
-type DeleteAccountPlatformRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e DeleteAccountPlatformRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e DeleteAccountPlatformRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e DeleteAccountPlatformRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e DeleteAccountPlatformRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e DeleteAccountPlatformRequestValidationError) ErrorName() string {
-	return "DeleteAccountPlatformRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e DeleteAccountPlatformRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sDeleteAccountPlatformRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = DeleteAccountPlatformRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = DeleteAccountPlatformRequestValidationError{}
-
-// Validate checks the field values on DeleteAccountPlatformReply with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *DeleteAccountPlatformReply) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	return nil
-}
-
-// DeleteAccountPlatformReplyValidationError is the validation error returned
-// by DeleteAccountPlatformReply.Validate if the designated constraints aren't met.
-type DeleteAccountPlatformReplyValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e DeleteAccountPlatformReplyValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e DeleteAccountPlatformReplyValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e DeleteAccountPlatformReplyValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e DeleteAccountPlatformReplyValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e DeleteAccountPlatformReplyValidationError) ErrorName() string {
-	return "DeleteAccountPlatformReplyValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e DeleteAccountPlatformReplyValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sDeleteAccountPlatformReply.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = DeleteAccountPlatformReplyValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = DeleteAccountPlatformReplyValidationError{}
-
-// Validate checks the field values on GetAccountPlatformRequest with the rules
+// Validate checks the field values on PlatformLoginReply with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *GetAccountPlatformRequest) Validate() error {
+func (m *PlatformLoginReply) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -1141,9 +394,9 @@ func (m *GetAccountPlatformRequest) Validate() error {
 	return nil
 }
 
-// GetAccountPlatformRequestValidationError is the validation error returned by
-// GetAccountPlatformRequest.Validate if the designated constraints aren't met.
-type GetAccountPlatformRequestValidationError struct {
+// PlatformLoginReplyValidationError is the validation error returned by
+// PlatformLoginReply.Validate if the designated constraints aren't met.
+type PlatformLoginReplyValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1151,24 +404,24 @@ type GetAccountPlatformRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetAccountPlatformRequestValidationError) Field() string { return e.field }
+func (e PlatformLoginReplyValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetAccountPlatformRequestValidationError) Reason() string { return e.reason }
+func (e PlatformLoginReplyValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetAccountPlatformRequestValidationError) Cause() error { return e.cause }
+func (e PlatformLoginReplyValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetAccountPlatformRequestValidationError) Key() bool { return e.key }
+func (e PlatformLoginReplyValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetAccountPlatformRequestValidationError) ErrorName() string {
-	return "GetAccountPlatformRequestValidationError"
+func (e PlatformLoginReplyValidationError) ErrorName() string {
+	return "PlatformLoginReplyValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GetAccountPlatformRequestValidationError) Error() string {
+func (e PlatformLoginReplyValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1180,14 +433,14 @@ func (e GetAccountPlatformRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetAccountPlatformRequest.%s: %s%s",
+		"invalid %sPlatformLoginReply.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetAccountPlatformRequestValidationError{}
+var _ error = PlatformLoginReplyValidationError{}
 
 var _ interface {
 	Field() string
@@ -1195,205 +448,4 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetAccountPlatformRequestValidationError{}
-
-// Validate checks the field values on GetAccountPlatformReply with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *GetAccountPlatformReply) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	return nil
-}
-
-// GetAccountPlatformReplyValidationError is the validation error returned by
-// GetAccountPlatformReply.Validate if the designated constraints aren't met.
-type GetAccountPlatformReplyValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e GetAccountPlatformReplyValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e GetAccountPlatformReplyValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e GetAccountPlatformReplyValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e GetAccountPlatformReplyValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e GetAccountPlatformReplyValidationError) ErrorName() string {
-	return "GetAccountPlatformReplyValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e GetAccountPlatformReplyValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sGetAccountPlatformReply.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = GetAccountPlatformReplyValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = GetAccountPlatformReplyValidationError{}
-
-// Validate checks the field values on ListAccountPlatformRequest with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *ListAccountPlatformRequest) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	return nil
-}
-
-// ListAccountPlatformRequestValidationError is the validation error returned
-// by ListAccountPlatformRequest.Validate if the designated constraints aren't met.
-type ListAccountPlatformRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e ListAccountPlatformRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e ListAccountPlatformRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e ListAccountPlatformRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e ListAccountPlatformRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e ListAccountPlatformRequestValidationError) ErrorName() string {
-	return "ListAccountPlatformRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e ListAccountPlatformRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sListAccountPlatformRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = ListAccountPlatformRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = ListAccountPlatformRequestValidationError{}
-
-// Validate checks the field values on ListAccountPlatformReply with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *ListAccountPlatformReply) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	return nil
-}
-
-// ListAccountPlatformReplyValidationError is the validation error returned by
-// ListAccountPlatformReply.Validate if the designated constraints aren't met.
-type ListAccountPlatformReplyValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e ListAccountPlatformReplyValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e ListAccountPlatformReplyValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e ListAccountPlatformReplyValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e ListAccountPlatformReplyValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e ListAccountPlatformReplyValidationError) ErrorName() string {
-	return "ListAccountPlatformReplyValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e ListAccountPlatformReplyValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sListAccountPlatformReply.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = ListAccountPlatformReplyValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = ListAccountPlatformReplyValidationError{}
+} = PlatformLoginReplyValidationError{}

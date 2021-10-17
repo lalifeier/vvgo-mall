@@ -8,23 +8,48 @@ import (
 )
 
 var (
-	// UsersColumns holds the columns for the "users" table.
-	UsersColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeInt64, Increment: true},
-		{Name: "username", Type: field.TypeString, Unique: true},
-		{Name: "password_hash", Type: field.TypeString},
-		{Name: "created_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "datetime"}},
-		{Name: "updated_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "datetime"}},
+	// AccountPlatformsColumns holds the columns for the "account_platforms" table.
+	AccountPlatformsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt64, Increment: true, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
+		{Name: "uid", Type: field.TypeInt32, Default: 0, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
+		{Name: "platform_id", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(60)"}},
+		{Name: "platform_token", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(60)"}},
+		{Name: "type", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint(1)"}},
+		{Name: "nickname", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(60)"}},
+		{Name: "avatar", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(255)"}},
+		{Name: "create_at", Type: field.TypeInt32, Default: 0, SchemaType: map[string]string{"mysql": "int(11)"}},
+		{Name: "update_at", Type: field.TypeInt32, Default: 0, SchemaType: map[string]string{"mysql": "int(11)"}},
 	}
-	// UsersTable holds the schema information for the "users" table.
-	UsersTable = &schema.Table{
-		Name:       "users",
-		Columns:    UsersColumns,
-		PrimaryKey: []*schema.Column{UsersColumns[0]},
+	// AccountPlatformsTable holds the schema information for the "account_platforms" table.
+	AccountPlatformsTable = &schema.Table{
+		Name:       "account_platforms",
+		Columns:    AccountPlatformsColumns,
+		PrimaryKey: []*schema.Column{AccountPlatformsColumns[0]},
+	}
+	// AccountUsersColumns holds the columns for the "account_users" table.
+	AccountUsersColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt64, Increment: true, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
+		{Name: "email", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(30)"}},
+		{Name: "phone", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(15)"}},
+		{Name: "username", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(30)"}},
+		{Name: "password", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(32)"}},
+		{Name: "create_at", Type: field.TypeInt32, Default: 0, SchemaType: map[string]string{"mysql": "int(11)"}},
+		{Name: "create_ip_at", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(12)"}},
+		{Name: "last_login_at", Type: field.TypeInt32, Default: 0, SchemaType: map[string]string{"mysql": "int(11)"}},
+		{Name: "last_login_ip_at", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(12)"}},
+		{Name: "login_times", Type: field.TypeInt32, Default: 0, SchemaType: map[string]string{"mysql": "int(11)"}},
+		{Name: "status", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint(1)"}},
+	}
+	// AccountUsersTable holds the schema information for the "account_users" table.
+	AccountUsersTable = &schema.Table{
+		Name:       "account_users",
+		Columns:    AccountUsersColumns,
+		PrimaryKey: []*schema.Column{AccountUsersColumns[0]},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		UsersTable,
+		AccountPlatformsTable,
+		AccountUsersTable,
 	}
 )
 
