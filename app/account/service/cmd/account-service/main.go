@@ -8,6 +8,7 @@ import (
 	"github.com/go-kratos/kratos/v2/config"
 	"github.com/go-kratos/kratos/v2/config/file"
 	"github.com/go-kratos/kratos/v2/log"
+	"github.com/go-kratos/kratos/v2/middleware/tracing"
 	"github.com/go-kratos/kratos/v2/transport/grpc"
 	"github.com/lalifeier/vgo/app/account/service/internal/conf"
 
@@ -52,8 +53,8 @@ func main() {
 		"service.id", id,
 		"service.name", Name,
 		"service.version", Version,
-		"trace_id", log.TraceID(),
-		"span_id", log.SpanID(),
+		"trace_id", tracing.TraceID(),
+		"span_id", tracing.SpanID(),
 	)
 	c := config.New(
 		config.WithSource(

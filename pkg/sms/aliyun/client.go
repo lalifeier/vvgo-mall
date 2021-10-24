@@ -40,11 +40,13 @@ func Code() string {
 	return res
 }
 
-func (c *Client) SendCode(mobile, code string) (err error) {
+func (c *Client) SendCode(phone, code string) (err error) {
+	if phone == "" || code == "" {
+		return errors.New("手机号或验证码不能为空")
+	}
 	request := dysmsapi.CreateSendSmsRequest()
-
 	request.Scheme = scheme
-	request.PhoneNumbers = mobile
+	request.PhoneNumbers = phone
 	request.SignName = c.SignName
 	request.TemplateCode = c.TemplateCode
 	request.TemplateParam = fmt.Sprintf("{code:%s}", code)

@@ -7,6 +7,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -20,7 +21,16 @@ const _ = grpc.SupportPackageIsVersion7
 type AccountClient interface {
 	Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterReply, error)
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginReply, error)
+	Logout(ctx context.Context, in *LogoutRequest, opts ...grpc.CallOption) (*LogoutReply, error)
+	AccountInfo(ctx context.Context, in *AccountInfoRequest, opts ...grpc.CallOption) (*AccountInfoReply, error)
+	ResetPassword(ctx context.Context, in *ResetPasswordRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	ForgetPassword(ctx context.Context, in *ForgetPasswordRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	PlatformLogin(ctx context.Context, in *PlatformLoginRequest, opts ...grpc.CallOption) (*PlatformLoginReply, error)
+	CreateAccountUser(ctx context.Context, in *AccountUserRequest, opts ...grpc.CallOption) (*AccountUser, error)
+	UpdateAccountUser(ctx context.Context, in *AccountUserRequest, opts ...grpc.CallOption) (*AccountUser, error)
+	DeleteAccountUser(ctx context.Context, in *DeleteAccountUserRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetAccountUser(ctx context.Context, in *GetAccountUserRequest, opts ...grpc.CallOption) (*AccountUser, error)
+	ListAccountUser(ctx context.Context, in *AccountUserListRequest, opts ...grpc.CallOption) (*AccountUserList, error)
 }
 
 type accountClient struct {
@@ -49,9 +59,90 @@ func (c *accountClient) Login(ctx context.Context, in *LoginRequest, opts ...grp
 	return out, nil
 }
 
+func (c *accountClient) Logout(ctx context.Context, in *LogoutRequest, opts ...grpc.CallOption) (*LogoutReply, error) {
+	out := new(LogoutReply)
+	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/Logout", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountClient) AccountInfo(ctx context.Context, in *AccountInfoRequest, opts ...grpc.CallOption) (*AccountInfoReply, error) {
+	out := new(AccountInfoReply)
+	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/AccountInfo", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountClient) ResetPassword(ctx context.Context, in *ResetPasswordRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/ResetPassword", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountClient) ForgetPassword(ctx context.Context, in *ForgetPasswordRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/ForgetPassword", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *accountClient) PlatformLogin(ctx context.Context, in *PlatformLoginRequest, opts ...grpc.CallOption) (*PlatformLoginReply, error) {
 	out := new(PlatformLoginReply)
 	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/PlatformLogin", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountClient) CreateAccountUser(ctx context.Context, in *AccountUserRequest, opts ...grpc.CallOption) (*AccountUser, error) {
+	out := new(AccountUser)
+	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/CreateAccountUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountClient) UpdateAccountUser(ctx context.Context, in *AccountUserRequest, opts ...grpc.CallOption) (*AccountUser, error) {
+	out := new(AccountUser)
+	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/UpdateAccountUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountClient) DeleteAccountUser(ctx context.Context, in *DeleteAccountUserRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/DeleteAccountUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountClient) GetAccountUser(ctx context.Context, in *GetAccountUserRequest, opts ...grpc.CallOption) (*AccountUser, error) {
+	out := new(AccountUser)
+	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/GetAccountUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountClient) ListAccountUser(ctx context.Context, in *AccountUserListRequest, opts ...grpc.CallOption) (*AccountUserList, error) {
+	out := new(AccountUserList)
+	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/ListAccountUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -64,7 +155,16 @@ func (c *accountClient) PlatformLogin(ctx context.Context, in *PlatformLoginRequ
 type AccountServer interface {
 	Register(context.Context, *RegisterRequest) (*RegisterReply, error)
 	Login(context.Context, *LoginRequest) (*LoginReply, error)
+	Logout(context.Context, *LogoutRequest) (*LogoutReply, error)
+	AccountInfo(context.Context, *AccountInfoRequest) (*AccountInfoReply, error)
+	ResetPassword(context.Context, *ResetPasswordRequest) (*emptypb.Empty, error)
+	ForgetPassword(context.Context, *ForgetPasswordRequest) (*emptypb.Empty, error)
 	PlatformLogin(context.Context, *PlatformLoginRequest) (*PlatformLoginReply, error)
+	CreateAccountUser(context.Context, *AccountUserRequest) (*AccountUser, error)
+	UpdateAccountUser(context.Context, *AccountUserRequest) (*AccountUser, error)
+	DeleteAccountUser(context.Context, *DeleteAccountUserRequest) (*emptypb.Empty, error)
+	GetAccountUser(context.Context, *GetAccountUserRequest) (*AccountUser, error)
+	ListAccountUser(context.Context, *AccountUserListRequest) (*AccountUserList, error)
 	mustEmbedUnimplementedAccountServer()
 }
 
@@ -78,8 +178,35 @@ func (UnimplementedAccountServer) Register(context.Context, *RegisterRequest) (*
 func (UnimplementedAccountServer) Login(context.Context, *LoginRequest) (*LoginReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
+func (UnimplementedAccountServer) Logout(context.Context, *LogoutRequest) (*LogoutReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Logout not implemented")
+}
+func (UnimplementedAccountServer) AccountInfo(context.Context, *AccountInfoRequest) (*AccountInfoReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AccountInfo not implemented")
+}
+func (UnimplementedAccountServer) ResetPassword(context.Context, *ResetPasswordRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ResetPassword not implemented")
+}
+func (UnimplementedAccountServer) ForgetPassword(context.Context, *ForgetPasswordRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ForgetPassword not implemented")
+}
 func (UnimplementedAccountServer) PlatformLogin(context.Context, *PlatformLoginRequest) (*PlatformLoginReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PlatformLogin not implemented")
+}
+func (UnimplementedAccountServer) CreateAccountUser(context.Context, *AccountUserRequest) (*AccountUser, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAccountUser not implemented")
+}
+func (UnimplementedAccountServer) UpdateAccountUser(context.Context, *AccountUserRequest) (*AccountUser, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateAccountUser not implemented")
+}
+func (UnimplementedAccountServer) DeleteAccountUser(context.Context, *DeleteAccountUserRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteAccountUser not implemented")
+}
+func (UnimplementedAccountServer) GetAccountUser(context.Context, *GetAccountUserRequest) (*AccountUser, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAccountUser not implemented")
+}
+func (UnimplementedAccountServer) ListAccountUser(context.Context, *AccountUserListRequest) (*AccountUserList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListAccountUser not implemented")
 }
 func (UnimplementedAccountServer) mustEmbedUnimplementedAccountServer() {}
 
@@ -130,6 +257,78 @@ func _Account_Login_Handler(srv interface{}, ctx context.Context, dec func(inter
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Account_Logout_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LogoutRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServer).Logout(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.account.service.v1.Account/Logout",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServer).Logout(ctx, req.(*LogoutRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Account_AccountInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AccountInfoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServer).AccountInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.account.service.v1.Account/AccountInfo",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServer).AccountInfo(ctx, req.(*AccountInfoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Account_ResetPassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ResetPasswordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServer).ResetPassword(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.account.service.v1.Account/ResetPassword",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServer).ResetPassword(ctx, req.(*ResetPasswordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Account_ForgetPassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ForgetPasswordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServer).ForgetPassword(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.account.service.v1.Account/ForgetPassword",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServer).ForgetPassword(ctx, req.(*ForgetPasswordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Account_PlatformLogin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(PlatformLoginRequest)
 	if err := dec(in); err != nil {
@@ -144,6 +343,96 @@ func _Account_PlatformLogin_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AccountServer).PlatformLogin(ctx, req.(*PlatformLoginRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Account_CreateAccountUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AccountUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServer).CreateAccountUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.account.service.v1.Account/CreateAccountUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServer).CreateAccountUser(ctx, req.(*AccountUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Account_UpdateAccountUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AccountUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServer).UpdateAccountUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.account.service.v1.Account/UpdateAccountUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServer).UpdateAccountUser(ctx, req.(*AccountUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Account_DeleteAccountUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteAccountUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServer).DeleteAccountUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.account.service.v1.Account/DeleteAccountUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServer).DeleteAccountUser(ctx, req.(*DeleteAccountUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Account_GetAccountUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAccountUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServer).GetAccountUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.account.service.v1.Account/GetAccountUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServer).GetAccountUser(ctx, req.(*GetAccountUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Account_ListAccountUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AccountUserListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServer).ListAccountUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.account.service.v1.Account/ListAccountUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServer).ListAccountUser(ctx, req.(*AccountUserListRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -164,8 +453,44 @@ var Account_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Account_Login_Handler,
 		},
 		{
+			MethodName: "Logout",
+			Handler:    _Account_Logout_Handler,
+		},
+		{
+			MethodName: "AccountInfo",
+			Handler:    _Account_AccountInfo_Handler,
+		},
+		{
+			MethodName: "ResetPassword",
+			Handler:    _Account_ResetPassword_Handler,
+		},
+		{
+			MethodName: "ForgetPassword",
+			Handler:    _Account_ForgetPassword_Handler,
+		},
+		{
 			MethodName: "PlatformLogin",
 			Handler:    _Account_PlatformLogin_Handler,
+		},
+		{
+			MethodName: "CreateAccountUser",
+			Handler:    _Account_CreateAccountUser_Handler,
+		},
+		{
+			MethodName: "UpdateAccountUser",
+			Handler:    _Account_UpdateAccountUser_Handler,
+		},
+		{
+			MethodName: "DeleteAccountUser",
+			Handler:    _Account_DeleteAccountUser_Handler,
+		},
+		{
+			MethodName: "GetAccountUser",
+			Handler:    _Account_GetAccountUser_Handler,
+		},
+		{
+			MethodName: "ListAccountUser",
+			Handler:    _Account_ListAccountUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

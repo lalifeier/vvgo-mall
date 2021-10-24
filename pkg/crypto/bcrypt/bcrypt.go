@@ -7,9 +7,9 @@ func GeneratePassword(password string) (string, error) {
 	return string(bytes), err
 }
 
-func ValidatePassword(password, hashed string) (bool, error) {
+func ValidatePassword(password, hashed string) bool {
 	if err := bcrypt.CompareHashAndPassword([]byte(hashed), []byte(password)); err != nil {
-		return false, err
+		return false
 	}
-	return true, nil
+	return true
 }
