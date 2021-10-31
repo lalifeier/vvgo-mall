@@ -159,6 +159,7 @@ func (rp *accountUserRepo) Get(ctx context.Context, id int64) (*biz.AccountUser,
 }
 
 func (rp *accountUserRepo) List(ctx context.Context, req *biz.AccountUserListReq) (*biz.AccountUserListResp, error) {
+
 	query := rp.data.db.AccountUser.Query()
 
 	count, err := query.Count(ctx)

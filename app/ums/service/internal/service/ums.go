@@ -10,17 +10,17 @@ import (
 	"github.com/lalifeier/vgo/app/ums/service/internal/biz"
 )
 
-type bizAccountUser biz.AccountUser
+// type bizAccountUser biz.AccountUser
 
-func (b bizAccountUser) PbAccountUser() *pb.AccountUser {
-	return &pb.AccountUser{
-		Id:       b.Id,
-		Username: b.Username,
-		Password: b.Password,
-		Phone:    b.Phone,
-		Email:    b.Email,
-	}
-}
+// func (b bizAccountUser) PbAccountUser() *pb.AccountUser {
+// 	return &pb.AccountUser{
+// 		Id:       b.Id,
+// 		Username: b.Username,
+// 		Password: b.Password,
+// 		Phone:    b.Phone,
+// 		Email:    b.Email,
+// 	}
+// }
 
 type UmsService struct {
 	pb.UnimplementedUmsServer

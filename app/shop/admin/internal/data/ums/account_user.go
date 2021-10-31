@@ -59,7 +59,10 @@ func (rp *accountUserRepo) GetAccountUser(ctx context.Context, id int64) (*ums.A
 }
 
 func (rp *accountUserRepo) ListAccountUser(ctx context.Context, au *ums.AccountUserListReq) (*ums.AccountUserListResp, error) {
-	resp, err := rp.data.UmsClient.ListAccountUser(ctx, &umsV1.ListAccountUserReq{})
+	resp, err := rp.data.UmsClient.ListAccountUser(ctx, &umsV1.ListAccountUserReq{
+		PageNum:  au.PageNum,
+		PageSize: au.PageSize,
+	})
 
 	if err != nil {
 		return nil, err

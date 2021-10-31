@@ -25,16 +25,43 @@ func NewUmsService(logger log.Logger, accountUserUsecase *ums.AccountUserUsecase
 }
 
 func (s *UmsService) CreateAccountUser(ctx context.Context, req *pb.CreateAccountUserReq) (*pb.CreateAccountUserResp, error) {
-	return &pb.CreateAccountUserResp{}, nil
+	id, err := s.accountUserUsecase.CreateAccountUser(ctx, &ums.AccountUser{})
+	if err != nil {
+		return nil, err
+	}
+	return &pb.CreateAccountUserResp{
+		Id: id,
+	}, nil
 }
 func (s *UmsService) UpdateAccountUser(ctx context.Context, req *pb.UpdateAccountUserReq) (*emptypb.Empty, error) {
+	err := s.accountUserUsecase.UpdateAccountUser(ctx, &ums.AccountUser{
+		Id: req.Id,
+	})
+	if err != nil {
+		return nil, err
+	}
 	return &emptypb.Empty{}, nil
 }
 func (s *UmsService) DeleteAccountUser(ctx context.Context, req *pb.DeleteAccountUserReq) (*emptypb.Empty, error) {
+	err := s.accountUserUsecase.DeleteAccountUser(ctx, req.Id)
+	if err != nil {
+		return nil, err
+	}
 	return &emptypb.Empty{}, nil
 }
 func (s *UmsService) GetAccountUser(ctx context.Context, req *pb.GetAccountUserReq) (*pb.GetAccountUserResp, error) {
-	return &pb.GetAccountUserResp{}, nil
+	au, err := s.accountUserUsecase.GetAccountUser(ctx, req.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	accountUser := pb.GetAccountUserResp{}
+	err = copier.Copy(&accountUser, au)
+	if err != nil {
+		return nil, err
+	}
+
+	return &accountUser, nil
 }
 func (s *UmsService) ListAccountUser(ctx context.Context, req *pb.ListAccountUserReq) (*pb.ListAccountUserResp, error) {
 	resp, err := s.accountUserUsecase.ListAccountUser(ctx, &ums.AccountUserListReq{

@@ -53,8 +53,8 @@ func NewDiscovery(conf *conf.Registry) registry.Discovery {
 func NewUmsServiceClient(r registry.Discovery) umsV1.UmsClient {
 	conn, err := grpc.DialInsecure(
 		context.Background(),
-		grpc.WithEndpoint("discovery:///vgo.ums.service"),
-		// grpc.WithEndpoint("127.0.0.1:9001"),
+		// grpc.WithEndpoint("discovery:///vgo.ums.service"),
+		grpc.WithEndpoint("127.0.0.1:9001"),
 		grpc.WithDiscovery(r),
 		grpc.WithMiddleware(
 			recovery.Recovery(),
