@@ -242,5 +242,5 @@ var Ums_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "v1/ums.proto",
+	Metadata: "v1/ums_admin.proto",
 }

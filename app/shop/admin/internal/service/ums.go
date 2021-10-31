@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/go-kratos/kratos/v2/log"
+	"github.com/jinzhu/copier"
 	pb "github.com/lalifeier/vgo/api/shop/admin/v1"
 	"github.com/lalifeier/vgo/app/shop/admin/internal/biz/ums"
 	"google.golang.org/protobuf/types/known/emptypb"
@@ -36,5 +37,24 @@ func (s *UmsService) GetAccountUser(ctx context.Context, req *pb.GetAccountUserR
 	return &pb.GetAccountUserResp{}, nil
 }
 func (s *UmsService) ListAccountUser(ctx context.Context, req *pb.ListAccountUserReq) (*pb.ListAccountUserResp, error) {
-	return &pb.ListAccountUserResp{}, nil
+	resp, err := s.accountUserUsecase.ListAccountUser(ctx, &ums.AccountUserListReq{
+		PageNum:  req.PageNum,
+		PageSize: req.PageSize,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	accountUsers := make([]*pb.AccountUser, 0)
+	err = copier.Copy(&accountUsers, &resp.Data)
+	if err != nil {
+		return nil, err
+	}
+
+	return &pb.ListAccountUserResp{
+		Total:       resp.Total,
+		CurrentPage: resp.CurrentPage,
+		PageSize:    resp.PageSize,
+		Data:        accountUsers,
+	}, nil
 }

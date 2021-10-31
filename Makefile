@@ -37,7 +37,6 @@ api:
  	       --go_out=paths=source_relative:. \
  	       --go-http_out=paths=source_relative:. \
  	       --go-grpc_out=paths=source_relative:. \
-				 --validate_out=paths=source_relative,lang=go:. \
 	       $(API_PROTO_FILES)
 
 .PHONY: errors
@@ -113,8 +112,9 @@ swagger:
 # generate all
 all:
 	make api;
-	make swagger;
 	make errors;
+	make validate;
+	make swagger;
 	make config;
 	make generate;
 

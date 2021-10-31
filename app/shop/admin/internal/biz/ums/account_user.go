@@ -34,11 +34,11 @@ type AccountUserListResp struct {
 }
 
 type AccountUserRepo interface {
-	// CreateAccountUser(context.Context, *AccountUser) (int64, error)
-	// UpdateAccountUser(context.Context, *AccountUser) error
-	// DeleteAccountUser(ctx context.Context, id int64) error
-	// GetAccountUser(ctx context.Context, id int64) (*AccountUser, error)
-	// ListAccountUser(context.Context, *AccountUserListReq) (*AccountUserListResp, error)
+	CreateAccountUser(context.Context, *AccountUser) (int64, error)
+	UpdateAccountUser(context.Context, *AccountUser) error
+	DeleteAccountUser(ctx context.Context, id int64) error
+	GetAccountUser(ctx context.Context, id int64) (*AccountUser, error)
+	ListAccountUser(context.Context, *AccountUserListReq) (*AccountUserListResp, error)
 }
 
 type AccountUserUsecase struct {
@@ -74,25 +74,25 @@ func (uc *AccountUserUsecase) UpdateUser(ctx context.Context, u *AccountUser) (*
 	return nil, nil
 }
 
-// func (uc *AccountUserUsecase) CreateAccountUser(ctx context.Context, au *AccountUser) (int64, error) {
-// 	return uc.repo.CreateAccountUser(ctx, au)
-// }
+func (uc *AccountUserUsecase) CreateAccountUser(ctx context.Context, au *AccountUser) (int64, error) {
+	return uc.repo.CreateAccountUser(ctx, au)
+}
 
-// func (uc *AccountUserUsecase) UpdateAccountUser(ctx context.Context, au *AccountUser) error {
-// 	return uc.repo.UpdateAccountUser(ctx, au)
-// }
+func (uc *AccountUserUsecase) UpdateAccountUser(ctx context.Context, au *AccountUser) error {
+	return uc.repo.UpdateAccountUser(ctx, au)
+}
 
-// func (uc *AccountUserUsecase) DeleteAccountUser(ctx context.Context, id int64) error {
-// 	return uc.repo.DeleteAccountUser(ctx, id)
-// }
+func (uc *AccountUserUsecase) DeleteAccountUser(ctx context.Context, id int64) error {
+	return uc.repo.DeleteAccountUser(ctx, id)
+}
 
-// func (uc *AccountUserUsecase) GetAccountUser(ctx context.Context, id int64) (*AccountUser, error) {
-// 	return uc.repo.GetAccountUser(ctx, id)
-// }
+func (uc *AccountUserUsecase) GetAccountUser(ctx context.Context, id int64) (*AccountUser, error) {
+	return uc.repo.GetAccountUser(ctx, id)
+}
 
-// func (uc *AccountUserUsecase) ListAccountUser(ctx context.Context, req *AccountUserListReq) (*AccountUserListResp, error) {
-// 	return uc.repo.ListAccountUser(ctx, &AccountUserListReq{
-// 		PageNum:  req.PageNum,
-// 		PageSize: req.PageSize,
-// 	})
-// }
+func (uc *AccountUserUsecase) ListAccountUser(ctx context.Context, req *AccountUserListReq) (*AccountUserListResp, error) {
+	return uc.repo.ListAccountUser(ctx, &AccountUserListReq{
+		PageNum:  req.PageNum,
+		PageSize: req.PageSize,
+	})
+}

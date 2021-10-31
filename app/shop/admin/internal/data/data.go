@@ -18,7 +18,7 @@ import (
 )
 
 // ProviderSet is data providers.
-var ProviderSet = wire.NewSet(NewData, NewDiscovery, NewRegister, NewUmsServiceClient)
+var ProviderSet = wire.NewSet(NewData, NewDiscovery, NewUmsServiceClient)
 
 // Data .
 type Data struct {
@@ -50,22 +50,11 @@ func NewDiscovery(conf *conf.Registry) registry.Discovery {
 	return r
 }
 
-func NewRegister(conf *conf.Registry) registry.Registrar {
-	c := consulAPI.DefaultConfig()
-	c.Address = conf.Consul.Address
-	c.Scheme = conf.Consul.Scheme
-	consulClient, err := consulAPI.NewClient(c)
-	if err != nil {
-		panic(err)
-	}
-	r := consul.New(consulClient, consul.WithHealthCheck(false))
-	return r
-}
-
 func NewUmsServiceClient(r registry.Discovery) umsV1.UmsClient {
 	conn, err := grpc.DialInsecure(
 		context.Background(),
 		grpc.WithEndpoint("discovery:///vgo.ums.service"),
+		// grpc.WithEndpoint("127.0.0.1:9001"),
 		grpc.WithDiscovery(r),
 		grpc.WithMiddleware(
 			recovery.Recovery(),
