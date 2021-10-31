@@ -113,6 +113,7 @@ swagger:
 # generate all
 all:
 	make api;
+	make swagger;
 	make errors;
 	make config;
 	make generate;

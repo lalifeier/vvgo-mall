@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package api.pay.service.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "api/pay/interface/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.pay.interface.v1";
+
+service Pay {
+  // 发起支付
+  rpc GoPay(GoPayReq) returns (GoPayReply) {
+    option (google.api.http) = {
+      post : "/v1/gopay"
+      body : "*"
+    };
+  }
+
+  // 发起退款
+  rpc Refund(GoPayReq) returns (GoPayReply) {
+    option (google.api.http) = {
+      post : "/v1/refund"
+      body : "*"
+    };
+  }
+
+  // 接口异步通知
+  rpc AsyncNotify(GoPayReq) returns (GoPayReply) {
+    option (google.api.http) = {
+      post : "/v1/notify/{channel}/{transaction_id}"
+      body : "*"
+    };
+  }
+
+  // 接口同步通知
+  rpc SyncNotify(GoPayReq) returns (GoPayReply) {
+    option (google.api.http) = {
+      post : "/v1/return/{channel}/{transaction_id}"
+      body : "*"
+    };
+  }
+
+  // 交易查询
+  rpc QueryTrade(GoPayReq) returns (GoPayReply) {
+    option (google.api.http) = {
+      post : "/v1/query/trade"
+      body : "*"
+    };
+  }
+
+  // 退款查询
+  rpc QueryRefund(GoPayReq) returns (GoPayReply) {
+    option (google.api.http) = {
+      post : "/v1/query/refund"
+      body : "*"
+    };
+  }
+
+  // 账单获取
+  rpc QueryBill(GoPayReq) returns (GoPayReply) {
+    option (google.api.http) = {
+      post : "/v1/query/bill"
+      body : "*"
+    };
+  }
+
+  // 结算明细
+  rpc QuerySettle(GoPayReq) returns (GoPayReply) {
+    option (google.api.http) = {
+      post : "/v1/query/settle"
+      body : "*"
+    };
+  }
+}
+
+message GoPayReq {}
+message GoPayReply {}

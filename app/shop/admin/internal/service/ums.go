@@ -1,0 +1,40 @@
+package service
+
+import (
+	"context"
+
+	"github.com/go-kratos/kratos/v2/log"
+	pb "github.com/lalifeier/vgo/api/shop/admin/v1"
+	"github.com/lalifeier/vgo/app/shop/admin/internal/biz/ums"
+	"google.golang.org/protobuf/types/known/emptypb"
+)
+
+type UmsService struct {
+	pb.UnimplementedUmsServer
+
+	log                *log.Helper
+	accountUserUsecase *ums.AccountUserUsecase
+}
+
+func NewUmsService(logger log.Logger, accountUserUsecase *ums.AccountUserUsecase) *UmsService {
+	return &UmsService{
+		log:                log.NewHelper(log.With(logger, "module", "shop-admin/service/")),
+		accountUserUsecase: accountUserUsecase,
+	}
+}
+
+func (s *UmsService) CreateAccountUser(ctx context.Context, req *pb.CreateAccountUserReq) (*pb.CreateAccountUserResp, error) {
+	return &pb.CreateAccountUserResp{}, nil
+}
+func (s *UmsService) UpdateAccountUser(ctx context.Context, req *pb.UpdateAccountUserReq) (*emptypb.Empty, error) {
+	return &emptypb.Empty{}, nil
+}
+func (s *UmsService) DeleteAccountUser(ctx context.Context, req *pb.DeleteAccountUserReq) (*emptypb.Empty, error) {
+	return &emptypb.Empty{}, nil
+}
+func (s *UmsService) GetAccountUser(ctx context.Context, req *pb.GetAccountUserReq) (*pb.GetAccountUserResp, error) {
+	return &pb.GetAccountUserResp{}, nil
+}
+func (s *UmsService) ListAccountUser(ctx context.Context, req *pb.ListAccountUserReq) (*pb.ListAccountUserResp, error) {
+	return &pb.ListAccountUserResp{}, nil
+}

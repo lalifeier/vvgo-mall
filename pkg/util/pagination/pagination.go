@@ -1,8 +1,8 @@
 package pagination
 
 type Query interface {
-	Offset(offset int)
-	Limit(limit int)
+	Offset(offset int64)
+	Limit(limit int64)
 }
 
 func GetPageOffset(pageNum, pageSize int64) int64 {
