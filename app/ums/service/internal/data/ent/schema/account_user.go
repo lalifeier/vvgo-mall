@@ -3,12 +3,20 @@ package schema
 import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect"
+	"entgo.io/ent/dialect/entsql"
+	"entgo.io/ent/schema"
 	"entgo.io/ent/schema/field"
 )
 
 // AccountUser holds the schema definition for the AccountUser entity.
 type AccountUser struct {
 	ent.Schema
+}
+
+func (AccountUser) Annotations() []schema.Annotation {
+	return []schema.Annotation{
+		entsql.Annotation{Table: "account_user"},
+	}
 }
 
 // Fields of the AccountUser.

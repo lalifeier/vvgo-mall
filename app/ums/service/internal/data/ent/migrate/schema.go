@@ -3,13 +3,14 @@
 package migrate
 
 import (
+	"entgo.io/ent/dialect/entsql"
 	"entgo.io/ent/dialect/sql/schema"
 	"entgo.io/ent/schema/field"
 )
 
 var (
-	// AccountPlatformsColumns holds the columns for the "account_platforms" table.
-	AccountPlatformsColumns = []*schema.Column{
+	// AccountPlatformColumns holds the columns for the "account_platform" table.
+	AccountPlatformColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt64, Increment: true, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
 		{Name: "uid", Type: field.TypeInt32, Default: 0, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
 		{Name: "platform_id", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(60)"}},
@@ -20,14 +21,14 @@ var (
 		{Name: "create_at", Type: field.TypeInt32, Default: 0, SchemaType: map[string]string{"mysql": "int(11)"}},
 		{Name: "update_at", Type: field.TypeInt32, Default: 0, SchemaType: map[string]string{"mysql": "int(11)"}},
 	}
-	// AccountPlatformsTable holds the schema information for the "account_platforms" table.
-	AccountPlatformsTable = &schema.Table{
-		Name:       "account_platforms",
-		Columns:    AccountPlatformsColumns,
-		PrimaryKey: []*schema.Column{AccountPlatformsColumns[0]},
+	// AccountPlatformTable holds the schema information for the "account_platform" table.
+	AccountPlatformTable = &schema.Table{
+		Name:       "account_platform",
+		Columns:    AccountPlatformColumns,
+		PrimaryKey: []*schema.Column{AccountPlatformColumns[0]},
 	}
-	// AccountUsersColumns holds the columns for the "account_users" table.
-	AccountUsersColumns = []*schema.Column{
+	// AccountUserColumns holds the columns for the "account_user" table.
+	AccountUserColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt64, Increment: true, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
 		{Name: "email", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(30)"}},
 		{Name: "phone", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(15)"}},
@@ -40,18 +41,24 @@ var (
 		{Name: "login_times", Type: field.TypeInt32, Default: 0, SchemaType: map[string]string{"mysql": "int(11)"}},
 		{Name: "status", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint(1)"}},
 	}
-	// AccountUsersTable holds the schema information for the "account_users" table.
-	AccountUsersTable = &schema.Table{
-		Name:       "account_users",
-		Columns:    AccountUsersColumns,
-		PrimaryKey: []*schema.Column{AccountUsersColumns[0]},
+	// AccountUserTable holds the schema information for the "account_user" table.
+	AccountUserTable = &schema.Table{
+		Name:       "account_user",
+		Columns:    AccountUserColumns,
+		PrimaryKey: []*schema.Column{AccountUserColumns[0]},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		AccountPlatformsTable,
-		AccountUsersTable,
+		AccountPlatformTable,
+		AccountUserTable,
 	}
 )
 
 func init() {
+	AccountPlatformTable.Annotation = &entsql.Annotation{
+		Table: "account_platform",
+	}
+	AccountUserTable.Annotation = &entsql.Annotation{
+		Table: "account_user",
+	}
 }

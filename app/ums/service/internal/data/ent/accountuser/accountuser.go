@@ -28,7 +28,7 @@ const (
 	// FieldStatus holds the string denoting the status field in the database.
 	FieldStatus = "status"
 	// Table holds the table name of the accountuser in the database.
-	Table = "account_users"
+	Table = "account_user"
 )
 
 // Columns holds all SQL columns for accountuser fields.

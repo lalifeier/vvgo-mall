@@ -3,12 +3,20 @@ package schema
 import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect"
+	"entgo.io/ent/dialect/entsql"
+	"entgo.io/ent/schema"
 	"entgo.io/ent/schema/field"
 )
 
 // AccountPlatform holds the schema definition for the AccountPlatform entity.
 type AccountPlatform struct {
 	ent.Schema
+}
+
+func (AccountPlatform) Annotations() []schema.Annotation {
+	return []schema.Annotation{
+		entsql.Annotation{Table: "account_platform"},
+	}
 }
 
 // Fields of the AccountPlatform.

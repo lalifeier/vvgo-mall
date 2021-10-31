@@ -24,7 +24,7 @@ const (
 	// FieldUpdateAt holds the string denoting the update_at field in the database.
 	FieldUpdateAt = "update_at"
 	// Table holds the table name of the accountplatform in the database.
-	Table = "account_platforms"
+	Table = "account_platform"
 )
 
 // Columns holds all SQL columns for accountplatform fields.

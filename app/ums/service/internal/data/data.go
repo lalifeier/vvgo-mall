@@ -1,10 +1,13 @@
 package data
 
 import (
+	"context"
+
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
 	"github.com/lalifeier/vgo/app/ums/service/internal/conf"
 	"github.com/lalifeier/vgo/app/ums/service/internal/data/ent"
+	"github.com/lalifeier/vgo/app/ums/service/internal/data/ent/migrate"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -60,9 +63,9 @@ func NewEntClient(conf *conf.Data, logger log.Logger) *ent.Client {
 		log.Fatalf("failed opening connection to db: %v", err)
 	}
 	// Run the auto migration tool.
-	// if err := client.Schema.Create(context.Background(), migrate.WithForeignKeys(false)); err != nil {
-	// 	log.Fatalf("failed creating schema resources: %v", err)
-	// }
+	if err := client.Schema.Create(context.Background(), migrate.WithForeignKeys(false)); err != nil {
+		log.Fatalf("failed creating schema resources: %v", err)
+	}
 	return client
 }
 
