@@ -27,7 +27,7 @@ type AccountUserListReq struct {
 }
 
 type AccountUserListResp struct {
-	Total       int64
+	TotalPages  int64
 	CurrentPage int64
 	PageSize    int64
 	Data        []*AccountUser

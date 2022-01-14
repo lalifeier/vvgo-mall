@@ -11,13 +11,13 @@ import (
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
 	"github.com/go-kratos/kratos/v2/registry"
 	"github.com/go-kratos/kratos/v2/transport/grpc"
-	"github.com/lalifeier/vgo/app/ums/service/internal/conf"
+	"github.com/lalifeier/vvgo/app/ums/service/internal/conf"
 )
 
 // go build -ldflags "-X main.Version=x.y.z"
 var (
 	// Name is the name of the compiled software.
-	Name string = "vgo.ums.service"
+	Name string = "vvgo.ums.service"
 	// Version is the version of the compiled software.
 	Version string
 	// flagconf is the config flag.

@@ -6,7 +6,7 @@ import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
-option go_package = "github.com/lalifeier/vgo/api/shop/admin/v1;v1";
+option go_package = "github.com/lalifeier/vvgo/api/shop/admin/v1;v1";
 
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info : {title : "ums";
@@ -81,7 +81,7 @@ message ListAccountUserReq {
   int64 pageSize = 4;
 }
 message ListAccountUserResp {
-  int64 total = 1;
+  int64 totalPages = 1;
   int64 currentPage = 2;
   int64 pageSize = 3;
   repeated AccountUser data = 4;

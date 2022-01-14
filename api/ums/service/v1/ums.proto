@@ -4,7 +4,7 @@ package api.ums.service.v1;
 
 import "google/protobuf/empty.proto";
 
-option go_package = "github.com/lalifeier/vgo/api/ums/service/v1;v1";
+option go_package = "github.com/lalifeier/vvgo/api/ums/service/v1;v1";
 
 service Ums {
   rpc Register(RegisterReq) returns (RegisterResp);
@@ -74,7 +74,7 @@ message ListAccountUserReq {
   int64 pageSize = 4;
 }
 message ListAccountUserResp {
-  int64 total = 1;
+  int64 totalPages = 1;
   int64 currentPage = 2;
   int64 pageSize = 3;
   repeated AccountUser data = 4;

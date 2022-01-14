@@ -7,7 +7,7 @@ import (
 	"github.com/go-kratos/kratos/v2/errors"
 	"github.com/go-kratos/kratos/v2/log"
 
-	sms "github.com/lalifeier/vgo/pkg/sms/aliyun"
+	sms "github.com/lalifeier/vvgo/pkg/sms/aliyun"
 )
 
 var (

@@ -5,8 +5,8 @@ import (
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/jinzhu/copier"
-	pb "github.com/lalifeier/vgo/api/shop/admin/v1"
-	"github.com/lalifeier/vgo/app/shop/admin/internal/biz/ums"
+	pb "github.com/lalifeier/vvgo/api/shop/admin/v1"
+	"github.com/lalifeier/vvgo/app/shop/admin/internal/biz/ums"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
@@ -19,13 +19,18 @@ type UmsService struct {
 
 func NewUmsService(logger log.Logger, accountUserUsecase *ums.AccountUserUsecase) *UmsService {
 	return &UmsService{
-		log:                log.NewHelper(log.With(logger, "module", "shop-admin/service/")),
+		log:                log.NewHelper(log.With(logger, "module", "front-admin/service/")),
 		accountUserUsecase: accountUserUsecase,
 	}
 }
 
 func (s *UmsService) CreateAccountUser(ctx context.Context, req *pb.CreateAccountUserReq) (*pb.CreateAccountUserResp, error) {
-	id, err := s.accountUserUsecase.CreateAccountUser(ctx, &ums.AccountUser{})
+	id, err := s.accountUserUsecase.CreateAccountUser(ctx, &ums.AccountUser{
+		Username: req.Username,
+		Password: req.Password,
+		Phone:    req.Phone,
+		Email:    req.Email,
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -35,7 +40,11 @@ func (s *UmsService) CreateAccountUser(ctx context.Context, req *pb.CreateAccoun
 }
 func (s *UmsService) UpdateAccountUser(ctx context.Context, req *pb.UpdateAccountUserReq) (*emptypb.Empty, error) {
 	err := s.accountUserUsecase.UpdateAccountUser(ctx, &ums.AccountUser{
-		Id: req.Id,
+		Id:       req.Id,
+		Username: req.Username,
+		Password: req.Password,
+		Phone:    req.Phone,
+		Email:    req.Email,
 	})
 	if err != nil {
 		return nil, err
@@ -79,7 +88,7 @@ func (s *UmsService) ListAccountUser(ctx context.Context, req *pb.ListAccountUse
 	}
 
 	return &pb.ListAccountUserResp{
-		Total:       resp.Total,
+		TotalPages:  resp.TotalPages,
 		CurrentPage: resp.CurrentPage,
 		PageSize:    resp.PageSize,
 		Data:        accountUsers,

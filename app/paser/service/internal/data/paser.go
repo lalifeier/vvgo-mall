@@ -2,7 +2,7 @@ package data
 
 import (
 	"github.com/go-kratos/kratos/v2/log"
-	"github.com/lalifeier/vgo/app/paser/service/internal/biz"
+	"github.com/lalifeier/vvgo/app/paser/service/internal/biz"
 )
 
 type paserRepo struct {

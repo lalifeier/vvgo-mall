@@ -9,8 +9,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/lalifeier/vgo/app/ums/service/internal/data/ent/accountuser"
-	"github.com/lalifeier/vgo/app/ums/service/internal/data/ent/predicate"
+	"github.com/lalifeier/vvgo/app/ums/service/internal/data/ent/accountuser"
+	"github.com/lalifeier/vvgo/app/ums/service/internal/data/ent/predicate"
 )
 
 // AccountUserUpdate is the builder for updating AccountUser entities.

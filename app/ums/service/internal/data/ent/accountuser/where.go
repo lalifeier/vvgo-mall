@@ -4,7 +4,7 @@ package accountuser
 
 import (
 	"entgo.io/ent/dialect/sql"
-	"github.com/lalifeier/vgo/app/ums/service/internal/data/ent/predicate"
+	"github.com/lalifeier/vvgo/app/ums/service/internal/data/ent/predicate"
 )
 
 // ID filters vertices based on their ID field.

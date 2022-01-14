@@ -9,12 +9,12 @@ package main
 import (
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
-	ums2 "github.com/lalifeier/vgo/app/shop/admin/internal/biz/ums"
-	"github.com/lalifeier/vgo/app/shop/admin/internal/conf"
-	"github.com/lalifeier/vgo/app/shop/admin/internal/data"
-	"github.com/lalifeier/vgo/app/shop/admin/internal/data/ums"
-	"github.com/lalifeier/vgo/app/shop/admin/internal/server"
-	"github.com/lalifeier/vgo/app/shop/admin/internal/service"
+	ums2 "github.com/lalifeier/vvgo/app/shop/admin/internal/biz/ums"
+	"github.com/lalifeier/vvgo/app/shop/admin/internal/conf"
+	"github.com/lalifeier/vvgo/app/shop/admin/internal/data"
+	"github.com/lalifeier/vvgo/app/shop/admin/internal/data/ums"
+	"github.com/lalifeier/vvgo/app/shop/admin/internal/server"
+	"github.com/lalifeier/vvgo/app/shop/admin/internal/service"
 )
 
 // Injectors from wire.go:

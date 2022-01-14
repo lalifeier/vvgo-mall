@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/go-kratos/kratos/v2/log"
-	"github.com/lalifeier/vgo/pkg/crypto/bcrypt"
+	"github.com/lalifeier/vvgo/pkg/crypto/bcrypt"
 )
 
 type AccountUser struct {
@@ -29,7 +29,7 @@ type AccountUserListReq struct {
 }
 
 type AccountUserListResp struct {
-	Total       int64
+	TotalPages  int64
 	CurrentPage int64
 	PageSize    int64
 	Data        []*AccountUser

@@ -2,15 +2,22 @@ package service
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/jinzhu/copier"
-	pb "github.com/lalifeier/vgo/api/ums/service/v1"
-	"github.com/lalifeier/vgo/app/ums/service/internal/biz"
+	pb "github.com/lalifeier/vvgo/api/ums/service/v1"
+	"github.com/lalifeier/vvgo/app/ums/service/internal/biz"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 func (s *UmsService) CreateAccountUser(ctx context.Context, req *pb.CreateAccountUserReq) (*pb.CreateAccountUserResp, error) {
-	id, err := s.accountUserUsecase.Create(ctx, &biz.AccountUser{})
+	fmt.Println(req)
+	id, err := s.accountUserUsecase.Create(ctx, &biz.AccountUser{
+		Username: req.Username,
+		Password: req.Password,
+		Phone:    req.Phone,
+		Email:    req.Email,
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -21,7 +28,11 @@ func (s *UmsService) CreateAccountUser(ctx context.Context, req *pb.CreateAccoun
 
 func (s *UmsService) UpdateAccountUser(ctx context.Context, req *pb.UpdateAccountUserReq) (*emptypb.Empty, error) {
 	err := s.accountUserUsecase.Update(ctx, &biz.AccountUser{
-		Id: req.Id,
+		Id:       req.Id,
+		Username: req.Username,
+		Password: req.Password,
+		Phone:    req.Phone,
+		Email:    req.Email,
 	})
 	if err != nil {
 		return nil, err
@@ -65,7 +76,7 @@ func (s *UmsService) ListAccountUser(ctx context.Context, req *pb.ListAccountUse
 	}
 
 	return &pb.ListAccountUserResp{
-		Total:       pos.Total,
+		TotalPages:  pos.TotalPages,
 		CurrentPage: pos.CurrentPage,
 		PageSize:    pos.PageSize,
 		Data:        accountUsers,

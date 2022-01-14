@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package api.sys.service.v1;
+
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/lalifeier/vvgo/api/sys/service/v1;v1";
+
+service Sys {
+  rpc CreateDict(CreateDictReq) returns (CreateDictResp);
+  rpc UpdateDict(UpdateDictReq) returns (google.protobuf.Empty);
+  rpc DeleteDict(DeleteDictReq) returns (google.protobuf.Empty);
+  rpc GetDict(GetDictReq) returns (GetDictResp);
+  rpc ListDict(ListDictReq) returns (ListDictResp);
+  rpc PageListDict(PageListDictReq) returns (PageListDictResp);
+}
+
+message Dict {
+  int64 id = 1;
+}
+message CreateDictReq {
+}
+message CreateDictResp { int64 id = 1; }
+message UpdateDictReq {
+  int64 id = 1;
+}
+message DeleteDictReq { int64 id = 1; }
+message GetDictReq { int64 id = 1; }
+message GetDictResp {
+  int64 id = 1;
+}
+message ListDictReq {
+}
+message ListDictResp {
+  repeated Dict data = 1;
+}
+message PageListDictReq {
+  int64 pageNum = 1;
+  int64 pageSize = 4;
+}
+message PageListDictResp {
+  int64 totalPages = 1;
+  int64 currentPage = 2;
+  int64 pageSize = 3;
+  repeated Dict data = 4;
+}

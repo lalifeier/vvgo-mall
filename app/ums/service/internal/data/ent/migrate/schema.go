@@ -9,24 +9,6 @@ import (
 )
 
 var (
-	// AccountPlatformColumns holds the columns for the "account_platform" table.
-	AccountPlatformColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeInt64, Increment: true, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
-		{Name: "uid", Type: field.TypeInt32, Default: 0, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
-		{Name: "platform_id", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(60)"}},
-		{Name: "platform_token", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(60)"}},
-		{Name: "type", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint(1)"}},
-		{Name: "nickname", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(60)"}},
-		{Name: "avatar", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(255)"}},
-		{Name: "create_at", Type: field.TypeInt32, Default: 0, SchemaType: map[string]string{"mysql": "int(11)"}},
-		{Name: "update_at", Type: field.TypeInt32, Default: 0, SchemaType: map[string]string{"mysql": "int(11)"}},
-	}
-	// AccountPlatformTable holds the schema information for the "account_platform" table.
-	AccountPlatformTable = &schema.Table{
-		Name:       "account_platform",
-		Columns:    AccountPlatformColumns,
-		PrimaryKey: []*schema.Column{AccountPlatformColumns[0]},
-	}
 	// AccountUserColumns holds the columns for the "account_user" table.
 	AccountUserColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt64, Increment: true, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
@@ -49,15 +31,11 @@ var (
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		AccountPlatformTable,
 		AccountUserTable,
 	}
 )
 
 func init() {
-	AccountPlatformTable.Annotation = &entsql.Annotation{
-		Table: "account_platform",
-	}
 	AccountUserTable.Annotation = &entsql.Annotation{
 		Table: "account_user",
 	}

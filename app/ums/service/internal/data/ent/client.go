@@ -7,10 +7,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/lalifeier/vgo/app/ums/service/internal/data/ent/migrate"
+	"github.com/lalifeier/vvgo/app/ums/service/internal/data/ent/migrate"
 
-	"github.com/lalifeier/vgo/app/ums/service/internal/data/ent/accountplatform"
-	"github.com/lalifeier/vgo/app/ums/service/internal/data/ent/accountuser"
+	"github.com/lalifeier/vvgo/app/ums/service/internal/data/ent/accountuser"
 
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
@@ -21,8 +20,6 @@ type Client struct {
 	config
 	// Schema is the client for creating, migrating and dropping schema.
 	Schema *migrate.Schema
-	// AccountPlatform is the client for interacting with the AccountPlatform builders.
-	AccountPlatform *AccountPlatformClient
 	// AccountUser is the client for interacting with the AccountUser builders.
 	AccountUser *AccountUserClient
 }
@@ -38,7 +35,6 @@ func NewClient(opts ...Option) *Client {
 
 func (c *Client) init() {
 	c.Schema = migrate.NewSchema(c.driver)
-	c.AccountPlatform = NewAccountPlatformClient(c.config)
 	c.AccountUser = NewAccountUserClient(c.config)
 }
 
@@ -71,10 +67,9 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 	cfg := c.config
 	cfg.driver = tx
 	return &Tx{
-		ctx:             ctx,
-		config:          cfg,
-		AccountPlatform: NewAccountPlatformClient(cfg),
-		AccountUser:     NewAccountUserClient(cfg),
+		ctx:         ctx,
+		config:      cfg,
+		AccountUser: NewAccountUserClient(cfg),
 	}, nil
 }
 
@@ -92,16 +87,15 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 	cfg := c.config
 	cfg.driver = &txDriver{tx: tx, drv: c.driver}
 	return &Tx{
-		config:          cfg,
-		AccountPlatform: NewAccountPlatformClient(cfg),
-		AccountUser:     NewAccountUserClient(cfg),
+		config:      cfg,
+		AccountUser: NewAccountUserClient(cfg),
 	}, nil
 }
 
 // Debug returns a new debug-client. It's used to get verbose logging on specific operations.
 //
 //	client.Debug().
-//		AccountPlatform.
+//		AccountUser.
 //		Query().
 //		Count(ctx)
 //
@@ -124,98 +118,7 @@ func (c *Client) Close() error {
 // Use adds the mutation hooks to all the entity clients.
 // In order to add hooks to a specific client, call: `client.Node.Use(...)`.
 func (c *Client) Use(hooks ...Hook) {
-	c.AccountPlatform.Use(hooks...)
 	c.AccountUser.Use(hooks...)
-}
-
-// AccountPlatformClient is a client for the AccountPlatform schema.
-type AccountPlatformClient struct {
-	config
-}
-
-// NewAccountPlatformClient returns a client for the AccountPlatform from the given config.
-func NewAccountPlatformClient(c config) *AccountPlatformClient {
-	return &AccountPlatformClient{config: c}
-}
-
-// Use adds a list of mutation hooks to the hooks stack.
-// A call to `Use(f, g, h)` equals to `accountplatform.Hooks(f(g(h())))`.
-func (c *AccountPlatformClient) Use(hooks ...Hook) {
-	c.hooks.AccountPlatform = append(c.hooks.AccountPlatform, hooks...)
-}
-
-// Create returns a create builder for AccountPlatform.
-func (c *AccountPlatformClient) Create() *AccountPlatformCreate {
-	mutation := newAccountPlatformMutation(c.config, OpCreate)
-	return &AccountPlatformCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// CreateBulk returns a builder for creating a bulk of AccountPlatform entities.
-func (c *AccountPlatformClient) CreateBulk(builders ...*AccountPlatformCreate) *AccountPlatformCreateBulk {
-	return &AccountPlatformCreateBulk{config: c.config, builders: builders}
-}
-
-// Update returns an update builder for AccountPlatform.
-func (c *AccountPlatformClient) Update() *AccountPlatformUpdate {
-	mutation := newAccountPlatformMutation(c.config, OpUpdate)
-	return &AccountPlatformUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// UpdateOne returns an update builder for the given entity.
-func (c *AccountPlatformClient) UpdateOne(ap *AccountPlatform) *AccountPlatformUpdateOne {
-	mutation := newAccountPlatformMutation(c.config, OpUpdateOne, withAccountPlatform(ap))
-	return &AccountPlatformUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// UpdateOneID returns an update builder for the given id.
-func (c *AccountPlatformClient) UpdateOneID(id int64) *AccountPlatformUpdateOne {
-	mutation := newAccountPlatformMutation(c.config, OpUpdateOne, withAccountPlatformID(id))
-	return &AccountPlatformUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// Delete returns a delete builder for AccountPlatform.
-func (c *AccountPlatformClient) Delete() *AccountPlatformDelete {
-	mutation := newAccountPlatformMutation(c.config, OpDelete)
-	return &AccountPlatformDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// DeleteOne returns a delete builder for the given entity.
-func (c *AccountPlatformClient) DeleteOne(ap *AccountPlatform) *AccountPlatformDeleteOne {
-	return c.DeleteOneID(ap.ID)
-}
-
-// DeleteOneID returns a delete builder for the given id.
-func (c *AccountPlatformClient) DeleteOneID(id int64) *AccountPlatformDeleteOne {
-	builder := c.Delete().Where(accountplatform.ID(id))
-	builder.mutation.id = &id
-	builder.mutation.op = OpDeleteOne
-	return &AccountPlatformDeleteOne{builder}
-}
-
-// Query returns a query builder for AccountPlatform.
-func (c *AccountPlatformClient) Query() *AccountPlatformQuery {
-	return &AccountPlatformQuery{
-		config: c.config,
-	}
-}
-
-// Get returns a AccountPlatform entity by its id.
-func (c *AccountPlatformClient) Get(ctx context.Context, id int64) (*AccountPlatform, error) {
-	return c.Query().Where(accountplatform.ID(id)).Only(ctx)
-}
-
-// GetX is like Get, but panics if an error occurs.
-func (c *AccountPlatformClient) GetX(ctx context.Context, id int64) *AccountPlatform {
-	obj, err := c.Get(ctx, id)
-	if err != nil {
-		panic(err)
-	}
-	return obj
-}
-
-// Hooks returns the client hooks.
-func (c *AccountPlatformClient) Hooks() []Hook {
-	return c.hooks.AccountPlatform
 }
 
 // AccountUserClient is a client for the AccountUser schema.

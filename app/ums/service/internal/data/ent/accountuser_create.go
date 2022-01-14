@@ -9,7 +9,7 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/lalifeier/vgo/app/ums/service/internal/data/ent/accountuser"
+	"github.com/lalifeier/vvgo/app/ums/service/internal/data/ent/accountuser"
 )
 
 // AccountUserCreate is the builder for creating a AccountUser entity.

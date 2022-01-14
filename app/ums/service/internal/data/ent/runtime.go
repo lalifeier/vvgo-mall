@@ -3,49 +3,14 @@
 package ent
 
 import (
-	"github.com/lalifeier/vgo/app/ums/service/internal/data/ent/accountplatform"
-	"github.com/lalifeier/vgo/app/ums/service/internal/data/ent/accountuser"
-	"github.com/lalifeier/vgo/app/ums/service/internal/data/ent/schema"
+	"github.com/lalifeier/vvgo/app/ums/service/internal/data/ent/accountuser"
+	"github.com/lalifeier/vvgo/app/ums/service/internal/data/ent/schema"
 )
 
 // The init function reads all schema descriptors with runtime code
 // (default values, validators, hooks and policies) and stitches it
 // to their package variables.
 func init() {
-	accountplatformFields := schema.AccountPlatform{}.Fields()
-	_ = accountplatformFields
-	// accountplatformDescUID is the schema descriptor for uid field.
-	accountplatformDescUID := accountplatformFields[1].Descriptor()
-	// accountplatform.DefaultUID holds the default value on creation for the uid field.
-	accountplatform.DefaultUID = accountplatformDescUID.Default.(int32)
-	// accountplatformDescPlatformID is the schema descriptor for platform_id field.
-	accountplatformDescPlatformID := accountplatformFields[2].Descriptor()
-	// accountplatform.DefaultPlatformID holds the default value on creation for the platform_id field.
-	accountplatform.DefaultPlatformID = accountplatformDescPlatformID.Default.(string)
-	// accountplatformDescPlatformToken is the schema descriptor for platform_token field.
-	accountplatformDescPlatformToken := accountplatformFields[3].Descriptor()
-	// accountplatform.DefaultPlatformToken holds the default value on creation for the platform_token field.
-	accountplatform.DefaultPlatformToken = accountplatformDescPlatformToken.Default.(string)
-	// accountplatformDescType is the schema descriptor for type field.
-	accountplatformDescType := accountplatformFields[4].Descriptor()
-	// accountplatform.DefaultType holds the default value on creation for the type field.
-	accountplatform.DefaultType = accountplatformDescType.Default.(int8)
-	// accountplatformDescNickname is the schema descriptor for nickname field.
-	accountplatformDescNickname := accountplatformFields[5].Descriptor()
-	// accountplatform.DefaultNickname holds the default value on creation for the nickname field.
-	accountplatform.DefaultNickname = accountplatformDescNickname.Default.(string)
-	// accountplatformDescAvatar is the schema descriptor for avatar field.
-	accountplatformDescAvatar := accountplatformFields[6].Descriptor()
-	// accountplatform.DefaultAvatar holds the default value on creation for the avatar field.
-	accountplatform.DefaultAvatar = accountplatformDescAvatar.Default.(string)
-	// accountplatformDescCreateAt is the schema descriptor for create_at field.
-	accountplatformDescCreateAt := accountplatformFields[7].Descriptor()
-	// accountplatform.DefaultCreateAt holds the default value on creation for the create_at field.
-	accountplatform.DefaultCreateAt = accountplatformDescCreateAt.Default.(int32)
-	// accountplatformDescUpdateAt is the schema descriptor for update_at field.
-	accountplatformDescUpdateAt := accountplatformFields[8].Descriptor()
-	// accountplatform.DefaultUpdateAt holds the default value on creation for the update_at field.
-	accountplatform.DefaultUpdateAt = accountplatformDescUpdateAt.Default.(int32)
 	accountuserFields := schema.AccountUser{}.Fields()
 	_ = accountuserFields
 	// accountuserDescEmail is the schema descriptor for email field.

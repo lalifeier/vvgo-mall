@@ -4,8 +4,8 @@ import (
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-redis/redis"
 	"github.com/google/wire"
-	"github.com/lalifeier/vgo/app/sms/interface/internal/conf"
-	sms "github.com/lalifeier/vgo/pkg/sms/aliyun"
+	"github.com/lalifeier/vvgo/app/sms/interface/internal/conf"
+	sms "github.com/lalifeier/vvgo/pkg/sms/aliyun"
 )
 
 // ProviderSet is data providers.

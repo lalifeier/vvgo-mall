@@ -8,11 +8,11 @@ package main
 import (
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
-	"github.com/lalifeier/vgo/app/paser/service/internal/biz"
-	"github.com/lalifeier/vgo/app/paser/service/internal/conf"
-	"github.com/lalifeier/vgo/app/paser/service/internal/data"
-	"github.com/lalifeier/vgo/app/paser/service/internal/server"
-	"github.com/lalifeier/vgo/app/paser/service/internal/service"
+	"github.com/lalifeier/vvgo/app/paser/service/internal/biz"
+	"github.com/lalifeier/vvgo/app/paser/service/internal/conf"
+	"github.com/lalifeier/vvgo/app/paser/service/internal/data"
+	"github.com/lalifeier/vvgo/app/paser/service/internal/server"
+	"github.com/lalifeier/vvgo/app/paser/service/internal/service"
 )
 
 // Injectors from wire.go:

@@ -5,10 +5,10 @@ import (
 	"errors"
 
 	"github.com/go-kratos/kratos/v2/log"
-	"github.com/lalifeier/vgo/app/ums/service/internal/biz"
-	"github.com/lalifeier/vgo/app/ums/service/internal/data/ent"
-	"github.com/lalifeier/vgo/app/ums/service/internal/data/ent/accountuser"
-	"github.com/lalifeier/vgo/pkg/util/pagination"
+	"github.com/lalifeier/vvgo/app/ums/service/internal/biz"
+	"github.com/lalifeier/vvgo/app/ums/service/internal/data/ent"
+	"github.com/lalifeier/vvgo/app/ums/service/internal/data/ent/accountuser"
+	"github.com/lalifeier/vvgo/pkg/util/pagination"
 	"github.com/spf13/cast"
 )
 
@@ -102,6 +102,7 @@ func (rp *accountUserRepo) GetAccountUserByEmail(ctx context.Context, email stri
 }
 
 func (rp *accountUserRepo) Create(ctx context.Context, au *biz.AccountUser) (int64, error) {
+
 	create := rp.data.db.AccountUser.Create()
 	if au.Username != "" {
 		create.SetUsername(au.Username)
@@ -159,15 +160,12 @@ func (rp *accountUserRepo) Get(ctx context.Context, id int64) (*biz.AccountUser,
 }
 
 func (rp *accountUserRepo) List(ctx context.Context, req *biz.AccountUserListReq) (*biz.AccountUserListResp, error) {
-
-	query := rp.data.db.AccountUser.Query()
-
-	count, err := query.Count(ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	pos, err := query.Offset(int(pagination.GetPageOffset(req.PageNum, req.PageSize))).
+	// count, err := rp.Count(ctx, req)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	pos, err := rp.data.db.AccountUser.Query().
+		Offset(int(pagination.GetPageOffset(req.PageNum, req.PageSize))).
 		Limit(int(req.PageSize)).
 		All(ctx)
 	if err != nil {
@@ -179,9 +177,17 @@ func (rp *accountUserRepo) List(ctx context.Context, req *biz.AccountUserListReq
 		rv = append(rv, entAccountUser(*po).BizAccountUser())
 	}
 	return &biz.AccountUserListResp{
-		Total:       int64(count),
+		TotalPages:  0,
 		CurrentPage: req.PageNum,
 		PageSize:    req.PageSize,
 		Data:        rv,
 	}, nil
+}
+
+func (rp *accountUserRepo) Count(ctx context.Context, req *biz.AccountUserListReq) (int64, error) {
+	count, err := rp.data.db.AccountUser.Query().Count(ctx)
+	if err != nil {
+		return 0, err
+	}
+	return int64(count), nil
 }

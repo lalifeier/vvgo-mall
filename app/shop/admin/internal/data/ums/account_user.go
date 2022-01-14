@@ -6,9 +6,9 @@ import (
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/jinzhu/copier"
 
-	umsV1 "github.com/lalifeier/vgo/api/ums/service/v1"
-	"github.com/lalifeier/vgo/app/shop/admin/internal/biz/ums"
-	"github.com/lalifeier/vgo/app/shop/admin/internal/data"
+	umsV1 "github.com/lalifeier/vvgo/api/ums/service/v1"
+	"github.com/lalifeier/vvgo/app/shop/admin/internal/biz/ums"
+	"github.com/lalifeier/vvgo/app/shop/admin/internal/data"
 )
 
 var _ ums.AccountUserRepo = (*accountUserRepo)(nil)
@@ -21,12 +21,17 @@ type accountUserRepo struct {
 func NewAccountUserRepo(data *data.Data, logger log.Logger) ums.AccountUserRepo {
 	return &accountUserRepo{
 		data: data,
-		log:  log.NewHelper(log.With(logger, "module", "shop-admin/data/account-user")),
+		log:  log.NewHelper(log.With(logger, "module", "front-admin/data/account-user")),
 	}
 }
 
 func (rp *accountUserRepo) CreateAccountUser(ctx context.Context, au *ums.AccountUser) (int64, error) {
-	resp, err := rp.data.UmsClient.CreateAccountUser(ctx, &umsV1.CreateAccountUserReq{})
+	resp, err := rp.data.UmsClient.CreateAccountUser(ctx, &umsV1.CreateAccountUserReq{
+		Username: au.Username,
+		Password: au.Password,
+		Phone:    au.Phone,
+		Email:    au.Email,
+	})
 	if err != nil {
 		return 0, err
 	}
@@ -34,7 +39,13 @@ func (rp *accountUserRepo) CreateAccountUser(ctx context.Context, au *ums.Accoun
 }
 
 func (rp *accountUserRepo) UpdateAccountUser(ctx context.Context, au *ums.AccountUser) error {
-	_, err := rp.data.UmsClient.UpdateAccountUser(ctx, &umsV1.UpdateAccountUserReq{Id: au.Id})
+	_, err := rp.data.UmsClient.UpdateAccountUser(ctx, &umsV1.UpdateAccountUserReq{
+		Id:       au.Id,
+		Username: au.Username,
+		Password: au.Password,
+		Phone:    au.Phone,
+		Email:    au.Email,
+	})
 	return err
 }
 
@@ -75,7 +86,7 @@ func (rp *accountUserRepo) ListAccountUser(ctx context.Context, au *ums.AccountU
 	}
 
 	return &ums.AccountUserListResp{
-		Total:       resp.Total,
+		TotalPages:  resp.TotalPages,
 		CurrentPage: resp.CurrentPage,
 		PageSize:    resp.PageSize,
 		Data:        accountUsers,

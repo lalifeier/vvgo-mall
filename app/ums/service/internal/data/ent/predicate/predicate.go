@@ -6,8 +6,5 @@ import (
 	"entgo.io/ent/dialect/sql"
 )
 
-// AccountPlatform is the predicate function for accountplatform builders.
-type AccountPlatform func(*sql.Selector)
-
 // AccountUser is the predicate function for accountuser builders.
 type AccountUser func(*sql.Selector)
