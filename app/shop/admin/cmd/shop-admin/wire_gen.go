@@ -9,9 +9,11 @@ package main
 import (
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
+	sys2 "github.com/lalifeier/vvgo/app/shop/admin/internal/biz/sys"
 	ums2 "github.com/lalifeier/vvgo/app/shop/admin/internal/biz/ums"
 	"github.com/lalifeier/vvgo/app/shop/admin/internal/conf"
 	"github.com/lalifeier/vvgo/app/shop/admin/internal/data"
+	"github.com/lalifeier/vvgo/app/shop/admin/internal/data/sys"
 	"github.com/lalifeier/vvgo/app/shop/admin/internal/data/ums"
 	"github.com/lalifeier/vvgo/app/shop/admin/internal/server"
 	"github.com/lalifeier/vvgo/app/shop/admin/internal/service"
@@ -23,15 +25,19 @@ import (
 func initApp(confServer *conf.Server, confData *conf.Data, registry *conf.Registry, logger log.Logger) (*kratos.App, func(), error) {
 	discovery := data.NewDiscovery(registry)
 	umsClient := data.NewUmsServiceClient(discovery)
-	dataData, cleanup, err := data.NewData(confData, logger, umsClient)
+	sysClient := data.NewSysServiceClient(discovery)
+	dataData, cleanup, err := data.NewData(confData, logger, umsClient, sysClient)
 	if err != nil {
 		return nil, nil, err
 	}
 	accountUserRepo := ums.NewAccountUserRepo(dataData, logger)
 	accountUserUsecase := ums2.NewAccountUserUsecase(accountUserRepo, logger)
 	umsService := service.NewUmsService(logger, accountUserUsecase)
-	httpServer := server.NewHTTPServer(confServer, umsService, logger)
-	grpcServer := server.NewGRPCServer(confServer, umsService, logger)
+	dictRepo := sys.NewDictRepo(dataData, logger)
+	dictUsecase := sys2.NewDictUsecase(dictRepo, logger)
+	sysService := service.NewSysService(logger, dictUsecase)
+	httpServer := server.NewHTTPServer(confServer, umsService, sysService, logger)
+	grpcServer := server.NewGRPCServer(confServer, umsService, sysService, logger)
 	registrar := server.NewRegistrar(registry)
 	app := newApp(logger, httpServer, grpcServer, registrar)
 	return app, func() {

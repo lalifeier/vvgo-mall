@@ -7,6 +7,8 @@ import (
 	"github.com/lalifeier/vvgo/app/sys/service/internal/data/ent"
 
 	_ "github.com/go-sql-driver/mysql"
+
+	_ "github.com/lalifeier/vvgo/app/sys/service/internal/data/ent/runtime"
 )
 
 // ProviderSet is data providers.
@@ -50,7 +52,7 @@ type Data struct {
 // }
 
 func NewEntClient(conf *conf.Data, logger log.Logger) *ent.Client {
-	log := log.NewHelper(log.With(logger, "module", "ums-service/data/ent"))
+	log := log.NewHelper(log.With(logger, "module", "sys-service/data/ent"))
 
 	client, err := ent.Open(
 		conf.Database.Driver,
@@ -69,7 +71,7 @@ func NewEntClient(conf *conf.Data, logger log.Logger) *ent.Client {
 
 // NewData .
 func NewData(c *conf.Data, logger log.Logger) (*Data, func(), error) {
-	log := log.NewHelper(log.With(logger, "module", "ums-service/data"))
+	log := log.NewHelper(log.With(logger, "module", "sys-service/data"))
 
 	entClient := NewEntClient(c, logger)
 	d := &Data{

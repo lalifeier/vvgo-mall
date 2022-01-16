@@ -8,3 +8,7 @@ type Query interface {
 func GetPageOffset(pageNum, pageSize int64) int64 {
 	return (pageNum - 1) * pageSize
 }
+
+func GetTotalPages(total, pageSize int64) int64 {
+	return total / pageSize
+}

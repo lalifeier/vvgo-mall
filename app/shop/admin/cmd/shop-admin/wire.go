@@ -12,6 +12,7 @@ import (
 	"github.com/lalifeier/vvgo/app/shop/admin/internal/biz"
 	"github.com/lalifeier/vvgo/app/shop/admin/internal/conf"
 	"github.com/lalifeier/vvgo/app/shop/admin/internal/data"
+	"github.com/lalifeier/vvgo/app/shop/admin/internal/data/sys"
 	"github.com/lalifeier/vvgo/app/shop/admin/internal/data/ums"
 	"github.com/lalifeier/vvgo/app/shop/admin/internal/server"
 	"github.com/lalifeier/vvgo/app/shop/admin/internal/service"
@@ -19,5 +20,5 @@ import (
 
 // initApp init kratos application.
 func initApp(*conf.Server, *conf.Data, *conf.Registry, log.Logger) (*kratos.App, func(), error) {
-	panic(wire.Build(server.ProviderSet, data.ProviderSet, biz.ProviderSet, service.ProviderSet, ums.ProviderSet, newApp))
+	panic(wire.Build(server.ProviderSet, data.ProviderSet, biz.ProviderSet, service.ProviderSet, ums.ProviderSet, sys.ProviderSet, newApp))
 }

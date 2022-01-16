@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"time"
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
@@ -19,9 +20,59 @@ type DictCreate struct {
 	hooks    []Hook
 }
 
-// SetDictTypeID sets the "dict_type_id" field.
-func (dc *DictCreate) SetDictTypeID(i int64) *DictCreate {
-	dc.mutation.SetDictTypeID(i)
+// SetCreateAt sets the "create_at" field.
+func (dc *DictCreate) SetCreateAt(t time.Time) *DictCreate {
+	dc.mutation.SetCreateAt(t)
+	return dc
+}
+
+// SetNillableCreateAt sets the "create_at" field if the given value is not nil.
+func (dc *DictCreate) SetNillableCreateAt(t *time.Time) *DictCreate {
+	if t != nil {
+		dc.SetCreateAt(*t)
+	}
+	return dc
+}
+
+// SetCreateBy sets the "create_by" field.
+func (dc *DictCreate) SetCreateBy(i int64) *DictCreate {
+	dc.mutation.SetCreateBy(i)
+	return dc
+}
+
+// SetNillableCreateBy sets the "create_by" field if the given value is not nil.
+func (dc *DictCreate) SetNillableCreateBy(i *int64) *DictCreate {
+	if i != nil {
+		dc.SetCreateBy(*i)
+	}
+	return dc
+}
+
+// SetUpdateAt sets the "update_at" field.
+func (dc *DictCreate) SetUpdateAt(t time.Time) *DictCreate {
+	dc.mutation.SetUpdateAt(t)
+	return dc
+}
+
+// SetNillableUpdateAt sets the "update_at" field if the given value is not nil.
+func (dc *DictCreate) SetNillableUpdateAt(t *time.Time) *DictCreate {
+	if t != nil {
+		dc.SetUpdateAt(*t)
+	}
+	return dc
+}
+
+// SetUpdateBy sets the "update_by" field.
+func (dc *DictCreate) SetUpdateBy(i int64) *DictCreate {
+	dc.mutation.SetUpdateBy(i)
+	return dc
+}
+
+// SetNillableUpdateBy sets the "update_by" field if the given value is not nil.
+func (dc *DictCreate) SetNillableUpdateBy(i *int64) *DictCreate {
+	if i != nil {
+		dc.SetUpdateBy(*i)
+	}
 	return dc
 }
 
@@ -123,58 +174,16 @@ func (dc *DictCreate) SetNillableIsDefault(i *int8) *DictCreate {
 	return dc
 }
 
-// SetCreateAt sets the "create_at" field.
-func (dc *DictCreate) SetCreateAt(i int32) *DictCreate {
-	dc.mutation.SetCreateAt(i)
+// SetIsDeleted sets the "is_deleted" field.
+func (dc *DictCreate) SetIsDeleted(i int8) *DictCreate {
+	dc.mutation.SetIsDeleted(i)
 	return dc
 }
 
-// SetNillableCreateAt sets the "create_at" field if the given value is not nil.
-func (dc *DictCreate) SetNillableCreateAt(i *int32) *DictCreate {
+// SetNillableIsDeleted sets the "is_deleted" field if the given value is not nil.
+func (dc *DictCreate) SetNillableIsDeleted(i *int8) *DictCreate {
 	if i != nil {
-		dc.SetCreateAt(*i)
-	}
-	return dc
-}
-
-// SetCreateBy sets the "create_by" field.
-func (dc *DictCreate) SetCreateBy(i int32) *DictCreate {
-	dc.mutation.SetCreateBy(i)
-	return dc
-}
-
-// SetNillableCreateBy sets the "create_by" field if the given value is not nil.
-func (dc *DictCreate) SetNillableCreateBy(i *int32) *DictCreate {
-	if i != nil {
-		dc.SetCreateBy(*i)
-	}
-	return dc
-}
-
-// SetUpdateAt sets the "update_at" field.
-func (dc *DictCreate) SetUpdateAt(i int32) *DictCreate {
-	dc.mutation.SetUpdateAt(i)
-	return dc
-}
-
-// SetNillableUpdateAt sets the "update_at" field if the given value is not nil.
-func (dc *DictCreate) SetNillableUpdateAt(i *int32) *DictCreate {
-	if i != nil {
-		dc.SetUpdateAt(*i)
-	}
-	return dc
-}
-
-// SetUpdateBy sets the "update_by" field.
-func (dc *DictCreate) SetUpdateBy(i int32) *DictCreate {
-	dc.mutation.SetUpdateBy(i)
-	return dc
-}
-
-// SetNillableUpdateBy sets the "update_by" field if the given value is not nil.
-func (dc *DictCreate) SetNillableUpdateBy(i *int32) *DictCreate {
-	if i != nil {
-		dc.SetUpdateBy(*i)
+		dc.SetIsDeleted(*i)
 	}
 	return dc
 }
@@ -196,7 +205,9 @@ func (dc *DictCreate) Save(ctx context.Context) (*Dict, error) {
 		err  error
 		node *Dict
 	)
-	dc.defaults()
+	if err := dc.defaults(); err != nil {
+		return nil, err
+	}
 	if len(dc.hooks) == 0 {
 		if err = dc.check(); err != nil {
 			return nil, err
@@ -255,7 +266,29 @@ func (dc *DictCreate) ExecX(ctx context.Context) {
 }
 
 // defaults sets the default values of the builder before save.
-func (dc *DictCreate) defaults() {
+func (dc *DictCreate) defaults() error {
+	if _, ok := dc.mutation.CreateAt(); !ok {
+		if dict.DefaultCreateAt == nil {
+			return fmt.Errorf("ent: uninitialized dict.DefaultCreateAt (forgotten import ent/runtime?)")
+		}
+		v := dict.DefaultCreateAt()
+		dc.mutation.SetCreateAt(v)
+	}
+	if _, ok := dc.mutation.CreateBy(); !ok {
+		v := dict.DefaultCreateBy
+		dc.mutation.SetCreateBy(v)
+	}
+	if _, ok := dc.mutation.UpdateAt(); !ok {
+		if dict.DefaultUpdateAt == nil {
+			return fmt.Errorf("ent: uninitialized dict.DefaultUpdateAt (forgotten import ent/runtime?)")
+		}
+		v := dict.DefaultUpdateAt()
+		dc.mutation.SetUpdateAt(v)
+	}
+	if _, ok := dc.mutation.UpdateBy(); !ok {
+		v := dict.DefaultUpdateBy
+		dc.mutation.SetUpdateBy(v)
+	}
 	if _, ok := dc.mutation.GetType(); !ok {
 		v := dict.DefaultType
 		dc.mutation.SetType(v)
@@ -284,61 +317,50 @@ func (dc *DictCreate) defaults() {
 		v := dict.DefaultIsDefault
 		dc.mutation.SetIsDefault(v)
 	}
-	if _, ok := dc.mutation.CreateAt(); !ok {
-		v := dict.DefaultCreateAt
-		dc.mutation.SetCreateAt(v)
+	if _, ok := dc.mutation.IsDeleted(); !ok {
+		v := dict.DefaultIsDeleted
+		dc.mutation.SetIsDeleted(v)
 	}
-	if _, ok := dc.mutation.CreateBy(); !ok {
-		v := dict.DefaultCreateBy
-		dc.mutation.SetCreateBy(v)
-	}
-	if _, ok := dc.mutation.UpdateAt(); !ok {
-		v := dict.DefaultUpdateAt
-		dc.mutation.SetUpdateAt(v)
-	}
-	if _, ok := dc.mutation.UpdateBy(); !ok {
-		v := dict.DefaultUpdateBy
-		dc.mutation.SetUpdateBy(v)
-	}
+	return nil
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (dc *DictCreate) check() error {
-	if _, ok := dc.mutation.DictTypeID(); !ok {
-		return &ValidationError{Name: "dict_type_id", err: errors.New(`ent: missing required field "dict_type_id"`)}
-	}
-	if _, ok := dc.mutation.GetType(); !ok {
-		return &ValidationError{Name: "type", err: errors.New(`ent: missing required field "type"`)}
-	}
-	if _, ok := dc.mutation.Label(); !ok {
-		return &ValidationError{Name: "label", err: errors.New(`ent: missing required field "label"`)}
-	}
-	if _, ok := dc.mutation.Value(); !ok {
-		return &ValidationError{Name: "value", err: errors.New(`ent: missing required field "value"`)}
-	}
-	if _, ok := dc.mutation.Status(); !ok {
-		return &ValidationError{Name: "status", err: errors.New(`ent: missing required field "status"`)}
-	}
-	if _, ok := dc.mutation.Remark(); !ok {
-		return &ValidationError{Name: "remark", err: errors.New(`ent: missing required field "remark"`)}
-	}
-	if _, ok := dc.mutation.Sort(); !ok {
-		return &ValidationError{Name: "sort", err: errors.New(`ent: missing required field "sort"`)}
-	}
-	if _, ok := dc.mutation.IsDefault(); !ok {
-		return &ValidationError{Name: "is_default", err: errors.New(`ent: missing required field "is_default"`)}
-	}
 	if _, ok := dc.mutation.CreateAt(); !ok {
-		return &ValidationError{Name: "create_at", err: errors.New(`ent: missing required field "create_at"`)}
+		return &ValidationError{Name: "create_at", err: errors.New(`ent: missing required field "Dict.create_at"`)}
 	}
 	if _, ok := dc.mutation.CreateBy(); !ok {
-		return &ValidationError{Name: "create_by", err: errors.New(`ent: missing required field "create_by"`)}
+		return &ValidationError{Name: "create_by", err: errors.New(`ent: missing required field "Dict.create_by"`)}
 	}
 	if _, ok := dc.mutation.UpdateAt(); !ok {
-		return &ValidationError{Name: "update_at", err: errors.New(`ent: missing required field "update_at"`)}
+		return &ValidationError{Name: "update_at", err: errors.New(`ent: missing required field "Dict.update_at"`)}
 	}
 	if _, ok := dc.mutation.UpdateBy(); !ok {
-		return &ValidationError{Name: "update_by", err: errors.New(`ent: missing required field "update_by"`)}
+		return &ValidationError{Name: "update_by", err: errors.New(`ent: missing required field "Dict.update_by"`)}
+	}
+	if _, ok := dc.mutation.GetType(); !ok {
+		return &ValidationError{Name: "type", err: errors.New(`ent: missing required field "Dict.type"`)}
+	}
+	if _, ok := dc.mutation.Label(); !ok {
+		return &ValidationError{Name: "label", err: errors.New(`ent: missing required field "Dict.label"`)}
+	}
+	if _, ok := dc.mutation.Value(); !ok {
+		return &ValidationError{Name: "value", err: errors.New(`ent: missing required field "Dict.value"`)}
+	}
+	if _, ok := dc.mutation.Status(); !ok {
+		return &ValidationError{Name: "status", err: errors.New(`ent: missing required field "Dict.status"`)}
+	}
+	if _, ok := dc.mutation.Remark(); !ok {
+		return &ValidationError{Name: "remark", err: errors.New(`ent: missing required field "Dict.remark"`)}
+	}
+	if _, ok := dc.mutation.Sort(); !ok {
+		return &ValidationError{Name: "sort", err: errors.New(`ent: missing required field "Dict.sort"`)}
+	}
+	if _, ok := dc.mutation.IsDefault(); !ok {
+		return &ValidationError{Name: "is_default", err: errors.New(`ent: missing required field "Dict.is_default"`)}
+	}
+	if _, ok := dc.mutation.IsDeleted(); !ok {
+		return &ValidationError{Name: "is_deleted", err: errors.New(`ent: missing required field "Dict.is_deleted"`)}
 	}
 	return nil
 }
@@ -373,13 +395,37 @@ func (dc *DictCreate) createSpec() (*Dict, *sqlgraph.CreateSpec) {
 		_node.ID = id
 		_spec.ID.Value = id
 	}
-	if value, ok := dc.mutation.DictTypeID(); ok {
+	if value, ok := dc.mutation.CreateAt(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeTime,
+			Value:  value,
+			Column: dict.FieldCreateAt,
+		})
+		_node.CreateAt = value
+	}
+	if value, ok := dc.mutation.CreateBy(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: dict.FieldDictTypeID,
+			Column: dict.FieldCreateBy,
 		})
-		_node.DictTypeID = value
+		_node.CreateBy = value
+	}
+	if value, ok := dc.mutation.UpdateAt(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeTime,
+			Value:  value,
+			Column: dict.FieldUpdateAt,
+		})
+		_node.UpdateAt = value
+	}
+	if value, ok := dc.mutation.UpdateBy(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: dict.FieldUpdateBy,
+		})
+		_node.UpdateBy = value
 	}
 	if value, ok := dc.mutation.GetType(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -437,37 +483,13 @@ func (dc *DictCreate) createSpec() (*Dict, *sqlgraph.CreateSpec) {
 		})
 		_node.IsDefault = value
 	}
-	if value, ok := dc.mutation.CreateAt(); ok {
+	if value, ok := dc.mutation.IsDeleted(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
+			Type:   field.TypeInt8,
 			Value:  value,
-			Column: dict.FieldCreateAt,
+			Column: dict.FieldIsDeleted,
 		})
-		_node.CreateAt = value
-	}
-	if value, ok := dc.mutation.CreateBy(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
-			Value:  value,
-			Column: dict.FieldCreateBy,
-		})
-		_node.CreateBy = value
-	}
-	if value, ok := dc.mutation.UpdateAt(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
-			Value:  value,
-			Column: dict.FieldUpdateAt,
-		})
-		_node.UpdateAt = value
-	}
-	if value, ok := dc.mutation.UpdateBy(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
-			Value:  value,
-			Column: dict.FieldUpdateBy,
-		})
-		_node.UpdateBy = value
+		_node.IsDeleted = value
 	}
 	return _node, _spec
 }

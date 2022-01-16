@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.14.0
-// source: v1/sys.proto
+// source: v1/sys_admin.proto
 
 package v1
 
@@ -26,9 +26,9 @@ type SysClient interface {
 	CreateDict(ctx context.Context, in *CreateDictReq, opts ...grpc.CallOption) (*CreateDictResp, error)
 	UpdateDict(ctx context.Context, in *UpdateDictReq, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteDict(ctx context.Context, in *DeleteDictReq, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	GetDict(ctx context.Context, in *GetDictReq, opts ...grpc.CallOption) (*GetDictResp, error)
 	ListDict(ctx context.Context, in *ListDictReq, opts ...grpc.CallOption) (*ListDictResp, error)
 	PageListDict(ctx context.Context, in *PageListDictReq, opts ...grpc.CallOption) (*PageListDictResp, error)
+	GetDict(ctx context.Context, in *GetDictReq, opts ...grpc.CallOption) (*GetDictResp, error)
 }
 
 type sysClient struct {
@@ -41,7 +41,7 @@ func NewSysClient(cc grpc.ClientConnInterface) SysClient {
 
 func (c *sysClient) CreateDict(ctx context.Context, in *CreateDictReq, opts ...grpc.CallOption) (*CreateDictResp, error) {
 	out := new(CreateDictResp)
-	err := c.cc.Invoke(ctx, "/api.sys.service.v1.Sys/CreateDict", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Sys/CreateDict", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -50,7 +50,7 @@ func (c *sysClient) CreateDict(ctx context.Context, in *CreateDictReq, opts ...g
 
 func (c *sysClient) UpdateDict(ctx context.Context, in *UpdateDictReq, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/api.sys.service.v1.Sys/UpdateDict", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Sys/UpdateDict", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -59,16 +59,7 @@ func (c *sysClient) UpdateDict(ctx context.Context, in *UpdateDictReq, opts ...g
 
 func (c *sysClient) DeleteDict(ctx context.Context, in *DeleteDictReq, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/api.sys.service.v1.Sys/DeleteDict", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *sysClient) GetDict(ctx context.Context, in *GetDictReq, opts ...grpc.CallOption) (*GetDictResp, error) {
-	out := new(GetDictResp)
-	err := c.cc.Invoke(ctx, "/api.sys.service.v1.Sys/GetDict", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Sys/DeleteDict", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -77,7 +68,7 @@ func (c *sysClient) GetDict(ctx context.Context, in *GetDictReq, opts ...grpc.Ca
 
 func (c *sysClient) ListDict(ctx context.Context, in *ListDictReq, opts ...grpc.CallOption) (*ListDictResp, error) {
 	out := new(ListDictResp)
-	err := c.cc.Invoke(ctx, "/api.sys.service.v1.Sys/ListDict", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Sys/ListDict", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -86,7 +77,16 @@ func (c *sysClient) ListDict(ctx context.Context, in *ListDictReq, opts ...grpc.
 
 func (c *sysClient) PageListDict(ctx context.Context, in *PageListDictReq, opts ...grpc.CallOption) (*PageListDictResp, error) {
 	out := new(PageListDictResp)
-	err := c.cc.Invoke(ctx, "/api.sys.service.v1.Sys/PageListDict", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Sys/PageListDict", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *sysClient) GetDict(ctx context.Context, in *GetDictReq, opts ...grpc.CallOption) (*GetDictResp, error) {
+	out := new(GetDictResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Sys/GetDict", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -100,9 +100,9 @@ type SysServer interface {
 	CreateDict(context.Context, *CreateDictReq) (*CreateDictResp, error)
 	UpdateDict(context.Context, *UpdateDictReq) (*emptypb.Empty, error)
 	DeleteDict(context.Context, *DeleteDictReq) (*emptypb.Empty, error)
-	GetDict(context.Context, *GetDictReq) (*GetDictResp, error)
 	ListDict(context.Context, *ListDictReq) (*ListDictResp, error)
 	PageListDict(context.Context, *PageListDictReq) (*PageListDictResp, error)
+	GetDict(context.Context, *GetDictReq) (*GetDictResp, error)
 	mustEmbedUnimplementedSysServer()
 }
 
@@ -119,14 +119,14 @@ func (UnimplementedSysServer) UpdateDict(context.Context, *UpdateDictReq) (*empt
 func (UnimplementedSysServer) DeleteDict(context.Context, *DeleteDictReq) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDict not implemented")
 }
-func (UnimplementedSysServer) GetDict(context.Context, *GetDictReq) (*GetDictResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetDict not implemented")
-}
 func (UnimplementedSysServer) ListDict(context.Context, *ListDictReq) (*ListDictResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListDict not implemented")
 }
 func (UnimplementedSysServer) PageListDict(context.Context, *PageListDictReq) (*PageListDictResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PageListDict not implemented")
+}
+func (UnimplementedSysServer) GetDict(context.Context, *GetDictReq) (*GetDictResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDict not implemented")
 }
 func (UnimplementedSysServer) mustEmbedUnimplementedSysServer() {}
 
@@ -151,7 +151,7 @@ func _Sys_CreateDict_Handler(srv interface{}, ctx context.Context, dec func(inte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.sys.service.v1.Sys/CreateDict",
+		FullMethod: "/api.shop.admin.v1.Sys/CreateDict",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SysServer).CreateDict(ctx, req.(*CreateDictReq))
@@ -169,7 +169,7 @@ func _Sys_UpdateDict_Handler(srv interface{}, ctx context.Context, dec func(inte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.sys.service.v1.Sys/UpdateDict",
+		FullMethod: "/api.shop.admin.v1.Sys/UpdateDict",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SysServer).UpdateDict(ctx, req.(*UpdateDictReq))
@@ -187,28 +187,10 @@ func _Sys_DeleteDict_Handler(srv interface{}, ctx context.Context, dec func(inte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.sys.service.v1.Sys/DeleteDict",
+		FullMethod: "/api.shop.admin.v1.Sys/DeleteDict",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SysServer).DeleteDict(ctx, req.(*DeleteDictReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Sys_GetDict_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetDictReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SysServer).GetDict(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.sys.service.v1.Sys/GetDict",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SysServer).GetDict(ctx, req.(*GetDictReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -223,7 +205,7 @@ func _Sys_ListDict_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.sys.service.v1.Sys/ListDict",
+		FullMethod: "/api.shop.admin.v1.Sys/ListDict",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SysServer).ListDict(ctx, req.(*ListDictReq))
@@ -241,10 +223,28 @@ func _Sys_PageListDict_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.sys.service.v1.Sys/PageListDict",
+		FullMethod: "/api.shop.admin.v1.Sys/PageListDict",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SysServer).PageListDict(ctx, req.(*PageListDictReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Sys_GetDict_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDictReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SysServer).GetDict(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Sys/GetDict",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SysServer).GetDict(ctx, req.(*GetDictReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -253,7 +253,7 @@ func _Sys_PageListDict_Handler(srv interface{}, ctx context.Context, dec func(in
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Sys_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.sys.service.v1.Sys",
+	ServiceName: "api.shop.admin.v1.Sys",
 	HandlerType: (*SysServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -269,10 +269,6 @@ var Sys_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Sys_DeleteDict_Handler,
 		},
 		{
-			MethodName: "GetDict",
-			Handler:    _Sys_GetDict_Handler,
-		},
-		{
 			MethodName: "ListDict",
 			Handler:    _Sys_ListDict_Handler,
 		},
@@ -280,7 +276,11 @@ var Sys_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "PageListDict",
 			Handler:    _Sys_PageListDict_Handler,
 		},
+		{
+			MethodName: "GetDict",
+			Handler:    _Sys_GetDict_Handler,
+		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "v1/sys.proto",
+	Metadata: "v1/sys_admin.proto",
 }

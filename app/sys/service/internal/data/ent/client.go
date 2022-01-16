@@ -208,5 +208,6 @@ func (c *DictClient) GetX(ctx context.Context, id int64) *Dict {
 
 // Hooks returns the client hooks.
 func (c *DictClient) Hooks() []Hook {
-	return c.hooks.Dict
+	hooks := c.hooks.Dict
+	return append(hooks[:len(hooks):len(hooks)], dict.Hooks[:]...)
 }

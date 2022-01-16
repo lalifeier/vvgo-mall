@@ -5,6 +5,7 @@ package ent
 import (
 	"fmt"
 	"strings"
+	"time"
 
 	"entgo.io/ent/dialect/sql"
 	"github.com/lalifeier/vvgo/app/sys/service/internal/data/ent/dict"
@@ -16,9 +17,18 @@ type Dict struct {
 	// ID of the ent.
 	// 字典数据id
 	ID int64 `json:"id,omitempty"`
-	// DictTypeID holds the value of the "dict_type_id" field.
-	// 字典类型id
-	DictTypeID int64 `json:"dict_type_id,omitempty"`
+	// CreateAt holds the value of the "create_at" field.
+	// 创建时间
+	CreateAt time.Time `json:"create_at,omitempty"`
+	// CreateBy holds the value of the "create_by" field.
+	// 更新人
+	CreateBy int64 `json:"create_by,omitempty"`
+	// UpdateAt holds the value of the "update_at" field.
+	// 更新时间
+	UpdateAt time.Time `json:"update_at,omitempty"`
+	// UpdateBy holds the value of the "update_by" field.
+	// 更新人
+	UpdateBy int64 `json:"update_by,omitempty"`
 	// Type holds the value of the "type" field.
 	// 字典类型
 	Type string `json:"type,omitempty"`
@@ -40,18 +50,9 @@ type Dict struct {
 	// IsDefault holds the value of the "is_default" field.
 	// 是否默认值 0:否 1:是
 	IsDefault int8 `json:"is_default,omitempty"`
-	// CreateAt holds the value of the "create_at" field.
-	// 创建时间
-	CreateAt int32 `json:"create_at,omitempty"`
-	// CreateBy holds the value of the "create_by" field.
-	// 更新人
-	CreateBy int32 `json:"create_by,omitempty"`
-	// UpdateAt holds the value of the "update_at" field.
-	// 更新时间
-	UpdateAt int32 `json:"update_at,omitempty"`
-	// UpdateBy holds the value of the "update_by" field.
-	// 更新人
-	UpdateBy int32 `json:"update_by,omitempty"`
+	// IsDeleted holds the value of the "is_deleted" field.
+	// 是否删除 0:否 1:是
+	IsDeleted int8 `json:"is_deleted,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -59,10 +60,12 @@ func (*Dict) scanValues(columns []string) ([]interface{}, error) {
 	values := make([]interface{}, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case dict.FieldID, dict.FieldDictTypeID, dict.FieldStatus, dict.FieldSort, dict.FieldIsDefault, dict.FieldCreateAt, dict.FieldCreateBy, dict.FieldUpdateAt, dict.FieldUpdateBy:
+		case dict.FieldID, dict.FieldCreateBy, dict.FieldUpdateBy, dict.FieldStatus, dict.FieldSort, dict.FieldIsDefault, dict.FieldIsDeleted:
 			values[i] = new(sql.NullInt64)
 		case dict.FieldType, dict.FieldLabel, dict.FieldValue, dict.FieldRemark:
 			values[i] = new(sql.NullString)
+		case dict.FieldCreateAt, dict.FieldUpdateAt:
+			values[i] = new(sql.NullTime)
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type Dict", columns[i])
 		}
@@ -84,11 +87,29 @@ func (d *Dict) assignValues(columns []string, values []interface{}) error {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
 			d.ID = int64(value.Int64)
-		case dict.FieldDictTypeID:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field dict_type_id", values[i])
+		case dict.FieldCreateAt:
+			if value, ok := values[i].(*sql.NullTime); !ok {
+				return fmt.Errorf("unexpected type %T for field create_at", values[i])
 			} else if value.Valid {
-				d.DictTypeID = value.Int64
+				d.CreateAt = value.Time
+			}
+		case dict.FieldCreateBy:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field create_by", values[i])
+			} else if value.Valid {
+				d.CreateBy = value.Int64
+			}
+		case dict.FieldUpdateAt:
+			if value, ok := values[i].(*sql.NullTime); !ok {
+				return fmt.Errorf("unexpected type %T for field update_at", values[i])
+			} else if value.Valid {
+				d.UpdateAt = value.Time
+			}
+		case dict.FieldUpdateBy:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field update_by", values[i])
+			} else if value.Valid {
+				d.UpdateBy = value.Int64
 			}
 		case dict.FieldType:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -132,29 +153,11 @@ func (d *Dict) assignValues(columns []string, values []interface{}) error {
 			} else if value.Valid {
 				d.IsDefault = int8(value.Int64)
 			}
-		case dict.FieldCreateAt:
+		case dict.FieldIsDeleted:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field create_at", values[i])
+				return fmt.Errorf("unexpected type %T for field is_deleted", values[i])
 			} else if value.Valid {
-				d.CreateAt = int32(value.Int64)
-			}
-		case dict.FieldCreateBy:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field create_by", values[i])
-			} else if value.Valid {
-				d.CreateBy = int32(value.Int64)
-			}
-		case dict.FieldUpdateAt:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field update_at", values[i])
-			} else if value.Valid {
-				d.UpdateAt = int32(value.Int64)
-			}
-		case dict.FieldUpdateBy:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field update_by", values[i])
-			} else if value.Valid {
-				d.UpdateBy = int32(value.Int64)
+				d.IsDeleted = int8(value.Int64)
 			}
 		}
 	}
@@ -184,8 +187,14 @@ func (d *Dict) String() string {
 	var builder strings.Builder
 	builder.WriteString("Dict(")
 	builder.WriteString(fmt.Sprintf("id=%v", d.ID))
-	builder.WriteString(", dict_type_id=")
-	builder.WriteString(fmt.Sprintf("%v", d.DictTypeID))
+	builder.WriteString(", create_at=")
+	builder.WriteString(d.CreateAt.Format(time.ANSIC))
+	builder.WriteString(", create_by=")
+	builder.WriteString(fmt.Sprintf("%v", d.CreateBy))
+	builder.WriteString(", update_at=")
+	builder.WriteString(d.UpdateAt.Format(time.ANSIC))
+	builder.WriteString(", update_by=")
+	builder.WriteString(fmt.Sprintf("%v", d.UpdateBy))
 	builder.WriteString(", type=")
 	builder.WriteString(d.Type)
 	builder.WriteString(", label=")
@@ -200,14 +209,8 @@ func (d *Dict) String() string {
 	builder.WriteString(fmt.Sprintf("%v", d.Sort))
 	builder.WriteString(", is_default=")
 	builder.WriteString(fmt.Sprintf("%v", d.IsDefault))
-	builder.WriteString(", create_at=")
-	builder.WriteString(fmt.Sprintf("%v", d.CreateAt))
-	builder.WriteString(", create_by=")
-	builder.WriteString(fmt.Sprintf("%v", d.CreateBy))
-	builder.WriteString(", update_at=")
-	builder.WriteString(fmt.Sprintf("%v", d.UpdateAt))
-	builder.WriteString(", update_by=")
-	builder.WriteString(fmt.Sprintf("%v", d.UpdateBy))
+	builder.WriteString(", is_deleted=")
+	builder.WriteString(fmt.Sprintf("%v", d.IsDeleted))
 	builder.WriteByte(')')
 	return builder.String()
 }

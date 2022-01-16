@@ -4,7 +4,9 @@ package ent
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"time"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
@@ -26,16 +28,65 @@ func (du *DictUpdate) Where(ps ...predicate.Dict) *DictUpdate {
 	return du
 }
 
-// SetDictTypeID sets the "dict_type_id" field.
-func (du *DictUpdate) SetDictTypeID(i int64) *DictUpdate {
-	du.mutation.ResetDictTypeID()
-	du.mutation.SetDictTypeID(i)
+// SetCreateAt sets the "create_at" field.
+func (du *DictUpdate) SetCreateAt(t time.Time) *DictUpdate {
+	du.mutation.SetCreateAt(t)
 	return du
 }
 
-// AddDictTypeID adds i to the "dict_type_id" field.
-func (du *DictUpdate) AddDictTypeID(i int64) *DictUpdate {
-	du.mutation.AddDictTypeID(i)
+// SetNillableCreateAt sets the "create_at" field if the given value is not nil.
+func (du *DictUpdate) SetNillableCreateAt(t *time.Time) *DictUpdate {
+	if t != nil {
+		du.SetCreateAt(*t)
+	}
+	return du
+}
+
+// SetCreateBy sets the "create_by" field.
+func (du *DictUpdate) SetCreateBy(i int64) *DictUpdate {
+	du.mutation.ResetCreateBy()
+	du.mutation.SetCreateBy(i)
+	return du
+}
+
+// SetNillableCreateBy sets the "create_by" field if the given value is not nil.
+func (du *DictUpdate) SetNillableCreateBy(i *int64) *DictUpdate {
+	if i != nil {
+		du.SetCreateBy(*i)
+	}
+	return du
+}
+
+// AddCreateBy adds i to the "create_by" field.
+func (du *DictUpdate) AddCreateBy(i int64) *DictUpdate {
+	du.mutation.AddCreateBy(i)
+	return du
+}
+
+// SetUpdateAt sets the "update_at" field.
+func (du *DictUpdate) SetUpdateAt(t time.Time) *DictUpdate {
+	du.mutation.SetUpdateAt(t)
+	return du
+}
+
+// SetUpdateBy sets the "update_by" field.
+func (du *DictUpdate) SetUpdateBy(i int64) *DictUpdate {
+	du.mutation.ResetUpdateBy()
+	du.mutation.SetUpdateBy(i)
+	return du
+}
+
+// SetNillableUpdateBy sets the "update_by" field if the given value is not nil.
+func (du *DictUpdate) SetNillableUpdateBy(i *int64) *DictUpdate {
+	if i != nil {
+		du.SetUpdateBy(*i)
+	}
+	return du
+}
+
+// AddUpdateBy adds i to the "update_by" field.
+func (du *DictUpdate) AddUpdateBy(i int64) *DictUpdate {
+	du.mutation.AddUpdateBy(i)
 	return du
 }
 
@@ -158,87 +209,24 @@ func (du *DictUpdate) AddIsDefault(i int8) *DictUpdate {
 	return du
 }
 
-// SetCreateAt sets the "create_at" field.
-func (du *DictUpdate) SetCreateAt(i int32) *DictUpdate {
-	du.mutation.ResetCreateAt()
-	du.mutation.SetCreateAt(i)
+// SetIsDeleted sets the "is_deleted" field.
+func (du *DictUpdate) SetIsDeleted(i int8) *DictUpdate {
+	du.mutation.ResetIsDeleted()
+	du.mutation.SetIsDeleted(i)
 	return du
 }
 
-// SetNillableCreateAt sets the "create_at" field if the given value is not nil.
-func (du *DictUpdate) SetNillableCreateAt(i *int32) *DictUpdate {
+// SetNillableIsDeleted sets the "is_deleted" field if the given value is not nil.
+func (du *DictUpdate) SetNillableIsDeleted(i *int8) *DictUpdate {
 	if i != nil {
-		du.SetCreateAt(*i)
+		du.SetIsDeleted(*i)
 	}
 	return du
 }
 
-// AddCreateAt adds i to the "create_at" field.
-func (du *DictUpdate) AddCreateAt(i int32) *DictUpdate {
-	du.mutation.AddCreateAt(i)
-	return du
-}
-
-// SetCreateBy sets the "create_by" field.
-func (du *DictUpdate) SetCreateBy(i int32) *DictUpdate {
-	du.mutation.ResetCreateBy()
-	du.mutation.SetCreateBy(i)
-	return du
-}
-
-// SetNillableCreateBy sets the "create_by" field if the given value is not nil.
-func (du *DictUpdate) SetNillableCreateBy(i *int32) *DictUpdate {
-	if i != nil {
-		du.SetCreateBy(*i)
-	}
-	return du
-}
-
-// AddCreateBy adds i to the "create_by" field.
-func (du *DictUpdate) AddCreateBy(i int32) *DictUpdate {
-	du.mutation.AddCreateBy(i)
-	return du
-}
-
-// SetUpdateAt sets the "update_at" field.
-func (du *DictUpdate) SetUpdateAt(i int32) *DictUpdate {
-	du.mutation.ResetUpdateAt()
-	du.mutation.SetUpdateAt(i)
-	return du
-}
-
-// SetNillableUpdateAt sets the "update_at" field if the given value is not nil.
-func (du *DictUpdate) SetNillableUpdateAt(i *int32) *DictUpdate {
-	if i != nil {
-		du.SetUpdateAt(*i)
-	}
-	return du
-}
-
-// AddUpdateAt adds i to the "update_at" field.
-func (du *DictUpdate) AddUpdateAt(i int32) *DictUpdate {
-	du.mutation.AddUpdateAt(i)
-	return du
-}
-
-// SetUpdateBy sets the "update_by" field.
-func (du *DictUpdate) SetUpdateBy(i int32) *DictUpdate {
-	du.mutation.ResetUpdateBy()
-	du.mutation.SetUpdateBy(i)
-	return du
-}
-
-// SetNillableUpdateBy sets the "update_by" field if the given value is not nil.
-func (du *DictUpdate) SetNillableUpdateBy(i *int32) *DictUpdate {
-	if i != nil {
-		du.SetUpdateBy(*i)
-	}
-	return du
-}
-
-// AddUpdateBy adds i to the "update_by" field.
-func (du *DictUpdate) AddUpdateBy(i int32) *DictUpdate {
-	du.mutation.AddUpdateBy(i)
+// AddIsDeleted adds i to the "is_deleted" field.
+func (du *DictUpdate) AddIsDeleted(i int8) *DictUpdate {
+	du.mutation.AddIsDeleted(i)
 	return du
 }
 
@@ -253,6 +241,9 @@ func (du *DictUpdate) Save(ctx context.Context) (int, error) {
 		err      error
 		affected int
 	)
+	if err := du.defaults(); err != nil {
+		return 0, err
+	}
 	if len(du.hooks) == 0 {
 		affected, err = du.sqlSave(ctx)
 	} else {
@@ -301,6 +292,18 @@ func (du *DictUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (du *DictUpdate) defaults() error {
+	if _, ok := du.mutation.UpdateAt(); !ok {
+		if dict.UpdateDefaultUpdateAt == nil {
+			return fmt.Errorf("ent: uninitialized dict.UpdateDefaultUpdateAt (forgotten import ent/runtime?)")
+		}
+		v := dict.UpdateDefaultUpdateAt()
+		du.mutation.SetUpdateAt(v)
+	}
+	return nil
+}
+
 func (du *DictUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	_spec := &sqlgraph.UpdateSpec{
 		Node: &sqlgraph.NodeSpec{
@@ -319,18 +322,46 @@ func (du *DictUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
-	if value, ok := du.mutation.DictTypeID(); ok {
+	if value, ok := du.mutation.CreateAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeTime,
+			Value:  value,
+			Column: dict.FieldCreateAt,
+		})
+	}
+	if value, ok := du.mutation.CreateBy(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: dict.FieldDictTypeID,
+			Column: dict.FieldCreateBy,
 		})
 	}
-	if value, ok := du.mutation.AddedDictTypeID(); ok {
+	if value, ok := du.mutation.AddedCreateBy(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: dict.FieldDictTypeID,
+			Column: dict.FieldCreateBy,
+		})
+	}
+	if value, ok := du.mutation.UpdateAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeTime,
+			Value:  value,
+			Column: dict.FieldUpdateAt,
+		})
+	}
+	if value, ok := du.mutation.UpdateBy(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: dict.FieldUpdateBy,
+		})
+	}
+	if value, ok := du.mutation.AddedUpdateBy(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: dict.FieldUpdateBy,
 		})
 	}
 	if value, ok := du.mutation.GetType(); ok {
@@ -403,60 +434,18 @@ func (du *DictUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: dict.FieldIsDefault,
 		})
 	}
-	if value, ok := du.mutation.CreateAt(); ok {
+	if value, ok := du.mutation.IsDeleted(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
+			Type:   field.TypeInt8,
 			Value:  value,
-			Column: dict.FieldCreateAt,
+			Column: dict.FieldIsDeleted,
 		})
 	}
-	if value, ok := du.mutation.AddedCreateAt(); ok {
+	if value, ok := du.mutation.AddedIsDeleted(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
+			Type:   field.TypeInt8,
 			Value:  value,
-			Column: dict.FieldCreateAt,
-		})
-	}
-	if value, ok := du.mutation.CreateBy(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
-			Value:  value,
-			Column: dict.FieldCreateBy,
-		})
-	}
-	if value, ok := du.mutation.AddedCreateBy(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
-			Value:  value,
-			Column: dict.FieldCreateBy,
-		})
-	}
-	if value, ok := du.mutation.UpdateAt(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
-			Value:  value,
-			Column: dict.FieldUpdateAt,
-		})
-	}
-	if value, ok := du.mutation.AddedUpdateAt(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
-			Value:  value,
-			Column: dict.FieldUpdateAt,
-		})
-	}
-	if value, ok := du.mutation.UpdateBy(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
-			Value:  value,
-			Column: dict.FieldUpdateBy,
-		})
-	}
-	if value, ok := du.mutation.AddedUpdateBy(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
-			Value:  value,
-			Column: dict.FieldUpdateBy,
+			Column: dict.FieldIsDeleted,
 		})
 	}
 	if n, err = sqlgraph.UpdateNodes(ctx, du.driver, _spec); err != nil {
@@ -478,16 +467,65 @@ type DictUpdateOne struct {
 	mutation *DictMutation
 }
 
-// SetDictTypeID sets the "dict_type_id" field.
-func (duo *DictUpdateOne) SetDictTypeID(i int64) *DictUpdateOne {
-	duo.mutation.ResetDictTypeID()
-	duo.mutation.SetDictTypeID(i)
+// SetCreateAt sets the "create_at" field.
+func (duo *DictUpdateOne) SetCreateAt(t time.Time) *DictUpdateOne {
+	duo.mutation.SetCreateAt(t)
 	return duo
 }
 
-// AddDictTypeID adds i to the "dict_type_id" field.
-func (duo *DictUpdateOne) AddDictTypeID(i int64) *DictUpdateOne {
-	duo.mutation.AddDictTypeID(i)
+// SetNillableCreateAt sets the "create_at" field if the given value is not nil.
+func (duo *DictUpdateOne) SetNillableCreateAt(t *time.Time) *DictUpdateOne {
+	if t != nil {
+		duo.SetCreateAt(*t)
+	}
+	return duo
+}
+
+// SetCreateBy sets the "create_by" field.
+func (duo *DictUpdateOne) SetCreateBy(i int64) *DictUpdateOne {
+	duo.mutation.ResetCreateBy()
+	duo.mutation.SetCreateBy(i)
+	return duo
+}
+
+// SetNillableCreateBy sets the "create_by" field if the given value is not nil.
+func (duo *DictUpdateOne) SetNillableCreateBy(i *int64) *DictUpdateOne {
+	if i != nil {
+		duo.SetCreateBy(*i)
+	}
+	return duo
+}
+
+// AddCreateBy adds i to the "create_by" field.
+func (duo *DictUpdateOne) AddCreateBy(i int64) *DictUpdateOne {
+	duo.mutation.AddCreateBy(i)
+	return duo
+}
+
+// SetUpdateAt sets the "update_at" field.
+func (duo *DictUpdateOne) SetUpdateAt(t time.Time) *DictUpdateOne {
+	duo.mutation.SetUpdateAt(t)
+	return duo
+}
+
+// SetUpdateBy sets the "update_by" field.
+func (duo *DictUpdateOne) SetUpdateBy(i int64) *DictUpdateOne {
+	duo.mutation.ResetUpdateBy()
+	duo.mutation.SetUpdateBy(i)
+	return duo
+}
+
+// SetNillableUpdateBy sets the "update_by" field if the given value is not nil.
+func (duo *DictUpdateOne) SetNillableUpdateBy(i *int64) *DictUpdateOne {
+	if i != nil {
+		duo.SetUpdateBy(*i)
+	}
+	return duo
+}
+
+// AddUpdateBy adds i to the "update_by" field.
+func (duo *DictUpdateOne) AddUpdateBy(i int64) *DictUpdateOne {
+	duo.mutation.AddUpdateBy(i)
 	return duo
 }
 
@@ -610,87 +648,24 @@ func (duo *DictUpdateOne) AddIsDefault(i int8) *DictUpdateOne {
 	return duo
 }
 
-// SetCreateAt sets the "create_at" field.
-func (duo *DictUpdateOne) SetCreateAt(i int32) *DictUpdateOne {
-	duo.mutation.ResetCreateAt()
-	duo.mutation.SetCreateAt(i)
+// SetIsDeleted sets the "is_deleted" field.
+func (duo *DictUpdateOne) SetIsDeleted(i int8) *DictUpdateOne {
+	duo.mutation.ResetIsDeleted()
+	duo.mutation.SetIsDeleted(i)
 	return duo
 }
 
-// SetNillableCreateAt sets the "create_at" field if the given value is not nil.
-func (duo *DictUpdateOne) SetNillableCreateAt(i *int32) *DictUpdateOne {
+// SetNillableIsDeleted sets the "is_deleted" field if the given value is not nil.
+func (duo *DictUpdateOne) SetNillableIsDeleted(i *int8) *DictUpdateOne {
 	if i != nil {
-		duo.SetCreateAt(*i)
+		duo.SetIsDeleted(*i)
 	}
 	return duo
 }
 
-// AddCreateAt adds i to the "create_at" field.
-func (duo *DictUpdateOne) AddCreateAt(i int32) *DictUpdateOne {
-	duo.mutation.AddCreateAt(i)
-	return duo
-}
-
-// SetCreateBy sets the "create_by" field.
-func (duo *DictUpdateOne) SetCreateBy(i int32) *DictUpdateOne {
-	duo.mutation.ResetCreateBy()
-	duo.mutation.SetCreateBy(i)
-	return duo
-}
-
-// SetNillableCreateBy sets the "create_by" field if the given value is not nil.
-func (duo *DictUpdateOne) SetNillableCreateBy(i *int32) *DictUpdateOne {
-	if i != nil {
-		duo.SetCreateBy(*i)
-	}
-	return duo
-}
-
-// AddCreateBy adds i to the "create_by" field.
-func (duo *DictUpdateOne) AddCreateBy(i int32) *DictUpdateOne {
-	duo.mutation.AddCreateBy(i)
-	return duo
-}
-
-// SetUpdateAt sets the "update_at" field.
-func (duo *DictUpdateOne) SetUpdateAt(i int32) *DictUpdateOne {
-	duo.mutation.ResetUpdateAt()
-	duo.mutation.SetUpdateAt(i)
-	return duo
-}
-
-// SetNillableUpdateAt sets the "update_at" field if the given value is not nil.
-func (duo *DictUpdateOne) SetNillableUpdateAt(i *int32) *DictUpdateOne {
-	if i != nil {
-		duo.SetUpdateAt(*i)
-	}
-	return duo
-}
-
-// AddUpdateAt adds i to the "update_at" field.
-func (duo *DictUpdateOne) AddUpdateAt(i int32) *DictUpdateOne {
-	duo.mutation.AddUpdateAt(i)
-	return duo
-}
-
-// SetUpdateBy sets the "update_by" field.
-func (duo *DictUpdateOne) SetUpdateBy(i int32) *DictUpdateOne {
-	duo.mutation.ResetUpdateBy()
-	duo.mutation.SetUpdateBy(i)
-	return duo
-}
-
-// SetNillableUpdateBy sets the "update_by" field if the given value is not nil.
-func (duo *DictUpdateOne) SetNillableUpdateBy(i *int32) *DictUpdateOne {
-	if i != nil {
-		duo.SetUpdateBy(*i)
-	}
-	return duo
-}
-
-// AddUpdateBy adds i to the "update_by" field.
-func (duo *DictUpdateOne) AddUpdateBy(i int32) *DictUpdateOne {
-	duo.mutation.AddUpdateBy(i)
+// AddIsDeleted adds i to the "is_deleted" field.
+func (duo *DictUpdateOne) AddIsDeleted(i int8) *DictUpdateOne {
+	duo.mutation.AddIsDeleted(i)
 	return duo
 }
 
@@ -712,6 +687,9 @@ func (duo *DictUpdateOne) Save(ctx context.Context) (*Dict, error) {
 		err  error
 		node *Dict
 	)
+	if err := duo.defaults(); err != nil {
+		return nil, err
+	}
 	if len(duo.hooks) == 0 {
 		node, err = duo.sqlSave(ctx)
 	} else {
@@ -760,6 +738,18 @@ func (duo *DictUpdateOne) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (duo *DictUpdateOne) defaults() error {
+	if _, ok := duo.mutation.UpdateAt(); !ok {
+		if dict.UpdateDefaultUpdateAt == nil {
+			return fmt.Errorf("ent: uninitialized dict.UpdateDefaultUpdateAt (forgotten import ent/runtime?)")
+		}
+		v := dict.UpdateDefaultUpdateAt()
+		duo.mutation.SetUpdateAt(v)
+	}
+	return nil
+}
+
 func (duo *DictUpdateOne) sqlSave(ctx context.Context) (_node *Dict, err error) {
 	_spec := &sqlgraph.UpdateSpec{
 		Node: &sqlgraph.NodeSpec{
@@ -773,7 +763,7 @@ func (duo *DictUpdateOne) sqlSave(ctx context.Context) (_node *Dict, err error) 
 	}
 	id, ok := duo.mutation.ID()
 	if !ok {
-		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing Dict.ID for update")}
+		return nil, &ValidationError{Name: "id", err: errors.New(`ent: missing "Dict.id" for update`)}
 	}
 	_spec.Node.ID.Value = id
 	if fields := duo.fields; len(fields) > 0 {
@@ -795,18 +785,46 @@ func (duo *DictUpdateOne) sqlSave(ctx context.Context) (_node *Dict, err error) 
 			}
 		}
 	}
-	if value, ok := duo.mutation.DictTypeID(); ok {
+	if value, ok := duo.mutation.CreateAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeTime,
+			Value:  value,
+			Column: dict.FieldCreateAt,
+		})
+	}
+	if value, ok := duo.mutation.CreateBy(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: dict.FieldDictTypeID,
+			Column: dict.FieldCreateBy,
 		})
 	}
-	if value, ok := duo.mutation.AddedDictTypeID(); ok {
+	if value, ok := duo.mutation.AddedCreateBy(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: dict.FieldDictTypeID,
+			Column: dict.FieldCreateBy,
+		})
+	}
+	if value, ok := duo.mutation.UpdateAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeTime,
+			Value:  value,
+			Column: dict.FieldUpdateAt,
+		})
+	}
+	if value, ok := duo.mutation.UpdateBy(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: dict.FieldUpdateBy,
+		})
+	}
+	if value, ok := duo.mutation.AddedUpdateBy(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: dict.FieldUpdateBy,
 		})
 	}
 	if value, ok := duo.mutation.GetType(); ok {
@@ -879,60 +897,18 @@ func (duo *DictUpdateOne) sqlSave(ctx context.Context) (_node *Dict, err error) 
 			Column: dict.FieldIsDefault,
 		})
 	}
-	if value, ok := duo.mutation.CreateAt(); ok {
+	if value, ok := duo.mutation.IsDeleted(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
+			Type:   field.TypeInt8,
 			Value:  value,
-			Column: dict.FieldCreateAt,
+			Column: dict.FieldIsDeleted,
 		})
 	}
-	if value, ok := duo.mutation.AddedCreateAt(); ok {
+	if value, ok := duo.mutation.AddedIsDeleted(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
+			Type:   field.TypeInt8,
 			Value:  value,
-			Column: dict.FieldCreateAt,
-		})
-	}
-	if value, ok := duo.mutation.CreateBy(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
-			Value:  value,
-			Column: dict.FieldCreateBy,
-		})
-	}
-	if value, ok := duo.mutation.AddedCreateBy(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
-			Value:  value,
-			Column: dict.FieldCreateBy,
-		})
-	}
-	if value, ok := duo.mutation.UpdateAt(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
-			Value:  value,
-			Column: dict.FieldUpdateAt,
-		})
-	}
-	if value, ok := duo.mutation.AddedUpdateAt(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
-			Value:  value,
-			Column: dict.FieldUpdateAt,
-		})
-	}
-	if value, ok := duo.mutation.UpdateBy(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
-			Value:  value,
-			Column: dict.FieldUpdateBy,
-		})
-	}
-	if value, ok := duo.mutation.AddedUpdateBy(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt32,
-			Value:  value,
-			Column: dict.FieldUpdateBy,
+			Column: dict.FieldIsDeleted,
 		})
 	}
 	_node = &Dict{config: duo.config}

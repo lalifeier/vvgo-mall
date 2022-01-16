@@ -2,9 +2,77 @@
 
 package runtime
 
-// The schema-stitching logic is generated in github.com/lalifeier/vvgo/app/sys/service/internal/data/ent/runtime.go
+import (
+	"time"
+
+	"github.com/lalifeier/vvgo/app/sys/service/internal/data/ent/dict"
+	"github.com/lalifeier/vvgo/app/sys/service/internal/data/ent/schema"
+)
+
+// The init function reads all schema descriptors with runtime code
+// (default values, validators, hooks and policies) and stitches it
+// to their package variables.
+func init() {
+	dictMixin := schema.Dict{}.Mixin()
+	dictMixinHooks0 := dictMixin[0].Hooks()
+	dict.Hooks[0] = dictMixinHooks0[0]
+	dictMixinFields0 := dictMixin[0].Fields()
+	_ = dictMixinFields0
+	dictFields := schema.Dict{}.Fields()
+	_ = dictFields
+	// dictDescCreateAt is the schema descriptor for create_at field.
+	dictDescCreateAt := dictMixinFields0[0].Descriptor()
+	// dict.DefaultCreateAt holds the default value on creation for the create_at field.
+	dict.DefaultCreateAt = dictDescCreateAt.Default.(func() time.Time)
+	// dictDescCreateBy is the schema descriptor for create_by field.
+	dictDescCreateBy := dictMixinFields0[1].Descriptor()
+	// dict.DefaultCreateBy holds the default value on creation for the create_by field.
+	dict.DefaultCreateBy = dictDescCreateBy.Default.(int64)
+	// dictDescUpdateAt is the schema descriptor for update_at field.
+	dictDescUpdateAt := dictMixinFields0[2].Descriptor()
+	// dict.DefaultUpdateAt holds the default value on creation for the update_at field.
+	dict.DefaultUpdateAt = dictDescUpdateAt.Default.(func() time.Time)
+	// dict.UpdateDefaultUpdateAt holds the default value on update for the update_at field.
+	dict.UpdateDefaultUpdateAt = dictDescUpdateAt.UpdateDefault.(func() time.Time)
+	// dictDescUpdateBy is the schema descriptor for update_by field.
+	dictDescUpdateBy := dictMixinFields0[3].Descriptor()
+	// dict.DefaultUpdateBy holds the default value on creation for the update_by field.
+	dict.DefaultUpdateBy = dictDescUpdateBy.Default.(int64)
+	// dictDescType is the schema descriptor for type field.
+	dictDescType := dictFields[1].Descriptor()
+	// dict.DefaultType holds the default value on creation for the type field.
+	dict.DefaultType = dictDescType.Default.(string)
+	// dictDescLabel is the schema descriptor for label field.
+	dictDescLabel := dictFields[2].Descriptor()
+	// dict.DefaultLabel holds the default value on creation for the label field.
+	dict.DefaultLabel = dictDescLabel.Default.(string)
+	// dictDescValue is the schema descriptor for value field.
+	dictDescValue := dictFields[3].Descriptor()
+	// dict.DefaultValue holds the default value on creation for the value field.
+	dict.DefaultValue = dictDescValue.Default.(string)
+	// dictDescStatus is the schema descriptor for status field.
+	dictDescStatus := dictFields[4].Descriptor()
+	// dict.DefaultStatus holds the default value on creation for the status field.
+	dict.DefaultStatus = dictDescStatus.Default.(int8)
+	// dictDescRemark is the schema descriptor for remark field.
+	dictDescRemark := dictFields[5].Descriptor()
+	// dict.DefaultRemark holds the default value on creation for the remark field.
+	dict.DefaultRemark = dictDescRemark.Default.(string)
+	// dictDescSort is the schema descriptor for sort field.
+	dictDescSort := dictFields[6].Descriptor()
+	// dict.DefaultSort holds the default value on creation for the sort field.
+	dict.DefaultSort = dictDescSort.Default.(int8)
+	// dictDescIsDefault is the schema descriptor for is_default field.
+	dictDescIsDefault := dictFields[7].Descriptor()
+	// dict.DefaultIsDefault holds the default value on creation for the is_default field.
+	dict.DefaultIsDefault = dictDescIsDefault.Default.(int8)
+	// dictDescIsDeleted is the schema descriptor for is_deleted field.
+	dictDescIsDeleted := dictFields[8].Descriptor()
+	// dict.DefaultIsDeleted holds the default value on creation for the is_deleted field.
+	dict.DefaultIsDeleted = dictDescIsDeleted.Default.(int8)
+}
 
 const (
-	Version = "v0.9.1"                                          // Version of ent codegen.
-	Sum     = "h1:IG8andyeD79GG24U8Q+1Y45hQXj6gY5evSBcva5gtBk=" // Sum of ent codegen.
+	Version = "v0.9.2-0.20211030195115-681d03e89680"            // Version of ent codegen.
+	Sum     = "h1:3unIS8ZjoiML6TTT1tJjjJjbCHIBNHNtgA7VBIEQZDE=" // Sum of ent codegen.
 )

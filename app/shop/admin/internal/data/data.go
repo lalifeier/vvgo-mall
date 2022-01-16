@@ -11,6 +11,7 @@ import (
 	"github.com/go-kratos/kratos/v2/transport/grpc"
 	"github.com/google/wire"
 
+	sysV1 "github.com/lalifeier/vvgo/api/sys/service/v1"
 	umsV1 "github.com/lalifeier/vvgo/api/ums/service/v1"
 
 	consul "github.com/go-kratos/consul/registry"
@@ -18,16 +19,17 @@ import (
 )
 
 // ProviderSet is data providers.
-var ProviderSet = wire.NewSet(NewData, NewDiscovery, NewUmsServiceClient)
+var ProviderSet = wire.NewSet(NewData, NewDiscovery, NewUmsServiceClient, NewSysServiceClient)
 
 // Data .
 type Data struct {
 	log       *log.Helper
 	UmsClient umsV1.UmsClient
+	SysClient sysV1.SysClient
 }
 
 // NewData .
-func NewData(c *conf.Data, logger log.Logger, umsClient umsV1.UmsClient) (*Data, func(), error) {
+func NewData(c *conf.Data, logger log.Logger, umsClient umsV1.UmsClient, sysClient sysV1.SysClient) (*Data, func(), error) {
 	log := log.NewHelper(log.With(logger, "module", "front-admin/data"))
 	cleanup := func() {
 		log.Info("closing the data resources")
@@ -35,6 +37,7 @@ func NewData(c *conf.Data, logger log.Logger, umsClient umsV1.UmsClient) (*Data,
 	return &Data{
 		log:       log,
 		UmsClient: umsClient,
+		SysClient: sysClient,
 	}, cleanup, nil
 }
 
@@ -64,5 +67,22 @@ func NewUmsServiceClient(r registry.Discovery) umsV1.UmsClient {
 		panic(err)
 	}
 	c := umsV1.NewUmsClient(conn)
+	return c
+}
+
+func NewSysServiceClient(r registry.Discovery) sysV1.SysClient {
+	conn, err := grpc.DialInsecure(
+		context.Background(),
+		// grpc.WithEndpoint("discovery:///vvgo.sys.service"),
+		grpc.WithEndpoint("127.0.0.1:9002"),
+		grpc.WithDiscovery(r),
+		grpc.WithMiddleware(
+			recovery.Recovery(),
+		),
+	)
+	if err != nil {
+		panic(err)
+	}
+	c := sysV1.NewSysClient(conn)
 	return c
 }

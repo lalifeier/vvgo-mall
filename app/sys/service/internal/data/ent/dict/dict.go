@@ -2,13 +2,25 @@
 
 package dict
 
+import (
+	"time"
+
+	"entgo.io/ent"
+)
+
 const (
 	// Label holds the string label denoting the dict type in the database.
 	Label = "dict"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
-	// FieldDictTypeID holds the string denoting the dict_type_id field in the database.
-	FieldDictTypeID = "dict_type_id"
+	// FieldCreateAt holds the string denoting the create_at field in the database.
+	FieldCreateAt = "create_at"
+	// FieldCreateBy holds the string denoting the create_by field in the database.
+	FieldCreateBy = "create_by"
+	// FieldUpdateAt holds the string denoting the update_at field in the database.
+	FieldUpdateAt = "update_at"
+	// FieldUpdateBy holds the string denoting the update_by field in the database.
+	FieldUpdateBy = "update_by"
 	// FieldType holds the string denoting the type field in the database.
 	FieldType = "type"
 	// FieldLabel holds the string denoting the label field in the database.
@@ -23,22 +35,19 @@ const (
 	FieldSort = "sort"
 	// FieldIsDefault holds the string denoting the is_default field in the database.
 	FieldIsDefault = "is_default"
-	// FieldCreateAt holds the string denoting the create_at field in the database.
-	FieldCreateAt = "create_at"
-	// FieldCreateBy holds the string denoting the create_by field in the database.
-	FieldCreateBy = "create_by"
-	// FieldUpdateAt holds the string denoting the update_at field in the database.
-	FieldUpdateAt = "update_at"
-	// FieldUpdateBy holds the string denoting the update_by field in the database.
-	FieldUpdateBy = "update_by"
+	// FieldIsDeleted holds the string denoting the is_deleted field in the database.
+	FieldIsDeleted = "is_deleted"
 	// Table holds the table name of the dict in the database.
-	Table = "dicts"
+	Table = "sys_dict"
 )
 
 // Columns holds all SQL columns for dict fields.
 var Columns = []string{
 	FieldID,
-	FieldDictTypeID,
+	FieldCreateAt,
+	FieldCreateBy,
+	FieldUpdateAt,
+	FieldUpdateBy,
 	FieldType,
 	FieldLabel,
 	FieldValue,
@@ -46,10 +55,7 @@ var Columns = []string{
 	FieldRemark,
 	FieldSort,
 	FieldIsDefault,
-	FieldCreateAt,
-	FieldCreateBy,
-	FieldUpdateAt,
-	FieldUpdateBy,
+	FieldIsDeleted,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -62,7 +68,24 @@ func ValidColumn(column string) bool {
 	return false
 }
 
+// Note that the variables below are initialized by the runtime
+// package on the initialization of the application. Therefore,
+// it should be imported in the main as follows:
+//
+//	import _ "github.com/lalifeier/vvgo/app/sys/service/internal/data/ent/runtime"
+//
 var (
+	Hooks [1]ent.Hook
+	// DefaultCreateAt holds the default value on creation for the "create_at" field.
+	DefaultCreateAt func() time.Time
+	// DefaultCreateBy holds the default value on creation for the "create_by" field.
+	DefaultCreateBy int64
+	// DefaultUpdateAt holds the default value on creation for the "update_at" field.
+	DefaultUpdateAt func() time.Time
+	// UpdateDefaultUpdateAt holds the default value on update for the "update_at" field.
+	UpdateDefaultUpdateAt func() time.Time
+	// DefaultUpdateBy holds the default value on creation for the "update_by" field.
+	DefaultUpdateBy int64
 	// DefaultType holds the default value on creation for the "type" field.
 	DefaultType string
 	// DefaultLabel holds the default value on creation for the "label" field.
@@ -77,12 +100,6 @@ var (
 	DefaultSort int8
 	// DefaultIsDefault holds the default value on creation for the "is_default" field.
 	DefaultIsDefault int8
-	// DefaultCreateAt holds the default value on creation for the "create_at" field.
-	DefaultCreateAt int32
-	// DefaultCreateBy holds the default value on creation for the "create_by" field.
-	DefaultCreateBy int32
-	// DefaultUpdateAt holds the default value on creation for the "update_at" field.
-	DefaultUpdateAt int32
-	// DefaultUpdateBy holds the default value on creation for the "update_by" field.
-	DefaultUpdateBy int32
+	// DefaultIsDeleted holds the default value on creation for the "is_deleted" field.
+	DefaultIsDeleted int8
 )

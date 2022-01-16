@@ -253,12 +253,12 @@ func (dq *DictQuery) Clone() *DictQuery {
 // Example:
 //
 //	var v []struct {
-//		DictTypeID int64 `json:"dict_type_id,omitempty"`
+//		CreateAt time.Time `json:"create_at,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Dict.Query().
-//		GroupBy(dict.FieldDictTypeID).
+//		GroupBy(dict.FieldCreateAt).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -280,11 +280,11 @@ func (dq *DictQuery) GroupBy(field string, fields ...string) *DictGroupBy {
 // Example:
 //
 //	var v []struct {
-//		DictTypeID int64 `json:"dict_type_id,omitempty"`
+//		CreateAt time.Time `json:"create_at,omitempty"`
 //	}
 //
 //	client.Dict.Query().
-//		Select(dict.FieldDictTypeID).
+//		Select(dict.FieldCreateAt).
 //		Scan(ctx, &v)
 //
 func (dq *DictQuery) Select(fields ...string) *DictSelect {
@@ -336,6 +336,10 @@ func (dq *DictQuery) sqlAll(ctx context.Context) ([]*Dict, error) {
 
 func (dq *DictQuery) sqlCount(ctx context.Context) (int, error) {
 	_spec := dq.querySpec()
+	_spec.Node.Columns = dq.fields
+	if len(dq.fields) > 0 {
+		_spec.Unique = dq.unique != nil && *dq.unique
+	}
 	return sqlgraph.CountNodes(ctx, dq.driver, _spec)
 }
 
@@ -406,6 +410,9 @@ func (dq *DictQuery) sqlQuery(ctx context.Context) *sql.Selector {
 	if dq.sql != nil {
 		selector = dq.sql
 		selector.Select(selector.Columns(columns...)...)
+	}
+	if dq.unique != nil && *dq.unique {
+		selector.Distinct()
 	}
 	for _, p := range dq.predicates {
 		p(selector)

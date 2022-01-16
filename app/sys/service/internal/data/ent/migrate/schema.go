@@ -3,38 +3,44 @@
 package migrate
 
 import (
+	"entgo.io/ent/dialect/entsql"
 	"entgo.io/ent/dialect/sql/schema"
 	"entgo.io/ent/schema/field"
 )
 
 var (
-	// DictsColumns holds the columns for the "dicts" table.
-	DictsColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeInt64, Increment: true, SchemaType: map[string]string{"mysql": "bigintunsigned"}},
-		{Name: "dict_type_id", Type: field.TypeInt64, SchemaType: map[string]string{"mysql": "bigintunsigned"}},
+	// SysDictColumns holds the columns for the "sys_dict" table.
+	SysDictColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt64, Increment: true, SchemaType: map[string]string{"mysql": "int unsigned"}},
+		{Name: "create_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "DATETIME"}},
+		{Name: "create_by", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "bigint unsigned"}},
+		{Name: "update_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "DATETIME"}},
+		{Name: "update_by", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "bigint unsigned"}},
 		{Name: "type", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(100)"}},
 		{Name: "label", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(100)"}},
 		{Name: "value", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(100)"}},
-		{Name: "status", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint(1)unsigned"}},
+		{Name: "status", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint(1) unsigned"}},
 		{Name: "remark", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(500)"}},
-		{Name: "sort", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint(1)unsigned"}},
-		{Name: "is_default", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint(1)unsigned"}},
-		{Name: "create_at", Type: field.TypeInt32, Default: 0, SchemaType: map[string]string{"mysql": "int(11)"}},
-		{Name: "create_by", Type: field.TypeInt32, Default: 0, SchemaType: map[string]string{"mysql": "int(11)"}},
-		{Name: "update_at", Type: field.TypeInt32, Default: 0, SchemaType: map[string]string{"mysql": "int(11)"}},
-		{Name: "update_by", Type: field.TypeInt32, Default: 0, SchemaType: map[string]string{"mysql": "int(11)"}},
+		{Name: "sort", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint(1) unsigned"}},
+		{Name: "is_default", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint(1) unsigned"}},
+		{Name: "is_deleted", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint(1) unsigned"}},
 	}
-	// DictsTable holds the schema information for the "dicts" table.
-	DictsTable = &schema.Table{
-		Name:       "dicts",
-		Columns:    DictsColumns,
-		PrimaryKey: []*schema.Column{DictsColumns[0]},
+	// SysDictTable holds the schema information for the "sys_dict" table.
+	SysDictTable = &schema.Table{
+		Name:       "sys_dict",
+		Columns:    SysDictColumns,
+		PrimaryKey: []*schema.Column{SysDictColumns[0]},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		DictsTable,
+		SysDictTable,
 	}
 )
 
 func init() {
+	SysDictTable.Annotation = &entsql.Annotation{
+		Table:     "sys_dict",
+		Charset:   "utf8mb4",
+		Collation: "utf8mb4_unicode_ci",
+	}
 }

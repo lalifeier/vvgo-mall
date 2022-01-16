@@ -1,18 +1,54 @@
 syntax = "proto3";
 
-package api.sys.service.v1;
+package api.shop.admin.v1;
 
 import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
-option go_package = "github.com/lalifeier/vvgo/api/sys/service/v1;v1";
+option go_package = "github.com/lalifeier/vvgo/api/shop/admin/v1;v1";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info : {title : "sys";
+version : "1.0";
+}
+;
+}
+;
 
 service Sys {
-  rpc CreateDict(CreateDictReq) returns (CreateDictResp);
-  rpc UpdateDict(UpdateDictReq) returns (google.protobuf.Empty);
-  rpc DeleteDict(DeleteDictReq) returns (google.protobuf.Empty);
-  rpc GetDict(GetDictReq) returns (GetDictResp);
-  rpc ListDict(ListDictReq) returns (ListDictResp);
-  rpc PageListDict(PageListDictReq) returns (PageListDictResp);
+  rpc CreateDict(CreateDictReq) returns (CreateDictResp) {
+    option (google.api.http) = {
+      post : "/api/dict"
+      body : "*"
+    };
+  }
+  rpc UpdateDict(UpdateDictReq) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put : "/api/dict/{id}"
+      body : "*"
+    };
+  }
+  rpc DeleteDict(DeleteDictReq) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete : "/api/dict/{id}"
+    };
+  }
+  rpc ListDict(ListDictReq) returns (ListDictResp) {
+    option (google.api.http) = {
+      get : "/api/dicts"
+    };
+  }
+  rpc PageListDict(PageListDictReq) returns (PageListDictResp) {
+    option (google.api.http) = {
+      get : "/api/dict"
+    };
+  }
+  rpc GetDict(GetDictReq) returns (GetDictResp) {
+    option (google.api.http) = {
+      get : "/api/dict/{id}"
+    };
+  }
 }
 
 message Dict {
