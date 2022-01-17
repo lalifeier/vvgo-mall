@@ -32,12 +32,12 @@ type DictMutation struct {
 	op            Op
 	typ           string
 	id            *int64
-	create_at     *time.Time
-	create_by     *int64
-	addcreate_by  *int64
-	update_at     *time.Time
-	update_by     *int64
-	addupdate_by  *int64
+	created_at    *time.Time
+	created_by    *int64
+	addcreated_by *int64
+	updated_at    *time.Time
+	updated_by    *int64
+	addupdated_by *int64
 	_type         *string
 	label         *string
 	value         *string
@@ -141,188 +141,188 @@ func (m *DictMutation) ID() (id int64, exists bool) {
 	return *m.id, true
 }
 
-// SetCreateAt sets the "create_at" field.
-func (m *DictMutation) SetCreateAt(t time.Time) {
-	m.create_at = &t
+// SetCreatedAt sets the "created_at" field.
+func (m *DictMutation) SetCreatedAt(t time.Time) {
+	m.created_at = &t
 }
 
-// CreateAt returns the value of the "create_at" field in the mutation.
-func (m *DictMutation) CreateAt() (r time.Time, exists bool) {
-	v := m.create_at
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *DictMutation) CreatedAt() (r time.Time, exists bool) {
+	v := m.created_at
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldCreateAt returns the old "create_at" field's value of the Dict entity.
+// OldCreatedAt returns the old "created_at" field's value of the Dict entity.
 // If the Dict object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *DictMutation) OldCreateAt(ctx context.Context) (v time.Time, err error) {
+func (m *DictMutation) OldCreatedAt(ctx context.Context) (v time.Time, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldCreateAt is only allowed on UpdateOne operations")
+		return v, fmt.Errorf("OldCreatedAt is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldCreateAt requires an ID field in the mutation")
+		return v, fmt.Errorf("OldCreatedAt requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldCreateAt: %w", err)
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
 	}
-	return oldValue.CreateAt, nil
+	return oldValue.CreatedAt, nil
 }
 
-// ResetCreateAt resets all changes to the "create_at" field.
-func (m *DictMutation) ResetCreateAt() {
-	m.create_at = nil
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *DictMutation) ResetCreatedAt() {
+	m.created_at = nil
 }
 
-// SetCreateBy sets the "create_by" field.
-func (m *DictMutation) SetCreateBy(i int64) {
-	m.create_by = &i
-	m.addcreate_by = nil
+// SetCreatedBy sets the "created_by" field.
+func (m *DictMutation) SetCreatedBy(i int64) {
+	m.created_by = &i
+	m.addcreated_by = nil
 }
 
-// CreateBy returns the value of the "create_by" field in the mutation.
-func (m *DictMutation) CreateBy() (r int64, exists bool) {
-	v := m.create_by
+// CreatedBy returns the value of the "created_by" field in the mutation.
+func (m *DictMutation) CreatedBy() (r int64, exists bool) {
+	v := m.created_by
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldCreateBy returns the old "create_by" field's value of the Dict entity.
+// OldCreatedBy returns the old "created_by" field's value of the Dict entity.
 // If the Dict object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *DictMutation) OldCreateBy(ctx context.Context) (v int64, err error) {
+func (m *DictMutation) OldCreatedBy(ctx context.Context) (v int64, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldCreateBy is only allowed on UpdateOne operations")
+		return v, fmt.Errorf("OldCreatedBy is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldCreateBy requires an ID field in the mutation")
+		return v, fmt.Errorf("OldCreatedBy requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldCreateBy: %w", err)
+		return v, fmt.Errorf("querying old value for OldCreatedBy: %w", err)
 	}
-	return oldValue.CreateBy, nil
+	return oldValue.CreatedBy, nil
 }
 
-// AddCreateBy adds i to the "create_by" field.
-func (m *DictMutation) AddCreateBy(i int64) {
-	if m.addcreate_by != nil {
-		*m.addcreate_by += i
+// AddCreatedBy adds i to the "created_by" field.
+func (m *DictMutation) AddCreatedBy(i int64) {
+	if m.addcreated_by != nil {
+		*m.addcreated_by += i
 	} else {
-		m.addcreate_by = &i
+		m.addcreated_by = &i
 	}
 }
 
-// AddedCreateBy returns the value that was added to the "create_by" field in this mutation.
-func (m *DictMutation) AddedCreateBy() (r int64, exists bool) {
-	v := m.addcreate_by
+// AddedCreatedBy returns the value that was added to the "created_by" field in this mutation.
+func (m *DictMutation) AddedCreatedBy() (r int64, exists bool) {
+	v := m.addcreated_by
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// ResetCreateBy resets all changes to the "create_by" field.
-func (m *DictMutation) ResetCreateBy() {
-	m.create_by = nil
-	m.addcreate_by = nil
+// ResetCreatedBy resets all changes to the "created_by" field.
+func (m *DictMutation) ResetCreatedBy() {
+	m.created_by = nil
+	m.addcreated_by = nil
 }
 
-// SetUpdateAt sets the "update_at" field.
-func (m *DictMutation) SetUpdateAt(t time.Time) {
-	m.update_at = &t
+// SetUpdatedAt sets the "updated_at" field.
+func (m *DictMutation) SetUpdatedAt(t time.Time) {
+	m.updated_at = &t
 }
 
-// UpdateAt returns the value of the "update_at" field in the mutation.
-func (m *DictMutation) UpdateAt() (r time.Time, exists bool) {
-	v := m.update_at
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *DictMutation) UpdatedAt() (r time.Time, exists bool) {
+	v := m.updated_at
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldUpdateAt returns the old "update_at" field's value of the Dict entity.
+// OldUpdatedAt returns the old "updated_at" field's value of the Dict entity.
 // If the Dict object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *DictMutation) OldUpdateAt(ctx context.Context) (v time.Time, err error) {
+func (m *DictMutation) OldUpdatedAt(ctx context.Context) (v time.Time, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldUpdateAt is only allowed on UpdateOne operations")
+		return v, fmt.Errorf("OldUpdatedAt is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldUpdateAt requires an ID field in the mutation")
+		return v, fmt.Errorf("OldUpdatedAt requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldUpdateAt: %w", err)
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
 	}
-	return oldValue.UpdateAt, nil
+	return oldValue.UpdatedAt, nil
 }
 
-// ResetUpdateAt resets all changes to the "update_at" field.
-func (m *DictMutation) ResetUpdateAt() {
-	m.update_at = nil
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *DictMutation) ResetUpdatedAt() {
+	m.updated_at = nil
 }
 
-// SetUpdateBy sets the "update_by" field.
-func (m *DictMutation) SetUpdateBy(i int64) {
-	m.update_by = &i
-	m.addupdate_by = nil
+// SetUpdatedBy sets the "updated_by" field.
+func (m *DictMutation) SetUpdatedBy(i int64) {
+	m.updated_by = &i
+	m.addupdated_by = nil
 }
 
-// UpdateBy returns the value of the "update_by" field in the mutation.
-func (m *DictMutation) UpdateBy() (r int64, exists bool) {
-	v := m.update_by
+// UpdatedBy returns the value of the "updated_by" field in the mutation.
+func (m *DictMutation) UpdatedBy() (r int64, exists bool) {
+	v := m.updated_by
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldUpdateBy returns the old "update_by" field's value of the Dict entity.
+// OldUpdatedBy returns the old "updated_by" field's value of the Dict entity.
 // If the Dict object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *DictMutation) OldUpdateBy(ctx context.Context) (v int64, err error) {
+func (m *DictMutation) OldUpdatedBy(ctx context.Context) (v int64, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldUpdateBy is only allowed on UpdateOne operations")
+		return v, fmt.Errorf("OldUpdatedBy is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldUpdateBy requires an ID field in the mutation")
+		return v, fmt.Errorf("OldUpdatedBy requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldUpdateBy: %w", err)
+		return v, fmt.Errorf("querying old value for OldUpdatedBy: %w", err)
 	}
-	return oldValue.UpdateBy, nil
+	return oldValue.UpdatedBy, nil
 }
 
-// AddUpdateBy adds i to the "update_by" field.
-func (m *DictMutation) AddUpdateBy(i int64) {
-	if m.addupdate_by != nil {
-		*m.addupdate_by += i
+// AddUpdatedBy adds i to the "updated_by" field.
+func (m *DictMutation) AddUpdatedBy(i int64) {
+	if m.addupdated_by != nil {
+		*m.addupdated_by += i
 	} else {
-		m.addupdate_by = &i
+		m.addupdated_by = &i
 	}
 }
 
-// AddedUpdateBy returns the value that was added to the "update_by" field in this mutation.
-func (m *DictMutation) AddedUpdateBy() (r int64, exists bool) {
-	v := m.addupdate_by
+// AddedUpdatedBy returns the value that was added to the "updated_by" field in this mutation.
+func (m *DictMutation) AddedUpdatedBy() (r int64, exists bool) {
+	v := m.addupdated_by
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// ResetUpdateBy resets all changes to the "update_by" field.
-func (m *DictMutation) ResetUpdateBy() {
-	m.update_by = nil
-	m.addupdate_by = nil
+// ResetUpdatedBy resets all changes to the "updated_by" field.
+func (m *DictMutation) ResetUpdatedBy() {
+	m.updated_by = nil
+	m.addupdated_by = nil
 }
 
 // SetType sets the "type" field.
@@ -713,17 +713,17 @@ func (m *DictMutation) Type() string {
 // AddedFields().
 func (m *DictMutation) Fields() []string {
 	fields := make([]string, 0, 12)
-	if m.create_at != nil {
-		fields = append(fields, dict.FieldCreateAt)
+	if m.created_at != nil {
+		fields = append(fields, dict.FieldCreatedAt)
 	}
-	if m.create_by != nil {
-		fields = append(fields, dict.FieldCreateBy)
+	if m.created_by != nil {
+		fields = append(fields, dict.FieldCreatedBy)
 	}
-	if m.update_at != nil {
-		fields = append(fields, dict.FieldUpdateAt)
+	if m.updated_at != nil {
+		fields = append(fields, dict.FieldUpdatedAt)
 	}
-	if m.update_by != nil {
-		fields = append(fields, dict.FieldUpdateBy)
+	if m.updated_by != nil {
+		fields = append(fields, dict.FieldUpdatedBy)
 	}
 	if m._type != nil {
 		fields = append(fields, dict.FieldType)
@@ -757,14 +757,14 @@ func (m *DictMutation) Fields() []string {
 // schema.
 func (m *DictMutation) Field(name string) (ent.Value, bool) {
 	switch name {
-	case dict.FieldCreateAt:
-		return m.CreateAt()
-	case dict.FieldCreateBy:
-		return m.CreateBy()
-	case dict.FieldUpdateAt:
-		return m.UpdateAt()
-	case dict.FieldUpdateBy:
-		return m.UpdateBy()
+	case dict.FieldCreatedAt:
+		return m.CreatedAt()
+	case dict.FieldCreatedBy:
+		return m.CreatedBy()
+	case dict.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case dict.FieldUpdatedBy:
+		return m.UpdatedBy()
 	case dict.FieldType:
 		return m.GetType()
 	case dict.FieldLabel:
@@ -790,14 +790,14 @@ func (m *DictMutation) Field(name string) (ent.Value, bool) {
 // database failed.
 func (m *DictMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
 	switch name {
-	case dict.FieldCreateAt:
-		return m.OldCreateAt(ctx)
-	case dict.FieldCreateBy:
-		return m.OldCreateBy(ctx)
-	case dict.FieldUpdateAt:
-		return m.OldUpdateAt(ctx)
-	case dict.FieldUpdateBy:
-		return m.OldUpdateBy(ctx)
+	case dict.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case dict.FieldCreatedBy:
+		return m.OldCreatedBy(ctx)
+	case dict.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case dict.FieldUpdatedBy:
+		return m.OldUpdatedBy(ctx)
 	case dict.FieldType:
 		return m.OldType(ctx)
 	case dict.FieldLabel:
@@ -823,33 +823,33 @@ func (m *DictMutation) OldField(ctx context.Context, name string) (ent.Value, er
 // type.
 func (m *DictMutation) SetField(name string, value ent.Value) error {
 	switch name {
-	case dict.FieldCreateAt:
+	case dict.FieldCreatedAt:
 		v, ok := value.(time.Time)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetCreateAt(v)
+		m.SetCreatedAt(v)
 		return nil
-	case dict.FieldCreateBy:
+	case dict.FieldCreatedBy:
 		v, ok := value.(int64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetCreateBy(v)
+		m.SetCreatedBy(v)
 		return nil
-	case dict.FieldUpdateAt:
+	case dict.FieldUpdatedAt:
 		v, ok := value.(time.Time)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetUpdateAt(v)
+		m.SetUpdatedAt(v)
 		return nil
-	case dict.FieldUpdateBy:
+	case dict.FieldUpdatedBy:
 		v, ok := value.(int64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetUpdateBy(v)
+		m.SetUpdatedBy(v)
 		return nil
 	case dict.FieldType:
 		v, ok := value.(string)
@@ -915,11 +915,11 @@ func (m *DictMutation) SetField(name string, value ent.Value) error {
 // this mutation.
 func (m *DictMutation) AddedFields() []string {
 	var fields []string
-	if m.addcreate_by != nil {
-		fields = append(fields, dict.FieldCreateBy)
+	if m.addcreated_by != nil {
+		fields = append(fields, dict.FieldCreatedBy)
 	}
-	if m.addupdate_by != nil {
-		fields = append(fields, dict.FieldUpdateBy)
+	if m.addupdated_by != nil {
+		fields = append(fields, dict.FieldUpdatedBy)
 	}
 	if m.addstatus != nil {
 		fields = append(fields, dict.FieldStatus)
@@ -941,10 +941,10 @@ func (m *DictMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *DictMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
-	case dict.FieldCreateBy:
-		return m.AddedCreateBy()
-	case dict.FieldUpdateBy:
-		return m.AddedUpdateBy()
+	case dict.FieldCreatedBy:
+		return m.AddedCreatedBy()
+	case dict.FieldUpdatedBy:
+		return m.AddedUpdatedBy()
 	case dict.FieldStatus:
 		return m.AddedStatus()
 	case dict.FieldSort:
@@ -962,19 +962,19 @@ func (m *DictMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *DictMutation) AddField(name string, value ent.Value) error {
 	switch name {
-	case dict.FieldCreateBy:
+	case dict.FieldCreatedBy:
 		v, ok := value.(int64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.AddCreateBy(v)
+		m.AddCreatedBy(v)
 		return nil
-	case dict.FieldUpdateBy:
+	case dict.FieldUpdatedBy:
 		v, ok := value.(int64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.AddUpdateBy(v)
+		m.AddUpdatedBy(v)
 		return nil
 	case dict.FieldStatus:
 		v, ok := value.(int8)
@@ -1031,17 +1031,17 @@ func (m *DictMutation) ClearField(name string) error {
 // It returns an error if the field is not defined in the schema.
 func (m *DictMutation) ResetField(name string) error {
 	switch name {
-	case dict.FieldCreateAt:
-		m.ResetCreateAt()
+	case dict.FieldCreatedAt:
+		m.ResetCreatedAt()
 		return nil
-	case dict.FieldCreateBy:
-		m.ResetCreateBy()
+	case dict.FieldCreatedBy:
+		m.ResetCreatedBy()
 		return nil
-	case dict.FieldUpdateAt:
-		m.ResetUpdateAt()
+	case dict.FieldUpdatedAt:
+		m.ResetUpdatedAt()
 		return nil
-	case dict.FieldUpdateBy:
-		m.ResetUpdateBy()
+	case dict.FieldUpdatedBy:
+		m.ResetUpdatedBy()
 		return nil
 	case dict.FieldType:
 		m.ResetType()

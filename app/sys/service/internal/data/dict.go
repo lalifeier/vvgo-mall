@@ -7,7 +7,8 @@ import (
 	"github.com/lalifeier/vvgo/app/sys/service/internal/biz"
 	"github.com/lalifeier/vvgo/app/sys/service/internal/data/ent"
 	"github.com/lalifeier/vvgo/app/sys/service/internal/data/ent/dict"
-	"github.com/lalifeier/vvgo/pkg/util/pagination"
+
+	"github.com/lalifeier/vvgo/pkg/utils/pagination"
 )
 
 var _ biz.DictRepo = (*dictRepo)(nil)
@@ -57,13 +58,17 @@ func (rp *dictRepo) CreateDict(ctx context.Context, d *biz.Dict) (int64, error) 
 }
 
 func (rp *dictRepo) UpdateDict(ctx context.Context, d *biz.Dict) error {
+	po, err := rp.data.db.Dict.Get(ctx, d.Id)
+	if err != nil {
+		return err
+	}
 	db := rp.data.db.Dict.UpdateOneID(d.Id)
 
-	if d.Type != "" {
+	if d.Type != "" && d.Type != po.Type {
 		db.SetType(d.Type)
 	}
 
-	_, err := db.Save(ctx)
+	_, err = db.Save(ctx)
 	return err
 }
 
@@ -98,12 +103,15 @@ func (rp *dictRepo) ListDict(ctx context.Context, req *biz.DictListReq) ([]*biz.
 }
 
 func (rp *dictRepo) PageListDict(ctx context.Context, req *biz.DictPageListReq) (*biz.DictPageListResp, error) {
-	total, err := rp.data.db.Dict.Query().Count(ctx)
+	query := rp.data.db.Dict.Query()
+
+	query.Order(ent.Desc("id"))
+	total, err := query.Count(ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	pos, err := rp.data.db.Dict.Query().
+	pos, err := query.
 		Offset(int(pagination.GetPageOffset(req.PageNum, req.PageSize))).
 		Limit(int(req.PageSize)).
 		All(ctx)

@@ -20,24 +20,24 @@ func init() {
 	_ = dictMixinFields0
 	dictFields := schema.Dict{}.Fields()
 	_ = dictFields
-	// dictDescCreateAt is the schema descriptor for create_at field.
-	dictDescCreateAt := dictMixinFields0[0].Descriptor()
-	// dict.DefaultCreateAt holds the default value on creation for the create_at field.
-	dict.DefaultCreateAt = dictDescCreateAt.Default.(func() time.Time)
-	// dictDescCreateBy is the schema descriptor for create_by field.
-	dictDescCreateBy := dictMixinFields0[1].Descriptor()
-	// dict.DefaultCreateBy holds the default value on creation for the create_by field.
-	dict.DefaultCreateBy = dictDescCreateBy.Default.(int64)
-	// dictDescUpdateAt is the schema descriptor for update_at field.
-	dictDescUpdateAt := dictMixinFields0[2].Descriptor()
-	// dict.DefaultUpdateAt holds the default value on creation for the update_at field.
-	dict.DefaultUpdateAt = dictDescUpdateAt.Default.(func() time.Time)
-	// dict.UpdateDefaultUpdateAt holds the default value on update for the update_at field.
-	dict.UpdateDefaultUpdateAt = dictDescUpdateAt.UpdateDefault.(func() time.Time)
-	// dictDescUpdateBy is the schema descriptor for update_by field.
-	dictDescUpdateBy := dictMixinFields0[3].Descriptor()
-	// dict.DefaultUpdateBy holds the default value on creation for the update_by field.
-	dict.DefaultUpdateBy = dictDescUpdateBy.Default.(int64)
+	// dictDescCreatedAt is the schema descriptor for created_at field.
+	dictDescCreatedAt := dictMixinFields0[0].Descriptor()
+	// dict.DefaultCreatedAt holds the default value on creation for the created_at field.
+	dict.DefaultCreatedAt = dictDescCreatedAt.Default.(func() time.Time)
+	// dictDescCreatedBy is the schema descriptor for created_by field.
+	dictDescCreatedBy := dictMixinFields0[1].Descriptor()
+	// dict.DefaultCreatedBy holds the default value on creation for the created_by field.
+	dict.DefaultCreatedBy = dictDescCreatedBy.Default.(int64)
+	// dictDescUpdatedAt is the schema descriptor for updated_at field.
+	dictDescUpdatedAt := dictMixinFields0[2].Descriptor()
+	// dict.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	dict.DefaultUpdatedAt = dictDescUpdatedAt.Default.(func() time.Time)
+	// dict.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	dict.UpdateDefaultUpdatedAt = dictDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// dictDescUpdatedBy is the schema descriptor for updated_by field.
+	dictDescUpdatedBy := dictMixinFields0[3].Descriptor()
+	// dict.DefaultUpdatedBy holds the default value on creation for the updated_by field.
+	dict.DefaultUpdatedBy = dictDescUpdatedBy.Default.(int64)
 	// dictDescType is the schema descriptor for type field.
 	dictDescType := dictFields[1].Descriptor()
 	// dict.DefaultType holds the default value on creation for the type field.

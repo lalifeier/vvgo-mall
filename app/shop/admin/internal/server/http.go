@@ -12,11 +12,30 @@ import (
 	"github.com/lalifeier/vvgo/app/shop/admin/internal/service"
 )
 
+// func NewWhiteListMatcher() selector.MatchFunc {
+// 	whiteList := make(map[string]struct{})
+// 	// whiteList["/shop.interface.v1.ShopInterface/Login"] = struct{}{}
+// 	// whiteList["/shop.interface.v1.ShopInterface/Register"] = struct{}{}
+// 	return func(operation string) bool {
+// 		if _, ok := whiteList[operation]; ok {
+// 			return false
+// 		}
+// 		return true
+// 	}
+// }
+
 // NewHTTPServer new a HTTP server.
 func NewHTTPServer(c *conf.Server, ums *service.UmsService, sys *service.SysService, logger log.Logger) *http.Server {
 	var opts = []http.ServerOption{
 		http.Middleware(
 			recovery.Recovery(),
+			// selector.Server(
+			// 	jwt.Server(func(token *jwt2.Token) (interface{}, error) {
+			// 		return []byte(ac.ApiKey), nil
+			// 	}, jwt.WithSigningMethod(jwt2.SigningMethodHS256)),
+			// ).
+			// 	Match(NewWhiteListMatcher()).
+			// 	Build(),
 		),
 		http.Filter(handlers.CORS(
 			handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}),

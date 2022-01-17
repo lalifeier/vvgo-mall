@@ -253,12 +253,12 @@ func (dq *DictQuery) Clone() *DictQuery {
 // Example:
 //
 //	var v []struct {
-//		CreateAt time.Time `json:"create_at,omitempty"`
+//		CreatedAt time.Time `json:"created_at,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Dict.Query().
-//		GroupBy(dict.FieldCreateAt).
+//		GroupBy(dict.FieldCreatedAt).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -280,11 +280,11 @@ func (dq *DictQuery) GroupBy(field string, fields ...string) *DictGroupBy {
 // Example:
 //
 //	var v []struct {
-//		CreateAt time.Time `json:"create_at,omitempty"`
+//		CreatedAt time.Time `json:"created_at,omitempty"`
 //	}
 //
 //	client.Dict.Query().
-//		Select(dict.FieldCreateAt).
+//		Select(dict.FieldCreatedAt).
 //		Scan(ctx, &v)
 //
 func (dq *DictQuery) Select(fields ...string) *DictSelect {

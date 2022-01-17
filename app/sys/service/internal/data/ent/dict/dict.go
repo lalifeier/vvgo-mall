@@ -13,14 +13,14 @@ const (
 	Label = "dict"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
-	// FieldCreateAt holds the string denoting the create_at field in the database.
-	FieldCreateAt = "create_at"
-	// FieldCreateBy holds the string denoting the create_by field in the database.
-	FieldCreateBy = "create_by"
-	// FieldUpdateAt holds the string denoting the update_at field in the database.
-	FieldUpdateAt = "update_at"
-	// FieldUpdateBy holds the string denoting the update_by field in the database.
-	FieldUpdateBy = "update_by"
+	// FieldCreatedAt holds the string denoting the created_at field in the database.
+	FieldCreatedAt = "created_at"
+	// FieldCreatedBy holds the string denoting the created_by field in the database.
+	FieldCreatedBy = "created_by"
+	// FieldUpdatedAt holds the string denoting the updated_at field in the database.
+	FieldUpdatedAt = "updated_at"
+	// FieldUpdatedBy holds the string denoting the updated_by field in the database.
+	FieldUpdatedBy = "updated_by"
 	// FieldType holds the string denoting the type field in the database.
 	FieldType = "type"
 	// FieldLabel holds the string denoting the label field in the database.
@@ -44,10 +44,10 @@ const (
 // Columns holds all SQL columns for dict fields.
 var Columns = []string{
 	FieldID,
-	FieldCreateAt,
-	FieldCreateBy,
-	FieldUpdateAt,
-	FieldUpdateBy,
+	FieldCreatedAt,
+	FieldCreatedBy,
+	FieldUpdatedAt,
+	FieldUpdatedBy,
 	FieldType,
 	FieldLabel,
 	FieldValue,
@@ -76,16 +76,16 @@ func ValidColumn(column string) bool {
 //
 var (
 	Hooks [1]ent.Hook
-	// DefaultCreateAt holds the default value on creation for the "create_at" field.
-	DefaultCreateAt func() time.Time
-	// DefaultCreateBy holds the default value on creation for the "create_by" field.
-	DefaultCreateBy int64
-	// DefaultUpdateAt holds the default value on creation for the "update_at" field.
-	DefaultUpdateAt func() time.Time
-	// UpdateDefaultUpdateAt holds the default value on update for the "update_at" field.
-	UpdateDefaultUpdateAt func() time.Time
-	// DefaultUpdateBy holds the default value on creation for the "update_by" field.
-	DefaultUpdateBy int64
+	// DefaultCreatedAt holds the default value on creation for the "created_at" field.
+	DefaultCreatedAt func() time.Time
+	// DefaultCreatedBy holds the default value on creation for the "created_by" field.
+	DefaultCreatedBy int64
+	// DefaultUpdatedAt holds the default value on creation for the "updated_at" field.
+	DefaultUpdatedAt func() time.Time
+	// UpdateDefaultUpdatedAt holds the default value on update for the "updated_at" field.
+	UpdateDefaultUpdatedAt func() time.Time
+	// DefaultUpdatedBy holds the default value on creation for the "updated_by" field.
+	DefaultUpdatedBy int64
 	// DefaultType holds the default value on creation for the "type" field.
 	DefaultType string
 	// DefaultLabel holds the default value on creation for the "label" field.

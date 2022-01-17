@@ -92,31 +92,31 @@ func IDLTE(id int64) predicate.Dict {
 	})
 }
 
-// CreateAt applies equality check predicate on the "create_at" field. It's identical to CreateAtEQ.
-func CreateAt(v time.Time) predicate.Dict {
+// CreatedAt applies equality check predicate on the "created_at" field. It's identical to CreatedAtEQ.
+func CreatedAt(v time.Time) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldCreateAt), v))
+		s.Where(sql.EQ(s.C(FieldCreatedAt), v))
 	})
 }
 
-// CreateBy applies equality check predicate on the "create_by" field. It's identical to CreateByEQ.
-func CreateBy(v int64) predicate.Dict {
+// CreatedBy applies equality check predicate on the "created_by" field. It's identical to CreatedByEQ.
+func CreatedBy(v int64) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldCreateBy), v))
+		s.Where(sql.EQ(s.C(FieldCreatedBy), v))
 	})
 }
 
-// UpdateAt applies equality check predicate on the "update_at" field. It's identical to UpdateAtEQ.
-func UpdateAt(v time.Time) predicate.Dict {
+// UpdatedAt applies equality check predicate on the "updated_at" field. It's identical to UpdatedAtEQ.
+func UpdatedAt(v time.Time) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldUpdateAt), v))
+		s.Where(sql.EQ(s.C(FieldUpdatedAt), v))
 	})
 }
 
-// UpdateBy applies equality check predicate on the "update_by" field. It's identical to UpdateByEQ.
-func UpdateBy(v int64) predicate.Dict {
+// UpdatedBy applies equality check predicate on the "updated_by" field. It's identical to UpdatedByEQ.
+func UpdatedBy(v int64) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldUpdateBy), v))
+		s.Where(sql.EQ(s.C(FieldUpdatedBy), v))
 	})
 }
 
@@ -169,22 +169,22 @@ func IsDeleted(v int8) predicate.Dict {
 	})
 }
 
-// CreateAtEQ applies the EQ predicate on the "create_at" field.
-func CreateAtEQ(v time.Time) predicate.Dict {
+// CreatedAtEQ applies the EQ predicate on the "created_at" field.
+func CreatedAtEQ(v time.Time) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldCreateAt), v))
+		s.Where(sql.EQ(s.C(FieldCreatedAt), v))
 	})
 }
 
-// CreateAtNEQ applies the NEQ predicate on the "create_at" field.
-func CreateAtNEQ(v time.Time) predicate.Dict {
+// CreatedAtNEQ applies the NEQ predicate on the "created_at" field.
+func CreatedAtNEQ(v time.Time) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldCreateAt), v))
+		s.Where(sql.NEQ(s.C(FieldCreatedAt), v))
 	})
 }
 
-// CreateAtIn applies the In predicate on the "create_at" field.
-func CreateAtIn(vs ...time.Time) predicate.Dict {
+// CreatedAtIn applies the In predicate on the "created_at" field.
+func CreatedAtIn(vs ...time.Time) predicate.Dict {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -196,12 +196,12 @@ func CreateAtIn(vs ...time.Time) predicate.Dict {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldCreateAt), v...))
+		s.Where(sql.In(s.C(FieldCreatedAt), v...))
 	})
 }
 
-// CreateAtNotIn applies the NotIn predicate on the "create_at" field.
-func CreateAtNotIn(vs ...time.Time) predicate.Dict {
+// CreatedAtNotIn applies the NotIn predicate on the "created_at" field.
+func CreatedAtNotIn(vs ...time.Time) predicate.Dict {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -213,54 +213,54 @@ func CreateAtNotIn(vs ...time.Time) predicate.Dict {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldCreateAt), v...))
+		s.Where(sql.NotIn(s.C(FieldCreatedAt), v...))
 	})
 }
 
-// CreateAtGT applies the GT predicate on the "create_at" field.
-func CreateAtGT(v time.Time) predicate.Dict {
+// CreatedAtGT applies the GT predicate on the "created_at" field.
+func CreatedAtGT(v time.Time) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldCreateAt), v))
+		s.Where(sql.GT(s.C(FieldCreatedAt), v))
 	})
 }
 
-// CreateAtGTE applies the GTE predicate on the "create_at" field.
-func CreateAtGTE(v time.Time) predicate.Dict {
+// CreatedAtGTE applies the GTE predicate on the "created_at" field.
+func CreatedAtGTE(v time.Time) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldCreateAt), v))
+		s.Where(sql.GTE(s.C(FieldCreatedAt), v))
 	})
 }
 
-// CreateAtLT applies the LT predicate on the "create_at" field.
-func CreateAtLT(v time.Time) predicate.Dict {
+// CreatedAtLT applies the LT predicate on the "created_at" field.
+func CreatedAtLT(v time.Time) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldCreateAt), v))
+		s.Where(sql.LT(s.C(FieldCreatedAt), v))
 	})
 }
 
-// CreateAtLTE applies the LTE predicate on the "create_at" field.
-func CreateAtLTE(v time.Time) predicate.Dict {
+// CreatedAtLTE applies the LTE predicate on the "created_at" field.
+func CreatedAtLTE(v time.Time) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldCreateAt), v))
+		s.Where(sql.LTE(s.C(FieldCreatedAt), v))
 	})
 }
 
-// CreateByEQ applies the EQ predicate on the "create_by" field.
-func CreateByEQ(v int64) predicate.Dict {
+// CreatedByEQ applies the EQ predicate on the "created_by" field.
+func CreatedByEQ(v int64) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldCreateBy), v))
+		s.Where(sql.EQ(s.C(FieldCreatedBy), v))
 	})
 }
 
-// CreateByNEQ applies the NEQ predicate on the "create_by" field.
-func CreateByNEQ(v int64) predicate.Dict {
+// CreatedByNEQ applies the NEQ predicate on the "created_by" field.
+func CreatedByNEQ(v int64) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldCreateBy), v))
+		s.Where(sql.NEQ(s.C(FieldCreatedBy), v))
 	})
 }
 
-// CreateByIn applies the In predicate on the "create_by" field.
-func CreateByIn(vs ...int64) predicate.Dict {
+// CreatedByIn applies the In predicate on the "created_by" field.
+func CreatedByIn(vs ...int64) predicate.Dict {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -272,12 +272,12 @@ func CreateByIn(vs ...int64) predicate.Dict {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldCreateBy), v...))
+		s.Where(sql.In(s.C(FieldCreatedBy), v...))
 	})
 }
 
-// CreateByNotIn applies the NotIn predicate on the "create_by" field.
-func CreateByNotIn(vs ...int64) predicate.Dict {
+// CreatedByNotIn applies the NotIn predicate on the "created_by" field.
+func CreatedByNotIn(vs ...int64) predicate.Dict {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -289,54 +289,54 @@ func CreateByNotIn(vs ...int64) predicate.Dict {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldCreateBy), v...))
+		s.Where(sql.NotIn(s.C(FieldCreatedBy), v...))
 	})
 }
 
-// CreateByGT applies the GT predicate on the "create_by" field.
-func CreateByGT(v int64) predicate.Dict {
+// CreatedByGT applies the GT predicate on the "created_by" field.
+func CreatedByGT(v int64) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldCreateBy), v))
+		s.Where(sql.GT(s.C(FieldCreatedBy), v))
 	})
 }
 
-// CreateByGTE applies the GTE predicate on the "create_by" field.
-func CreateByGTE(v int64) predicate.Dict {
+// CreatedByGTE applies the GTE predicate on the "created_by" field.
+func CreatedByGTE(v int64) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldCreateBy), v))
+		s.Where(sql.GTE(s.C(FieldCreatedBy), v))
 	})
 }
 
-// CreateByLT applies the LT predicate on the "create_by" field.
-func CreateByLT(v int64) predicate.Dict {
+// CreatedByLT applies the LT predicate on the "created_by" field.
+func CreatedByLT(v int64) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldCreateBy), v))
+		s.Where(sql.LT(s.C(FieldCreatedBy), v))
 	})
 }
 
-// CreateByLTE applies the LTE predicate on the "create_by" field.
-func CreateByLTE(v int64) predicate.Dict {
+// CreatedByLTE applies the LTE predicate on the "created_by" field.
+func CreatedByLTE(v int64) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldCreateBy), v))
+		s.Where(sql.LTE(s.C(FieldCreatedBy), v))
 	})
 }
 
-// UpdateAtEQ applies the EQ predicate on the "update_at" field.
-func UpdateAtEQ(v time.Time) predicate.Dict {
+// UpdatedAtEQ applies the EQ predicate on the "updated_at" field.
+func UpdatedAtEQ(v time.Time) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldUpdateAt), v))
+		s.Where(sql.EQ(s.C(FieldUpdatedAt), v))
 	})
 }
 
-// UpdateAtNEQ applies the NEQ predicate on the "update_at" field.
-func UpdateAtNEQ(v time.Time) predicate.Dict {
+// UpdatedAtNEQ applies the NEQ predicate on the "updated_at" field.
+func UpdatedAtNEQ(v time.Time) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldUpdateAt), v))
+		s.Where(sql.NEQ(s.C(FieldUpdatedAt), v))
 	})
 }
 
-// UpdateAtIn applies the In predicate on the "update_at" field.
-func UpdateAtIn(vs ...time.Time) predicate.Dict {
+// UpdatedAtIn applies the In predicate on the "updated_at" field.
+func UpdatedAtIn(vs ...time.Time) predicate.Dict {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -348,12 +348,12 @@ func UpdateAtIn(vs ...time.Time) predicate.Dict {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldUpdateAt), v...))
+		s.Where(sql.In(s.C(FieldUpdatedAt), v...))
 	})
 }
 
-// UpdateAtNotIn applies the NotIn predicate on the "update_at" field.
-func UpdateAtNotIn(vs ...time.Time) predicate.Dict {
+// UpdatedAtNotIn applies the NotIn predicate on the "updated_at" field.
+func UpdatedAtNotIn(vs ...time.Time) predicate.Dict {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -365,54 +365,54 @@ func UpdateAtNotIn(vs ...time.Time) predicate.Dict {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldUpdateAt), v...))
+		s.Where(sql.NotIn(s.C(FieldUpdatedAt), v...))
 	})
 }
 
-// UpdateAtGT applies the GT predicate on the "update_at" field.
-func UpdateAtGT(v time.Time) predicate.Dict {
+// UpdatedAtGT applies the GT predicate on the "updated_at" field.
+func UpdatedAtGT(v time.Time) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldUpdateAt), v))
+		s.Where(sql.GT(s.C(FieldUpdatedAt), v))
 	})
 }
 
-// UpdateAtGTE applies the GTE predicate on the "update_at" field.
-func UpdateAtGTE(v time.Time) predicate.Dict {
+// UpdatedAtGTE applies the GTE predicate on the "updated_at" field.
+func UpdatedAtGTE(v time.Time) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldUpdateAt), v))
+		s.Where(sql.GTE(s.C(FieldUpdatedAt), v))
 	})
 }
 
-// UpdateAtLT applies the LT predicate on the "update_at" field.
-func UpdateAtLT(v time.Time) predicate.Dict {
+// UpdatedAtLT applies the LT predicate on the "updated_at" field.
+func UpdatedAtLT(v time.Time) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldUpdateAt), v))
+		s.Where(sql.LT(s.C(FieldUpdatedAt), v))
 	})
 }
 
-// UpdateAtLTE applies the LTE predicate on the "update_at" field.
-func UpdateAtLTE(v time.Time) predicate.Dict {
+// UpdatedAtLTE applies the LTE predicate on the "updated_at" field.
+func UpdatedAtLTE(v time.Time) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldUpdateAt), v))
+		s.Where(sql.LTE(s.C(FieldUpdatedAt), v))
 	})
 }
 
-// UpdateByEQ applies the EQ predicate on the "update_by" field.
-func UpdateByEQ(v int64) predicate.Dict {
+// UpdatedByEQ applies the EQ predicate on the "updated_by" field.
+func UpdatedByEQ(v int64) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldUpdateBy), v))
+		s.Where(sql.EQ(s.C(FieldUpdatedBy), v))
 	})
 }
 
-// UpdateByNEQ applies the NEQ predicate on the "update_by" field.
-func UpdateByNEQ(v int64) predicate.Dict {
+// UpdatedByNEQ applies the NEQ predicate on the "updated_by" field.
+func UpdatedByNEQ(v int64) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldUpdateBy), v))
+		s.Where(sql.NEQ(s.C(FieldUpdatedBy), v))
 	})
 }
 
-// UpdateByIn applies the In predicate on the "update_by" field.
-func UpdateByIn(vs ...int64) predicate.Dict {
+// UpdatedByIn applies the In predicate on the "updated_by" field.
+func UpdatedByIn(vs ...int64) predicate.Dict {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -424,12 +424,12 @@ func UpdateByIn(vs ...int64) predicate.Dict {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldUpdateBy), v...))
+		s.Where(sql.In(s.C(FieldUpdatedBy), v...))
 	})
 }
 
-// UpdateByNotIn applies the NotIn predicate on the "update_by" field.
-func UpdateByNotIn(vs ...int64) predicate.Dict {
+// UpdatedByNotIn applies the NotIn predicate on the "updated_by" field.
+func UpdatedByNotIn(vs ...int64) predicate.Dict {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -441,35 +441,35 @@ func UpdateByNotIn(vs ...int64) predicate.Dict {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldUpdateBy), v...))
+		s.Where(sql.NotIn(s.C(FieldUpdatedBy), v...))
 	})
 }
 
-// UpdateByGT applies the GT predicate on the "update_by" field.
-func UpdateByGT(v int64) predicate.Dict {
+// UpdatedByGT applies the GT predicate on the "updated_by" field.
+func UpdatedByGT(v int64) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldUpdateBy), v))
+		s.Where(sql.GT(s.C(FieldUpdatedBy), v))
 	})
 }
 
-// UpdateByGTE applies the GTE predicate on the "update_by" field.
-func UpdateByGTE(v int64) predicate.Dict {
+// UpdatedByGTE applies the GTE predicate on the "updated_by" field.
+func UpdatedByGTE(v int64) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldUpdateBy), v))
+		s.Where(sql.GTE(s.C(FieldUpdatedBy), v))
 	})
 }
 
-// UpdateByLT applies the LT predicate on the "update_by" field.
-func UpdateByLT(v int64) predicate.Dict {
+// UpdatedByLT applies the LT predicate on the "updated_by" field.
+func UpdatedByLT(v int64) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldUpdateBy), v))
+		s.Where(sql.LT(s.C(FieldUpdatedBy), v))
 	})
 }
 
-// UpdateByLTE applies the LTE predicate on the "update_by" field.
-func UpdateByLTE(v int64) predicate.Dict {
+// UpdatedByLTE applies the LTE predicate on the "updated_by" field.
+func UpdatedByLTE(v int64) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldUpdateBy), v))
+		s.Where(sql.LTE(s.C(FieldUpdatedBy), v))
 	})
 }
 

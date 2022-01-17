@@ -6,7 +6,7 @@ import (
 	"entgo.io/ent/dialect/entsql"
 	"entgo.io/ent/schema"
 	"entgo.io/ent/schema/field"
-	"github.com/lalifeier/vvgo/app/sys/service/internal/data/ent/schema/mixin"
+	"github.com/lalifeier/vvgo/pkg/ent/mixin"
 )
 
 // Dict holds the schema definition for the Dict entity.
