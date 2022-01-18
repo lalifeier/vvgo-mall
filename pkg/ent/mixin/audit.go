@@ -22,14 +22,17 @@ func (AuditMixin) Fields() []ent.Field {
 		field.Time("created_at").Immutable().SchemaType(map[string]string{
 			dialect.MySQL: "DATETIME", // Override MySQL.
 		}).Default(time.Now).Comment("创建时间"),
+
 		field.Int64("created_by").SchemaType(map[string]string{
-			dialect.MySQL: "bigint unsigned", // Override MySQL.
+			dialect.MySQL: "int(11)unsigned", // Override MySQL.
 		}).Default(0).Comment("更新人"),
+
 		field.Time("updated_at").Immutable().SchemaType(map[string]string{
 			dialect.MySQL: "DATETIME", // Override MySQL.
 		}).Default(time.Now).UpdateDefault(time.Now).Comment("更新时间"),
+
 		field.Int64("updated_by").SchemaType(map[string]string{
-			dialect.MySQL: "bigint unsigned", // Override MySQL.
+			dialect.MySQL: "int(11)unsigned", // Override MySQL.
 		}).Default(0).Comment("更新人"),
 	}
 }

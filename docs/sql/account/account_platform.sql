@@ -1,4 +1,3 @@
--- 第三方账户
 CREATE TABLE `account_platform` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
   `uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '账号id',
@@ -12,4 +11,4 @@ CREATE TABLE `account_platform` (
   PRIMARY KEY (`id`),
   KEY `idx_uid` (`uid`),
   KEY `idx_platform_id` (`platform_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='第三方用户信息';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='第三方用户登录表';
