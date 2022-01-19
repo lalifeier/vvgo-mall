@@ -1,7 +1,7 @@
 version: 3.1
 
 networks:
-  consul-network:
+  backend:
     driver: bridge
 
 services:
@@ -18,21 +18,58 @@ services:
       - mysql
       - consul
 
-  mysql:
-    image: mysql:latest
+  nginx:
+    image: nginx
+    container_name: nginx
     ports:
-      - 3306:3306
+      - 80:80
+      - 443:443
+    networks:
+      - backend
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: 123456
+      TZ: Asia/Shanghai
     volumes:
-      - /home/docker/mysql/data:/var/lib/mysql
+      - /usr/local/docker/nginx/html:/usr/share/nginx/html
+      - /usr/local/docker/nginx/logs:/var/log/nginx
+      - /usr/local/docker/nginx/conf:/etc/nginx
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    ports:
+      - 3306:3306
+    networks:
+      - backend
+    restart: always
+    environment:
+      - TZ: Asia/Shanghai
+      - MYSQL_USER: admin
+      - MYSQL_PASSWORD: 123456
+      - MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      - /usr/local/docker/mysql/config/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
+      - /usr/local/docker/mysql/data:/var/lib/mysql
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - 6379:6379
+    networks:
+      - backend
+    restart: always
+    environment:
+      - TZ: Asia/Shanghai
+    volumes:
+      - /usr/local/docker/redis/redis.conf:/etc/redis/redis.conf
+      - /usr/local/docker/redis/data:/data
 
   consul:
     container_name: consul
     image: bitnami/consul:latest
     networks:
-      - consul-network
+      - backend
     ports:
       - 8300:8300
       - 8301:8301
@@ -41,7 +78,7 @@ services:
       - 8600:8600
       - 8600:8600/udp
     volumes:
-      - /home/docker/consul/data:/bitnami
+      - /usr/local/docker/consul/data:/bitnami
 
   jaeger:
     image: jaegertracing/all-in-one:latest
@@ -56,3 +93,17 @@ services:
       - 9411:9411
     environment:
       COLLECTOR_ZIPKIN_HOST_PORT: 9411
+
+  prometheus:
+    image: bitnami/prometheus:latest
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    networks:
+      - backend
+    restart: always
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - /usr/local/docker/prometheus/prometheus-persistence:/opt/bitnami/prometheus/data
+      - /usr/local/docker/prometheus/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml

@@ -55,7 +55,7 @@ func (Dict) Fields() []ent.Field {
 
 		field.Int8("status").SchemaType(map[string]string{
 			dialect.MySQL: "tinyint(1) unsigned", // Override MySQL.
-		}).Default(0).Comment("状态 0:禁用 1:启用"),
+		}).Default(0).Comment("状态 0:禁用 1:启用 -1:删除"),
 
 		field.String("remark").SchemaType(map[string]string{
 			dialect.MySQL: "varchar(500)", // Override MySQL.
@@ -68,10 +68,6 @@ func (Dict) Fields() []ent.Field {
 		field.Int8("is_default").SchemaType(map[string]string{
 			dialect.MySQL: "tinyint(1) unsigned", // Override MySQL.
 		}).Default(0).Comment("是否默认值 0:否 1:是"),
-
-		field.Int8("is_deleted").SchemaType(map[string]string{
-			dialect.MySQL: "tinyint(1) unsigned", // Override MySQL.
-		}).Default(0).Comment("是否删除 0:否 1:是"),
 	}
 }
 
