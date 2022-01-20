@@ -1,31 +1,33 @@
-version: 3.1
+version: "3.7"
 
 networks:
+  frontend:
+    driver: bridge
   backend:
     driver: bridge
 
 services:
-  web-admin:
-    image: vgo-web-admin:0.1.0
-    ports:
-      - 80:80
+  # web-admin:
+  #   image: vgo-web-admin:0.1.0
+  #   ports:
+  #     - 80:80
 
-  user-service:
-    image: vgo-user-service:0.1.0
-    restart: always
-    hostname: user-service
-    depends_on:
-      - mysql
-      - consul
+  # user-service:
+  #   image: vgo-user-service:0.1.0
+  #   restart: always
+  #   hostname: user-service
+  #   depends_on:
+  #     - mysql
+  #     - consul
 
   nginx:
-    image: nginx
+    image: bitnami/nginx:latest
     container_name: nginx
     ports:
       - 80:80
       - 443:443
     networks:
-      - backend
+      - frontend
     restart: always
     environment:
       TZ: Asia/Shanghai
@@ -35,7 +37,7 @@ services:
       - /usr/local/docker/nginx/conf:/etc/nginx
 
   mysql:
-    image: mysql:5.7
+    image: bitnami/mysql:latest
     container_name: mysql
     ports:
       - 3306:3306
@@ -43,16 +45,16 @@ services:
       - backend
     restart: always
     environment:
-      - TZ: Asia/Shanghai
-      - MYSQL_USER: admin
-      - MYSQL_PASSWORD: 123456
-      - MYSQL_ROOT_PASSWORD: 123456
+      TZ: Asia/Shanghai
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: 123456
     volumes:
-      - /usr/local/docker/mysql/config/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
+      - /usr/local/docker/mysql/conf:/etc/mysql/conf.d
+      - /usr/local/docker/mysql/logs:/logs
       - /usr/local/docker/mysql/data:/var/lib/mysql
-
   redis:
-    image: redis:latest
+    image: bitnami/redis:latest
     container_name: redis
     ports:
       - 6379:6379
@@ -60,7 +62,8 @@ services:
       - backend
     restart: always
     environment:
-      - TZ: Asia/Shanghai
+      TZ: Asia/Shanghai
+      ALLOW_EMPTY_PASSWORD: "yes"
     volumes:
       - /usr/local/docker/redis/redis.conf:/etc/redis/redis.conf
       - /usr/local/docker/redis/data:/data
@@ -81,6 +84,7 @@ services:
       - /usr/local/docker/consul/data:/bitnami
 
   jaeger:
+    container_name: jaegertracing
     image: jaegertracing/all-in-one:latest
     ports:
       - 5775:5775/udp
@@ -94,16 +98,16 @@ services:
     environment:
       COLLECTOR_ZIPKIN_HOST_PORT: 9411
 
-  prometheus:
-    image: bitnami/prometheus:latest
-    container_name: prometheus
-    ports:
-      - 9090:9090
-    networks:
-      - backend
-    restart: always
-    environment:
-      TZ: Asia/Shanghai
-    volumes:
-      - /usr/local/docker/prometheus/prometheus-persistence:/opt/bitnami/prometheus/data
-      - /usr/local/docker/prometheus/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
+  # prometheus:
+  #   image: bitnami/prometheus:latest
+  #   container_name: prometheus
+  #   ports:
+  #     - 9090:9090
+  #   networks:
+  #     - backend
+  #   restart: always
+  #   environment:
+  #     TZ: Asia/Shanghai
+  #   volumes:
+  #     - /usr/local/docker/prometheus/prometheus-persistence:/opt/bitnami/prometheus/data
+  #     - /usr/local/docker/prometheus/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
