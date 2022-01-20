@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+package api.account.service.v1;
+
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/lalifeier/vvgo-mall/api/account/service/v1;v1";
+
+service Account {
+  rpc Register(RegisterReq) returns (RegisterResp);
+  rpc Login(LoginReq) returns (LoginResp);
+
+  rpc CreateAccountUser(CreateAccountUserReq) returns (CreateAccountUserResp);
+  rpc UpdateAccountUser(UpdateAccountUserReq) returns (UpdateAccountUserResp);
+  rpc DeleteAccountUser(DeleteAccountUserReq) returns (DeleteAccountUserResp);
+  rpc GetAccountUser(GetAccountUserReq) returns (GetAccountUserResp);
+  rpc ListAccountUser(ListAccountUserReq) returns (ListAccountUserResp);
+  rpc PageListAccountUser(PageListAccountUserReq)
+      returns (PageListAccountUserResp);
+
+  rpc CreateStaff(CreateStaffReq) returns (CreateStaffResp);
+  rpc UpdateStaff(UpdateStaffReq) returns (UpdateStaffResp);
+  rpc DeleteStaff(DeleteStaffReq) returns (DeleteStaffResp);
+  rpc GetStaff(GetStaffReq) returns (GetStaffResp);
+  rpc ListStaff(ListStaffReq) returns (ListStaffResp);
+  rpc PageListStaff(PageListStaffReq) returns (PageListStaffResp);
+}
+
+message RegisterReq {
+  string email = 1;
+  string phone = 2;
+  string username = 3;
+  string password = 4;
+}
+message RegisterResp { int64 id = 1; }
+message LoginReq {
+  string username = 1;
+  string password = 2;
+  string phone = 3;
+  string email = 4;
+  string code = 5;
+  string type = 6;
+}
+message LoginResp {}
+
+message AccountUser { int64 id = 1; }
+message CreateAccountUserReq {}
+message CreateAccountUserResp {}
+message UpdateAccountUserReq { int64 id = 1; }
+message UpdateAccountUserResp {}
+message DeleteAccountUserReq { int64 id = 1; }
+message DeleteAccountUserResp {}
+message GetAccountUserReq { int64 id = 1; }
+message GetAccountUserResp { int64 id = 1; }
+message ListAccountUserReq {}
+message ListAccountUserResp { repeated AccountUser data = 1; }
+message PageListAccountUserReq {
+  int64 pageNum = 1;
+  int64 pageSize = 4;
+}
+message PageListAccountUserResp {
+  int64 totalPages = 1;
+  int64 currentPage = 2;
+  int64 pageSize = 3;
+  repeated AccountUser data = 4;
+}
+
+message Staff { int64 id = 1; }
+message CreateStaffReq {}
+message CreateStaffResp {}
+message UpdateStaffReq { int64 id = 1; }
+message UpdateStaffResp {}
+message DeleteStaffReq { int64 id = 1; }
+message DeleteStaffResp {}
+message GetStaffReq { int64 id = 1; }
+message GetStaffResp { int64 id = 1; }
+message ListStaffReq {}
+message ListStaffResp { repeated Staff data = 1; }
+message PageListStaffReq {
+  int64 pageNum = 1;
+  int64 pageSize = 4;
+}
+message PageListStaffResp {
+  int64 totalPages = 1;
+  int64 currentPage = 2;
+  int64 pageSize = 3;
+  repeated Staff data = 4;
+}

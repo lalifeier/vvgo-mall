@@ -1,4 +1,3 @@
--- 销售属性值 product_attr_value
 CREATE TABLE `product_attr_value` (
     `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '销售属性值ID',
     `attr_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '销售属性ID',

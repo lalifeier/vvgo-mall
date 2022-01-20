@@ -1,11 +1,9 @@
 用户体系
 账号服务 account
-用户服务 user
 权限服务 auth
 
 购物体系
 商品服务 product
-类目服务 catalog
 购物车 cart
 
 订单
@@ -15,8 +13,8 @@
 支付服务 payment
 
 营销
-优惠券服务 coupon
 秒杀服务 seckill
+优惠券服务 coupon
 
 库存 inventory
 

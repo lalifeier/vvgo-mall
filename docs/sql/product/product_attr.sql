@@ -1,4 +1,3 @@
--- 销售属性表 product_attr
 CREATE TABLE `product_attr` (
     `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '销售属性ID',
     `name` varchar(255)  NOT NULL DEFAULT '' COMMENT '销售属性名称',

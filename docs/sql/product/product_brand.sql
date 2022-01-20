@@ -1,5 +1,4 @@
--- 品牌表 product_brands
-CREATE TABLE `product_brands` (
+CREATE TABLE `product_brand` (
     `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '品牌ID',
     `name` varchar(255)  NOT NULL DEFAULT '' COMMENT '品牌名称',
     `desc` varchar(255)  NOT NULL DEFAULT '' COMMENT '品牌描述',

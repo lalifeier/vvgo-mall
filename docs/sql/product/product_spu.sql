@@ -1,15 +1,12 @@
--- spu表 product_spu
--- spu: standard product unit 标准产品单位
 CREATE TABLE `product_spu` (
-    `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'SPU ID',
-    `brand_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '品牌ID',
-    `category_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '分类ID',
+    `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
     `name` varchar(255)  NOT NULL DEFAULT '' COMMENT 'spu名称',
     `desc` varchar(255)  NOT NULL DEFAULT '' COMMENT 'spu描述',
-    `selling_point` varchar(255)  NOT NULL DEFAULT '' COMMENT '卖点',
+    `brand_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '品牌ID',
+    `category_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '分类ID',
     `unit` varchar(255)  NOT NULL DEFAULT '' COMMENT 'spu单位',
-    `banner_url` text COMMENT 'banner图片 多个图片逗号分隔',
     `main_url` text COMMENT '商品介绍主图 多个图片逗号分隔',
+    `banner_url` text COMMENT 'banner图片 多个图片逗号分隔',
     `price_fee` int unsigned NOT NULL DEFAULT 0 COMMENT '售价，整数方式保存',
     `price_scale` tinyint unsigned NOT NULL DEFAULT 0 COMMENT '售价，金额对应的小数位数',
     `market_price_fee` int unsigned NOT NULL DEFAULT 0 COMMENT '市场价，整数方式保存',

@@ -1,4 +1,3 @@
--- 类别表 product_category
 CREATE TABLE `product_category` (
     `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类ID',
     `pid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '父ID',
@@ -12,4 +11,4 @@ CREATE TABLE `product_category` (
     `update_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改人staff_id',
     `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态 1:enable, 0:disable, -1:deleted',
     PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='类别表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='分类表';

@@ -1,4 +1,3 @@
--- sku库存表 product_sku_stock
 CREATE TABLE `product_sku_stock` (
     `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
     `sku_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'SKU ID',

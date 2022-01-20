@@ -1,8 +1,3 @@
--- 关联关系冗余表 product_spu_sku_attr_map
--- 1. spu下 有哪些sku
--- 2. spu下 有那些销售属性
--- 3. spu下 每个销售属性对应的销售属性值(一对多)
--- 4. spu下 每个销售属性值对应的sku(一对多)
 CREATE TABLE `product_spu_sku_attr_map` (
     `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
     `spu_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'SPU ID',
