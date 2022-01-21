@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/lalifeier/vvgo/app/sys/service/internal/data/ent"
+	"github.com/lalifeier/vvgo-mall/app/sys/service/internal/data/ent"
 )
 
 // The DictFunc type is an adapter to allow the use of ordinary

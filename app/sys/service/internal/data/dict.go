@@ -4,11 +4,11 @@ import (
 	"context"
 
 	"github.com/go-kratos/kratos/v2/log"
-	"github.com/lalifeier/vvgo/app/sys/service/internal/biz"
-	"github.com/lalifeier/vvgo/app/sys/service/internal/data/ent"
-	"github.com/lalifeier/vvgo/app/sys/service/internal/data/ent/dict"
+	"github.com/lalifeier/vvgo-mall/app/sys/service/internal/biz"
+	"github.com/lalifeier/vvgo-mall/app/sys/service/internal/data/ent"
+	"github.com/lalifeier/vvgo-mall/app/sys/service/internal/data/ent/dict"
 
-	"github.com/lalifeier/vvgo/pkg/utils/pagination"
+	"github.com/lalifeier/vvgo-mall/pkg/utils/pagination"
 )
 
 var _ biz.DictRepo = (*dictRepo)(nil)

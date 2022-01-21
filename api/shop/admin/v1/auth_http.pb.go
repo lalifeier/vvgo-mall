@@ -43,21 +43,21 @@ func RegisterAuthHTTPServer(s *http.Server, srv AuthHTTPServer) {
 	r.POST("/api/account_user", _Auth_CreateSystem0_HTTP_Handler(srv))
 	r.PUT("/api/system/{id}", _Auth_UpdateSystem0_HTTP_Handler(srv))
 	r.DELETE("/api/system/{id}", _Auth_DeleteSystem0_HTTP_Handler(srv))
-	r.GET("/api/system/{id}", _Auth_GetSystem0_HTTP_Handler(srv))
-	r.GET("/api/systems", _Auth_ListSystem0_HTTP_Handler(srv))
+	r.GET("/api/system/list", _Auth_ListSystem0_HTTP_Handler(srv))
 	r.GET("/api/system", _Auth_PageListSystem0_HTTP_Handler(srv))
+	r.GET("/api/system/{id}", _Auth_GetSystem0_HTTP_Handler(srv))
 	r.POST("/api/role", _Auth_CreateRole0_HTTP_Handler(srv))
 	r.PUT("/api/role/{id}", _Auth_UpdateRole0_HTTP_Handler(srv))
 	r.DELETE("/api/role/{id}", _Auth_DeleteRole0_HTTP_Handler(srv))
-	r.GET("/api/role/{id}", _Auth_GetRole0_HTTP_Handler(srv))
-	r.GET("/api/roles", _Auth_ListRole0_HTTP_Handler(srv))
+	r.GET("/api/role/list", _Auth_ListRole0_HTTP_Handler(srv))
 	r.GET("/api/role", _Auth_PageListRole0_HTTP_Handler(srv))
+	r.GET("/api/role/{id}", _Auth_GetRole0_HTTP_Handler(srv))
 	r.POST("/api/menu", _Auth_CreateMenu0_HTTP_Handler(srv))
 	r.PUT("/api/menu/{id}", _Auth_UpdateMenu0_HTTP_Handler(srv))
 	r.DELETE("/api/menu/{id}", _Auth_DeleteMenu0_HTTP_Handler(srv))
-	r.GET("/api/menu/{id}", _Auth_GetMenu0_HTTP_Handler(srv))
-	r.GET("/api/menus", _Auth_ListMenu0_HTTP_Handler(srv))
+	r.GET("/api/menu/list", _Auth_ListMenu0_HTTP_Handler(srv))
 	r.GET("/api/menu", _Auth_PageListMenu0_HTTP_Handler(srv))
+	r.GET("/api/menu/{id}", _Auth_GetMenu0_HTTP_Handler(srv))
 }
 
 func _Auth_CreateSystem0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
@@ -123,28 +123,6 @@ func _Auth_DeleteSystem0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context)
 	}
 }
 
-func _Auth_GetSystem0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
-	return func(ctx http.Context) error {
-		var in GetSystemReq
-		if err := ctx.BindQuery(&in); err != nil {
-			return err
-		}
-		if err := ctx.BindVars(&in); err != nil {
-			return err
-		}
-		http.SetOperation(ctx, "/api.shop.admin.v1.Auth/GetSystem")
-		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.GetSystem(ctx, req.(*GetSystemReq))
-		})
-		out, err := h(ctx, &in)
-		if err != nil {
-			return err
-		}
-		reply := out.(*GetSystemResp)
-		return ctx.Result(200, reply)
-	}
-}
-
 func _Auth_ListSystem0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in ListSystemReq
@@ -179,6 +157,28 @@ func _Auth_PageListSystem0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Contex
 			return err
 		}
 		reply := out.(*PageListSystemResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Auth_GetSystem0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in GetSystemReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Auth/GetSystem")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetSystem(ctx, req.(*GetSystemReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetSystemResp)
 		return ctx.Result(200, reply)
 	}
 }
@@ -246,28 +246,6 @@ func _Auth_DeleteRole0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) e
 	}
 }
 
-func _Auth_GetRole0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
-	return func(ctx http.Context) error {
-		var in GetRoleReq
-		if err := ctx.BindQuery(&in); err != nil {
-			return err
-		}
-		if err := ctx.BindVars(&in); err != nil {
-			return err
-		}
-		http.SetOperation(ctx, "/api.shop.admin.v1.Auth/GetRole")
-		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.GetRole(ctx, req.(*GetRoleReq))
-		})
-		out, err := h(ctx, &in)
-		if err != nil {
-			return err
-		}
-		reply := out.(*GetRoleResp)
-		return ctx.Result(200, reply)
-	}
-}
-
 func _Auth_ListRole0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in ListRoleReq
@@ -302,6 +280,28 @@ func _Auth_PageListRole0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context)
 			return err
 		}
 		reply := out.(*PageListRoleResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Auth_GetRole0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in GetRoleReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Auth/GetRole")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetRole(ctx, req.(*GetRoleReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetRoleResp)
 		return ctx.Result(200, reply)
 	}
 }
@@ -369,28 +369,6 @@ func _Auth_DeleteMenu0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) e
 	}
 }
 
-func _Auth_GetMenu0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
-	return func(ctx http.Context) error {
-		var in GetMenuReq
-		if err := ctx.BindQuery(&in); err != nil {
-			return err
-		}
-		if err := ctx.BindVars(&in); err != nil {
-			return err
-		}
-		http.SetOperation(ctx, "/api.shop.admin.v1.Auth/GetMenu")
-		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.GetMenu(ctx, req.(*GetMenuReq))
-		})
-		out, err := h(ctx, &in)
-		if err != nil {
-			return err
-		}
-		reply := out.(*GetMenuResp)
-		return ctx.Result(200, reply)
-	}
-}
-
 func _Auth_ListMenu0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in ListMenuReq
@@ -425,6 +403,28 @@ func _Auth_PageListMenu0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context)
 			return err
 		}
 		reply := out.(*PageListMenuResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Auth_GetMenu0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in GetMenuReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Auth/GetMenu")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetMenu(ctx, req.(*GetMenuReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetMenuResp)
 		return ctx.Result(200, reply)
 	}
 }
@@ -577,7 +577,7 @@ func (c *AuthHTTPClientImpl) GetSystem(ctx context.Context, in *GetSystemReq, op
 
 func (c *AuthHTTPClientImpl) ListMenu(ctx context.Context, in *ListMenuReq, opts ...http.CallOption) (*ListMenuResp, error) {
 	var out ListMenuResp
-	pattern := "/api/menus"
+	pattern := "/api/menu/list"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation("/api.shop.admin.v1.Auth/ListMenu"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -590,7 +590,7 @@ func (c *AuthHTTPClientImpl) ListMenu(ctx context.Context, in *ListMenuReq, opts
 
 func (c *AuthHTTPClientImpl) ListRole(ctx context.Context, in *ListRoleReq, opts ...http.CallOption) (*ListRoleResp, error) {
 	var out ListRoleResp
-	pattern := "/api/roles"
+	pattern := "/api/role/list"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation("/api.shop.admin.v1.Auth/ListRole"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -603,7 +603,7 @@ func (c *AuthHTTPClientImpl) ListRole(ctx context.Context, in *ListRoleReq, opts
 
 func (c *AuthHTTPClientImpl) ListSystem(ctx context.Context, in *ListSystemReq, opts ...http.CallOption) (*ListSystemResp, error) {
 	var out ListSystemResp
-	pattern := "/api/systems"
+	pattern := "/api/system/list"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation("/api.shop.admin.v1.Auth/ListSystem"))
 	opts = append(opts, http.PathTemplate(pattern))

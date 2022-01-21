@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/lalifeier/vvgo/app/ums/service/internal/data/ent/accountuser"
-	"github.com/lalifeier/vvgo/app/ums/service/internal/data/ent/predicate"
+	"github.com/lalifeier/vvgo-mall/app/ums/service/internal/data/ent/accountuser"
+	"github.com/lalifeier/vvgo-mall/app/ums/service/internal/data/ent/predicate"
 
 	"entgo.io/ent"
 )

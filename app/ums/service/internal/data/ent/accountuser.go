@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/lalifeier/vvgo/app/ums/service/internal/data/ent/accountuser"
+	"github.com/lalifeier/vvgo-mall/app/ums/service/internal/data/ent/accountuser"
 )
 
 // AccountUser is the model entity for the AccountUser schema.

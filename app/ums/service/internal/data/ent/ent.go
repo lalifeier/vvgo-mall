@@ -8,7 +8,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/lalifeier/vvgo/app/ums/service/internal/data/ent/accountuser"
+	"github.com/lalifeier/vvgo-mall/app/ums/service/internal/data/ent/accountuser"
 )
 
 // ent aliases to avoid import conflicts in user's code.

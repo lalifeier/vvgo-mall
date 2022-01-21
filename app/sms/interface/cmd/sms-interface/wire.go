@@ -10,11 +10,11 @@ import (
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
 
-	"github.com/lalifeier/vvgo/app/sms/interface/internal/biz"
-	"github.com/lalifeier/vvgo/app/sms/interface/internal/conf"
-	"github.com/lalifeier/vvgo/app/sms/interface/internal/data"
-	"github.com/lalifeier/vvgo/app/sms/interface/internal/server"
-	"github.com/lalifeier/vvgo/app/sms/interface/internal/service"
+	"github.com/lalifeier/vvgo-mall/app/sms/interface/internal/biz"
+	"github.com/lalifeier/vvgo-mall/app/sms/interface/internal/conf"
+	"github.com/lalifeier/vvgo-mall/app/sms/interface/internal/data"
+	"github.com/lalifeier/vvgo-mall/app/sms/interface/internal/server"
+	"github.com/lalifeier/vvgo-mall/app/sms/interface/internal/service"
 )
 
 // initApp init kratos application.

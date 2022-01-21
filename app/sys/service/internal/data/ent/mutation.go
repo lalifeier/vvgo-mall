@@ -8,8 +8,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/lalifeier/vvgo/app/sys/service/internal/data/ent/dict"
-	"github.com/lalifeier/vvgo/app/sys/service/internal/data/ent/predicate"
+	"github.com/lalifeier/vvgo-mall/app/sys/service/internal/data/ent/dict"
+	"github.com/lalifeier/vvgo-mall/app/sys/service/internal/data/ent/predicate"
 
 	"entgo.io/ent"
 )

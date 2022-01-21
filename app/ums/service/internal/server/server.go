@@ -3,7 +3,7 @@ package server
 import (
 	"github.com/go-kratos/kratos/v2/registry"
 	"github.com/google/wire"
-	"github.com/lalifeier/vvgo/app/ums/service/internal/conf"
+	"github.com/lalifeier/vvgo-mall/app/ums/service/internal/conf"
 
 	consul "github.com/go-kratos/consul/registry"
 	consulAPI "github.com/hashicorp/consul/api"

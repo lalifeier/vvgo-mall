@@ -2,14 +2,14 @@ package server
 
 import (
 	"github.com/gorilla/handlers"
-	v1 "github.com/lalifeier/vvgo/api/shop/admin/v1"
+	v1 "github.com/lalifeier/vvgo-mall/api/shop/admin/v1"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/transport/http"
 	"github.com/go-kratos/swagger-api/openapiv2"
-	"github.com/lalifeier/vvgo/app/shop/admin/internal/conf"
-	"github.com/lalifeier/vvgo/app/shop/admin/internal/service"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/conf"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/service"
 )
 
 // func NewWhiteListMatcher() selector.MatchFunc {
@@ -25,7 +25,7 @@ import (
 // }
 
 // NewHTTPServer new a HTTP server.
-func NewHTTPServer(c *conf.Server, ums *service.UmsService, sys *service.SysService, logger log.Logger) *http.Server {
+func NewHTTPServer(c *conf.Server, logger log.Logger, accountService *service.AccountService, authService *service.AuthService, sys *service.SysService) *http.Server {
 	var opts = []http.ServerOption{
 		http.Middleware(
 			recovery.Recovery(),
@@ -57,7 +57,8 @@ func NewHTTPServer(c *conf.Server, ums *service.UmsService, sys *service.SysServ
 	openAPIhandler := openapiv2.NewHandler()
 	srv.HandlePrefix("/q/", openAPIhandler)
 
-	v1.RegisterUmsHTTPServer(srv, ums)
+	v1.RegisterAccountHTTPServer(srv, accountService)
+	v1.RegisterAuthHTTPServer(srv, authService)
 	v1.RegisterSysHTTPServer(srv, sys)
 	return srv
 }

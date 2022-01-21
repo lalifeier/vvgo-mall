@@ -2,4 +2,4 @@
 
 package ent
 
-// The schema-stitching logic is generated in github.com/lalifeier/vvgo/app/sys/service/internal/data/ent/runtime/runtime.go
+// The schema-stitching logic is generated in github.com/lalifeier/vvgo-mall/app/sys/service/internal/data/ent/runtime/runtime.go

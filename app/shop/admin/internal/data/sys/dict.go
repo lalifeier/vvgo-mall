@@ -6,9 +6,9 @@ import (
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/jinzhu/copier"
 
-	sysV1 "github.com/lalifeier/vvgo/api/sys/service/v1"
-	"github.com/lalifeier/vvgo/app/shop/admin/internal/biz/sys"
-	"github.com/lalifeier/vvgo/app/shop/admin/internal/data"
+	sysV1 "github.com/lalifeier/vvgo-mall/api/sys/service/v1"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/biz/sys"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data"
 )
 
 var _ sys.DictRepo = (*dictRepo)(nil)

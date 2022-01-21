@@ -5,9 +5,9 @@ package enttest
 import (
 	"context"
 
-	"github.com/lalifeier/vvgo/app/sys/service/internal/data/ent"
+	"github.com/lalifeier/vvgo-mall/app/sys/service/internal/data/ent"
 	// required by schema hooks.
-	_ "github.com/lalifeier/vvgo/app/sys/service/internal/data/ent/runtime"
+	_ "github.com/lalifeier/vvgo-mall/app/sys/service/internal/data/ent/runtime"
 
 	"entgo.io/ent/dialect/sql/schema"
 )

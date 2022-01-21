@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/go-kratos/kratos/v2/log"
-	pb "github.com/lalifeier/vvgo/api/paser/service/v1"
-	"github.com/lalifeier/vvgo/app/paser/service/internal/biz"
+	pb "github.com/lalifeier/vvgo-mall/api/paser/service/v1"
+	"github.com/lalifeier/vvgo-mall/app/paser/service/internal/biz"
 )
 
 type PaserService struct {

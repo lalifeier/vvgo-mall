@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/go-kratos/kratos/v2/log"
-	"github.com/lalifeier/vvgo/app/sms/interface/internal/biz"
+	"github.com/lalifeier/vvgo-mall/app/sms/interface/internal/biz"
 )
 
 var _ biz.SmsRepo = (*smsRepo)(nil)

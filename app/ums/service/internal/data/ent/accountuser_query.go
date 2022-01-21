@@ -11,8 +11,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/lalifeier/vvgo/app/ums/service/internal/data/ent/accountuser"
-	"github.com/lalifeier/vvgo/app/ums/service/internal/data/ent/predicate"
+	"github.com/lalifeier/vvgo-mall/app/ums/service/internal/data/ent/accountuser"
+	"github.com/lalifeier/vvgo-mall/app/ums/service/internal/data/ent/predicate"
 )
 
 // AccountUserQuery is the builder for querying AccountUser entities.

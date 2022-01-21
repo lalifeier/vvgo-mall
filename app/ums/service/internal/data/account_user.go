@@ -5,10 +5,10 @@ import (
 	"errors"
 
 	"github.com/go-kratos/kratos/v2/log"
-	"github.com/lalifeier/vvgo/app/ums/service/internal/biz"
-	"github.com/lalifeier/vvgo/app/ums/service/internal/data/ent"
-	"github.com/lalifeier/vvgo/app/ums/service/internal/data/ent/accountuser"
-	"github.com/lalifeier/vvgo/pkg/utils/pagination"
+	"github.com/lalifeier/vvgo-mall/app/ums/service/internal/biz"
+	"github.com/lalifeier/vvgo-mall/app/ums/service/internal/data/ent"
+	"github.com/lalifeier/vvgo-mall/app/ums/service/internal/data/ent/accountuser"
+	"github.com/lalifeier/vvgo-mall/pkg/utils/pagination"
 	"github.com/spf13/cast"
 )
 

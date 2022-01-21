@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/lalifeier/vvgo/app/ums/service/internal/data/ent/migrate"
+	"github.com/lalifeier/vvgo-mall/app/ums/service/internal/data/ent/migrate"
 
-	"github.com/lalifeier/vvgo/app/ums/service/internal/data/ent/accountuser"
+	"github.com/lalifeier/vvgo-mall/app/ums/service/internal/data/ent/accountuser"
 
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"

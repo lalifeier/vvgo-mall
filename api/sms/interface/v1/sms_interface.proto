@@ -6,7 +6,7 @@ import "google/api/annotations.proto";
 
 import "validate/validate.proto";
 
-option go_package = "github.com/lalifeier/vvgo/api/sms/interface/v1;v1";
+option go_package = "github.com/lalifeier/vvgo-mall/api/sms/interface/v1;v1";
 
 service Sms {
   rpc SendSmsCode(SendSmsCodeRequest) returns (SendSmsCodeReply) {

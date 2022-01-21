@@ -4,7 +4,7 @@ package api.sys.service.v1;
 
 import "google/protobuf/empty.proto";
 
-option go_package = "github.com/lalifeier/vvgo/api/sys/service/v1;v1";
+option go_package = "github.com/lalifeier/vvgo-mall/api/sys/service/v1;v1";
 
 service Sys {
   rpc CreateDict(CreateDictReq) returns (CreateDictResp);

@@ -3,8 +3,8 @@ package data
 import (
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
-	"github.com/lalifeier/vvgo/app/ums/service/internal/conf"
-	"github.com/lalifeier/vvgo/app/ums/service/internal/data/ent"
+	"github.com/lalifeier/vvgo-mall/app/ums/service/internal/conf"
+	"github.com/lalifeier/vvgo-mall/app/ums/service/internal/data/ent"
 
 	_ "github.com/go-sql-driver/mysql"
 )

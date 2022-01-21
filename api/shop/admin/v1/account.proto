@@ -47,20 +47,20 @@ service Account {
       delete : "/api/account_user/{id}"
     };
   }
-  rpc GetAccountUser(GetAccountUserReq) returns (GetAccountUserResp) {
-    option (google.api.http) = {
-      get : "/api/account_user/{id}"
-    };
-  }
   rpc ListAccountUser(ListAccountUserReq) returns (ListAccountUserResp) {
     option (google.api.http) = {
-      get : "/api/account_users"
+      get : "/api/account_user/list"
     };
   }
   rpc PageListAccountUser(PageListAccountUserReq)
       returns (PageListAccountUserResp) {
     option (google.api.http) = {
       get : "/api/account_user"
+    };
+  }
+  rpc GetAccountUser(GetAccountUserReq) returns (GetAccountUserResp) {
+    option (google.api.http) = {
+      get : "/api/account_user/{id}"
     };
   }
 
@@ -81,19 +81,19 @@ service Account {
       delete : "/api/staff/{id}"
     };
   }
-  rpc GetStaff(GetStaffReq) returns (GetStaffResp) {
-    option (google.api.http) = {
-      get : "/api/staff/{id}"
-    };
-  }
   rpc ListStaff(ListStaffReq) returns (ListStaffResp) {
     option (google.api.http) = {
-      get : "/api/staffs"
+      get : "/api/staff/list"
     };
   }
   rpc PageListStaff(PageListStaffReq) returns (PageListStaffResp) {
     option (google.api.http) = {
       get : "/api/staff"
+    };
+  }
+  rpc GetStaff(GetStaffReq) returns (GetStaffResp) {
+    option (google.api.http) = {
+      get : "/api/staff/{id}"
     };
   }
 }

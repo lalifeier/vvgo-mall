@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/go-playground/assert/v2"
-	"github.com/lalifeier/vvgo/pkg/encoding/base64"
+	"github.com/lalifeier/vvgo-mall/pkg/encoding/base64"
 )
 
 //openssl rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem

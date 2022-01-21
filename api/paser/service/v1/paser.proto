@@ -4,7 +4,7 @@ package api.paser.service.v1;
 
 import "google/api/annotations.proto";
 
-option go_package = "github.com/lalifeier/vvgo/api/paser/service/v1;v1";
+option go_package = "github.com/lalifeier/vvgo-mall/api/paser/service/v1;v1";
 
 service Paser {
   rpc Paser(PaserReq) returns (PaserReply) {

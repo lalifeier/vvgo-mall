@@ -72,7 +72,7 @@ func ValidColumn(column string) bool {
 // package on the initialization of the application. Therefore,
 // it should be imported in the main as follows:
 //
-//	import _ "github.com/lalifeier/vvgo/app/sys/service/internal/data/ent/runtime"
+//	import _ "github.com/lalifeier/vvgo-mall/app/sys/service/internal/data/ent/runtime"
 //
 var (
 	Hooks [1]ent.Hook

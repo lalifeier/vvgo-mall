@@ -10,8 +10,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/lalifeier/vvgo/app/sys/service/internal/data/ent/dict"
-	"github.com/lalifeier/vvgo/app/sys/service/internal/data/ent/predicate"
+	"github.com/lalifeier/vvgo-mall/app/sys/service/internal/data/ent/dict"
+	"github.com/lalifeier/vvgo-mall/app/sys/service/internal/data/ent/predicate"
 )
 
 // DictUpdate is the builder for updating Dict entities.

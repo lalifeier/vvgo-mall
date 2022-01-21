@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-resty/resty/v2"
 
-	pb "github.com/lalifeier/vvgo/api/paser/service/v1"
+	pb "github.com/lalifeier/vvgo-mall/api/paser/service/v1"
 )
 
 type DouyinData struct {

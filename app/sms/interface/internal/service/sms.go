@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/go-kratos/kratos/v2/log"
-	pb "github.com/lalifeier/vvgo/api/sms/interface/v1"
-	"github.com/lalifeier/vvgo/app/sms/interface/internal/biz"
+	pb "github.com/lalifeier/vvgo-mall/api/sms/interface/v1"
+	"github.com/lalifeier/vvgo-mall/app/sms/interface/internal/biz"
 )
 
 type SmsService struct {

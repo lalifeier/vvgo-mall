@@ -5,8 +5,8 @@ import (
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/jinzhu/copier"
-	pb "github.com/lalifeier/vvgo/api/shop/admin/v1"
-	"github.com/lalifeier/vvgo/app/shop/admin/internal/biz/sys"
+	pb "github.com/lalifeier/vvgo-mall/api/shop/admin/v1"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/biz/sys"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 

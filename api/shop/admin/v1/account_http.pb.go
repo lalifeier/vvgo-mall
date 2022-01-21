@@ -41,15 +41,15 @@ func RegisterAccountHTTPServer(s *http.Server, srv AccountHTTPServer) {
 	r.POST("/api/account_user", _Account_CreateAccountUser0_HTTP_Handler(srv))
 	r.PUT("/api/account_user/{id}", _Account_UpdateAccountUser0_HTTP_Handler(srv))
 	r.DELETE("/api/account_user/{id}", _Account_DeleteAccountUser0_HTTP_Handler(srv))
-	r.GET("/api/account_user/{id}", _Account_GetAccountUser0_HTTP_Handler(srv))
-	r.GET("/api/account_users", _Account_ListAccountUser0_HTTP_Handler(srv))
+	r.GET("/api/account_user/list", _Account_ListAccountUser0_HTTP_Handler(srv))
 	r.GET("/api/account_user", _Account_PageListAccountUser0_HTTP_Handler(srv))
+	r.GET("/api/account_user/{id}", _Account_GetAccountUser0_HTTP_Handler(srv))
 	r.POST("/api/staff", _Account_CreateStaff0_HTTP_Handler(srv))
 	r.PUT("/api/staff/{id}", _Account_UpdateStaff0_HTTP_Handler(srv))
 	r.DELETE("/api/staff/{id}", _Account_DeleteStaff0_HTTP_Handler(srv))
-	r.GET("/api/staff/{id}", _Account_GetStaff0_HTTP_Handler(srv))
-	r.GET("/api/staffs", _Account_ListStaff0_HTTP_Handler(srv))
+	r.GET("/api/staff/list", _Account_ListStaff0_HTTP_Handler(srv))
 	r.GET("/api/staff", _Account_PageListStaff0_HTTP_Handler(srv))
+	r.GET("/api/staff/{id}", _Account_GetStaff0_HTTP_Handler(srv))
 }
 
 func _Account_Register0_HTTP_Handler(srv AccountHTTPServer) func(ctx http.Context) error {
@@ -153,28 +153,6 @@ func _Account_DeleteAccountUser0_HTTP_Handler(srv AccountHTTPServer) func(ctx ht
 	}
 }
 
-func _Account_GetAccountUser0_HTTP_Handler(srv AccountHTTPServer) func(ctx http.Context) error {
-	return func(ctx http.Context) error {
-		var in GetAccountUserReq
-		if err := ctx.BindQuery(&in); err != nil {
-			return err
-		}
-		if err := ctx.BindVars(&in); err != nil {
-			return err
-		}
-		http.SetOperation(ctx, "/api.shop.admin.v1.Account/GetAccountUser")
-		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.GetAccountUser(ctx, req.(*GetAccountUserReq))
-		})
-		out, err := h(ctx, &in)
-		if err != nil {
-			return err
-		}
-		reply := out.(*GetAccountUserResp)
-		return ctx.Result(200, reply)
-	}
-}
-
 func _Account_ListAccountUser0_HTTP_Handler(srv AccountHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in ListAccountUserReq
@@ -209,6 +187,28 @@ func _Account_PageListAccountUser0_HTTP_Handler(srv AccountHTTPServer) func(ctx 
 			return err
 		}
 		reply := out.(*PageListAccountUserResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Account_GetAccountUser0_HTTP_Handler(srv AccountHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in GetAccountUserReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Account/GetAccountUser")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetAccountUser(ctx, req.(*GetAccountUserReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetAccountUserResp)
 		return ctx.Result(200, reply)
 	}
 }
@@ -276,28 +276,6 @@ func _Account_DeleteStaff0_HTTP_Handler(srv AccountHTTPServer) func(ctx http.Con
 	}
 }
 
-func _Account_GetStaff0_HTTP_Handler(srv AccountHTTPServer) func(ctx http.Context) error {
-	return func(ctx http.Context) error {
-		var in GetStaffReq
-		if err := ctx.BindQuery(&in); err != nil {
-			return err
-		}
-		if err := ctx.BindVars(&in); err != nil {
-			return err
-		}
-		http.SetOperation(ctx, "/api.shop.admin.v1.Account/GetStaff")
-		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.GetStaff(ctx, req.(*GetStaffReq))
-		})
-		out, err := h(ctx, &in)
-		if err != nil {
-			return err
-		}
-		reply := out.(*GetStaffResp)
-		return ctx.Result(200, reply)
-	}
-}
-
 func _Account_ListStaff0_HTTP_Handler(srv AccountHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in ListStaffReq
@@ -332,6 +310,28 @@ func _Account_PageListStaff0_HTTP_Handler(srv AccountHTTPServer) func(ctx http.C
 			return err
 		}
 		reply := out.(*PageListStaffResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Account_GetStaff0_HTTP_Handler(srv AccountHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in GetStaffReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Account/GetStaff")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetStaff(ctx, req.(*GetStaffReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetStaffResp)
 		return ctx.Result(200, reply)
 	}
 }
@@ -441,7 +441,7 @@ func (c *AccountHTTPClientImpl) GetStaff(ctx context.Context, in *GetStaffReq, o
 
 func (c *AccountHTTPClientImpl) ListAccountUser(ctx context.Context, in *ListAccountUserReq, opts ...http.CallOption) (*ListAccountUserResp, error) {
 	var out ListAccountUserResp
-	pattern := "/api/account_users"
+	pattern := "/api/account_user/list"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation("/api.shop.admin.v1.Account/ListAccountUser"))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -454,7 +454,7 @@ func (c *AccountHTTPClientImpl) ListAccountUser(ctx context.Context, in *ListAcc
 
 func (c *AccountHTTPClientImpl) ListStaff(ctx context.Context, in *ListStaffReq, opts ...http.CallOption) (*ListStaffResp, error) {
 	var out ListStaffResp
-	pattern := "/api/staffs"
+	pattern := "/api/staff/list"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation("/api.shop.admin.v1.Account/ListStaff"))
 	opts = append(opts, http.PathTemplate(pattern))

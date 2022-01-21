@@ -34,19 +34,19 @@ service Auth {
       delete : "/api/system/{id}"
     };
   }
-  rpc GetSystem(GetSystemReq) returns (GetSystemResp) {
-    option (google.api.http) = {
-      get : "/api/system/{id}"
-    };
-  }
   rpc ListSystem(ListSystemReq) returns (ListSystemResp) {
     option (google.api.http) = {
-      get : "/api/systems"
+      get : "/api/system/list"
     };
   }
   rpc PageListSystem(PageListSystemReq) returns (PageListSystemResp) {
     option (google.api.http) = {
       get : "/api/system"
+    };
+  }
+  rpc GetSystem(GetSystemReq) returns (GetSystemResp) {
+    option (google.api.http) = {
+      get : "/api/system/{id}"
     };
   }
 
@@ -67,19 +67,19 @@ service Auth {
       delete : "/api/role/{id}"
     };
   }
-  rpc GetRole(GetRoleReq) returns (GetRoleResp) {
-    option (google.api.http) = {
-      get : "/api/role/{id}"
-    };
-  }
   rpc ListRole(ListRoleReq) returns (ListRoleResp) {
     option (google.api.http) = {
-      get : "/api/roles"
+      get : "/api/role/list"
     };
   }
   rpc PageListRole(PageListRoleReq) returns (PageListRoleResp) {
     option (google.api.http) = {
       get : "/api/role"
+    };
+  }
+  rpc GetRole(GetRoleReq) returns (GetRoleResp) {
+    option (google.api.http) = {
+      get : "/api/role/{id}"
     };
   }
 
@@ -100,19 +100,19 @@ service Auth {
       delete : "/api/menu/{id}"
     };
   }
-  rpc GetMenu(GetMenuReq) returns (GetMenuResp) {
-    option (google.api.http) = {
-      get : "/api/menu/{id}"
-    };
-  }
   rpc ListMenu(ListMenuReq) returns (ListMenuResp) {
     option (google.api.http) = {
-      get : "/api/menus"
+      get : "/api/menu/list"
     };
   }
   rpc PageListMenu(PageListMenuReq) returns (PageListMenuResp) {
     option (google.api.http) = {
       get : "/api/menu"
+    };
+  }
+  rpc GetMenu(GetMenuReq) returns (GetMenuResp) {
+    option (google.api.http) = {
+      get : "/api/menu/{id}"
     };
   }
 }

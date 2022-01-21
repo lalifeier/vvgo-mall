@@ -1,9 +1,9 @@
 package server
 
 import (
-	v1 "github.com/lalifeier/vvgo/api/paser/service/v1"
-	"github.com/lalifeier/vvgo/app/paser/service/internal/conf"
-	"github.com/lalifeier/vvgo/app/paser/service/internal/service"
+	v1 "github.com/lalifeier/vvgo-mall/api/paser/service/v1"
+	"github.com/lalifeier/vvgo-mall/app/paser/service/internal/conf"
+	"github.com/lalifeier/vvgo-mall/app/paser/service/internal/service"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"

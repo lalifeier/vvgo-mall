@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/jinzhu/copier"
-	pb "github.com/lalifeier/vvgo/api/sys/service/v1"
-	"github.com/lalifeier/vvgo/app/sys/service/internal/biz"
+	pb "github.com/lalifeier/vvgo-mall/api/sys/service/v1"
+	"github.com/lalifeier/vvgo-mall/app/sys/service/internal/biz"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 

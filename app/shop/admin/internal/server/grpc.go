@@ -1,17 +1,17 @@
 package server
 
 import (
-	v1 "github.com/lalifeier/vvgo/api/shop/admin/v1"
+	v1 "github.com/lalifeier/vvgo-mall/api/shop/admin/v1"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/transport/grpc"
-	"github.com/lalifeier/vvgo/app/shop/admin/internal/conf"
-	"github.com/lalifeier/vvgo/app/shop/admin/internal/service"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/conf"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/service"
 )
 
 // NewGRPCServer new a gRPC server.
-func NewGRPCServer(c *conf.Server, ums *service.UmsService, sys *service.SysService, logger log.Logger) *grpc.Server {
+func NewGRPCServer(c *conf.Server, logger log.Logger, accountService *service.AccountService, authService *service.AuthService, sys *service.SysService) *grpc.Server {
 	var opts = []grpc.ServerOption{
 		grpc.Middleware(
 			recovery.Recovery(),
@@ -27,7 +27,9 @@ func NewGRPCServer(c *conf.Server, ums *service.UmsService, sys *service.SysServ
 		opts = append(opts, grpc.Timeout(c.Grpc.Timeout.AsDuration()))
 	}
 	srv := grpc.NewServer(opts...)
-	v1.RegisterUmsServer(srv, ums)
+
+	v1.RegisterAccountServer(srv, accountService)
+	v1.RegisterAuthServer(srv, authService)
 	v1.RegisterSysServer(srv, sys)
 	return srv
 }

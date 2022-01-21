@@ -2,7 +2,7 @@ package server
 
 import (
 	"github.com/google/wire"
-	"github.com/lalifeier/vvgo/app/shop/admin/internal/conf"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/conf"
 
 	consul "github.com/go-kratos/consul/registry"
 	"github.com/go-kratos/kratos/v2/registry"

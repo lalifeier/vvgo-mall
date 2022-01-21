@@ -9,11 +9,11 @@ import (
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
-	"github.com/lalifeier/vvgo/app/paser/service/internal/biz"
-	"github.com/lalifeier/vvgo/app/paser/service/internal/conf"
-	"github.com/lalifeier/vvgo/app/paser/service/internal/data"
-	"github.com/lalifeier/vvgo/app/paser/service/internal/server"
-	"github.com/lalifeier/vvgo/app/paser/service/internal/service"
+	"github.com/lalifeier/vvgo-mall/app/paser/service/internal/biz"
+	"github.com/lalifeier/vvgo-mall/app/paser/service/internal/conf"
+	"github.com/lalifeier/vvgo-mall/app/paser/service/internal/data"
+	"github.com/lalifeier/vvgo-mall/app/paser/service/internal/server"
+	"github.com/lalifeier/vvgo-mall/app/paser/service/internal/service"
 )
 
 // initApp init kratos application.

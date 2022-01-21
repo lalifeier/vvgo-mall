@@ -5,8 +5,8 @@ package runtime
 import (
 	"time"
 
-	"github.com/lalifeier/vvgo/app/sys/service/internal/data/ent/dict"
-	"github.com/lalifeier/vvgo/app/sys/service/internal/data/ent/schema"
+	"github.com/lalifeier/vvgo-mall/app/sys/service/internal/data/ent/dict"
+	"github.com/lalifeier/vvgo-mall/app/sys/service/internal/data/ent/schema"
 )
 
 // The init function reads all schema descriptors with runtime code

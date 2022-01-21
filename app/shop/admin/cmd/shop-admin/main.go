@@ -12,13 +12,13 @@ import (
 	"github.com/go-kratos/kratos/v2/registry"
 	"github.com/go-kratos/kratos/v2/transport/grpc"
 	"github.com/go-kratos/kratos/v2/transport/http"
-	"github.com/lalifeier/vvgo/app/shop/admin/internal/conf"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/conf"
 )
 
 // go build -ldflags "-X main.Version=x.y.z"
 var (
 	// Name is the name of the compiled software.
-	Name string = "vvgo.shop.admin"
+	Name string = "vvgo-mall.shop.admin"
 	// Version is the version of the compiled software.
 	Version string
 	// flagconf is the config flag.

@@ -7,7 +7,7 @@ import (
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/mixin"
-	"github.com/lalifeier/vvgo/pkg/ent/hooks"
+	"github.com/lalifeier/vvgo-mall/pkg/ent/hooks"
 )
 
 // AuditMixin 实现了 ent.Mixin，

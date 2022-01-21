@@ -3,8 +3,8 @@
 package ent
 
 import (
-	"github.com/lalifeier/vvgo/app/ums/service/internal/data/ent/accountuser"
-	"github.com/lalifeier/vvgo/app/ums/service/internal/data/ent/schema"
+	"github.com/lalifeier/vvgo-mall/app/ums/service/internal/data/ent/accountuser"
+	"github.com/lalifeier/vvgo-mall/app/ums/service/internal/data/ent/schema"
 )
 
 // The init function reads all schema descriptors with runtime code

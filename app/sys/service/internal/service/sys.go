@@ -3,8 +3,8 @@ package service
 import (
 	"github.com/go-kratos/kratos/v2/log"
 
-	pb "github.com/lalifeier/vvgo/api/sys/service/v1"
-	"github.com/lalifeier/vvgo/app/sys/service/internal/biz"
+	pb "github.com/lalifeier/vvgo-mall/api/sys/service/v1"
+	"github.com/lalifeier/vvgo-mall/app/sys/service/internal/biz"
 )
 
 type SysService struct {
