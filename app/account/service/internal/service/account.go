@@ -41,7 +41,7 @@ func (s *AccountService) UpdateAccountUser(ctx context.Context, req *pb.UpdateAc
 	err := s.accountUserUsecase.UpdateAccountUser(ctx, &biz.AccountUser{
 		Id: req.Id,
 	})
-   if err != nil {
+	if err != nil {
 		return nil, err
 	}
 	return &pb.UpdateAccountUserResp{}, nil
@@ -75,13 +75,14 @@ func (s *AccountService) ListAccountUser(ctx context.Context, req *pb.ListAccoun
 	return &pb.ListAccountUserResp{
 		List: make([]*pb.AccountUser, 0, len(rv)),
 	}, nil
+}
 func (s *AccountService) PageListAccountUser(ctx context.Context, req *pb.PageListAccountUserReq) (*pb.PageListAccountUserResp, error) {
 	pos, total, err := s.accountUserUsecase.PageListAccountUser(ctx, req)
-	   if err != nil {
+	if err != nil {
 		return nil, err
 	}
 
-  return &pb.PageListAccountUserResp{
+	return &pb.PageListAccountUserResp{
 		List:     make([]*pb.AccountUser, 0, len(pos)),
 		Total:    total,
 		Page:     req.PageSize,

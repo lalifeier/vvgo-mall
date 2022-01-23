@@ -8,7 +8,7 @@ import (
 )
 
 type AccountUser struct {
-	Id        int64
+	Id int64
 }
 
 type AccountUserRepo interface {
