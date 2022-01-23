@@ -51,26 +51,26 @@ message PageListSystemResp {
   repeated System data = 4;
 }
 
-message AccountUser { int64 id = 1; }
-message CreateAccountUserReq {}
-message CreateAccountUserResp {}
-message UpdateAccountUserReq { int64 id = 1; }
-message UpdateAccountUserResp {}
-message DeleteAccountUserReq { int64 id = 1; }
-message DeleteAccountUserResp {}
-message GetAccountUserReq { int64 id = 1; }
-message GetAccountUserResp { int64 id = 1; }
-message ListAccountUserReq {}
-message ListAccountUserResp { repeated AccountUser data = 1; }
-message PageListAccountUserReq {
+message Role { int64 id = 1; }
+message CreateRoleReq {}
+message CreateRoleResp {}
+message UpdateRoleReq { int64 id = 1; }
+message UpdateRoleResp {}
+message DeleteRoleReq { int64 id = 1; }
+message DeleteRoleResp {}
+message GetRoleReq { int64 id = 1; }
+message GetRoleResp { int64 id = 1; }
+message ListRoleReq {}
+message ListRoleResp { repeated Role data = 1; }
+message PageListRoleReq {
   int64 pageNum = 1;
   int64 pageSize = 4;
 }
-message PageListAccountUserResp {
+message PageListRoleResp {
   int64 totalPages = 1;
   int64 currentPage = 2;
   int64 pageSize = 3;
-  repeated AccountUser data = 4;
+  repeated Role data = 4;
 }
 
 message Menu { int64 id = 1; }

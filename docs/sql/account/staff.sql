@@ -1,9 +1,9 @@
 CREATE TABLE `staff` (
     `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
     `uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '账号id',
-    `email` varchar(30) NOT NULL DEFAULT '' COMMENT '员工邮箱',
-    `phone` varchar(15) NOT NULL DEFAULT '' COMMENT '员工手机号',
     `name` varchar(30) NOT NULL DEFAULT '' COMMENT '员工姓名',
+    `phone` varchar(15) NOT NULL DEFAULT '' COMMENT '员工手机号',
+    `email` varchar(30) NOT NULL DEFAULT '' COMMENT '员工邮箱',
     `nickname` varchar(30) NOT NULL DEFAULT '' COMMENT '员工昵称',
     `avatar` varchar(255) NOT NULL DEFAULT '' COMMENT '员工头像(相对路径)',
     `gender` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '员工性别 1:男性 2:女性',
@@ -13,6 +13,6 @@ CREATE TABLE `staff` (
     `updated_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新人',
     PRIMARY KEY (`id`),
     KEY `idx_uid` (`uid`),
-    KEY `idx_email` (`email`),
-    KEY `idx_phone` (`phone`)
+    KEY `idx_phone` (`phone`),
+    KEY `idx_email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='员工表';
