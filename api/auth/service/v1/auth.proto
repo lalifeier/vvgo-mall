@@ -39,16 +39,16 @@ message DeleteSystemResp {}
 message GetSystemReq { int64 id = 1; }
 message GetSystemResp { int64 id = 1; }
 message ListSystemReq {}
-message ListSystemResp { repeated System data = 1; }
+message ListSystemResp { repeated System list = 1; }
 message PageListSystemReq {
   int64 pageNum = 1;
   int64 pageSize = 4;
 }
 message PageListSystemResp {
-  int64 totalPages = 1;
-  int64 currentPage = 2;
-  int64 pageSize = 3;
-  repeated System data = 4;
+  repeated System list = 1;
+  int64 total = 2;
+  int64 page = 3;
+  int64 pageSize = 4;
 }
 
 message Role { int64 id = 1; }
@@ -61,16 +61,16 @@ message DeleteRoleResp {}
 message GetRoleReq { int64 id = 1; }
 message GetRoleResp { int64 id = 1; }
 message ListRoleReq {}
-message ListRoleResp { repeated Role data = 1; }
+message ListRoleResp { repeated Role list = 1; }
 message PageListRoleReq {
   int64 pageNum = 1;
   int64 pageSize = 4;
 }
 message PageListRoleResp {
-  int64 totalPages = 1;
-  int64 currentPage = 2;
-  int64 pageSize = 3;
-  repeated Role data = 4;
+  repeated Role list = 1;
+  int64 total = 2;
+  int64 page = 3;
+  int64 pageSize = 4;
 }
 
 message Menu { int64 id = 1; }
@@ -83,14 +83,14 @@ message DeleteMenuResp {}
 message GetMenuReq { int64 id = 1; }
 message GetMenuResp { int64 id = 1; }
 message ListMenuReq {}
-message ListMenuResp { repeated Menu data = 1; }
+message ListMenuResp { repeated Menu list = 1; }
 message PageListMenuReq {
   int64 pageNum = 1;
   int64 pageSize = 4;
 }
 message PageListMenuResp {
-  int64 totalPages = 1;
-  int64 currentPage = 2;
-  int64 pageSize = 3;
-  repeated Menu data = 4;
+  repeated Menu list = 1;
+  int64 total = 2;
+  int64 page = 3;
+  int64 pageSize = 4;
 }

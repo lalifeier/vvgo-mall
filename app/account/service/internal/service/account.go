@@ -12,18 +12,17 @@ import (
 type AccountService struct {
 	pb.UnimplementedAccountServer
 
-	log         *log.Helper
+	log *log.Helper
 
 	accountUserUsecase *biz.AccountUserUsecase
 }
 
 func NewAccountService(logger log.Logger, accountUserUsecase *biz.AccountUserUsecase) *AccountService {
 	return &AccountService{
-		log:         log.NewHelper(log.With(logger, "module", "account-service/service")),
+		log:                log.NewHelper(log.With(logger, "module", "account-service/service")),
 		accountUserUsecase: accountUserUsecase,
 	}
 }
-
 
 func (s *AccountService) Register(ctx context.Context, req *pb.RegisterReq) (*pb.RegisterResp, error) {
 	return &pb.RegisterResp{}, nil
@@ -40,9 +39,9 @@ func (s *AccountService) CreateAccountUser(ctx context.Context, req *pb.CreateAc
 }
 func (s *AccountService) UpdateAccountUser(ctx context.Context, req *pb.UpdateAccountUserReq) (*pb.UpdateAccountUserResp, error) {
 	err := s.accountUserUsecase.UpdateAccountUser(ctx, &biz.AccountUser{
-		Id:   req.Id,
+		Id: req.Id,
 	})
-	if err != nil {
+   if err != nil {
 		return nil, err
 	}
 	return &pb.UpdateAccountUserResp{}, nil
@@ -74,20 +73,19 @@ func (s *AccountService) ListAccountUser(ctx context.Context, req *pb.ListAccoun
 	}
 
 	return &pb.ListAccountUserResp{
-		Data:  make([]*pb.AccountUser, 0, len(rv)),
+		List: make([]*pb.AccountUser, 0, len(rv)),
 	}, nil
-}
 func (s *AccountService) PageListAccountUser(ctx context.Context, req *pb.PageListAccountUserReq) (*pb.PageListAccountUserResp, error) {
 	pos, total, err := s.accountUserUsecase.PageListAccountUser(ctx, req)
-	if err != nil {
+	   if err != nil {
 		return nil, err
 	}
 
-	return &pb.PageListAccountUserResp{
-		Data:        make([]*pb.AccountUser, 0, len(pos)),
-		TotalPages:  total,
-		CurrentPage: req.PageSize,
-		PageSize:    req.PageNum,
+  return &pb.PageListAccountUserResp{
+		List:     make([]*pb.AccountUser, 0, len(pos)),
+		Total:    total,
+		Page:     req.PageSize,
+		PageSize: req.PageNum,
 	}, nil
 }
 func (s *AccountService) CreateStaff(ctx context.Context, req *pb.CreateStaffReq) (*pb.CreateStaffResp, error) {
