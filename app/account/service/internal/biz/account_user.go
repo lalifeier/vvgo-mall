@@ -12,8 +12,8 @@ type AccountUser struct {
 }
 
 type AccountUserRepo interface {
-	CreateAccountUser(ctx context.Context, accountuser *AccountUser) (int64, error)
-	UpdateAccountUser(ctx context.Context, accountuser *AccountUser) error
+	CreateAccountUser(ctx context.Context, accountuser *AccountUser) (*AccountUser, error)
+	UpdateAccountUser(ctx context.Context, accountuser *AccountUser) (*AccountUser, error)
 	DeleteAccountUser(ctx context.Context, id int64) error
 	GetAccountUser(ctx context.Context, id int64) (*AccountUser, error)
 	ListAccountUser(ctx context.Context, req *pb.ListAccountUserReq) ([]*AccountUser, error)
@@ -29,11 +29,11 @@ func NewAccountUserUsecase(repo AccountUserRepo, logger log.Logger) *AccountUser
 	return &AccountUserUsecase{repo: repo, log: log.NewHelper(logger)}
 }
 
-func (uc *AccountUserUsecase) CreateAccountUser(ctx context.Context, accountuser *AccountUser) (int64, error) {
+func (uc *AccountUserUsecase) CreateAccountUser(ctx context.Context, accountuser *AccountUser) (*AccountUser, error) {
 	return uc.repo.CreateAccountUser(ctx, accountuser)
 }
 
-func (uc *AccountUserUsecase) UpdateAccountUser(ctx context.Context, accountuser *AccountUser) error {
+func (uc *AccountUserUsecase) UpdateAccountUser(ctx context.Context, accountuser *AccountUser) (*AccountUser, error) {
 	return uc.repo.UpdateAccountUser(ctx, accountuser)
 }
 

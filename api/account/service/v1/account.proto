@@ -10,18 +10,18 @@ service Account {
   rpc Register(RegisterReq) returns (RegisterResp);
   rpc Login(LoginReq) returns (LoginResp);
 
-  rpc CreateAccountUser(CreateAccountUserReq) returns (CreateAccountUserResp);
-  rpc UpdateAccountUser(UpdateAccountUserReq) returns (UpdateAccountUserResp);
-  rpc DeleteAccountUser(DeleteAccountUserReq) returns (DeleteAccountUserResp);
-  rpc GetAccountUser(GetAccountUserReq) returns (GetAccountUserResp);
+  rpc CreateAccountUser(AccountUser) returns (AccountUser);
+  rpc UpdateAccountUser(AccountUser) returns (AccountUser);
+  rpc DeleteAccountUser(DeleteAccountUserReq) returns (google.protobuf.Empty);
+  rpc GetAccountUser(GetAccountUserReq) returns (AccountUser);
   rpc ListAccountUser(ListAccountUserReq) returns (ListAccountUserResp);
   rpc PageListAccountUser(PageListAccountUserReq)
       returns (PageListAccountUserResp);
 
-  rpc CreateStaff(CreateStaffReq) returns (CreateStaffResp);
-  rpc UpdateStaff(UpdateStaffReq) returns (UpdateStaffResp);
-  rpc DeleteStaff(DeleteStaffReq) returns (DeleteStaffResp);
-  rpc GetStaff(GetStaffReq) returns (GetStaffResp);
+  rpc CreateStaff(Staff) returns (Staff);
+  rpc UpdateStaff(Staff) returns (Staff);
+  rpc DeleteStaff(DeleteStaffReq) returns (google.protobuf.Empty);
+  rpc GetStaff(GetStaffReq) returns (Staff);
   rpc ListStaff(ListStaffReq) returns (ListStaffResp);
   rpc PageListStaff(PageListStaffReq) returns (PageListStaffResp);
 }
@@ -44,14 +44,8 @@ message LoginReq {
 message LoginResp {}
 
 message AccountUser { int64 id = 1; }
-message CreateAccountUserReq {}
-message CreateAccountUserResp {}
-message UpdateAccountUserReq { int64 id = 1; }
-message UpdateAccountUserResp {}
 message DeleteAccountUserReq { int64 id = 1; }
-message DeleteAccountUserResp {}
 message GetAccountUserReq { int64 id = 1; }
-message GetAccountUserResp { int64 id = 1; }
 message ListAccountUserReq {}
 message ListAccountUserResp { repeated AccountUser list = 1; }
 message PageListAccountUserReq {
@@ -71,9 +65,7 @@ message CreateStaffResp {}
 message UpdateStaffReq { int64 id = 1; }
 message UpdateStaffResp {}
 message DeleteStaffReq { int64 id = 1; }
-message DeleteStaffResp {}
 message GetStaffReq { int64 id = 1; }
-message GetStaffResp { int64 id = 1; }
 message ListStaffReq {}
 message ListStaffResp { repeated Staff list = 1; }
 message PageListStaffReq {

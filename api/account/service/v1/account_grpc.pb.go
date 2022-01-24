@@ -11,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -24,16 +25,16 @@ const _ = grpc.SupportPackageIsVersion7
 type AccountClient interface {
 	Register(ctx context.Context, in *RegisterReq, opts ...grpc.CallOption) (*RegisterResp, error)
 	Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
-	CreateAccountUser(ctx context.Context, in *CreateAccountUserReq, opts ...grpc.CallOption) (*CreateAccountUserResp, error)
-	UpdateAccountUser(ctx context.Context, in *UpdateAccountUserReq, opts ...grpc.CallOption) (*UpdateAccountUserResp, error)
-	DeleteAccountUser(ctx context.Context, in *DeleteAccountUserReq, opts ...grpc.CallOption) (*DeleteAccountUserResp, error)
-	GetAccountUser(ctx context.Context, in *GetAccountUserReq, opts ...grpc.CallOption) (*GetAccountUserResp, error)
+	CreateAccountUser(ctx context.Context, in *AccountUser, opts ...grpc.CallOption) (*AccountUser, error)
+	UpdateAccountUser(ctx context.Context, in *AccountUser, opts ...grpc.CallOption) (*AccountUser, error)
+	DeleteAccountUser(ctx context.Context, in *DeleteAccountUserReq, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetAccountUser(ctx context.Context, in *GetAccountUserReq, opts ...grpc.CallOption) (*AccountUser, error)
 	ListAccountUser(ctx context.Context, in *ListAccountUserReq, opts ...grpc.CallOption) (*ListAccountUserResp, error)
 	PageListAccountUser(ctx context.Context, in *PageListAccountUserReq, opts ...grpc.CallOption) (*PageListAccountUserResp, error)
-	CreateStaff(ctx context.Context, in *CreateStaffReq, opts ...grpc.CallOption) (*CreateStaffResp, error)
-	UpdateStaff(ctx context.Context, in *UpdateStaffReq, opts ...grpc.CallOption) (*UpdateStaffResp, error)
-	DeleteStaff(ctx context.Context, in *DeleteStaffReq, opts ...grpc.CallOption) (*DeleteStaffResp, error)
-	GetStaff(ctx context.Context, in *GetStaffReq, opts ...grpc.CallOption) (*GetStaffResp, error)
+	CreateStaff(ctx context.Context, in *Staff, opts ...grpc.CallOption) (*Staff, error)
+	UpdateStaff(ctx context.Context, in *Staff, opts ...grpc.CallOption) (*Staff, error)
+	DeleteStaff(ctx context.Context, in *DeleteStaffReq, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetStaff(ctx context.Context, in *GetStaffReq, opts ...grpc.CallOption) (*Staff, error)
 	ListStaff(ctx context.Context, in *ListStaffReq, opts ...grpc.CallOption) (*ListStaffResp, error)
 	PageListStaff(ctx context.Context, in *PageListStaffReq, opts ...grpc.CallOption) (*PageListStaffResp, error)
 }
@@ -64,8 +65,8 @@ func (c *accountClient) Login(ctx context.Context, in *LoginReq, opts ...grpc.Ca
 	return out, nil
 }
 
-func (c *accountClient) CreateAccountUser(ctx context.Context, in *CreateAccountUserReq, opts ...grpc.CallOption) (*CreateAccountUserResp, error) {
-	out := new(CreateAccountUserResp)
+func (c *accountClient) CreateAccountUser(ctx context.Context, in *AccountUser, opts ...grpc.CallOption) (*AccountUser, error) {
+	out := new(AccountUser)
 	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/CreateAccountUser", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -73,8 +74,8 @@ func (c *accountClient) CreateAccountUser(ctx context.Context, in *CreateAccount
 	return out, nil
 }
 
-func (c *accountClient) UpdateAccountUser(ctx context.Context, in *UpdateAccountUserReq, opts ...grpc.CallOption) (*UpdateAccountUserResp, error) {
-	out := new(UpdateAccountUserResp)
+func (c *accountClient) UpdateAccountUser(ctx context.Context, in *AccountUser, opts ...grpc.CallOption) (*AccountUser, error) {
+	out := new(AccountUser)
 	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/UpdateAccountUser", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -82,8 +83,8 @@ func (c *accountClient) UpdateAccountUser(ctx context.Context, in *UpdateAccount
 	return out, nil
 }
 
-func (c *accountClient) DeleteAccountUser(ctx context.Context, in *DeleteAccountUserReq, opts ...grpc.CallOption) (*DeleteAccountUserResp, error) {
-	out := new(DeleteAccountUserResp)
+func (c *accountClient) DeleteAccountUser(ctx context.Context, in *DeleteAccountUserReq, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/DeleteAccountUser", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -91,8 +92,8 @@ func (c *accountClient) DeleteAccountUser(ctx context.Context, in *DeleteAccount
 	return out, nil
 }
 
-func (c *accountClient) GetAccountUser(ctx context.Context, in *GetAccountUserReq, opts ...grpc.CallOption) (*GetAccountUserResp, error) {
-	out := new(GetAccountUserResp)
+func (c *accountClient) GetAccountUser(ctx context.Context, in *GetAccountUserReq, opts ...grpc.CallOption) (*AccountUser, error) {
+	out := new(AccountUser)
 	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/GetAccountUser", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -118,8 +119,8 @@ func (c *accountClient) PageListAccountUser(ctx context.Context, in *PageListAcc
 	return out, nil
 }
 
-func (c *accountClient) CreateStaff(ctx context.Context, in *CreateStaffReq, opts ...grpc.CallOption) (*CreateStaffResp, error) {
-	out := new(CreateStaffResp)
+func (c *accountClient) CreateStaff(ctx context.Context, in *Staff, opts ...grpc.CallOption) (*Staff, error) {
+	out := new(Staff)
 	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/CreateStaff", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -127,8 +128,8 @@ func (c *accountClient) CreateStaff(ctx context.Context, in *CreateStaffReq, opt
 	return out, nil
 }
 
-func (c *accountClient) UpdateStaff(ctx context.Context, in *UpdateStaffReq, opts ...grpc.CallOption) (*UpdateStaffResp, error) {
-	out := new(UpdateStaffResp)
+func (c *accountClient) UpdateStaff(ctx context.Context, in *Staff, opts ...grpc.CallOption) (*Staff, error) {
+	out := new(Staff)
 	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/UpdateStaff", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -136,8 +137,8 @@ func (c *accountClient) UpdateStaff(ctx context.Context, in *UpdateStaffReq, opt
 	return out, nil
 }
 
-func (c *accountClient) DeleteStaff(ctx context.Context, in *DeleteStaffReq, opts ...grpc.CallOption) (*DeleteStaffResp, error) {
-	out := new(DeleteStaffResp)
+func (c *accountClient) DeleteStaff(ctx context.Context, in *DeleteStaffReq, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/DeleteStaff", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -145,8 +146,8 @@ func (c *accountClient) DeleteStaff(ctx context.Context, in *DeleteStaffReq, opt
 	return out, nil
 }
 
-func (c *accountClient) GetStaff(ctx context.Context, in *GetStaffReq, opts ...grpc.CallOption) (*GetStaffResp, error) {
-	out := new(GetStaffResp)
+func (c *accountClient) GetStaff(ctx context.Context, in *GetStaffReq, opts ...grpc.CallOption) (*Staff, error) {
+	out := new(Staff)
 	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/GetStaff", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -178,16 +179,16 @@ func (c *accountClient) PageListStaff(ctx context.Context, in *PageListStaffReq,
 type AccountServer interface {
 	Register(context.Context, *RegisterReq) (*RegisterResp, error)
 	Login(context.Context, *LoginReq) (*LoginResp, error)
-	CreateAccountUser(context.Context, *CreateAccountUserReq) (*CreateAccountUserResp, error)
-	UpdateAccountUser(context.Context, *UpdateAccountUserReq) (*UpdateAccountUserResp, error)
-	DeleteAccountUser(context.Context, *DeleteAccountUserReq) (*DeleteAccountUserResp, error)
-	GetAccountUser(context.Context, *GetAccountUserReq) (*GetAccountUserResp, error)
+	CreateAccountUser(context.Context, *AccountUser) (*AccountUser, error)
+	UpdateAccountUser(context.Context, *AccountUser) (*AccountUser, error)
+	DeleteAccountUser(context.Context, *DeleteAccountUserReq) (*emptypb.Empty, error)
+	GetAccountUser(context.Context, *GetAccountUserReq) (*AccountUser, error)
 	ListAccountUser(context.Context, *ListAccountUserReq) (*ListAccountUserResp, error)
 	PageListAccountUser(context.Context, *PageListAccountUserReq) (*PageListAccountUserResp, error)
-	CreateStaff(context.Context, *CreateStaffReq) (*CreateStaffResp, error)
-	UpdateStaff(context.Context, *UpdateStaffReq) (*UpdateStaffResp, error)
-	DeleteStaff(context.Context, *DeleteStaffReq) (*DeleteStaffResp, error)
-	GetStaff(context.Context, *GetStaffReq) (*GetStaffResp, error)
+	CreateStaff(context.Context, *Staff) (*Staff, error)
+	UpdateStaff(context.Context, *Staff) (*Staff, error)
+	DeleteStaff(context.Context, *DeleteStaffReq) (*emptypb.Empty, error)
+	GetStaff(context.Context, *GetStaffReq) (*Staff, error)
 	ListStaff(context.Context, *ListStaffReq) (*ListStaffResp, error)
 	PageListStaff(context.Context, *PageListStaffReq) (*PageListStaffResp, error)
 	mustEmbedUnimplementedAccountServer()
@@ -203,16 +204,16 @@ func (UnimplementedAccountServer) Register(context.Context, *RegisterReq) (*Regi
 func (UnimplementedAccountServer) Login(context.Context, *LoginReq) (*LoginResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
-func (UnimplementedAccountServer) CreateAccountUser(context.Context, *CreateAccountUserReq) (*CreateAccountUserResp, error) {
+func (UnimplementedAccountServer) CreateAccountUser(context.Context, *AccountUser) (*AccountUser, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAccountUser not implemented")
 }
-func (UnimplementedAccountServer) UpdateAccountUser(context.Context, *UpdateAccountUserReq) (*UpdateAccountUserResp, error) {
+func (UnimplementedAccountServer) UpdateAccountUser(context.Context, *AccountUser) (*AccountUser, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAccountUser not implemented")
 }
-func (UnimplementedAccountServer) DeleteAccountUser(context.Context, *DeleteAccountUserReq) (*DeleteAccountUserResp, error) {
+func (UnimplementedAccountServer) DeleteAccountUser(context.Context, *DeleteAccountUserReq) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteAccountUser not implemented")
 }
-func (UnimplementedAccountServer) GetAccountUser(context.Context, *GetAccountUserReq) (*GetAccountUserResp, error) {
+func (UnimplementedAccountServer) GetAccountUser(context.Context, *GetAccountUserReq) (*AccountUser, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAccountUser not implemented")
 }
 func (UnimplementedAccountServer) ListAccountUser(context.Context, *ListAccountUserReq) (*ListAccountUserResp, error) {
@@ -221,16 +222,16 @@ func (UnimplementedAccountServer) ListAccountUser(context.Context, *ListAccountU
 func (UnimplementedAccountServer) PageListAccountUser(context.Context, *PageListAccountUserReq) (*PageListAccountUserResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PageListAccountUser not implemented")
 }
-func (UnimplementedAccountServer) CreateStaff(context.Context, *CreateStaffReq) (*CreateStaffResp, error) {
+func (UnimplementedAccountServer) CreateStaff(context.Context, *Staff) (*Staff, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateStaff not implemented")
 }
-func (UnimplementedAccountServer) UpdateStaff(context.Context, *UpdateStaffReq) (*UpdateStaffResp, error) {
+func (UnimplementedAccountServer) UpdateStaff(context.Context, *Staff) (*Staff, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateStaff not implemented")
 }
-func (UnimplementedAccountServer) DeleteStaff(context.Context, *DeleteStaffReq) (*DeleteStaffResp, error) {
+func (UnimplementedAccountServer) DeleteStaff(context.Context, *DeleteStaffReq) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteStaff not implemented")
 }
-func (UnimplementedAccountServer) GetStaff(context.Context, *GetStaffReq) (*GetStaffResp, error) {
+func (UnimplementedAccountServer) GetStaff(context.Context, *GetStaffReq) (*Staff, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetStaff not implemented")
 }
 func (UnimplementedAccountServer) ListStaff(context.Context, *ListStaffReq) (*ListStaffResp, error) {
@@ -289,7 +290,7 @@ func _Account_Login_Handler(srv interface{}, ctx context.Context, dec func(inter
 }
 
 func _Account_CreateAccountUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateAccountUserReq)
+	in := new(AccountUser)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -301,13 +302,13 @@ func _Account_CreateAccountUser_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: "/api.account.service.v1.Account/CreateAccountUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).CreateAccountUser(ctx, req.(*CreateAccountUserReq))
+		return srv.(AccountServer).CreateAccountUser(ctx, req.(*AccountUser))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Account_UpdateAccountUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateAccountUserReq)
+	in := new(AccountUser)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -319,7 +320,7 @@ func _Account_UpdateAccountUser_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: "/api.account.service.v1.Account/UpdateAccountUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).UpdateAccountUser(ctx, req.(*UpdateAccountUserReq))
+		return srv.(AccountServer).UpdateAccountUser(ctx, req.(*AccountUser))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -397,7 +398,7 @@ func _Account_PageListAccountUser_Handler(srv interface{}, ctx context.Context, 
 }
 
 func _Account_CreateStaff_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateStaffReq)
+	in := new(Staff)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -409,13 +410,13 @@ func _Account_CreateStaff_Handler(srv interface{}, ctx context.Context, dec func
 		FullMethod: "/api.account.service.v1.Account/CreateStaff",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).CreateStaff(ctx, req.(*CreateStaffReq))
+		return srv.(AccountServer).CreateStaff(ctx, req.(*Staff))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Account_UpdateStaff_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateStaffReq)
+	in := new(Staff)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -427,7 +428,7 @@ func _Account_UpdateStaff_Handler(srv interface{}, ctx context.Context, dec func
 		FullMethod: "/api.account.service.v1.Account/UpdateStaff",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).UpdateStaff(ctx, req.(*UpdateStaffReq))
+		return srv.(AccountServer).UpdateStaff(ctx, req.(*Staff))
 	}
 	return interceptor(ctx, in, info, handler)
 }
