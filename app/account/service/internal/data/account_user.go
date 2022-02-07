@@ -17,7 +17,7 @@ type entAccountUser ent.AccountUser
 
 func (e entAccountUser) BizStruct() *biz.AccountUser {
 	return &biz.AccountUser{
-		// Id: e.ID,
+		Id: e.ID,
 	}
 }
 

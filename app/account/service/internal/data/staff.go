@@ -17,7 +17,7 @@ type entStaff ent.Staff
 
 func (e entStaff) BizStruct() *biz.Staff {
 	return &biz.Staff{
-		// Id: e.ID,
+		Id: e.ID,
 	}
 }
 

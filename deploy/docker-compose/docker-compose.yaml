@@ -2,9 +2,9 @@ version: "3.7"
 
 networks:
   frontend:
-    driver: bridge
+    driver: ${NETWORKS_DRIVER}
   backend:
-    driver: bridge
+    driver: ${NETWORKS_DRIVER}
 
 services:
   # web-admin:
@@ -21,58 +21,62 @@ services:
   #     - consul
 
   nginx:
-    image: bitnami/nginx:latest
-    container_name: nginx
+    # image: bitnami/nginx:latest
+    image: nginx:latest
+    # container_name: nginx
     ports:
-      - 80:80
-      - 443:443
+      - ${NGINX_HTTP_PORT}:80
+      - ${NGINX_HTTPS_PORT}:443
     networks:
       - frontend
     restart: always
     environment:
-      TZ: Asia/Shanghai
+      - TZ=${TZ}
     volumes:
-      - /usr/local/docker/nginx/html:/usr/share/nginx/html
-      - /usr/local/docker/nginx/logs:/var/log/nginx
-      - /usr/local/docker/nginx/conf:/etc/nginx
+      - ${DATA_PATH_HOST}/nginx/etc/conf.d:/etc/nginx/conf.d
+      - ${DATA_PATH_HOST}/nginx/etc/nginx.conf:/etc/nginx/nginx.conf
+      - ${DATA_PATH_HOST}/nginx/html:/usr/share/nginx/html
+      - ${DATA_PATH_HOST}/nginx/logs:/var/log/nginx
 
   mysql:
-    image: bitnami/mysql:latest
-    container_name: mysql
+    # image: bitnami/mysql:latest
+    image: mysql:5.7
+    # container_name: mysql
     ports:
-      - 3306:3306
+      - ${MYSQL_PORT}:3306
     networks:
       - backend
     restart: always
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
     environment:
-      TZ: Asia/Shanghai
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: 123456
-      MYSQL_ROOT_PASSWORD: 123456
+      - TZ=${TZ}
+      - MYSQL_USER=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     volumes:
-      - /usr/local/docker/mysql/conf:/etc/mysql/conf.d
-      - /usr/local/docker/mysql/logs:/logs
-      - /usr/local/docker/mysql/data:/var/lib/mysql
+      - ${DATA_PATH_HOST}/mysql/conf:/etc/mysql/conf.d
+      - ${DATA_PATH_HOST}/mysql/logs:/logs
+      - ${DATA_PATH_HOST}/mysql/data:/var/lib/mysql
+
   redis:
-    image: bitnami/redis:latest
-    container_name: redis
+    # image: bitnami/redis:latest
+    image: redis:3.2
+    # container_name: redis
     ports:
-      - 6379:6379
+      - ${REDIS_PORT}:6379
     networks:
       - backend
     restart: always
     environment:
-      TZ: Asia/Shanghai
-      ALLOW_EMPTY_PASSWORD: "yes"
+      - TZ=${TZ}
+      # - ALLOW_EMPTY_PASSWORD=yes
     volumes:
-      - /usr/local/docker/redis/redis.conf:/etc/redis/redis.conf
-      - /usr/local/docker/redis/data:/data
+      # - ${DATA_PATH_HOST}/redis/redis.conf:/etc/redis/redis.conf
+      - ${DATA_PATH_HOST}/redis/data:/data
 
   consul:
-    container_name: consul
     image: bitnami/consul:latest
-    networks:
-      - backend
+    # container_name: consul
     ports:
       - 8300:8300
       - 8301:8301
@@ -80,34 +84,57 @@ services:
       - 8500:8500
       - 8600:8600
       - 8600:8600/udp
+    networks:
+      - backend
+    restart: always
     volumes:
-      - /usr/local/docker/consul/data:/bitnami
+      - ${DATA_PATH_HOST}/consul/data:/bitnami
 
   jaeger:
-    container_name: jaegertracing
     image: jaegertracing/all-in-one:latest
+    # container_name: jaegertracing
     ports:
       - 5775:5775/udp
       - 6831:6831/udp
       - 6832:6832/udp
       - 5778:5778
-      - 16686:16686
-      - 14268:14268
+      - ${JAEGER_PORT}:16686
       - 14250:14250
+      - 14268:14268
+      - 14269:14269
       - 9411:9411
+    networks:
+      - backend
+    restart: always
     environment:
       COLLECTOR_ZIPKIN_HOST_PORT: 9411
 
   # prometheus:
   #   image: bitnami/prometheus:latest
-  #   container_name: prometheus
+  #   # container_name: prometheus
   #   ports:
-  #     - 9090:9090
+  #     - ${PROMETHEUS_PORT}:9090
   #   networks:
   #     - backend
   #   restart: always
   #   environment:
-  #     TZ: Asia/Shanghai
+  #     - TZ=${TZ}
   #   volumes:
-  #     - /usr/local/docker/prometheus/prometheus-persistence:/opt/bitnami/prometheus/data
-  #     - /usr/local/docker/prometheus/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
+  #     - ${DATA_PATH_HOST}/prometheus/data:/opt/bitnami/prometheus/data
+  #     - ${DATA_PATH_HOST}/prometheus/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
+
+  # dtm:
+  #   image: yedf/dtm:latest
+  #   environment:
+  #     - TZ=${TZ}
+  #   entrypoint:
+  #     - "/app/dtm/dtm"
+  #     - "-c=/app/dtm/configs/config.yaml"
+  #   ports:
+  #     - "${DTM_HTTP_PORT}:36789"
+  #     - "${DTM_GRPC_PORT}:36790"
+  #   networks:
+  #     - backend
+  #   restart: always
+  #   volumes:
+  #     - ${DATA_PATH_HOST}/dtm/config.yml:/app/dtm/configs/config.yaml
