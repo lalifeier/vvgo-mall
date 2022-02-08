@@ -20,94 +20,104 @@ services:
   #     - mysql
   #     - consul
 
+  php-fpm:
+    build:
+      context: ./php-fpm
+    ports:
+      - 9000:9000
+    networks:
+      - backend
+    restart: always
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - ${APP_PATH}:/var/www
+      - ./php-fpm/php.ini:/usr/local/etc/php/php.ini
+      - ./php-fpm/php-fpm.conf:/usr/local/etc/php-fpm.d/www.conf
+
   nginx:
-    # image: bitnami/nginx:latest
-    image: nginx:latest
-    # container_name: nginx
+    build:
+      context: ./nginx
     ports:
       - ${NGINX_HTTP_PORT}:80
       - ${NGINX_HTTPS_PORT}:443
     networks:
-      - frontend
-    restart: always
-    environment:
-      - TZ=${TZ}
-    volumes:
-      - ${DATA_PATH_HOST}/nginx/etc/conf.d:/etc/nginx/conf.d
-      - ${DATA_PATH_HOST}/nginx/etc/nginx.conf:/etc/nginx/nginx.conf
-      - ${DATA_PATH_HOST}/nginx/html:/usr/share/nginx/html
-      - ${DATA_PATH_HOST}/nginx/logs:/var/log/nginx
-
-  mysql:
-    # image: bitnami/mysql:latest
-    image: mysql:5.7
-    # container_name: mysql
-    ports:
-      - ${MYSQL_PORT}:3306
-    networks:
-      - backend
-    restart: always
-    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
-    environment:
-      - TZ=${TZ}
-      - MYSQL_USER=${MYSQL_USERNAME}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-    volumes:
-      - ${DATA_PATH_HOST}/mysql/conf:/etc/mysql/conf.d
-      - ${DATA_PATH_HOST}/mysql/logs:/logs
-      - ${DATA_PATH_HOST}/mysql/data:/var/lib/mysql
-
-  redis:
-    # image: bitnami/redis:latest
-    image: redis:3.2
-    # container_name: redis
-    ports:
-      - ${REDIS_PORT}:6379
-    networks:
       - backend
     restart: always
     environment:
       - TZ=${TZ}
-      # - ALLOW_EMPTY_PASSWORD=yes
     volumes:
-      # - ${DATA_PATH_HOST}/redis/redis.conf:/etc/redis/redis.conf
-      - ${DATA_PATH_HOST}/redis/data:/data
+      - ./nginx/etc/conf.d:/etc/nginx/conf.d
+      - ./nginx/etc/nginx.conf:/etc/nginx/nginx.conf
+      - ${DATA_PATH}/nginx/logs:/var/log/nginx
+      - ${APP_PATH}:/var/www
 
-  consul:
-    image: bitnami/consul:latest
-    # container_name: consul
-    ports:
-      - 8300:8300
-      - 8301:8301
-      - 8301:8301/udp
-      - 8500:8500
-      - 8600:8600
-      - 8600:8600/udp
-    networks:
-      - backend
-    restart: always
-    volumes:
-      - ${DATA_PATH_HOST}/consul/data:/bitnami
+  # mysql:
+  #   build:
+  #     context: ./mysql
+  #   ports:
+  #     - ${MYSQL_PORT}:3306
+  #   networks:
+  #     - backend
+  #   restart: always
+  #   environment:
+  #     - TZ=${TZ}
+  #     - MYSQL_USER=${MYSQL_USERNAME}
+  #     - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+  #     - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+  #   volumes:
+  #     - ./mysql/conf:/etc/mysql/conf.d
+  #     - ${DATA_PATH}/mysql/logs:/logs
+  #     - ${DATA_PATH}/mysql/data:/var/lib/mysql
 
-  jaeger:
-    image: jaegertracing/all-in-one:latest
-    # container_name: jaegertracing
-    ports:
-      - 5775:5775/udp
-      - 6831:6831/udp
-      - 6832:6832/udp
-      - 5778:5778
-      - ${JAEGER_PORT}:16686
-      - 14250:14250
-      - 14268:14268
-      - 14269:14269
-      - 9411:9411
-    networks:
-      - backend
-    restart: always
-    environment:
-      COLLECTOR_ZIPKIN_HOST_PORT: 9411
+  # redis:
+  #   build:
+  #     context: ./redis
+  #   ports:
+  #     - ${REDIS_PORT}:6379
+  #   networks:
+  #     - backend
+  #   restart: always
+  #   environment:
+  #     - TZ=${TZ}
+  #   volumes:
+  #     - ./redis/redis.conf:/etc/redis/redis.conf
+  #     - ${DATA_PATH}/redis/data:/data
+
+  # consul:
+  #   image: bitnami/consul:latest
+  #   # container_name: consul
+  #   ports:
+  #     - 8300:8300
+  #     - 8301:8301
+  #     - 8301:8301/udp
+  #     - 8500:8500
+  #     - 8600:8600
+  #     - 8600:8600/udp
+  #   networks:
+  #     - backend
+  #   restart: always
+  #   volumes:
+  #     - ${DATA_PATH}/consul/data:/bitnami
+
+  # jaeger:
+  #   image: jaegertracing/all-in-one:latest
+  #   # container_name: jaegertracing
+  #   ports:
+  #     - 5775:5775/udp
+  #     - 6831:6831/udp
+  #     - 6832:6832/udp
+  #     - 5778:5778
+  #     - ${JAEGER_PORT}:16686
+  #     - 14250:14250
+  #     - 14268:14268
+  #     - 14269:14269
+  #     - 9411:9411
+  #   networks:
+  #     - backend
+  #   restart: always
+  #   environment:
+  #     COLLECTOR_ZIPKIN_HOST_PORT: 9411
 
   # prometheus:
   #   image: bitnami/prometheus:latest
@@ -120,8 +130,8 @@ services:
   #   environment:
   #     - TZ=${TZ}
   #   volumes:
-  #     - ${DATA_PATH_HOST}/prometheus/data:/opt/bitnami/prometheus/data
-  #     - ${DATA_PATH_HOST}/prometheus/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
+  #     - ${DATA_PATH}/prometheus/data:/opt/bitnami/prometheus/data
+  #     - ${DATA_PATH}/prometheus/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
 
   # dtm:
   #   image: yedf/dtm:latest
@@ -137,4 +147,4 @@ services:
   #     - backend
   #   restart: always
   #   volumes:
-  #     - ${DATA_PATH_HOST}/dtm/config.yml:/app/dtm/configs/config.yaml
+  #     - ${DATA_PATH}/dtm/config.yml:/app/dtm/configs/config.yaml
