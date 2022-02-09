@@ -35,8 +35,8 @@ services:
       # - NODE_ENV=development
     volumes:
       - ${APP_PATH}:/data
+    stdin_open: true
     tty: true
-    command: pnpm dev
 
   # php:
   #   build:
