@@ -20,28 +20,45 @@ services:
   #     - mysql
   #     - consul
 
-  node:
+  golang:
     build:
-      context: ./node
+      context: ./golang
     working_dir: /data
-    container_name: node
+    container_name: golang
     ports:
-      - 3000:3000
+      - 8081:8081
     networks:
       - backend
     restart: always
     environment:
       - TZ=${TZ}
-      # - NODE_ENV=development
     volumes:
       - ${APP_PATH}:/data
     stdin_open: true
     tty: true
 
-  # php:
+  # node:
   #   build:
-  #     context: ./php
-  #   container_name: php
+  #     context: ./node
+  #   working_dir: /data
+  #   container_name: node
+  #   ports:
+  #     - 3000:3000
+  #   networks:
+  #     - backend
+  #   restart: always
+  #   environment:
+  #     - TZ=${TZ}
+  #     # - NODE_ENV=development
+  #   volumes:
+  #     - ${APP_PATH}:/data
+  #   stdin_open: true
+  #   tty: true
+
+  # php-fpm:
+  #   build:
+  #     context: ./php-fpm
+  #   container_name: php-fpm
   #   ports:
   #     - 9000:9000
   #   networks:
@@ -51,9 +68,9 @@ services:
   #     - TZ=${TZ}
   #   volumes:
   #     - ${APP_PATH}:/data
-  #     - ./php/conf/php.ini:/usr/local/etc/php/php.ini
-  #     - ./php/conf/conf.d:/usr/local/etc/php/conf.d
-  #     - ./php/conf/www.conf:/usr/local/etc/php-fpm.d/www.conf
+  #     - ./php-fpm/conf/php.ini:/usr/local/etc/php/php.ini
+  #     - ./php-fpm/conf/conf.d:/usr/local/etc/php/conf.d
+  #     - ./php-fpm/conf/www.conf:/usr/local/etc/php-fpm.d/www.conf
 
   # nginx:
   #   build:
