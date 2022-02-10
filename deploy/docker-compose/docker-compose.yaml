@@ -7,122 +7,57 @@ networks:
     driver: ${NETWORKS_DRIVER}
 
 services:
-  # web-admin:
-  #   image: vgo-web-admin:0.1.0
-  #   ports:
-  #     - 80:80
-
-  # user-service:
-  #   image: vgo-user-service:0.1.0
-  #   restart: always
-  #   hostname: user-service
-  #   depends_on:
-  #     - mysql
-  #     - consul
-
-  golang:
+  nginx:
     build:
-      context: ./golang
-    working_dir: /data
-    container_name: golang
+      context: ./nginx
+    container_name: nginx
     ports:
-      - 8081:8081
+      - ${NGINX_HTTP_PORT}:80
+      - ${NGINX_HTTPS_PORT}:443
     networks:
       - backend
     restart: always
     environment:
       - TZ=${TZ}
     volumes:
-      - ${APP_PATH}:/data
-    stdin_open: true
-    tty: true
+      - ./nginx/etc/conf.d:/etc/nginx/conf.d
+      - ./nginx/etc/nginx.conf:/etc/nginx/nginx.conf
+      - ${DATA_PATH}/nginx/logs:/var/log/nginx
+      - ${CODE_PATH}:/data
 
-  # node:
-  #   build:
-  #     context: ./node
-  #   working_dir: /data
-  #   container_name: node
-  #   ports:
-  #     - 3000:3000
-  #   networks:
-  #     - backend
-  #   restart: always
-  #   environment:
-  #     - TZ=${TZ}
-  #     # - NODE_ENV=development
-  #   volumes:
-  #     - ${APP_PATH}:/data
-  #   stdin_open: true
-  #   tty: true
+  mysql:
+    build:
+      context: ./mysql
+    container_name: mysql
+    ports:
+      - ${MYSQL_PORT}:3306
+    networks:
+      - backend
+    restart: always
+    environment:
+      - TZ=${TZ}
+      - MYSQL_USER=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ./mysql/conf:/etc/mysql/conf.d
+      - ${DATA_PATH}/mysql/logs:/logs
+      - ${DATA_PATH}/mysql/data:/var/lib/mysql
 
-  # php-fpm:
-  #   build:
-  #     context: ./php-fpm
-  #   container_name: php-fpm
-  #   ports:
-  #     - 9000:9000
-  #   networks:
-  #     - backend
-  #   restart: always
-  #   environment:
-  #     - TZ=${TZ}
-  #   volumes:
-  #     - ${APP_PATH}:/data
-  #     - ./php-fpm/conf/php.ini:/usr/local/etc/php/php.ini
-  #     - ./php-fpm/conf/conf.d:/usr/local/etc/php/conf.d
-  #     - ./php-fpm/conf/www.conf:/usr/local/etc/php-fpm.d/www.conf
-
-  # nginx:
-  #   build:
-  #     context: ./nginx
-  #   # container_name: nginx
-  #   ports:
-  #     - ${NGINX_HTTP_PORT}:80
-  #     - ${NGINX_HTTPS_PORT}:443
-  #   networks:
-  #     - backend
-  #   restart: always
-  #   environment:
-  #     - TZ=${TZ}
-  #     # - LOCAL_UID=$(id -u $USER)
-  #     # - LOCAL_GID=$(id -g $USER)
-  #   volumes:
-  #     - ./nginx/etc/conf.d:/etc/nginx/conf.d
-  #     - ./nginx/etc/nginx.conf:/etc/nginx/nginx.conf
-  #     - ${DATA_PATH}/nginx/logs:/var/log/nginx
-  #     - ${APP_PATH}:/data
-
-  # mysql:
-  #   build:
-  #     context: ./mysql
-  #   ports:
-  #     - ${MYSQL_PORT}:3306
-  #   networks:
-  #     - backend
-  #   restart: always
-  #   environment:
-  #     - TZ=${TZ}
-  #     - MYSQL_USER=${MYSQL_USERNAME}
-  #     - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-  #     - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-  #   volumes:
-  #     - ./mysql/conf:/etc/mysql/conf.d
-  #     - ${DATA_PATH}/mysql/logs:/logs
-  #     - ${DATA_PATH}/mysql/data:/var/lib/mysql
-
-  # redis:
-  #   build:
-  #     context: ./redis
-  #   ports:
-  #     - ${REDIS_PORT}:6379
-  #   networks:
-  #     - backend
-  #   restart: always
-  #   environment:
-  #     - TZ=${TZ}
-  #   volumes:
-  #     - ./redis/redis.conf:/etc/redis/redis.conf
-  #     - ${DATA_PATH}/redis/data:/data
+  redis:
+    build:
+      context: ./redis
+    container_name: redis
+    ports:
+      - ${REDIS_PORT}:6379
+    networks:
+      - backend
+    restart: always
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - ./redis/redis.conf:/etc/redis/redis.conf
+      - ${DATA_PATH}/redis/data:/data
 
   # consul:
   #   image: bitnami/consul:latest

@@ -1,0 +1,59 @@
+version: "3.7"
+
+networks:
+  frontend:
+    driver: ${NETWORKS_DRIVER}
+  backend:
+    driver: ${NETWORKS_DRIVER}
+
+services:
+  golang:
+    build:
+      context: ./golang
+    working_dir: /usr/go/src/
+    container_name: golang
+    ports:
+      - 8081:8081
+    networks:
+      - backend
+    restart: always
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - ${CODE_PATH}:/usr/go/src/
+    stdin_open: true
+    tty: true
+
+  node:
+    build:
+      context: ./node
+    working_dir: /data
+    container_name: node
+    ports:
+      - 3000:3000
+    networks:
+      - backend
+    restart: always
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - ${CODE_PATH}:/data
+    stdin_open: true
+    tty: true
+
+  php-fpm:
+    build:
+      context: ./php-fpm
+    container_name: php-fpm
+    ports:
+      - 9000:9000
+    networks:
+      - backend
+    restart: always
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - ${CODE_PATH}:/data
+      - ./php-fpm/conf/php.ini:/usr/local/etc/php/php.ini
+      - ./php-fpm/conf/conf.d:/usr/local/etc/php/conf.d
+      - ./php-fpm/conf/www.conf:/usr/local/etc/php-fpm.d/www.conf
