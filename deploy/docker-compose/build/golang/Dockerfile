@@ -13,6 +13,7 @@ RUN make build
 
 # production stage
 FROM alpine as production
+# FROM centurylink/ca-certs
 
 WORKDIR /app
 COPY --from=build /app .
