@@ -1,46 +1,34 @@
+# my global config
 global:
-  # How frequently to scrape targets by default.
-  [ scrape_interval: <duration> | default = 1m ]
+  scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
 
-  # How long until a scrape request times out.
-  [ scrape_timeout: <duration> | default = 10s ]
-
-  # How frequently to evaluate rules.
-  [ evaluation_interval: <duration> | default = 1m ]
-
-  # The labels to add to any time series or alerts when communicating with
-  # external systems (federation, remote storage, Alertmanager).
-  external_labels:
-    [ <labelname>: <labelvalue> ... ]
-
-  # File to which PromQL queries are logged.
-  # Reloading the configuration will reopen the file.
-  [ query_log_file: <string> ]
-
-# Rule files specifies a list of globs. Rules and alerts are read from
-# all matching files.
-rule_files:
-  [ - <filepath_glob> ... ]
-
-# A list of scrape configurations.
-scrape_configs:
-  [ - <scrape_config> ... ]
-
-# Alerting specifies settings related to the Alertmanager.
+# Alertmanager configuration
 alerting:
-  alert_relabel_configs:
-    [ - <relabel_config> ... ]
   alertmanagers:
-    [ - <alertmanager_config> ... ]
+    - static_configs:
+        - targets:
+          # - alertmanager:9093
 
-# Settings related to the remote write feature.
-remote_write:
-  [ - <remote_write> ... ]
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
 
-# Settings related to the remote read feature.
-remote_read:
-  [ - <remote_read> ... ]
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: "prometheus"
 
-# Storage related settings that are runtime reloadable.
-storage:
-  [ - <exemplars> ... ]
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["prometheus:9090"]
+
+  - job_name: "node"
+
+    static_configs:
+      - targets: ["localhost:9100"]

@@ -1,0 +1,7 @@
+cluster.name: elasticsearch-cluster
+network.host: 0.0.0.0
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+# https://www.elastic.co/guide/en/elasticsearch/reference/current/security-settings.html
+# xpack.license.self_generated.type: trial
+# xpack.security.enabled: true

@@ -1,173 +1,339 @@
 version: "3.7"
 
 networks:
-  frontend:
-    driver: ${NETWORKS_DRIVER}
-  backend:
-    driver: ${NETWORKS_DRIVER}
+  app_net:
+    external: true
 
 services:
-  # web-admin:
-  #   image: vgo-web-admin:0.1.0
+  # nginx:
+  #   image: nginx:stable-alpine
+  #   container_name: nginx
   #   ports:
-  #     - 80:80
-
-  # user-service:
-  #   image: vgo-user-service:0.1.0
+  #     - 1080:80
+  #     - 1443:443
+  #   networks:
+  #     - app_net
   #   restart: always
-  #   hostname: user-service
-  #   depends_on:
-  #     - mysql
-  #     - consul
+  #   environment:
+  #     - TZ=Asia/Shanghai
+  #   volumes:
+  #     - ./etc/conf.d:/etc/nginx/conf.d
+  #     - ./etc/nginx.conf:/etc/nginx/nginx.conf
+  #     - ./data/nginx/logs:/var/log/nginx
+  #     - /code:/var/www/html
 
-  node:
+  shop-admin:
+    # image: cosmtrek/air:latest
     build:
-      context: ./node
-    working_dir: /data
-    container_name: node
+      context: ./air
+    container_name: shop-admin
+    working_dir: /go/src/github.com/vvgo-mall/app/shop/admin
     ports:
-      - 3000:3000
+      - 8000:8000
     networks:
-      - backend
+      - app_net
+    privileged: true
     restart: always
     environment:
-      - TZ=${TZ}
-      # - NODE_ENV=development
+      - TZ=Asia/Shanghai
+      - GOPROXY=https://goproxy.cn,direct
     volumes:
-      - ${APP_PATH}:/data
-    stdin_open: true
-    tty: true
+      - ../../:/go/src/github.com/vvgo-mall
+    depends_on:
+      - account-service
+      - auth-service
 
-  # php:
-  #   build:
-  #     context: ./php
-  #   container_name: php
-  #   ports:
-  #     - 9000:9000
-  #   networks:
-  #     - backend
-  #   restart: always
-  #   environment:
-  #     - TZ=${TZ}
-  #   volumes:
-  #     - ${APP_PATH}:/data
-  #     - ./php/conf/php.ini:/usr/local/etc/php/php.ini
-  #     - ./php/conf/conf.d:/usr/local/etc/php/conf.d
-  #     - ./php/conf/www.conf:/usr/local/etc/php-fpm.d/www.conf
+  account-service:
+    # image: cosmtrek/air:latest
+    build:
+      context: ./air
+    container_name: account-service
+    working_dir: /go/src/github.com/vvgo-mall/app/account/service
+    ports:
+      - 8001:8001
+    networks:
+      - app_net
+    privileged: true
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - GOPROXY=https://goproxy.cn,direct
+    volumes:
+      - ../../:/go/src/github.com/vvgo-mall
+    depends_on:
+      - mysql
+      - redis
 
-  # nginx:
-  #   build:
-  #     context: ./nginx
-  #   # container_name: nginx
-  #   ports:
-  #     - ${NGINX_HTTP_PORT}:80
-  #     - ${NGINX_HTTPS_PORT}:443
-  #   networks:
-  #     - backend
-  #   restart: always
-  #   environment:
-  #     - TZ=${TZ}
-  #     # - LOCAL_UID=$(id -u $USER)
-  #     # - LOCAL_GID=$(id -g $USER)
-  #   volumes:
-  #     - ./nginx/etc/conf.d:/etc/nginx/conf.d
-  #     - ./nginx/etc/nginx.conf:/etc/nginx/nginx.conf
-  #     - ${DATA_PATH}/nginx/logs:/var/log/nginx
-  #     - ${APP_PATH}:/data
+  auth-service:
+    # image: cosmtrek/air:latest
+    build:
+      context: ./air
+    container_name: auth-service
+    working_dir: /go/src/github.com/vvgo-mall/app/auth/service
+    ports:
+      - 8002:8002
+    networks:
+      - app_net
+    privileged: true
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - GOPROXY=https://goproxy.cn,direct
+    volumes:
+      - ../../:/go/src/github.com/vvgo-mall
+    depends_on:
+      - mysql
+      - redis
 
-  # mysql:
-  #   build:
-  #     context: ./mysql
-  #   ports:
-  #     - ${MYSQL_PORT}:3306
-  #   networks:
-  #     - backend
-  #   restart: always
-  #   environment:
-  #     - TZ=${TZ}
-  #     - MYSQL_USER=${MYSQL_USERNAME}
-  #     - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-  #     - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-  #   volumes:
-  #     - ./mysql/conf:/etc/mysql/conf.d
-  #     - ${DATA_PATH}/mysql/logs:/logs
-  #     - ${DATA_PATH}/mysql/data:/var/lib/mysql
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    hostname: mysql
+    ports:
+      - 3306:3306
+    networks:
+      - app_net
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - MYSQL_USER=lalifeir
+      - MYSQL_PASSWORD=123456
+      - MYSQL_ROOT_PASSWORD=123456
+    volumes:
+      - ./mysql/conf.d:/etc/mysql/conf.d
+      - ./data/mysql/data:/var/lib/mysql
+      - ./data/mysql/logs:/var/log/mysql
 
-  # redis:
-  #   build:
-  #     context: ./redis
-  #   ports:
-  #     - ${REDIS_PORT}:6379
-  #   networks:
-  #     - backend
-  #   restart: always
-  #   environment:
-  #     - TZ=${TZ}
-  #   volumes:
-  #     - ./redis/redis.conf:/etc/redis/redis.conf
-  #     - ${DATA_PATH}/redis/data:/data
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - 6379:6379
+    networks:
+      - app_net
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./redis/redis.conf:/etc/redis/redis.conf
+      - ./data/redis/data:/data
 
-  # consul:
-  #   image: bitnami/consul:latest
-  #   # container_name: consul
-  #   ports:
-  #     - 8300:8300
-  #     - 8301:8301
-  #     - 8301:8301/udp
-  #     - 8500:8500
-  #     - 8600:8600
-  #     - 8600:8600/udp
-  #   networks:
-  #     - backend
-  #   restart: always
-  #   volumes:
-  #     - ${DATA_PATH}/consul/data:/bitnami
+  consul:
+    image: bitnami/consul:latest
+    container_name: consul
+    ports:
+      - 8300:8300
+      - 8301:8301
+      - 8301:8301/udp
+      - 8500:8500
+      - 8600:8600
+      - 8600:8600/udp
+    networks:
+      - app_net
+    restart: always
+    # privileged: true
+    # volumes:
+    #   - ./data/consul/data:/bitnami/consul
 
-  # jaeger:
-  #   image: jaegertracing/all-in-one:latest
-  #   # container_name: jaegertracing
-  #   ports:
-  #     - 5775:5775/udp
-  #     - 6831:6831/udp
-  #     - 6832:6832/udp
-  #     - 5778:5778
-  #     - ${JAEGER_PORT}:16686
-  #     - 14250:14250
-  #     - 14268:14268
-  #     - 14269:14269
-  #     - 9411:9411
-  #   networks:
-  #     - backend
-  #   restart: always
-  #   environment:
-  #     COLLECTOR_ZIPKIN_HOST_PORT: 9411
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: jaeger
+    ports:
+      - 5775:5775/udp
+      - 6831:6831/udp
+      - 6832:6832/udp
+      - 5778:5778
+      - 16686:16686
+      - 14250:14250
+      - 14268:14268
+      - 14269:14269
+      - 9411:9411
+    networks:
+      - app_net
+    restart: always
+    environment:
+      COLLECTOR_ZIPKIN_HOST_PORT: 9411
 
   # prometheus:
   #   image: bitnami/prometheus:latest
-  #   # container_name: prometheus
+  #   container_name: prometheus
   #   ports:
-  #     - ${PROMETHEUS_PORT}:9090
+  #     - 9090:9090
   #   networks:
-  #     - backend
+  #     - app_net
   #   restart: always
   #   environment:
-  #     - TZ=${TZ}
+  #     - TZ=Asia/Shanghai
   #   volumes:
-  #     - ${DATA_PATH}/prometheus/data:/opt/bitnami/prometheus/data
-  #     - ${DATA_PATH}/prometheus/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
+  #     - ./prometheus/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
+  #     - ./data/prometheus/data:/opt/bitnami/prometheus/data
 
-  # dtm:
-  #   image: yedf/dtm:latest
-  #   environment:
-  #     - TZ=${TZ}
-  #   entrypoint:
-  #     - "/app/dtm/dtm"
-  #     - "-c=/app/dtm/configs/config.yaml"
+  # grafana:
+  #   image: grafana/grafana:latest
+  #   container_name: grafana
+  #   hostname: grafana
   #   ports:
-  #     - "${DTM_HTTP_PORT}:36789"
-  #     - "${DTM_GRPC_PORT}:36790"
+  #     - 3000:3000
   #   networks:
-  #     - backend
+  #     - app_net
   #   restart: always
+  #   environment:
+  #     - TZ=Asia/Shanghai
   #   volumes:
-  #     - ${DATA_PATH}/dtm/config.yml:/app/dtm/configs/config.yaml
+  #     - ./data/grafana/data:/var/lib/grafana
+
+  # zookeeper:
+  #   image: "bitnami/zookeeper:latest"
+  #   container_name: zookeeper
+  #   hostname: zookeeper
+  #   ports:
+  #     - 2181:2181
+  #   networks:
+  #     - app_net
+  #   restart: always
+  #   environment:
+  #     - TZ=Asia/Shanghai
+  #     - ALLOW_ANONYMOUS_LOGIN=yes
+  #   # volumes:
+  #   #   - ./zookeeper/conf/zoo.cfg:/opt/bitnami/zookeeper/conf/zoo.cfg
+  #   #   - ${DATA_PATH}/zookeeper/data:/bitnami/zookeeper/data
+#  kafka:
+#     image: "bitnami/kafka:latest"
+#     container_name: kafka
+#     ports:
+#       - 9092:9092
+#       # - 9999:9999
+#     networks:
+#       - app_net
+#     restart: always
+#     environment:
+#       - TZ=Asia/Shanghai
+#       # - KAFKA_BROKER_ID=1
+#       # - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
+#       # - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092
+#       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+#       - ALLOW_PLAINTEXT_LISTENER=yes
+#       # - JMX_PORT=9999
+#     # volumes:
+#     #   - ${DATA_PATH}/kafka/data:/bitnami/kafka/data
+#     #   - ${DATA_PATH}/kafka/config:/bitnami/kafka/config
+#     # depends_on:
+#     #   - zookeeper
+
+# efak:
+#   build:
+#     context: ./efak
+#   container_name: efak
+#   ports:
+#     - 8048:8048
+#   networks:
+#     - app_net
+#   restart: always
+#   environment:
+#     - TZ=Asia/Shanghai
+#     - ZK_HOSTS=zookeeper:2181
+#   volumes:
+#     - ./efak/conf/system-config.properties:/usr/local/efak/conf/system-config.properties
+#     - ./data/efak/logs:/usr/local/efak/logs
+#   depends_on:
+#     - zookeeper
+#     - kafka
+#   stdin_open: true
+#   tty: true
+
+# elasticsearch:
+#   image: docker.elastic.co/elasticsearch/elasticsearch:8.0.0
+#   container_name: elasticsearch
+#   ports:
+#     - 9200:9200
+#     - 9300:9300
+#   networks:
+#     - app_net
+#   restart: always
+#   environment:
+#     - TZ=Asia/Shanghai
+#     - ES_JAVA_OPTS=-Xmx1g -Xms1g
+#     # - discovery.type=single-node
+#     # - ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-}
+#   # volumes:
+#   # - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+#   # - ./elasticsearch/cert/elastic-certificates.p12:/usr/share/elasticsearch/config/elastic-certificates.p12
+#   # - ./data/elk/elasticsearch/data:/usr/share/elasticsearch/data
+#   # - ./data/elk/elasticsearch/logs:/usr/share/elasticsearch/logs
+#   # - ./data/elk/elasticsearch/plugins:/usr/share/elasticsearch/plugins
+#   # ulimits:
+#   #   memlock:
+#   #     soft: -1
+#   #     hard: -1
+
+# kibana:
+#   image: docker.elastic.co/kibana/kibana:8.0.0
+#   container_name: kibana
+#   ports:
+#     - 5601:5601
+#   networks:
+#     - app_net
+#   restart: always
+#   environment:
+#     - TZ=Asia/Shanghai
+#     # - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+#     # - ELASTICSEARCH_USERNAME=kibana_system
+#     # - ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD}
+#   volumes:
+#     - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml
+#   depends_on:
+#     - elasticsearch
+
+# logstash:
+#   image: docker.elastic.co/logstash/logstash:8.0.0
+#   container_name: logstash
+#   ports:
+#     - 5044:5044
+#   networks:
+#     - app_net
+#   restart: always
+#   environment:
+#     - TZ=Asia/Shanghai
+#     - LS_JAVA_OPTS=-Xmx256m -Xms256m
+#     # - LOGSTASH_INTERNAL_PASSWORD=${LOGSTASH_PASSWORD:-}
+#   volumes:
+#     - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+#     - ./logstash/pipeline:/usr/share/logstash/pipeline
+#     - ./data/elk/logstash/data:/usr/share/logstash/data
+#   depends_on:
+#     - elasticsearch
+
+# filebeat:
+#   image: docker.elastic.co/beats/filebeat:8.0.0
+#   container_name: filebeat
+#   ports:
+#     - 5044:5044
+#   networks:
+#     - app_net
+#   restart: always
+#   environment:
+#     - TZ=Asia/Shanghai
+#     # ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-}
+#   volumes:
+#     - ./filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml
+#     - ./data/elk/filebeat/data:/usr/share/filebeat/data
+#     - ./data/elk/filebeat/log:/usr/share/filebeat/log
+#   depends_on:
+#     - elasticsearch
+
+# dtm:
+#   image: yedf/dtm:latest
+#   container_name: dtm
+#   entrypoint:
+#     - "/app/dtm/dtm"
+#     - "-c=/app/dtm/configs/config.yaml"
+#   ports:
+#     - "36789:36789"
+#     - "36790:36790"
+#   networks:
+#     - app_net
+#   restart: always
+#   environment:
+#     - TZ=Asia/Shanghai
+#   volumes:
+#     - ./data/dtm/config.yml:/app/dtm/configs/config.yaml
