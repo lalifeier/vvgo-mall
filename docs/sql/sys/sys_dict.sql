@@ -1,7 +1,6 @@
 CREATE TABLE `sys_dict` (
   `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT '字典数据id',
   `dict_type_id` int unsigned NOT NULL DEFAULT '0' COMMENT '字典类型id',
-  `type` varchar(100) NOT NULL DEFAULT '' COMMENT '字典类型',
   `label` varchar(100) NOT NULL DEFAULT '' COMMENT '字典标签',
   `value` varchar(100) NOT NULL DEFAULT '' COMMENT '字典键值',
   `sort` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '排序',

@@ -25,7 +25,7 @@ import (
 // }
 
 // NewHTTPServer new a HTTP server.
-func NewHTTPServer(c *conf.Server, logger log.Logger, accountService *service.AccountService, authService *service.AuthService, sys *service.SysService) *http.Server {
+func NewHTTPServer(c *conf.Server, logger log.Logger, shopService *service.ShopService, accountService *service.AccountService, authService *service.AuthService) *http.Server {
 	var opts = []http.ServerOption{
 		http.Middleware(
 			recovery.Recovery(),
@@ -57,8 +57,8 @@ func NewHTTPServer(c *conf.Server, logger log.Logger, accountService *service.Ac
 	openAPIhandler := openapiv2.NewHandler()
 	srv.HandlePrefix("/q/", openAPIhandler)
 
+	v1.RegisterShopHTTPServer(srv, shopService)
 	v1.RegisterAccountHTTPServer(srv, accountService)
 	v1.RegisterAuthHTTPServer(srv, authService)
-	v1.RegisterSysHTTPServer(srv, sys)
 	return srv
 }

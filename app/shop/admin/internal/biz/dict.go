@@ -1,4 +1,4 @@
-package sys
+package biz
 
 import (
 	"context"
@@ -7,8 +7,7 @@ import (
 )
 
 type Dict struct {
-	Id int64
-
+	Id        int64
 	Type      string
 	Label     string
 	Value     string

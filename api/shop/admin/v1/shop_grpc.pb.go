@@ -7,7 +7,11 @@
 package v1
 
 import (
+	context "context"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -19,6 +23,12 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ShopClient interface {
+	CreateDict(ctx context.Context, in *CreateDictReq, opts ...grpc.CallOption) (*CreateDictResp, error)
+	UpdateDict(ctx context.Context, in *UpdateDictReq, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	DeleteDict(ctx context.Context, in *DeleteDictReq, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	ListDict(ctx context.Context, in *ListDictReq, opts ...grpc.CallOption) (*ListDictResp, error)
+	PageListDict(ctx context.Context, in *PageListDictReq, opts ...grpc.CallOption) (*PageListDictResp, error)
+	GetDict(ctx context.Context, in *GetDictReq, opts ...grpc.CallOption) (*GetDictResp, error)
 }
 
 type shopClient struct {
@@ -29,10 +39,70 @@ func NewShopClient(cc grpc.ClientConnInterface) ShopClient {
 	return &shopClient{cc}
 }
 
+func (c *shopClient) CreateDict(ctx context.Context, in *CreateDictReq, opts ...grpc.CallOption) (*CreateDictResp, error) {
+	out := new(CreateDictResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/CreateDict", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) UpdateDict(ctx context.Context, in *UpdateDictReq, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/UpdateDict", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) DeleteDict(ctx context.Context, in *DeleteDictReq, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/DeleteDict", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) ListDict(ctx context.Context, in *ListDictReq, opts ...grpc.CallOption) (*ListDictResp, error) {
+	out := new(ListDictResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/ListDict", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) PageListDict(ctx context.Context, in *PageListDictReq, opts ...grpc.CallOption) (*PageListDictResp, error) {
+	out := new(PageListDictResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/PageListDict", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) GetDict(ctx context.Context, in *GetDictReq, opts ...grpc.CallOption) (*GetDictResp, error) {
+	out := new(GetDictResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/GetDict", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ShopServer is the server API for Shop service.
 // All implementations must embed UnimplementedShopServer
 // for forward compatibility
 type ShopServer interface {
+	CreateDict(context.Context, *CreateDictReq) (*CreateDictResp, error)
+	UpdateDict(context.Context, *UpdateDictReq) (*emptypb.Empty, error)
+	DeleteDict(context.Context, *DeleteDictReq) (*emptypb.Empty, error)
+	ListDict(context.Context, *ListDictReq) (*ListDictResp, error)
+	PageListDict(context.Context, *PageListDictReq) (*PageListDictResp, error)
+	GetDict(context.Context, *GetDictReq) (*GetDictResp, error)
 	mustEmbedUnimplementedShopServer()
 }
 
@@ -40,6 +110,24 @@ type ShopServer interface {
 type UnimplementedShopServer struct {
 }
 
+func (UnimplementedShopServer) CreateDict(context.Context, *CreateDictReq) (*CreateDictResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateDict not implemented")
+}
+func (UnimplementedShopServer) UpdateDict(context.Context, *UpdateDictReq) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateDict not implemented")
+}
+func (UnimplementedShopServer) DeleteDict(context.Context, *DeleteDictReq) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteDict not implemented")
+}
+func (UnimplementedShopServer) ListDict(context.Context, *ListDictReq) (*ListDictResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListDict not implemented")
+}
+func (UnimplementedShopServer) PageListDict(context.Context, *PageListDictReq) (*PageListDictResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PageListDict not implemented")
+}
+func (UnimplementedShopServer) GetDict(context.Context, *GetDictReq) (*GetDictResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDict not implemented")
+}
 func (UnimplementedShopServer) mustEmbedUnimplementedShopServer() {}
 
 // UnsafeShopServer may be embedded to opt out of forward compatibility for this service.
@@ -53,13 +141,146 @@ func RegisterShopServer(s grpc.ServiceRegistrar, srv ShopServer) {
 	s.RegisterService(&Shop_ServiceDesc, srv)
 }
 
+func _Shop_CreateDict_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateDictReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).CreateDict(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/CreateDict",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).CreateDict(ctx, req.(*CreateDictReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_UpdateDict_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateDictReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).UpdateDict(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/UpdateDict",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).UpdateDict(ctx, req.(*UpdateDictReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_DeleteDict_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteDictReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).DeleteDict(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/DeleteDict",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).DeleteDict(ctx, req.(*DeleteDictReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_ListDict_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListDictReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).ListDict(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/ListDict",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).ListDict(ctx, req.(*ListDictReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_PageListDict_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PageListDictReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).PageListDict(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/PageListDict",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).PageListDict(ctx, req.(*PageListDictReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_GetDict_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDictReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).GetDict(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/GetDict",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).GetDict(ctx, req.(*GetDictReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Shop_ServiceDesc is the grpc.ServiceDesc for Shop service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Shop_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "api.shop.admin.v1.Shop",
 	HandlerType: (*ShopServer)(nil),
-	Methods:     []grpc.MethodDesc{},
-	Streams:     []grpc.StreamDesc{},
-	Metadata:    "v1/shop.proto",
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateDict",
+			Handler:    _Shop_CreateDict_Handler,
+		},
+		{
+			MethodName: "UpdateDict",
+			Handler:    _Shop_UpdateDict_Handler,
+		},
+		{
+			MethodName: "DeleteDict",
+			Handler:    _Shop_DeleteDict_Handler,
+		},
+		{
+			MethodName: "ListDict",
+			Handler:    _Shop_ListDict_Handler,
+		},
+		{
+			MethodName: "PageListDict",
+			Handler:    _Shop_PageListDict_Handler,
+		},
+		{
+			MethodName: "GetDict",
+			Handler:    _Shop_GetDict_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "v1/shop.proto",
 }
