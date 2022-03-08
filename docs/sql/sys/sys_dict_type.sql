@@ -5,5 +5,5 @@ CREATE TABLE `sys_dict_type` (
   `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态 0:禁用 1:启用',
   `remark` varchar(500) NOT NULL DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_type` (`type`),
+  UNIQUE KEY `uk_type` (`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='字典类型表';
