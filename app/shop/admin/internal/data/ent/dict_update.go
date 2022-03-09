@@ -118,6 +118,27 @@ func (du *DictUpdate) SetNillableValue(s *string) *DictUpdate {
 	return du
 }
 
+// SetSort sets the "sort" field.
+func (du *DictUpdate) SetSort(i int8) *DictUpdate {
+	du.mutation.ResetSort()
+	du.mutation.SetSort(i)
+	return du
+}
+
+// SetNillableSort sets the "sort" field if the given value is not nil.
+func (du *DictUpdate) SetNillableSort(i *int8) *DictUpdate {
+	if i != nil {
+		du.SetSort(*i)
+	}
+	return du
+}
+
+// AddSort adds i to the "sort" field.
+func (du *DictUpdate) AddSort(i int8) *DictUpdate {
+	du.mutation.AddSort(i)
+	return du
+}
+
 // SetStatus sets the "status" field.
 func (du *DictUpdate) SetStatus(i int8) *DictUpdate {
 	du.mutation.ResetStatus()
@@ -150,27 +171,6 @@ func (du *DictUpdate) SetNillableRemark(s *string) *DictUpdate {
 	if s != nil {
 		du.SetRemark(*s)
 	}
-	return du
-}
-
-// SetSort sets the "sort" field.
-func (du *DictUpdate) SetSort(i int8) *DictUpdate {
-	du.mutation.ResetSort()
-	du.mutation.SetSort(i)
-	return du
-}
-
-// SetNillableSort sets the "sort" field if the given value is not nil.
-func (du *DictUpdate) SetNillableSort(i *int8) *DictUpdate {
-	if i != nil {
-		du.SetSort(*i)
-	}
-	return du
-}
-
-// AddSort adds i to the "sort" field.
-func (du *DictUpdate) AddSort(i int8) *DictUpdate {
-	du.mutation.AddSort(i)
 	return du
 }
 
@@ -350,6 +350,20 @@ func (du *DictUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: dict.FieldValue,
 		})
 	}
+	if value, ok := du.mutation.Sort(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt8,
+			Value:  value,
+			Column: dict.FieldSort,
+		})
+	}
+	if value, ok := du.mutation.AddedSort(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt8,
+			Value:  value,
+			Column: dict.FieldSort,
+		})
+	}
 	if value, ok := du.mutation.Status(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt8,
@@ -369,20 +383,6 @@ func (du *DictUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Type:   field.TypeString,
 			Value:  value,
 			Column: dict.FieldRemark,
-		})
-	}
-	if value, ok := du.mutation.Sort(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt8,
-			Value:  value,
-			Column: dict.FieldSort,
-		})
-	}
-	if value, ok := du.mutation.AddedSort(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt8,
-			Value:  value,
-			Column: dict.FieldSort,
 		})
 	}
 	if value, ok := du.mutation.IsDefault(); ok {
@@ -509,6 +509,27 @@ func (duo *DictUpdateOne) SetNillableValue(s *string) *DictUpdateOne {
 	return duo
 }
 
+// SetSort sets the "sort" field.
+func (duo *DictUpdateOne) SetSort(i int8) *DictUpdateOne {
+	duo.mutation.ResetSort()
+	duo.mutation.SetSort(i)
+	return duo
+}
+
+// SetNillableSort sets the "sort" field if the given value is not nil.
+func (duo *DictUpdateOne) SetNillableSort(i *int8) *DictUpdateOne {
+	if i != nil {
+		duo.SetSort(*i)
+	}
+	return duo
+}
+
+// AddSort adds i to the "sort" field.
+func (duo *DictUpdateOne) AddSort(i int8) *DictUpdateOne {
+	duo.mutation.AddSort(i)
+	return duo
+}
+
 // SetStatus sets the "status" field.
 func (duo *DictUpdateOne) SetStatus(i int8) *DictUpdateOne {
 	duo.mutation.ResetStatus()
@@ -541,27 +562,6 @@ func (duo *DictUpdateOne) SetNillableRemark(s *string) *DictUpdateOne {
 	if s != nil {
 		duo.SetRemark(*s)
 	}
-	return duo
-}
-
-// SetSort sets the "sort" field.
-func (duo *DictUpdateOne) SetSort(i int8) *DictUpdateOne {
-	duo.mutation.ResetSort()
-	duo.mutation.SetSort(i)
-	return duo
-}
-
-// SetNillableSort sets the "sort" field if the given value is not nil.
-func (duo *DictUpdateOne) SetNillableSort(i *int8) *DictUpdateOne {
-	if i != nil {
-		duo.SetSort(*i)
-	}
-	return duo
-}
-
-// AddSort adds i to the "sort" field.
-func (duo *DictUpdateOne) AddSort(i int8) *DictUpdateOne {
-	duo.mutation.AddSort(i)
 	return duo
 }
 
@@ -765,6 +765,20 @@ func (duo *DictUpdateOne) sqlSave(ctx context.Context) (_node *Dict, err error) 
 			Column: dict.FieldValue,
 		})
 	}
+	if value, ok := duo.mutation.Sort(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt8,
+			Value:  value,
+			Column: dict.FieldSort,
+		})
+	}
+	if value, ok := duo.mutation.AddedSort(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt8,
+			Value:  value,
+			Column: dict.FieldSort,
+		})
+	}
 	if value, ok := duo.mutation.Status(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt8,
@@ -784,20 +798,6 @@ func (duo *DictUpdateOne) sqlSave(ctx context.Context) (_node *Dict, err error) 
 			Type:   field.TypeString,
 			Value:  value,
 			Column: dict.FieldRemark,
-		})
-	}
-	if value, ok := duo.mutation.Sort(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt8,
-			Value:  value,
-			Column: dict.FieldSort,
-		})
-	}
-	if value, ok := duo.mutation.AddedSort(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt8,
-			Value:  value,
-			Column: dict.FieldSort,
 		})
 	}
 	if value, ok := duo.mutation.IsDefault(); ok {

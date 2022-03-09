@@ -134,6 +134,13 @@ func Value(v string) predicate.Dict {
 	})
 }
 
+// Sort applies equality check predicate on the "sort" field. It's identical to SortEQ.
+func Sort(v int8) predicate.Dict {
+	return predicate.Dict(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldSort), v))
+	})
+}
+
 // Status applies equality check predicate on the "status" field. It's identical to StatusEQ.
 func Status(v int8) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
@@ -145,13 +152,6 @@ func Status(v int8) predicate.Dict {
 func Remark(v string) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldRemark), v))
-	})
-}
-
-// Sort applies equality check predicate on the "sort" field. It's identical to SortEQ.
-func Sort(v int8) predicate.Dict {
-	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldSort), v))
 	})
 }
 
@@ -764,6 +764,82 @@ func ValueContainsFold(v string) predicate.Dict {
 	})
 }
 
+// SortEQ applies the EQ predicate on the "sort" field.
+func SortEQ(v int8) predicate.Dict {
+	return predicate.Dict(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldSort), v))
+	})
+}
+
+// SortNEQ applies the NEQ predicate on the "sort" field.
+func SortNEQ(v int8) predicate.Dict {
+	return predicate.Dict(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldSort), v))
+	})
+}
+
+// SortIn applies the In predicate on the "sort" field.
+func SortIn(vs ...int8) predicate.Dict {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Dict(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldSort), v...))
+	})
+}
+
+// SortNotIn applies the NotIn predicate on the "sort" field.
+func SortNotIn(vs ...int8) predicate.Dict {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Dict(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldSort), v...))
+	})
+}
+
+// SortGT applies the GT predicate on the "sort" field.
+func SortGT(v int8) predicate.Dict {
+	return predicate.Dict(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldSort), v))
+	})
+}
+
+// SortGTE applies the GTE predicate on the "sort" field.
+func SortGTE(v int8) predicate.Dict {
+	return predicate.Dict(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldSort), v))
+	})
+}
+
+// SortLT applies the LT predicate on the "sort" field.
+func SortLT(v int8) predicate.Dict {
+	return predicate.Dict(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldSort), v))
+	})
+}
+
+// SortLTE applies the LTE predicate on the "sort" field.
+func SortLTE(v int8) predicate.Dict {
+	return predicate.Dict(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldSort), v))
+	})
+}
+
 // StatusEQ applies the EQ predicate on the "status" field.
 func StatusEQ(v int8) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
@@ -948,82 +1024,6 @@ func RemarkEqualFold(v string) predicate.Dict {
 func RemarkContainsFold(v string) predicate.Dict {
 	return predicate.Dict(func(s *sql.Selector) {
 		s.Where(sql.ContainsFold(s.C(FieldRemark), v))
-	})
-}
-
-// SortEQ applies the EQ predicate on the "sort" field.
-func SortEQ(v int8) predicate.Dict {
-	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldSort), v))
-	})
-}
-
-// SortNEQ applies the NEQ predicate on the "sort" field.
-func SortNEQ(v int8) predicate.Dict {
-	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldSort), v))
-	})
-}
-
-// SortIn applies the In predicate on the "sort" field.
-func SortIn(vs ...int8) predicate.Dict {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.Dict(func(s *sql.Selector) {
-		// if not arguments were provided, append the FALSE constants,
-		// since we can't apply "IN ()". This will make this predicate falsy.
-		if len(v) == 0 {
-			s.Where(sql.False())
-			return
-		}
-		s.Where(sql.In(s.C(FieldSort), v...))
-	})
-}
-
-// SortNotIn applies the NotIn predicate on the "sort" field.
-func SortNotIn(vs ...int8) predicate.Dict {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.Dict(func(s *sql.Selector) {
-		// if not arguments were provided, append the FALSE constants,
-		// since we can't apply "IN ()". This will make this predicate falsy.
-		if len(v) == 0 {
-			s.Where(sql.False())
-			return
-		}
-		s.Where(sql.NotIn(s.C(FieldSort), v...))
-	})
-}
-
-// SortGT applies the GT predicate on the "sort" field.
-func SortGT(v int8) predicate.Dict {
-	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldSort), v))
-	})
-}
-
-// SortGTE applies the GTE predicate on the "sort" field.
-func SortGTE(v int8) predicate.Dict {
-	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldSort), v))
-	})
-}
-
-// SortLT applies the LT predicate on the "sort" field.
-func SortLT(v int8) predicate.Dict {
-	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldSort), v))
-	})
-}
-
-// SortLTE applies the LTE predicate on the "sort" field.
-func SortLTE(v int8) predicate.Dict {
-	return predicate.Dict(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldSort), v))
 	})
 }
 

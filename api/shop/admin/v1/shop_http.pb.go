@@ -8,7 +8,6 @@ import (
 	context "context"
 	http "github.com/go-kratos/kratos/v2/transport/http"
 	binding "github.com/go-kratos/kratos/v2/transport/http/binding"
-	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -20,11 +19,11 @@ const _ = http.SupportPackageIsVersion1
 
 type ShopHTTPServer interface {
 	CreateDict(context.Context, *CreateDictReq) (*CreateDictResp, error)
-	DeleteDict(context.Context, *DeleteDictReq) (*emptypb.Empty, error)
+	DeleteDict(context.Context, *DeleteDictReq) (*DeleteDictResp, error)
 	GetDict(context.Context, *GetDictReq) (*GetDictResp, error)
 	ListDict(context.Context, *ListDictReq) (*ListDictResp, error)
 	PageListDict(context.Context, *PageListDictReq) (*PageListDictResp, error)
-	UpdateDict(context.Context, *UpdateDictReq) (*emptypb.Empty, error)
+	UpdateDict(context.Context, *UpdateDictReq) (*UpdateDictResp, error)
 }
 
 func RegisterShopHTTPServer(s *http.Server, srv ShopHTTPServer) {
@@ -73,7 +72,7 @@ func _Shop_UpdateDict0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) e
 		if err != nil {
 			return err
 		}
-		reply := out.(*emptypb.Empty)
+		reply := out.(*UpdateDictResp)
 		return ctx.Result(200, reply)
 	}
 }
@@ -95,7 +94,7 @@ func _Shop_DeleteDict0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) e
 		if err != nil {
 			return err
 		}
-		reply := out.(*emptypb.Empty)
+		reply := out.(*DeleteDictResp)
 		return ctx.Result(200, reply)
 	}
 }
@@ -162,11 +161,11 @@ func _Shop_GetDict0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) erro
 
 type ShopHTTPClient interface {
 	CreateDict(ctx context.Context, req *CreateDictReq, opts ...http.CallOption) (rsp *CreateDictResp, err error)
-	DeleteDict(ctx context.Context, req *DeleteDictReq, opts ...http.CallOption) (rsp *emptypb.Empty, err error)
+	DeleteDict(ctx context.Context, req *DeleteDictReq, opts ...http.CallOption) (rsp *DeleteDictResp, err error)
 	GetDict(ctx context.Context, req *GetDictReq, opts ...http.CallOption) (rsp *GetDictResp, err error)
 	ListDict(ctx context.Context, req *ListDictReq, opts ...http.CallOption) (rsp *ListDictResp, err error)
 	PageListDict(ctx context.Context, req *PageListDictReq, opts ...http.CallOption) (rsp *PageListDictResp, err error)
-	UpdateDict(ctx context.Context, req *UpdateDictReq, opts ...http.CallOption) (rsp *emptypb.Empty, err error)
+	UpdateDict(ctx context.Context, req *UpdateDictReq, opts ...http.CallOption) (rsp *UpdateDictResp, err error)
 }
 
 type ShopHTTPClientImpl struct {
@@ -190,8 +189,8 @@ func (c *ShopHTTPClientImpl) CreateDict(ctx context.Context, in *CreateDictReq, 
 	return &out, err
 }
 
-func (c *ShopHTTPClientImpl) DeleteDict(ctx context.Context, in *DeleteDictReq, opts ...http.CallOption) (*emptypb.Empty, error) {
-	var out emptypb.Empty
+func (c *ShopHTTPClientImpl) DeleteDict(ctx context.Context, in *DeleteDictReq, opts ...http.CallOption) (*DeleteDictResp, error) {
+	var out DeleteDictResp
 	pattern := "/api/dict/{id}"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/DeleteDict"))
@@ -242,8 +241,8 @@ func (c *ShopHTTPClientImpl) PageListDict(ctx context.Context, in *PageListDictR
 	return &out, err
 }
 
-func (c *ShopHTTPClientImpl) UpdateDict(ctx context.Context, in *UpdateDictReq, opts ...http.CallOption) (*emptypb.Empty, error) {
-	var out emptypb.Empty
+func (c *ShopHTTPClientImpl) UpdateDict(ctx context.Context, in *UpdateDictReq, opts ...http.CallOption) (*UpdateDictResp, error) {
+	var out UpdateDictResp
 	pattern := "/api/dict/{id}"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/UpdateDict"))

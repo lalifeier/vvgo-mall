@@ -16,7 +16,7 @@ type DictType struct {
 	config `json:"-"`
 	// ID of the ent.
 	// 字典类型id
-	ID int32 `json:"id,omitempty"`
+	ID int64 `json:"id,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
 	// 创建时间
 	CreatedAt time.Time `json:"created_at,omitempty"`
@@ -74,7 +74,7 @@ func (dt *DictType) assignValues(columns []string, values []interface{}) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
-			dt.ID = int32(value.Int64)
+			dt.ID = int64(value.Int64)
 		case dicttype.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullTime); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])

@@ -84,8 +84,8 @@ func (dtq *DictTypeQuery) FirstX(ctx context.Context) *DictType {
 
 // FirstID returns the first DictType ID from the query.
 // Returns a *NotFoundError when no DictType ID was found.
-func (dtq *DictTypeQuery) FirstID(ctx context.Context) (id int32, err error) {
-	var ids []int32
+func (dtq *DictTypeQuery) FirstID(ctx context.Context) (id int64, err error) {
+	var ids []int64
 	if ids, err = dtq.Limit(1).IDs(ctx); err != nil {
 		return
 	}
@@ -97,7 +97,7 @@ func (dtq *DictTypeQuery) FirstID(ctx context.Context) (id int32, err error) {
 }
 
 // FirstIDX is like FirstID, but panics if an error occurs.
-func (dtq *DictTypeQuery) FirstIDX(ctx context.Context) int32 {
+func (dtq *DictTypeQuery) FirstIDX(ctx context.Context) int64 {
 	id, err := dtq.FirstID(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
@@ -135,8 +135,8 @@ func (dtq *DictTypeQuery) OnlyX(ctx context.Context) *DictType {
 // OnlyID is like Only, but returns the only DictType ID in the query.
 // Returns a *NotSingularError when exactly one DictType ID is not found.
 // Returns a *NotFoundError when no entities are found.
-func (dtq *DictTypeQuery) OnlyID(ctx context.Context) (id int32, err error) {
-	var ids []int32
+func (dtq *DictTypeQuery) OnlyID(ctx context.Context) (id int64, err error) {
+	var ids []int64
 	if ids, err = dtq.Limit(2).IDs(ctx); err != nil {
 		return
 	}
@@ -152,7 +152,7 @@ func (dtq *DictTypeQuery) OnlyID(ctx context.Context) (id int32, err error) {
 }
 
 // OnlyIDX is like OnlyID, but panics if an error occurs.
-func (dtq *DictTypeQuery) OnlyIDX(ctx context.Context) int32 {
+func (dtq *DictTypeQuery) OnlyIDX(ctx context.Context) int64 {
 	id, err := dtq.OnlyID(ctx)
 	if err != nil {
 		panic(err)
@@ -178,8 +178,8 @@ func (dtq *DictTypeQuery) AllX(ctx context.Context) []*DictType {
 }
 
 // IDs executes the query and returns a list of DictType IDs.
-func (dtq *DictTypeQuery) IDs(ctx context.Context) ([]int32, error) {
-	var ids []int32
+func (dtq *DictTypeQuery) IDs(ctx context.Context) ([]int64, error) {
+	var ids []int64
 	if err := dtq.Select(dicttype.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
@@ -187,7 +187,7 @@ func (dtq *DictTypeQuery) IDs(ctx context.Context) ([]int32, error) {
 }
 
 // IDsX is like IDs, but panics if an error occurs.
-func (dtq *DictTypeQuery) IDsX(ctx context.Context) []int32 {
+func (dtq *DictTypeQuery) IDsX(ctx context.Context) []int64 {
 	ids, err := dtq.IDs(ctx)
 	if err != nil {
 		panic(err)
@@ -357,7 +357,7 @@ func (dtq *DictTypeQuery) querySpec() *sqlgraph.QuerySpec {
 			Table:   dicttype.Table,
 			Columns: dicttype.Columns,
 			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeInt32,
+				Type:   field.TypeInt64,
 				Column: dicttype.FieldID,
 			},
 		},

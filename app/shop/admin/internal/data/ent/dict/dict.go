@@ -27,12 +27,12 @@ const (
 	FieldLabel = "label"
 	// FieldValue holds the string denoting the value field in the database.
 	FieldValue = "value"
+	// FieldSort holds the string denoting the sort field in the database.
+	FieldSort = "sort"
 	// FieldStatus holds the string denoting the status field in the database.
 	FieldStatus = "status"
 	// FieldRemark holds the string denoting the remark field in the database.
 	FieldRemark = "remark"
-	// FieldSort holds the string denoting the sort field in the database.
-	FieldSort = "sort"
 	// FieldIsDefault holds the string denoting the is_default field in the database.
 	FieldIsDefault = "is_default"
 	// Table holds the table name of the dict in the database.
@@ -49,9 +49,9 @@ var Columns = []string{
 	FieldDictTypeID,
 	FieldLabel,
 	FieldValue,
+	FieldSort,
 	FieldStatus,
 	FieldRemark,
-	FieldSort,
 	FieldIsDefault,
 }
 
@@ -89,12 +89,12 @@ var (
 	DefaultLabel string
 	// DefaultValue holds the default value on creation for the "value" field.
 	DefaultValue string
+	// DefaultSort holds the default value on creation for the "sort" field.
+	DefaultSort int8
 	// DefaultStatus holds the default value on creation for the "status" field.
 	DefaultStatus int8
 	// DefaultRemark holds the default value on creation for the "remark" field.
 	DefaultRemark string
-	// DefaultSort holds the default value on creation for the "sort" field.
-	DefaultSort int8
 	// DefaultIsDefault holds the default value on creation for the "is_default" field.
 	DefaultIsDefault int8
 )

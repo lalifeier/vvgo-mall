@@ -259,7 +259,7 @@ func (c *DictTypeClient) UpdateOne(dt *DictType) *DictTypeUpdateOne {
 }
 
 // UpdateOneID returns an update builder for the given id.
-func (c *DictTypeClient) UpdateOneID(id int32) *DictTypeUpdateOne {
+func (c *DictTypeClient) UpdateOneID(id int64) *DictTypeUpdateOne {
 	mutation := newDictTypeMutation(c.config, OpUpdateOne, withDictTypeID(id))
 	return &DictTypeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
@@ -276,7 +276,7 @@ func (c *DictTypeClient) DeleteOne(dt *DictType) *DictTypeDeleteOne {
 }
 
 // DeleteOneID returns a delete builder for the given id.
-func (c *DictTypeClient) DeleteOneID(id int32) *DictTypeDeleteOne {
+func (c *DictTypeClient) DeleteOneID(id int64) *DictTypeDeleteOne {
 	builder := c.Delete().Where(dicttype.ID(id))
 	builder.mutation.id = &id
 	builder.mutation.op = OpDeleteOne
@@ -291,12 +291,12 @@ func (c *DictTypeClient) Query() *DictTypeQuery {
 }
 
 // Get returns a DictType entity by its id.
-func (c *DictTypeClient) Get(ctx context.Context, id int32) (*DictType, error) {
+func (c *DictTypeClient) Get(ctx context.Context, id int64) (*DictType, error) {
 	return c.Query().Where(dicttype.ID(id)).Only(ctx)
 }
 
 // GetX is like Get, but panics if an error occurs.
-func (c *DictTypeClient) GetX(ctx context.Context, id int32) *DictType {
+func (c *DictTypeClient) GetX(ctx context.Context, id int64) *DictType {
 	obj, err := c.Get(ctx, id)
 	if err != nil {
 		panic(err)

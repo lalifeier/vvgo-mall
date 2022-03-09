@@ -133,7 +133,7 @@ func (dtc *DictTypeCreate) SetNillableRemark(s *string) *DictTypeCreate {
 }
 
 // SetID sets the "id" field.
-func (dtc *DictTypeCreate) SetID(i int32) *DictTypeCreate {
+func (dtc *DictTypeCreate) SetID(i int64) *DictTypeCreate {
 	dtc.mutation.SetID(i)
 	return dtc
 }
@@ -291,7 +291,7 @@ func (dtc *DictTypeCreate) sqlSave(ctx context.Context) (*DictType, error) {
 	}
 	if _spec.ID.Value != _node.ID {
 		id := _spec.ID.Value.(int64)
-		_node.ID = int32(id)
+		_node.ID = int64(id)
 	}
 	return _node, nil
 }
@@ -302,7 +302,7 @@ func (dtc *DictTypeCreate) createSpec() (*DictType, *sqlgraph.CreateSpec) {
 		_spec = &sqlgraph.CreateSpec{
 			Table: dicttype.Table,
 			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeInt32,
+				Type:   field.TypeInt64,
 				Column: dicttype.FieldID,
 			},
 		}
@@ -422,7 +422,7 @@ func (dtcb *DictTypeCreateBulk) Save(ctx context.Context) ([]*DictType, error) {
 				mutation.done = true
 				if specs[i].ID.Value != nil && nodes[i].ID == 0 {
 					id := specs[i].ID.Value.(int64)
-					nodes[i].ID = int32(id)
+					nodes[i].ID = int64(id)
 				}
 				return nodes[i], nil
 			})

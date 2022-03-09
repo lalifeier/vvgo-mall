@@ -51,18 +51,18 @@ func init() {
 	dictDescValue := dictFields[3].Descriptor()
 	// dict.DefaultValue holds the default value on creation for the value field.
 	dict.DefaultValue = dictDescValue.Default.(string)
+	// dictDescSort is the schema descriptor for sort field.
+	dictDescSort := dictFields[4].Descriptor()
+	// dict.DefaultSort holds the default value on creation for the sort field.
+	dict.DefaultSort = dictDescSort.Default.(int8)
 	// dictDescStatus is the schema descriptor for status field.
-	dictDescStatus := dictFields[4].Descriptor()
+	dictDescStatus := dictFields[5].Descriptor()
 	// dict.DefaultStatus holds the default value on creation for the status field.
 	dict.DefaultStatus = dictDescStatus.Default.(int8)
 	// dictDescRemark is the schema descriptor for remark field.
-	dictDescRemark := dictFields[5].Descriptor()
+	dictDescRemark := dictFields[6].Descriptor()
 	// dict.DefaultRemark holds the default value on creation for the remark field.
 	dict.DefaultRemark = dictDescRemark.Default.(string)
-	// dictDescSort is the schema descriptor for sort field.
-	dictDescSort := dictFields[6].Descriptor()
-	// dict.DefaultSort holds the default value on creation for the sort field.
-	dict.DefaultSort = dictDescSort.Default.(int8)
 	// dictDescIsDefault is the schema descriptor for is_default field.
 	dictDescIsDefault := dictFields[7].Descriptor()
 	// dict.DefaultIsDefault holds the default value on creation for the is_default field.

@@ -44,11 +44,11 @@ type DictMutation struct {
 	adddict_type_id *int64
 	label           *string
 	value           *string
+	sort            *int8
+	addsort         *int8
 	status          *int8
 	addstatus       *int8
 	remark          *string
-	sort            *int8
-	addsort         *int8
 	is_default      *int8
 	addis_default   *int8
 	clearedFields   map[string]struct{}
@@ -454,6 +454,62 @@ func (m *DictMutation) ResetValue() {
 	m.value = nil
 }
 
+// SetSort sets the "sort" field.
+func (m *DictMutation) SetSort(i int8) {
+	m.sort = &i
+	m.addsort = nil
+}
+
+// Sort returns the value of the "sort" field in the mutation.
+func (m *DictMutation) Sort() (r int8, exists bool) {
+	v := m.sort
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldSort returns the old "sort" field's value of the Dict entity.
+// If the Dict object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *DictMutation) OldSort(ctx context.Context) (v int8, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldSort is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldSort requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldSort: %w", err)
+	}
+	return oldValue.Sort, nil
+}
+
+// AddSort adds i to the "sort" field.
+func (m *DictMutation) AddSort(i int8) {
+	if m.addsort != nil {
+		*m.addsort += i
+	} else {
+		m.addsort = &i
+	}
+}
+
+// AddedSort returns the value that was added to the "sort" field in this mutation.
+func (m *DictMutation) AddedSort() (r int8, exists bool) {
+	v := m.addsort
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetSort resets all changes to the "sort" field.
+func (m *DictMutation) ResetSort() {
+	m.sort = nil
+	m.addsort = nil
+}
+
 // SetStatus sets the "status" field.
 func (m *DictMutation) SetStatus(i int8) {
 	m.status = &i
@@ -544,62 +600,6 @@ func (m *DictMutation) OldRemark(ctx context.Context) (v string, err error) {
 // ResetRemark resets all changes to the "remark" field.
 func (m *DictMutation) ResetRemark() {
 	m.remark = nil
-}
-
-// SetSort sets the "sort" field.
-func (m *DictMutation) SetSort(i int8) {
-	m.sort = &i
-	m.addsort = nil
-}
-
-// Sort returns the value of the "sort" field in the mutation.
-func (m *DictMutation) Sort() (r int8, exists bool) {
-	v := m.sort
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldSort returns the old "sort" field's value of the Dict entity.
-// If the Dict object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *DictMutation) OldSort(ctx context.Context) (v int8, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldSort is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldSort requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldSort: %w", err)
-	}
-	return oldValue.Sort, nil
-}
-
-// AddSort adds i to the "sort" field.
-func (m *DictMutation) AddSort(i int8) {
-	if m.addsort != nil {
-		*m.addsort += i
-	} else {
-		m.addsort = &i
-	}
-}
-
-// AddedSort returns the value that was added to the "sort" field in this mutation.
-func (m *DictMutation) AddedSort() (r int8, exists bool) {
-	v := m.addsort
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// ResetSort resets all changes to the "sort" field.
-func (m *DictMutation) ResetSort() {
-	m.sort = nil
-	m.addsort = nil
 }
 
 // SetIsDefault sets the "is_default" field.
@@ -699,14 +699,14 @@ func (m *DictMutation) Fields() []string {
 	if m.value != nil {
 		fields = append(fields, dict.FieldValue)
 	}
+	if m.sort != nil {
+		fields = append(fields, dict.FieldSort)
+	}
 	if m.status != nil {
 		fields = append(fields, dict.FieldStatus)
 	}
 	if m.remark != nil {
 		fields = append(fields, dict.FieldRemark)
-	}
-	if m.sort != nil {
-		fields = append(fields, dict.FieldSort)
 	}
 	if m.is_default != nil {
 		fields = append(fields, dict.FieldIsDefault)
@@ -733,12 +733,12 @@ func (m *DictMutation) Field(name string) (ent.Value, bool) {
 		return m.Label()
 	case dict.FieldValue:
 		return m.Value()
+	case dict.FieldSort:
+		return m.Sort()
 	case dict.FieldStatus:
 		return m.Status()
 	case dict.FieldRemark:
 		return m.Remark()
-	case dict.FieldSort:
-		return m.Sort()
 	case dict.FieldIsDefault:
 		return m.IsDefault()
 	}
@@ -764,12 +764,12 @@ func (m *DictMutation) OldField(ctx context.Context, name string) (ent.Value, er
 		return m.OldLabel(ctx)
 	case dict.FieldValue:
 		return m.OldValue(ctx)
+	case dict.FieldSort:
+		return m.OldSort(ctx)
 	case dict.FieldStatus:
 		return m.OldStatus(ctx)
 	case dict.FieldRemark:
 		return m.OldRemark(ctx)
-	case dict.FieldSort:
-		return m.OldSort(ctx)
 	case dict.FieldIsDefault:
 		return m.OldIsDefault(ctx)
 	}
@@ -830,6 +830,13 @@ func (m *DictMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetValue(v)
 		return nil
+	case dict.FieldSort:
+		v, ok := value.(int8)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetSort(v)
+		return nil
 	case dict.FieldStatus:
 		v, ok := value.(int8)
 		if !ok {
@@ -843,13 +850,6 @@ func (m *DictMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetRemark(v)
-		return nil
-	case dict.FieldSort:
-		v, ok := value.(int8)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetSort(v)
 		return nil
 	case dict.FieldIsDefault:
 		v, ok := value.(int8)
@@ -875,11 +875,11 @@ func (m *DictMutation) AddedFields() []string {
 	if m.adddict_type_id != nil {
 		fields = append(fields, dict.FieldDictTypeID)
 	}
-	if m.addstatus != nil {
-		fields = append(fields, dict.FieldStatus)
-	}
 	if m.addsort != nil {
 		fields = append(fields, dict.FieldSort)
+	}
+	if m.addstatus != nil {
+		fields = append(fields, dict.FieldStatus)
 	}
 	if m.addis_default != nil {
 		fields = append(fields, dict.FieldIsDefault)
@@ -898,10 +898,10 @@ func (m *DictMutation) AddedField(name string) (ent.Value, bool) {
 		return m.AddedUpdatedBy()
 	case dict.FieldDictTypeID:
 		return m.AddedDictTypeID()
-	case dict.FieldStatus:
-		return m.AddedStatus()
 	case dict.FieldSort:
 		return m.AddedSort()
+	case dict.FieldStatus:
+		return m.AddedStatus()
 	case dict.FieldIsDefault:
 		return m.AddedIsDefault()
 	}
@@ -934,19 +934,19 @@ func (m *DictMutation) AddField(name string, value ent.Value) error {
 		}
 		m.AddDictTypeID(v)
 		return nil
-	case dict.FieldStatus:
-		v, ok := value.(int8)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.AddStatus(v)
-		return nil
 	case dict.FieldSort:
 		v, ok := value.(int8)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.AddSort(v)
+		return nil
+	case dict.FieldStatus:
+		v, ok := value.(int8)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddStatus(v)
 		return nil
 	case dict.FieldIsDefault:
 		v, ok := value.(int8)
@@ -1003,14 +1003,14 @@ func (m *DictMutation) ResetField(name string) error {
 	case dict.FieldValue:
 		m.ResetValue()
 		return nil
+	case dict.FieldSort:
+		m.ResetSort()
+		return nil
 	case dict.FieldStatus:
 		m.ResetStatus()
 		return nil
 	case dict.FieldRemark:
 		m.ResetRemark()
-		return nil
-	case dict.FieldSort:
-		m.ResetSort()
 		return nil
 	case dict.FieldIsDefault:
 		m.ResetIsDefault()
@@ -1072,7 +1072,7 @@ type DictTypeMutation struct {
 	config
 	op            Op
 	typ           string
-	id            *int32
+	id            *int64
 	created_at    *time.Time
 	created_by    *int64
 	addcreated_by *int64
@@ -1110,7 +1110,7 @@ func newDictTypeMutation(c config, op Op, opts ...dicttypeOption) *DictTypeMutat
 }
 
 // withDictTypeID sets the ID field of the mutation.
-func withDictTypeID(id int32) dicttypeOption {
+func withDictTypeID(id int64) dicttypeOption {
 	return func(m *DictTypeMutation) {
 		var (
 			err   error
@@ -1162,13 +1162,13 @@ func (m DictTypeMutation) Tx() (*Tx, error) {
 
 // SetID sets the value of the id field. Note that this
 // operation is only accepted on creation of DictType entities.
-func (m *DictTypeMutation) SetID(id int32) {
+func (m *DictTypeMutation) SetID(id int64) {
 	m.id = &id
 }
 
 // ID returns the ID value in the mutation. Note that the ID is only available
 // if it was provided to the builder or after it was returned from the database.
-func (m *DictTypeMutation) ID() (id int32, exists bool) {
+func (m *DictTypeMutation) ID() (id int64, exists bool) {
 	if m.id == nil {
 		return
 	}

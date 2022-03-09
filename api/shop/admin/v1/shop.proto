@@ -23,13 +23,13 @@ service Shop {
       body : "*"
     };
   }
-  rpc UpdateDict(UpdateDictReq) returns (google.protobuf.Empty) {
+  rpc UpdateDict(UpdateDictReq) returns (UpdateDictResp) {
     option (google.api.http) = {
       put : "/api/dict/{id}"
       body : "*"
     };
   }
-  rpc DeleteDict(DeleteDictReq) returns (google.protobuf.Empty) {
+  rpc DeleteDict(DeleteDictReq) returns (DeleteDictResp) {
     option (google.api.http) = {
       delete : "/api/dict/{id}"
     };
@@ -53,35 +53,37 @@ service Shop {
 
 message Dict {
   int64 id = 1;
-  string type = 2;
+  int64 dict_type_id = 2;
   string label = 3;
   string value = 4;
-  int32 status = 5;
+  int32 sort = 5;
   string remark = 6;
-  int32 sort = 7;
+  int32 status = 7;
   int32 is_default = 8;
 }
 message CreateDictReq {
-  string type = 1;
+  int64 dict_type_id = 1;
   string label = 2;
   string value = 3;
-  int32 status = 4;
+  int32 sort = 4;
   string remark = 5;
-  int32 sort = 6;
+  int32 status = 6;
   int32 is_default = 7;
 }
 message CreateDictResp { int64 id = 1; }
 message UpdateDictReq {
   int64 id = 1;
-  string type = 2;
+  int64 dict_type_id = 2;
   string label = 3;
   string value = 4;
-  int32 status = 5;
+  int32 sort = 5;
   string remark = 6;
-  int32 sort = 7;
+  int32 status = 7;
   int32 is_default = 8;
 }
+message UpdateDictResp {}
 message DeleteDictReq { int64 id = 1; }
+message DeleteDictResp {}
 message GetDictReq { int64 id = 1; }
 message GetDictResp {
   int64 id = 1;
@@ -93,7 +95,7 @@ message GetDictResp {
   int32 sort = 7;
   int32 is_default = 8;
 }
-message ListDictReq { string type = 1; }
+message ListDictReq {}
 message ListDictResp { repeated Dict data = 1; }
 message PageListDictReq {
   int64 pageNum = 1;
@@ -104,4 +106,12 @@ message PageListDictResp {
   int64 currentPage = 2;
   int64 pageSize = 3;
   repeated Dict data = 4;
+}
+
+message DictType {
+  int64 id = 1;
+  string name = 2;
+  string type = 3;
+  int32 status = 4;
+  string remark = 5;
 }

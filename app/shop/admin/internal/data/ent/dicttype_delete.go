@@ -72,7 +72,7 @@ func (dtd *DictTypeDelete) sqlExec(ctx context.Context) (int, error) {
 		Node: &sqlgraph.NodeSpec{
 			Table: dicttype.Table,
 			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeInt32,
+				Type:   field.TypeInt64,
 				Column: dicttype.FieldID,
 			},
 		},

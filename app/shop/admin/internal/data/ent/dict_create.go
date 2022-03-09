@@ -118,6 +118,20 @@ func (dc *DictCreate) SetNillableValue(s *string) *DictCreate {
 	return dc
 }
 
+// SetSort sets the "sort" field.
+func (dc *DictCreate) SetSort(i int8) *DictCreate {
+	dc.mutation.SetSort(i)
+	return dc
+}
+
+// SetNillableSort sets the "sort" field if the given value is not nil.
+func (dc *DictCreate) SetNillableSort(i *int8) *DictCreate {
+	if i != nil {
+		dc.SetSort(*i)
+	}
+	return dc
+}
+
 // SetStatus sets the "status" field.
 func (dc *DictCreate) SetStatus(i int8) *DictCreate {
 	dc.mutation.SetStatus(i)
@@ -142,20 +156,6 @@ func (dc *DictCreate) SetRemark(s string) *DictCreate {
 func (dc *DictCreate) SetNillableRemark(s *string) *DictCreate {
 	if s != nil {
 		dc.SetRemark(*s)
-	}
-	return dc
-}
-
-// SetSort sets the "sort" field.
-func (dc *DictCreate) SetSort(i int8) *DictCreate {
-	dc.mutation.SetSort(i)
-	return dc
-}
-
-// SetNillableSort sets the "sort" field if the given value is not nil.
-func (dc *DictCreate) SetNillableSort(i *int8) *DictCreate {
-	if i != nil {
-		dc.SetSort(*i)
 	}
 	return dc
 }
@@ -287,6 +287,10 @@ func (dc *DictCreate) defaults() error {
 		v := dict.DefaultValue
 		dc.mutation.SetValue(v)
 	}
+	if _, ok := dc.mutation.Sort(); !ok {
+		v := dict.DefaultSort
+		dc.mutation.SetSort(v)
+	}
 	if _, ok := dc.mutation.Status(); !ok {
 		v := dict.DefaultStatus
 		dc.mutation.SetStatus(v)
@@ -294,10 +298,6 @@ func (dc *DictCreate) defaults() error {
 	if _, ok := dc.mutation.Remark(); !ok {
 		v := dict.DefaultRemark
 		dc.mutation.SetRemark(v)
-	}
-	if _, ok := dc.mutation.Sort(); !ok {
-		v := dict.DefaultSort
-		dc.mutation.SetSort(v)
 	}
 	if _, ok := dc.mutation.IsDefault(); !ok {
 		v := dict.DefaultIsDefault
@@ -329,14 +329,14 @@ func (dc *DictCreate) check() error {
 	if _, ok := dc.mutation.Value(); !ok {
 		return &ValidationError{Name: "value", err: errors.New(`ent: missing required field "Dict.value"`)}
 	}
+	if _, ok := dc.mutation.Sort(); !ok {
+		return &ValidationError{Name: "sort", err: errors.New(`ent: missing required field "Dict.sort"`)}
+	}
 	if _, ok := dc.mutation.Status(); !ok {
 		return &ValidationError{Name: "status", err: errors.New(`ent: missing required field "Dict.status"`)}
 	}
 	if _, ok := dc.mutation.Remark(); !ok {
 		return &ValidationError{Name: "remark", err: errors.New(`ent: missing required field "Dict.remark"`)}
-	}
-	if _, ok := dc.mutation.Sort(); !ok {
-		return &ValidationError{Name: "sort", err: errors.New(`ent: missing required field "Dict.sort"`)}
 	}
 	if _, ok := dc.mutation.IsDefault(); !ok {
 		return &ValidationError{Name: "is_default", err: errors.New(`ent: missing required field "Dict.is_default"`)}
@@ -430,6 +430,14 @@ func (dc *DictCreate) createSpec() (*Dict, *sqlgraph.CreateSpec) {
 		})
 		_node.Value = value
 	}
+	if value, ok := dc.mutation.Sort(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt8,
+			Value:  value,
+			Column: dict.FieldSort,
+		})
+		_node.Sort = value
+	}
 	if value, ok := dc.mutation.Status(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt8,
@@ -445,14 +453,6 @@ func (dc *DictCreate) createSpec() (*Dict, *sqlgraph.CreateSpec) {
 			Column: dict.FieldRemark,
 		})
 		_node.Remark = value
-	}
-	if value, ok := dc.mutation.Sort(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt8,
-			Value:  value,
-			Column: dict.FieldSort,
-		})
-		_node.Sort = value
 	}
 	if value, ok := dc.mutation.IsDefault(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

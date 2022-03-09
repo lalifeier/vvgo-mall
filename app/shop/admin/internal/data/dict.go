@@ -6,6 +6,7 @@ import (
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/biz"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/dict"
 
 	"github.com/lalifeier/vvgo-mall/pkg/utils/pagination"
 )
@@ -20,7 +21,7 @@ type dictRepo struct {
 func NewDictRepo(data *Data, logger log.Logger) biz.DictRepo {
 	return &dictRepo{
 		data: data,
-		log:  log.NewHelper(log.With(logger, "module", "sys-service/data")),
+		log:  log.NewHelper(log.With(logger, "module", "shop-admin/data")),
 	}
 }
 
@@ -31,22 +32,23 @@ func (e entDict) BizDict() *biz.Dict {
 		Id:        e.ID,
 		Label:     e.Label,
 		Value:     e.Value,
-		Status:    int(e.Status),
+		Status:    e.Status,
 		Remark:    e.Remark,
-		Sort:      int(e.Sort),
-		IsDefault: int(e.IsDefault),
+		Sort:      e.Sort,
+		IsDefault: e.IsDefault,
 	}
 }
 
 func (rp *dictRepo) CreateDict(ctx context.Context, d *biz.Dict) (int64, error) {
 	po, err := rp.data.db.Dict.
 		Create().
+		SetDictTypeID(d.DictTypeTd).
 		SetLabel(d.Label).
 		SetValue(d.Value).
-		SetStatus(int8(d.Status)).
+		SetStatus(d.Status).
 		SetRemark(d.Remark).
-		SetSort(int8(d.Sort)).
-		SetIsDefault(int8(d.IsDefault)).
+		SetSort(d.Sort).
+		SetIsDefault(d.IsDefault).
 		Save(ctx)
 	if err != nil {
 		return 0, err
@@ -63,6 +65,9 @@ func (rp *dictRepo) UpdateDict(ctx context.Context, d *biz.Dict) error {
 
 	if d.Label != "" && d.Label != po.Label {
 		db.SetLabel(d.Label)
+	}
+	if d.Value != "" && d.Value != po.Value {
+		db.SetValue(d.Value)
 	}
 
 	_, err = db.Save(ctx)
@@ -84,9 +89,9 @@ func (rp *dictRepo) GetDict(ctx context.Context, id int64) (*biz.Dict, error) {
 func (rp *dictRepo) ListDict(ctx context.Context, req *biz.DictListReq) ([]*biz.Dict, error) {
 	query := rp.data.db.Dict.Query()
 
-	// if req.Type != "" {
-	// 	query.Where(dict.TypeEQ(req.Type))
-	// }
+	if req.DictTypeTd > 0 {
+		query.Where(dict.DictTypeIDEQ(req.DictTypeTd))
+	}
 
 	pos, err := query.All(ctx)
 	if err != nil {

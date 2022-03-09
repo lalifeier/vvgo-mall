@@ -7,18 +7,18 @@ import (
 )
 
 type Dict struct {
-	Id        int64
-	Type      string
-	Label     string
-	Value     string
-	Status    int
-	Remark    string
-	Sort      int
-	IsDefault int
+	Id         int64
+	DictTypeId int64
+	Label      string
+	Value      string
+	IsDefault  int8
+	Sort       int8
+	Remark     string
+	Status     int8
 }
 
 type DictListReq struct {
-	Type string
+	DictTypeTd int64
 }
 
 type DictPageListReq struct {

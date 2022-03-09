@@ -38,15 +38,15 @@ type Dict struct {
 	// Value holds the value of the "value" field.
 	// 字典键值
 	Value string `json:"value,omitempty"`
+	// Sort holds the value of the "sort" field.
+	// 排序
+	Sort int8 `json:"sort,omitempty"`
 	// Status holds the value of the "status" field.
 	// 状态 0:禁用 1:启用 -1:删除
 	Status int8 `json:"status,omitempty"`
 	// Remark holds the value of the "remark" field.
 	// 备注
 	Remark string `json:"remark,omitempty"`
-	// Sort holds the value of the "sort" field.
-	// 排序
-	Sort int8 `json:"sort,omitempty"`
 	// IsDefault holds the value of the "is_default" field.
 	// 是否默认值 0:否 1:是
 	IsDefault int8 `json:"is_default,omitempty"`
@@ -57,7 +57,7 @@ func (*Dict) scanValues(columns []string) ([]interface{}, error) {
 	values := make([]interface{}, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case dict.FieldID, dict.FieldCreatedBy, dict.FieldUpdatedBy, dict.FieldDictTypeID, dict.FieldStatus, dict.FieldSort, dict.FieldIsDefault:
+		case dict.FieldID, dict.FieldCreatedBy, dict.FieldUpdatedBy, dict.FieldDictTypeID, dict.FieldSort, dict.FieldStatus, dict.FieldIsDefault:
 			values[i] = new(sql.NullInt64)
 		case dict.FieldLabel, dict.FieldValue, dict.FieldRemark:
 			values[i] = new(sql.NullString)
@@ -126,6 +126,12 @@ func (d *Dict) assignValues(columns []string, values []interface{}) error {
 			} else if value.Valid {
 				d.Value = value.String
 			}
+		case dict.FieldSort:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field sort", values[i])
+			} else if value.Valid {
+				d.Sort = int8(value.Int64)
+			}
 		case dict.FieldStatus:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field status", values[i])
@@ -137,12 +143,6 @@ func (d *Dict) assignValues(columns []string, values []interface{}) error {
 				return fmt.Errorf("unexpected type %T for field remark", values[i])
 			} else if value.Valid {
 				d.Remark = value.String
-			}
-		case dict.FieldSort:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field sort", values[i])
-			} else if value.Valid {
-				d.Sort = int8(value.Int64)
 			}
 		case dict.FieldIsDefault:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -192,12 +192,12 @@ func (d *Dict) String() string {
 	builder.WriteString(d.Label)
 	builder.WriteString(", value=")
 	builder.WriteString(d.Value)
+	builder.WriteString(", sort=")
+	builder.WriteString(fmt.Sprintf("%v", d.Sort))
 	builder.WriteString(", status=")
 	builder.WriteString(fmt.Sprintf("%v", d.Status))
 	builder.WriteString(", remark=")
 	builder.WriteString(d.Remark)
-	builder.WriteString(", sort=")
-	builder.WriteString(fmt.Sprintf("%v", d.Sort))
 	builder.WriteString(", is_default=")
 	builder.WriteString(fmt.Sprintf("%v", d.IsDefault))
 	builder.WriteByte(')')

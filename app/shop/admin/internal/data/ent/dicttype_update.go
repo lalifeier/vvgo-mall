@@ -212,7 +212,7 @@ func (dtu *DictTypeUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Table:   dicttype.Table,
 			Columns: dicttype.Columns,
 			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeInt32,
+				Type:   field.TypeInt64,
 				Column: dicttype.FieldID,
 			},
 		},
@@ -505,7 +505,7 @@ func (dtuo *DictTypeUpdateOne) sqlSave(ctx context.Context) (_node *DictType, er
 			Table:   dicttype.Table,
 			Columns: dicttype.Columns,
 			ID: &sqlgraph.FieldSpec{
-				Type:   field.TypeInt32,
+				Type:   field.TypeInt64,
 				Column: dicttype.FieldID,
 			},
 		},

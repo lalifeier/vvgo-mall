@@ -35,7 +35,7 @@ func (DictType) Fields() []ent.Field {
 
 	return []ent.Field{
 
-		field.Int32("id").SchemaType(map[string]string{
+		field.Int64("id").SchemaType(map[string]string{
 			dialect.MySQL: "int(11)unsigned", // Override MySQL.
 		}).Comment("字典类型id").Unique(),
 

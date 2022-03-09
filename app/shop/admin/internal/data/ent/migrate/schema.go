@@ -11,7 +11,7 @@ import (
 var (
 	// SysDictColumns holds the columns for the "sys_dict" table.
 	SysDictColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeInt64, Increment: true, SchemaType: map[string]string{"mysql": "int unsigned"}},
+		{Name: "id", Type: field.TypeInt64, Increment: true, SchemaType: map[string]string{"mysql": "intunsigned"}},
 		{Name: "created_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "DATETIME"}},
 		{Name: "created_by", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
 		{Name: "updated_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "DATETIME"}},
@@ -19,10 +19,10 @@ var (
 		{Name: "dict_type_id", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "intunsigned"}},
 		{Name: "label", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(100)"}},
 		{Name: "value", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(100)"}},
-		{Name: "status", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint(1) unsigned"}},
+		{Name: "sort", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint(1)unsigned"}},
+		{Name: "status", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint(1)unsigned"}},
 		{Name: "remark", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(500)"}},
-		{Name: "sort", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint(1) unsigned"}},
-		{Name: "is_default", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint(1) unsigned"}},
+		{Name: "is_default", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint(1)unsigned"}},
 	}
 	// SysDictTable holds the schema information for the "sys_dict" table.
 	SysDictTable = &schema.Table{
@@ -32,7 +32,7 @@ var (
 	}
 	// SysDictTypeColumns holds the columns for the "sys_dict_type" table.
 	SysDictTypeColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeInt32, Increment: true, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
+		{Name: "id", Type: field.TypeInt64, Increment: true, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
 		{Name: "created_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "DATETIME"}},
 		{Name: "created_by", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
 		{Name: "updated_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "DATETIME"}},

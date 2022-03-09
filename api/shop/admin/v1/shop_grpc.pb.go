@@ -11,7 +11,6 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
-	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -24,8 +23,8 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ShopClient interface {
 	CreateDict(ctx context.Context, in *CreateDictReq, opts ...grpc.CallOption) (*CreateDictResp, error)
-	UpdateDict(ctx context.Context, in *UpdateDictReq, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	DeleteDict(ctx context.Context, in *DeleteDictReq, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	UpdateDict(ctx context.Context, in *UpdateDictReq, opts ...grpc.CallOption) (*UpdateDictResp, error)
+	DeleteDict(ctx context.Context, in *DeleteDictReq, opts ...grpc.CallOption) (*DeleteDictResp, error)
 	ListDict(ctx context.Context, in *ListDictReq, opts ...grpc.CallOption) (*ListDictResp, error)
 	PageListDict(ctx context.Context, in *PageListDictReq, opts ...grpc.CallOption) (*PageListDictResp, error)
 	GetDict(ctx context.Context, in *GetDictReq, opts ...grpc.CallOption) (*GetDictResp, error)
@@ -48,8 +47,8 @@ func (c *shopClient) CreateDict(ctx context.Context, in *CreateDictReq, opts ...
 	return out, nil
 }
 
-func (c *shopClient) UpdateDict(ctx context.Context, in *UpdateDictReq, opts ...grpc.CallOption) (*emptypb.Empty, error) {
-	out := new(emptypb.Empty)
+func (c *shopClient) UpdateDict(ctx context.Context, in *UpdateDictReq, opts ...grpc.CallOption) (*UpdateDictResp, error) {
+	out := new(UpdateDictResp)
 	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/UpdateDict", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -57,8 +56,8 @@ func (c *shopClient) UpdateDict(ctx context.Context, in *UpdateDictReq, opts ...
 	return out, nil
 }
 
-func (c *shopClient) DeleteDict(ctx context.Context, in *DeleteDictReq, opts ...grpc.CallOption) (*emptypb.Empty, error) {
-	out := new(emptypb.Empty)
+func (c *shopClient) DeleteDict(ctx context.Context, in *DeleteDictReq, opts ...grpc.CallOption) (*DeleteDictResp, error) {
+	out := new(DeleteDictResp)
 	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/DeleteDict", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -98,8 +97,8 @@ func (c *shopClient) GetDict(ctx context.Context, in *GetDictReq, opts ...grpc.C
 // for forward compatibility
 type ShopServer interface {
 	CreateDict(context.Context, *CreateDictReq) (*CreateDictResp, error)
-	UpdateDict(context.Context, *UpdateDictReq) (*emptypb.Empty, error)
-	DeleteDict(context.Context, *DeleteDictReq) (*emptypb.Empty, error)
+	UpdateDict(context.Context, *UpdateDictReq) (*UpdateDictResp, error)
+	DeleteDict(context.Context, *DeleteDictReq) (*DeleteDictResp, error)
 	ListDict(context.Context, *ListDictReq) (*ListDictResp, error)
 	PageListDict(context.Context, *PageListDictReq) (*PageListDictResp, error)
 	GetDict(context.Context, *GetDictReq) (*GetDictResp, error)
@@ -113,10 +112,10 @@ type UnimplementedShopServer struct {
 func (UnimplementedShopServer) CreateDict(context.Context, *CreateDictReq) (*CreateDictResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDict not implemented")
 }
-func (UnimplementedShopServer) UpdateDict(context.Context, *UpdateDictReq) (*emptypb.Empty, error) {
+func (UnimplementedShopServer) UpdateDict(context.Context, *UpdateDictReq) (*UpdateDictResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateDict not implemented")
 }
-func (UnimplementedShopServer) DeleteDict(context.Context, *DeleteDictReq) (*emptypb.Empty, error) {
+func (UnimplementedShopServer) DeleteDict(context.Context, *DeleteDictReq) (*DeleteDictResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDict not implemented")
 }
 func (UnimplementedShopServer) ListDict(context.Context, *ListDictReq) (*ListDictResp, error) {
