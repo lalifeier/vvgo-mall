@@ -4,7 +4,6 @@ import (
 	"context"
 
 	pb "github.com/lalifeier/vvgo-mall/api/shop/admin/v1"
-	"google.golang.org/protobuf/types/known/emptypb"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/jinzhu/copier"
@@ -20,20 +19,20 @@ type ShopService struct {
 
 func NewShopService(logger log.Logger, dictUsecase *biz.DictUsecase) *ShopService {
 	return &ShopService{
-		log:         log.NewHelper(log.With(logger, "module", "sys-service/service")),
+		log:         log.NewHelper(log.With(logger, "module", "shop-admin/service")),
 		dictUsecase: dictUsecase,
 	}
 }
 
 func (s *ShopService) CreateDict(ctx context.Context, req *pb.CreateDictReq) (*pb.CreateDictResp, error) {
 	id, err := s.dictUsecase.CreateDict(ctx, &biz.Dict{
-		Type:      req.Type,
-		Label:     req.Label,
-		Value:     req.Value,
-		Status:    int(req.Status),
-		Remark:    req.Remark,
-		Sort:      int(req.Sort),
-		IsDefault: int(req.IsDefault),
+		DictTypeId: req.DictTypeId,
+		Label:      req.Label,
+		Value:      req.Value,
+		Status:     int8(req.Status),
+		Remark:     req.Remark,
+		Sort:       int8(req.Sort),
+		IsDefault:  int8(req.IsDefault),
 	})
 	if err != nil {
 		return nil, err
@@ -43,23 +42,22 @@ func (s *ShopService) CreateDict(ctx context.Context, req *pb.CreateDictReq) (*p
 	}, nil
 }
 
-func (s *ShopService) UpdateDict(ctx context.Context, req *pb.UpdateDictReq) (*emptypb.Empty, error) {
+func (s *ShopService) UpdateDict(ctx context.Context, req *pb.UpdateDictReq) (*pb.UpdateDictResp, error) {
 	err := s.dictUsecase.UpdateDict(ctx, &biz.Dict{
-		Id:   req.Id,
-		Type: req.Type,
+		Id: req.Id,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return &emptypb.Empty{}, nil
+	return &pb.UpdateDictResp{}, nil
 }
 
-func (s *ShopService) DeleteDict(ctx context.Context, req *pb.DeleteDictReq) (*emptypb.Empty, error) {
+func (s *ShopService) DeleteDict(ctx context.Context, req *pb.DeleteDictReq) (*pb.DeleteAccountUserResp, error) {
 	err := s.dictUsecase.DeleteDict(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}
-	return &emptypb.Empty{}, nil
+	return &pb.DeleteAccountUserResp{}, nil
 }
 
 func (s *ShopService) GetDict(ctx context.Context, req *pb.GetDictReq) (*pb.GetDictResp, error) {
@@ -78,7 +76,7 @@ func (s *ShopService) GetDict(ctx context.Context, req *pb.GetDictReq) (*pb.GetD
 }
 
 func (s *ShopService) ListDict(ctx context.Context, req *pb.ListDictReq) (*pb.ListDictResp, error) {
-	rv, err := s.dictUsecase.ListDict(ctx, &biz.DictListReq{Type: req.Type})
+	rv, err := s.dictUsecase.ListDict(ctx, &biz.DictListReq{})
 	if err != nil {
 		return nil, err
 	}
