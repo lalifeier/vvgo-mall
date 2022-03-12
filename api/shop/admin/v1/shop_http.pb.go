@@ -18,22 +18,124 @@ var _ = binding.EncodeURL
 const _ = http.SupportPackageIsVersion1
 
 type ShopHTTPServer interface {
+	CreateAccountUser(context.Context, *CreateAccountUserReq) (*CreateAccountUserResp, error)
 	CreateDict(context.Context, *CreateDictReq) (*CreateDictResp, error)
+	CreateMenu(context.Context, *CreateMenuReq) (*CreateMenuResp, error)
+	CreateRole(context.Context, *CreateRoleReq) (*CreateRoleResp, error)
+	CreateStaff(context.Context, *CreateStaffReq) (*CreateStaffResp, error)
+	CreateSystem(context.Context, *CreateSystemReq) (*CreateSystemResp, error)
+	DeleteAccountUser(context.Context, *DeleteAccountUserReq) (*DeleteAccountUserResp, error)
 	DeleteDict(context.Context, *DeleteDictReq) (*DeleteDictResp, error)
+	DeleteMenu(context.Context, *DeleteMenuReq) (*DeleteMenuResp, error)
+	DeleteRole(context.Context, *DeleteRoleReq) (*DeleteRoleResp, error)
+	DeleteStaff(context.Context, *DeleteStaffReq) (*DeleteStaffResp, error)
+	DeleteSystem(context.Context, *DeleteSystemReq) (*DeleteSystemResp, error)
+	GetAccountUser(context.Context, *GetAccountUserReq) (*GetAccountUserResp, error)
 	GetDict(context.Context, *GetDictReq) (*GetDictResp, error)
+	GetMenu(context.Context, *GetMenuReq) (*GetMenuResp, error)
+	GetRole(context.Context, *GetRoleReq) (*GetRoleResp, error)
+	GetStaff(context.Context, *GetStaffReq) (*GetStaffResp, error)
+	GetSystem(context.Context, *GetSystemReq) (*GetSystemResp, error)
+	ListAccountUser(context.Context, *ListAccountUserReq) (*ListAccountUserResp, error)
 	ListDict(context.Context, *ListDictReq) (*ListDictResp, error)
+	ListMenu(context.Context, *ListMenuReq) (*ListMenuResp, error)
+	ListRole(context.Context, *ListRoleReq) (*ListRoleResp, error)
+	ListStaff(context.Context, *ListStaffReq) (*ListStaffResp, error)
+	ListSystem(context.Context, *ListSystemReq) (*ListSystemResp, error)
+	Login(context.Context, *LoginReq) (*LoginResp, error)
+	PageListAccountUser(context.Context, *PageListAccountUserReq) (*PageListAccountUserResp, error)
 	PageListDict(context.Context, *PageListDictReq) (*PageListDictResp, error)
+	PageListMenu(context.Context, *PageListMenuReq) (*PageListMenuResp, error)
+	PageListRole(context.Context, *PageListRoleReq) (*PageListRoleResp, error)
+	PageListStaff(context.Context, *PageListStaffReq) (*PageListStaffResp, error)
+	PageListSystem(context.Context, *PageListSystemReq) (*PageListSystemResp, error)
+	Register(context.Context, *RegisterReq) (*RegisterResp, error)
+	UpdateAccountUser(context.Context, *UpdateAccountUserReq) (*UpdateAccountUserResp, error)
 	UpdateDict(context.Context, *UpdateDictReq) (*UpdateDictResp, error)
+	UpdateMenu(context.Context, *UpdateMenuReq) (*UpdateMenuResp, error)
+	UpdateRole(context.Context, *UpdateRoleReq) (*UpdateRoleResp, error)
+	UpdateStaff(context.Context, *UpdateStaffReq) (*UpdateStaffResp, error)
+	UpdateSystem(context.Context, *UpdateSystemReq) (*UpdateSystemResp, error)
 }
 
 func RegisterShopHTTPServer(s *http.Server, srv ShopHTTPServer) {
 	r := s.Route("/")
+	r.POST("/api/register", _Shop_Register0_HTTP_Handler(srv))
+	r.POST("/api/login", _Shop_Login0_HTTP_Handler(srv))
 	r.POST("/api/dict", _Shop_CreateDict0_HTTP_Handler(srv))
 	r.PUT("/api/dict/{id}", _Shop_UpdateDict0_HTTP_Handler(srv))
 	r.DELETE("/api/dict/{id}", _Shop_DeleteDict0_HTTP_Handler(srv))
 	r.GET("/api/dicts", _Shop_ListDict0_HTTP_Handler(srv))
 	r.GET("/api/dict", _Shop_PageListDict0_HTTP_Handler(srv))
 	r.GET("/api/dict/{id}", _Shop_GetDict0_HTTP_Handler(srv))
+	r.POST("/api/account_user", _Shop_CreateAccountUser0_HTTP_Handler(srv))
+	r.PUT("/api/account_user/{id}", _Shop_UpdateAccountUser0_HTTP_Handler(srv))
+	r.DELETE("/api/account_user/{id}", _Shop_DeleteAccountUser0_HTTP_Handler(srv))
+	r.GET("/api/account_user/list", _Shop_ListAccountUser0_HTTP_Handler(srv))
+	r.GET("/api/account_user", _Shop_PageListAccountUser0_HTTP_Handler(srv))
+	r.GET("/api/account_user/{id}", _Shop_GetAccountUser0_HTTP_Handler(srv))
+	r.POST("/api/staff", _Shop_CreateStaff0_HTTP_Handler(srv))
+	r.PUT("/api/staff/{id}", _Shop_UpdateStaff0_HTTP_Handler(srv))
+	r.DELETE("/api/staff/{id}", _Shop_DeleteStaff0_HTTP_Handler(srv))
+	r.GET("/api/staff/list", _Shop_ListStaff0_HTTP_Handler(srv))
+	r.GET("/api/staff", _Shop_PageListStaff0_HTTP_Handler(srv))
+	r.GET("/api/staff/{id}", _Shop_GetStaff0_HTTP_Handler(srv))
+	r.POST("/api/account_user", _Shop_CreateSystem0_HTTP_Handler(srv))
+	r.PUT("/api/system/{id}", _Shop_UpdateSystem0_HTTP_Handler(srv))
+	r.DELETE("/api/system/{id}", _Shop_DeleteSystem0_HTTP_Handler(srv))
+	r.GET("/api/system/list", _Shop_ListSystem0_HTTP_Handler(srv))
+	r.GET("/api/system", _Shop_PageListSystem0_HTTP_Handler(srv))
+	r.GET("/api/system/{id}", _Shop_GetSystem0_HTTP_Handler(srv))
+	r.POST("/api/role", _Shop_CreateRole0_HTTP_Handler(srv))
+	r.PUT("/api/role/{id}", _Shop_UpdateRole0_HTTP_Handler(srv))
+	r.DELETE("/api/role/{id}", _Shop_DeleteRole0_HTTP_Handler(srv))
+	r.GET("/api/role/list", _Shop_ListRole0_HTTP_Handler(srv))
+	r.GET("/api/role", _Shop_PageListRole0_HTTP_Handler(srv))
+	r.GET("/api/role/{id}", _Shop_GetRole0_HTTP_Handler(srv))
+	r.POST("/api/menu", _Shop_CreateMenu0_HTTP_Handler(srv))
+	r.PUT("/api/menu/{id}", _Shop_UpdateMenu0_HTTP_Handler(srv))
+	r.DELETE("/api/menu/{id}", _Shop_DeleteMenu0_HTTP_Handler(srv))
+	r.GET("/api/menu/list", _Shop_ListMenu0_HTTP_Handler(srv))
+	r.GET("/api/menu", _Shop_PageListMenu0_HTTP_Handler(srv))
+	r.GET("/api/menu/{id}", _Shop_GetMenu0_HTTP_Handler(srv))
+}
+
+func _Shop_Register0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in RegisterReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/Register")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.Register(ctx, req.(*RegisterReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*RegisterResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_Login0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in LoginReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/Login")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.Login(ctx, req.(*LoginReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*LoginResp)
+		return ctx.Result(200, reply)
+	}
 }
 
 func _Shop_CreateDict0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
@@ -159,13 +261,660 @@ func _Shop_GetDict0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) erro
 	}
 }
 
+func _Shop_CreateAccountUser0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in CreateAccountUserReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/CreateAccountUser")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.CreateAccountUser(ctx, req.(*CreateAccountUserReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*CreateAccountUserResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_UpdateAccountUser0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in UpdateAccountUserReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/UpdateAccountUser")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UpdateAccountUser(ctx, req.(*UpdateAccountUserReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*UpdateAccountUserResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_DeleteAccountUser0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in DeleteAccountUserReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/DeleteAccountUser")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.DeleteAccountUser(ctx, req.(*DeleteAccountUserReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*DeleteAccountUserResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_ListAccountUser0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in ListAccountUserReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/ListAccountUser")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListAccountUser(ctx, req.(*ListAccountUserReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ListAccountUserResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_PageListAccountUser0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in PageListAccountUserReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/PageListAccountUser")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.PageListAccountUser(ctx, req.(*PageListAccountUserReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*PageListAccountUserResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_GetAccountUser0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in GetAccountUserReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/GetAccountUser")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetAccountUser(ctx, req.(*GetAccountUserReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetAccountUserResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_CreateStaff0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in CreateStaffReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/CreateStaff")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.CreateStaff(ctx, req.(*CreateStaffReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*CreateStaffResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_UpdateStaff0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in UpdateStaffReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/UpdateStaff")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UpdateStaff(ctx, req.(*UpdateStaffReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*UpdateStaffResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_DeleteStaff0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in DeleteStaffReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/DeleteStaff")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.DeleteStaff(ctx, req.(*DeleteStaffReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*DeleteStaffResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_ListStaff0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in ListStaffReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/ListStaff")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListStaff(ctx, req.(*ListStaffReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ListStaffResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_PageListStaff0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in PageListStaffReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/PageListStaff")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.PageListStaff(ctx, req.(*PageListStaffReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*PageListStaffResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_GetStaff0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in GetStaffReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/GetStaff")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetStaff(ctx, req.(*GetStaffReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetStaffResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_CreateSystem0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in CreateSystemReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/CreateSystem")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.CreateSystem(ctx, req.(*CreateSystemReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*CreateSystemResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_UpdateSystem0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in UpdateSystemReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/UpdateSystem")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UpdateSystem(ctx, req.(*UpdateSystemReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*UpdateSystemResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_DeleteSystem0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in DeleteSystemReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/DeleteSystem")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.DeleteSystem(ctx, req.(*DeleteSystemReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*DeleteSystemResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_ListSystem0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in ListSystemReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/ListSystem")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListSystem(ctx, req.(*ListSystemReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ListSystemResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_PageListSystem0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in PageListSystemReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/PageListSystem")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.PageListSystem(ctx, req.(*PageListSystemReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*PageListSystemResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_GetSystem0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in GetSystemReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/GetSystem")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetSystem(ctx, req.(*GetSystemReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetSystemResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_CreateRole0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in CreateRoleReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/CreateRole")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.CreateRole(ctx, req.(*CreateRoleReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*CreateRoleResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_UpdateRole0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in UpdateRoleReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/UpdateRole")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UpdateRole(ctx, req.(*UpdateRoleReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*UpdateRoleResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_DeleteRole0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in DeleteRoleReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/DeleteRole")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.DeleteRole(ctx, req.(*DeleteRoleReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*DeleteRoleResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_ListRole0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in ListRoleReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/ListRole")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListRole(ctx, req.(*ListRoleReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ListRoleResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_PageListRole0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in PageListRoleReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/PageListRole")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.PageListRole(ctx, req.(*PageListRoleReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*PageListRoleResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_GetRole0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in GetRoleReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/GetRole")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetRole(ctx, req.(*GetRoleReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetRoleResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_CreateMenu0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in CreateMenuReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/CreateMenu")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.CreateMenu(ctx, req.(*CreateMenuReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*CreateMenuResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_UpdateMenu0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in UpdateMenuReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/UpdateMenu")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UpdateMenu(ctx, req.(*UpdateMenuReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*UpdateMenuResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_DeleteMenu0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in DeleteMenuReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/DeleteMenu")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.DeleteMenu(ctx, req.(*DeleteMenuReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*DeleteMenuResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_ListMenu0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in ListMenuReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/ListMenu")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListMenu(ctx, req.(*ListMenuReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ListMenuResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_PageListMenu0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in PageListMenuReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/PageListMenu")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.PageListMenu(ctx, req.(*PageListMenuReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*PageListMenuResp)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Shop_GetMenu0_HTTP_Handler(srv ShopHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in GetMenuReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/api.shop.admin.v1.Shop/GetMenu")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetMenu(ctx, req.(*GetMenuReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetMenuResp)
+		return ctx.Result(200, reply)
+	}
+}
+
 type ShopHTTPClient interface {
+	CreateAccountUser(ctx context.Context, req *CreateAccountUserReq, opts ...http.CallOption) (rsp *CreateAccountUserResp, err error)
 	CreateDict(ctx context.Context, req *CreateDictReq, opts ...http.CallOption) (rsp *CreateDictResp, err error)
+	CreateMenu(ctx context.Context, req *CreateMenuReq, opts ...http.CallOption) (rsp *CreateMenuResp, err error)
+	CreateRole(ctx context.Context, req *CreateRoleReq, opts ...http.CallOption) (rsp *CreateRoleResp, err error)
+	CreateStaff(ctx context.Context, req *CreateStaffReq, opts ...http.CallOption) (rsp *CreateStaffResp, err error)
+	CreateSystem(ctx context.Context, req *CreateSystemReq, opts ...http.CallOption) (rsp *CreateSystemResp, err error)
+	DeleteAccountUser(ctx context.Context, req *DeleteAccountUserReq, opts ...http.CallOption) (rsp *DeleteAccountUserResp, err error)
 	DeleteDict(ctx context.Context, req *DeleteDictReq, opts ...http.CallOption) (rsp *DeleteDictResp, err error)
+	DeleteMenu(ctx context.Context, req *DeleteMenuReq, opts ...http.CallOption) (rsp *DeleteMenuResp, err error)
+	DeleteRole(ctx context.Context, req *DeleteRoleReq, opts ...http.CallOption) (rsp *DeleteRoleResp, err error)
+	DeleteStaff(ctx context.Context, req *DeleteStaffReq, opts ...http.CallOption) (rsp *DeleteStaffResp, err error)
+	DeleteSystem(ctx context.Context, req *DeleteSystemReq, opts ...http.CallOption) (rsp *DeleteSystemResp, err error)
+	GetAccountUser(ctx context.Context, req *GetAccountUserReq, opts ...http.CallOption) (rsp *GetAccountUserResp, err error)
 	GetDict(ctx context.Context, req *GetDictReq, opts ...http.CallOption) (rsp *GetDictResp, err error)
+	GetMenu(ctx context.Context, req *GetMenuReq, opts ...http.CallOption) (rsp *GetMenuResp, err error)
+	GetRole(ctx context.Context, req *GetRoleReq, opts ...http.CallOption) (rsp *GetRoleResp, err error)
+	GetStaff(ctx context.Context, req *GetStaffReq, opts ...http.CallOption) (rsp *GetStaffResp, err error)
+	GetSystem(ctx context.Context, req *GetSystemReq, opts ...http.CallOption) (rsp *GetSystemResp, err error)
+	ListAccountUser(ctx context.Context, req *ListAccountUserReq, opts ...http.CallOption) (rsp *ListAccountUserResp, err error)
 	ListDict(ctx context.Context, req *ListDictReq, opts ...http.CallOption) (rsp *ListDictResp, err error)
+	ListMenu(ctx context.Context, req *ListMenuReq, opts ...http.CallOption) (rsp *ListMenuResp, err error)
+	ListRole(ctx context.Context, req *ListRoleReq, opts ...http.CallOption) (rsp *ListRoleResp, err error)
+	ListStaff(ctx context.Context, req *ListStaffReq, opts ...http.CallOption) (rsp *ListStaffResp, err error)
+	ListSystem(ctx context.Context, req *ListSystemReq, opts ...http.CallOption) (rsp *ListSystemResp, err error)
+	Login(ctx context.Context, req *LoginReq, opts ...http.CallOption) (rsp *LoginResp, err error)
+	PageListAccountUser(ctx context.Context, req *PageListAccountUserReq, opts ...http.CallOption) (rsp *PageListAccountUserResp, err error)
 	PageListDict(ctx context.Context, req *PageListDictReq, opts ...http.CallOption) (rsp *PageListDictResp, err error)
+	PageListMenu(ctx context.Context, req *PageListMenuReq, opts ...http.CallOption) (rsp *PageListMenuResp, err error)
+	PageListRole(ctx context.Context, req *PageListRoleReq, opts ...http.CallOption) (rsp *PageListRoleResp, err error)
+	PageListStaff(ctx context.Context, req *PageListStaffReq, opts ...http.CallOption) (rsp *PageListStaffResp, err error)
+	PageListSystem(ctx context.Context, req *PageListSystemReq, opts ...http.CallOption) (rsp *PageListSystemResp, err error)
+	Register(ctx context.Context, req *RegisterReq, opts ...http.CallOption) (rsp *RegisterResp, err error)
+	UpdateAccountUser(ctx context.Context, req *UpdateAccountUserReq, opts ...http.CallOption) (rsp *UpdateAccountUserResp, err error)
 	UpdateDict(ctx context.Context, req *UpdateDictReq, opts ...http.CallOption) (rsp *UpdateDictResp, err error)
+	UpdateMenu(ctx context.Context, req *UpdateMenuReq, opts ...http.CallOption) (rsp *UpdateMenuResp, err error)
+	UpdateRole(ctx context.Context, req *UpdateRoleReq, opts ...http.CallOption) (rsp *UpdateRoleResp, err error)
+	UpdateStaff(ctx context.Context, req *UpdateStaffReq, opts ...http.CallOption) (rsp *UpdateStaffResp, err error)
+	UpdateSystem(ctx context.Context, req *UpdateSystemReq, opts ...http.CallOption) (rsp *UpdateSystemResp, err error)
 }
 
 type ShopHTTPClientImpl struct {
@@ -176,6 +925,19 @@ func NewShopHTTPClient(client *http.Client) ShopHTTPClient {
 	return &ShopHTTPClientImpl{client}
 }
 
+func (c *ShopHTTPClientImpl) CreateAccountUser(ctx context.Context, in *CreateAccountUserReq, opts ...http.CallOption) (*CreateAccountUserResp, error) {
+	var out CreateAccountUserResp
+	pattern := "/api/account_user"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/CreateAccountUser"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
 func (c *ShopHTTPClientImpl) CreateDict(ctx context.Context, in *CreateDictReq, opts ...http.CallOption) (*CreateDictResp, error) {
 	var out CreateDictResp
 	pattern := "/api/dict"
@@ -183,6 +945,71 @@ func (c *ShopHTTPClientImpl) CreateDict(ctx context.Context, in *CreateDictReq, 
 	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/CreateDict"))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) CreateMenu(ctx context.Context, in *CreateMenuReq, opts ...http.CallOption) (*CreateMenuResp, error) {
+	var out CreateMenuResp
+	pattern := "/api/menu"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/CreateMenu"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) CreateRole(ctx context.Context, in *CreateRoleReq, opts ...http.CallOption) (*CreateRoleResp, error) {
+	var out CreateRoleResp
+	pattern := "/api/role"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/CreateRole"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) CreateStaff(ctx context.Context, in *CreateStaffReq, opts ...http.CallOption) (*CreateStaffResp, error) {
+	var out CreateStaffResp
+	pattern := "/api/staff"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/CreateStaff"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) CreateSystem(ctx context.Context, in *CreateSystemReq, opts ...http.CallOption) (*CreateSystemResp, error) {
+	var out CreateSystemResp
+	pattern := "/api/account_user"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/CreateSystem"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) DeleteAccountUser(ctx context.Context, in *DeleteAccountUserReq, opts ...http.CallOption) (*DeleteAccountUserResp, error) {
+	var out DeleteAccountUserResp
+	pattern := "/api/account_user/{id}"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/DeleteAccountUser"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -202,11 +1029,141 @@ func (c *ShopHTTPClientImpl) DeleteDict(ctx context.Context, in *DeleteDictReq, 
 	return &out, err
 }
 
+func (c *ShopHTTPClientImpl) DeleteMenu(ctx context.Context, in *DeleteMenuReq, opts ...http.CallOption) (*DeleteMenuResp, error) {
+	var out DeleteMenuResp
+	pattern := "/api/menu/{id}"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/DeleteMenu"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) DeleteRole(ctx context.Context, in *DeleteRoleReq, opts ...http.CallOption) (*DeleteRoleResp, error) {
+	var out DeleteRoleResp
+	pattern := "/api/role/{id}"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/DeleteRole"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) DeleteStaff(ctx context.Context, in *DeleteStaffReq, opts ...http.CallOption) (*DeleteStaffResp, error) {
+	var out DeleteStaffResp
+	pattern := "/api/staff/{id}"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/DeleteStaff"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) DeleteSystem(ctx context.Context, in *DeleteSystemReq, opts ...http.CallOption) (*DeleteSystemResp, error) {
+	var out DeleteSystemResp
+	pattern := "/api/system/{id}"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/DeleteSystem"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) GetAccountUser(ctx context.Context, in *GetAccountUserReq, opts ...http.CallOption) (*GetAccountUserResp, error) {
+	var out GetAccountUserResp
+	pattern := "/api/account_user/{id}"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/GetAccountUser"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
 func (c *ShopHTTPClientImpl) GetDict(ctx context.Context, in *GetDictReq, opts ...http.CallOption) (*GetDictResp, error) {
 	var out GetDictResp
 	pattern := "/api/dict/{id}"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/GetDict"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) GetMenu(ctx context.Context, in *GetMenuReq, opts ...http.CallOption) (*GetMenuResp, error) {
+	var out GetMenuResp
+	pattern := "/api/menu/{id}"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/GetMenu"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) GetRole(ctx context.Context, in *GetRoleReq, opts ...http.CallOption) (*GetRoleResp, error) {
+	var out GetRoleResp
+	pattern := "/api/role/{id}"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/GetRole"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) GetStaff(ctx context.Context, in *GetStaffReq, opts ...http.CallOption) (*GetStaffResp, error) {
+	var out GetStaffResp
+	pattern := "/api/staff/{id}"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/GetStaff"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) GetSystem(ctx context.Context, in *GetSystemReq, opts ...http.CallOption) (*GetSystemResp, error) {
+	var out GetSystemResp
+	pattern := "/api/system/{id}"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/GetSystem"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) ListAccountUser(ctx context.Context, in *ListAccountUserReq, opts ...http.CallOption) (*ListAccountUserResp, error) {
+	var out ListAccountUserResp
+	pattern := "/api/account_user/list"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/ListAccountUser"))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
@@ -228,6 +1185,84 @@ func (c *ShopHTTPClientImpl) ListDict(ctx context.Context, in *ListDictReq, opts
 	return &out, err
 }
 
+func (c *ShopHTTPClientImpl) ListMenu(ctx context.Context, in *ListMenuReq, opts ...http.CallOption) (*ListMenuResp, error) {
+	var out ListMenuResp
+	pattern := "/api/menu/list"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/ListMenu"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) ListRole(ctx context.Context, in *ListRoleReq, opts ...http.CallOption) (*ListRoleResp, error) {
+	var out ListRoleResp
+	pattern := "/api/role/list"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/ListRole"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) ListStaff(ctx context.Context, in *ListStaffReq, opts ...http.CallOption) (*ListStaffResp, error) {
+	var out ListStaffResp
+	pattern := "/api/staff/list"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/ListStaff"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) ListSystem(ctx context.Context, in *ListSystemReq, opts ...http.CallOption) (*ListSystemResp, error) {
+	var out ListSystemResp
+	pattern := "/api/system/list"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/ListSystem"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) Login(ctx context.Context, in *LoginReq, opts ...http.CallOption) (*LoginResp, error) {
+	var out LoginResp
+	pattern := "/api/login"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/Login"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) PageListAccountUser(ctx context.Context, in *PageListAccountUserReq, opts ...http.CallOption) (*PageListAccountUserResp, error) {
+	var out PageListAccountUserResp
+	pattern := "/api/account_user"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/PageListAccountUser"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
 func (c *ShopHTTPClientImpl) PageListDict(ctx context.Context, in *PageListDictReq, opts ...http.CallOption) (*PageListDictResp, error) {
 	var out PageListDictResp
 	pattern := "/api/dict"
@@ -241,11 +1276,141 @@ func (c *ShopHTTPClientImpl) PageListDict(ctx context.Context, in *PageListDictR
 	return &out, err
 }
 
+func (c *ShopHTTPClientImpl) PageListMenu(ctx context.Context, in *PageListMenuReq, opts ...http.CallOption) (*PageListMenuResp, error) {
+	var out PageListMenuResp
+	pattern := "/api/menu"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/PageListMenu"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) PageListRole(ctx context.Context, in *PageListRoleReq, opts ...http.CallOption) (*PageListRoleResp, error) {
+	var out PageListRoleResp
+	pattern := "/api/role"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/PageListRole"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) PageListStaff(ctx context.Context, in *PageListStaffReq, opts ...http.CallOption) (*PageListStaffResp, error) {
+	var out PageListStaffResp
+	pattern := "/api/staff"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/PageListStaff"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) PageListSystem(ctx context.Context, in *PageListSystemReq, opts ...http.CallOption) (*PageListSystemResp, error) {
+	var out PageListSystemResp
+	pattern := "/api/system"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/PageListSystem"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) Register(ctx context.Context, in *RegisterReq, opts ...http.CallOption) (*RegisterResp, error) {
+	var out RegisterResp
+	pattern := "/api/register"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/Register"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) UpdateAccountUser(ctx context.Context, in *UpdateAccountUserReq, opts ...http.CallOption) (*UpdateAccountUserResp, error) {
+	var out UpdateAccountUserResp
+	pattern := "/api/account_user/{id}"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/UpdateAccountUser"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
 func (c *ShopHTTPClientImpl) UpdateDict(ctx context.Context, in *UpdateDictReq, opts ...http.CallOption) (*UpdateDictResp, error) {
 	var out UpdateDictResp
 	pattern := "/api/dict/{id}"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/UpdateDict"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) UpdateMenu(ctx context.Context, in *UpdateMenuReq, opts ...http.CallOption) (*UpdateMenuResp, error) {
+	var out UpdateMenuResp
+	pattern := "/api/menu/{id}"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/UpdateMenu"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) UpdateRole(ctx context.Context, in *UpdateRoleReq, opts ...http.CallOption) (*UpdateRoleResp, error) {
+	var out UpdateRoleResp
+	pattern := "/api/role/{id}"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/UpdateRole"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) UpdateStaff(ctx context.Context, in *UpdateStaffReq, opts ...http.CallOption) (*UpdateStaffResp, error) {
+	var out UpdateStaffResp
+	pattern := "/api/staff/{id}"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/UpdateStaff"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ShopHTTPClientImpl) UpdateSystem(ctx context.Context, in *UpdateSystemReq, opts ...http.CallOption) (*UpdateSystemResp, error) {
+	var out UpdateSystemResp
+	pattern := "/api/system/{id}"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation("/api.shop.admin.v1.Shop/UpdateSystem"))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
 	if err != nil {

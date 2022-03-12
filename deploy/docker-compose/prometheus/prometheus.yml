@@ -31,4 +31,9 @@ scrape_configs:
   - job_name: "node"
 
     static_configs:
-      - targets: ["localhost:9100"]
+      - targets: ["node_exporter:9100"]
+
+  - job_name: "shop-admin"
+
+    static_configs:
+      - targets: ["shop-admin:8000"]

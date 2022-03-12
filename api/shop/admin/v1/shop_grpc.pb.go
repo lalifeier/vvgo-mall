@@ -22,12 +22,44 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ShopClient interface {
+	Register(ctx context.Context, in *RegisterReq, opts ...grpc.CallOption) (*RegisterResp, error)
+	Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
 	CreateDict(ctx context.Context, in *CreateDictReq, opts ...grpc.CallOption) (*CreateDictResp, error)
 	UpdateDict(ctx context.Context, in *UpdateDictReq, opts ...grpc.CallOption) (*UpdateDictResp, error)
 	DeleteDict(ctx context.Context, in *DeleteDictReq, opts ...grpc.CallOption) (*DeleteDictResp, error)
 	ListDict(ctx context.Context, in *ListDictReq, opts ...grpc.CallOption) (*ListDictResp, error)
 	PageListDict(ctx context.Context, in *PageListDictReq, opts ...grpc.CallOption) (*PageListDictResp, error)
 	GetDict(ctx context.Context, in *GetDictReq, opts ...grpc.CallOption) (*GetDictResp, error)
+	CreateAccountUser(ctx context.Context, in *CreateAccountUserReq, opts ...grpc.CallOption) (*CreateAccountUserResp, error)
+	UpdateAccountUser(ctx context.Context, in *UpdateAccountUserReq, opts ...grpc.CallOption) (*UpdateAccountUserResp, error)
+	DeleteAccountUser(ctx context.Context, in *DeleteAccountUserReq, opts ...grpc.CallOption) (*DeleteAccountUserResp, error)
+	ListAccountUser(ctx context.Context, in *ListAccountUserReq, opts ...grpc.CallOption) (*ListAccountUserResp, error)
+	PageListAccountUser(ctx context.Context, in *PageListAccountUserReq, opts ...grpc.CallOption) (*PageListAccountUserResp, error)
+	GetAccountUser(ctx context.Context, in *GetAccountUserReq, opts ...grpc.CallOption) (*GetAccountUserResp, error)
+	CreateStaff(ctx context.Context, in *CreateStaffReq, opts ...grpc.CallOption) (*CreateStaffResp, error)
+	UpdateStaff(ctx context.Context, in *UpdateStaffReq, opts ...grpc.CallOption) (*UpdateStaffResp, error)
+	DeleteStaff(ctx context.Context, in *DeleteStaffReq, opts ...grpc.CallOption) (*DeleteStaffResp, error)
+	ListStaff(ctx context.Context, in *ListStaffReq, opts ...grpc.CallOption) (*ListStaffResp, error)
+	PageListStaff(ctx context.Context, in *PageListStaffReq, opts ...grpc.CallOption) (*PageListStaffResp, error)
+	GetStaff(ctx context.Context, in *GetStaffReq, opts ...grpc.CallOption) (*GetStaffResp, error)
+	CreateSystem(ctx context.Context, in *CreateSystemReq, opts ...grpc.CallOption) (*CreateSystemResp, error)
+	UpdateSystem(ctx context.Context, in *UpdateSystemReq, opts ...grpc.CallOption) (*UpdateSystemResp, error)
+	DeleteSystem(ctx context.Context, in *DeleteSystemReq, opts ...grpc.CallOption) (*DeleteSystemResp, error)
+	ListSystem(ctx context.Context, in *ListSystemReq, opts ...grpc.CallOption) (*ListSystemResp, error)
+	PageListSystem(ctx context.Context, in *PageListSystemReq, opts ...grpc.CallOption) (*PageListSystemResp, error)
+	GetSystem(ctx context.Context, in *GetSystemReq, opts ...grpc.CallOption) (*GetSystemResp, error)
+	CreateRole(ctx context.Context, in *CreateRoleReq, opts ...grpc.CallOption) (*CreateRoleResp, error)
+	UpdateRole(ctx context.Context, in *UpdateRoleReq, opts ...grpc.CallOption) (*UpdateRoleResp, error)
+	DeleteRole(ctx context.Context, in *DeleteRoleReq, opts ...grpc.CallOption) (*DeleteRoleResp, error)
+	ListRole(ctx context.Context, in *ListRoleReq, opts ...grpc.CallOption) (*ListRoleResp, error)
+	PageListRole(ctx context.Context, in *PageListRoleReq, opts ...grpc.CallOption) (*PageListRoleResp, error)
+	GetRole(ctx context.Context, in *GetRoleReq, opts ...grpc.CallOption) (*GetRoleResp, error)
+	CreateMenu(ctx context.Context, in *CreateMenuReq, opts ...grpc.CallOption) (*CreateMenuResp, error)
+	UpdateMenu(ctx context.Context, in *UpdateMenuReq, opts ...grpc.CallOption) (*UpdateMenuResp, error)
+	DeleteMenu(ctx context.Context, in *DeleteMenuReq, opts ...grpc.CallOption) (*DeleteMenuResp, error)
+	ListMenu(ctx context.Context, in *ListMenuReq, opts ...grpc.CallOption) (*ListMenuResp, error)
+	PageListMenu(ctx context.Context, in *PageListMenuReq, opts ...grpc.CallOption) (*PageListMenuResp, error)
+	GetMenu(ctx context.Context, in *GetMenuReq, opts ...grpc.CallOption) (*GetMenuResp, error)
 }
 
 type shopClient struct {
@@ -36,6 +68,24 @@ type shopClient struct {
 
 func NewShopClient(cc grpc.ClientConnInterface) ShopClient {
 	return &shopClient{cc}
+}
+
+func (c *shopClient) Register(ctx context.Context, in *RegisterReq, opts ...grpc.CallOption) (*RegisterResp, error) {
+	out := new(RegisterResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/Register", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error) {
+	out := new(LoginResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/Login", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *shopClient) CreateDict(ctx context.Context, in *CreateDictReq, opts ...grpc.CallOption) (*CreateDictResp, error) {
@@ -92,16 +142,318 @@ func (c *shopClient) GetDict(ctx context.Context, in *GetDictReq, opts ...grpc.C
 	return out, nil
 }
 
+func (c *shopClient) CreateAccountUser(ctx context.Context, in *CreateAccountUserReq, opts ...grpc.CallOption) (*CreateAccountUserResp, error) {
+	out := new(CreateAccountUserResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/CreateAccountUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) UpdateAccountUser(ctx context.Context, in *UpdateAccountUserReq, opts ...grpc.CallOption) (*UpdateAccountUserResp, error) {
+	out := new(UpdateAccountUserResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/UpdateAccountUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) DeleteAccountUser(ctx context.Context, in *DeleteAccountUserReq, opts ...grpc.CallOption) (*DeleteAccountUserResp, error) {
+	out := new(DeleteAccountUserResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/DeleteAccountUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) ListAccountUser(ctx context.Context, in *ListAccountUserReq, opts ...grpc.CallOption) (*ListAccountUserResp, error) {
+	out := new(ListAccountUserResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/ListAccountUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) PageListAccountUser(ctx context.Context, in *PageListAccountUserReq, opts ...grpc.CallOption) (*PageListAccountUserResp, error) {
+	out := new(PageListAccountUserResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/PageListAccountUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) GetAccountUser(ctx context.Context, in *GetAccountUserReq, opts ...grpc.CallOption) (*GetAccountUserResp, error) {
+	out := new(GetAccountUserResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/GetAccountUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) CreateStaff(ctx context.Context, in *CreateStaffReq, opts ...grpc.CallOption) (*CreateStaffResp, error) {
+	out := new(CreateStaffResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/CreateStaff", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) UpdateStaff(ctx context.Context, in *UpdateStaffReq, opts ...grpc.CallOption) (*UpdateStaffResp, error) {
+	out := new(UpdateStaffResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/UpdateStaff", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) DeleteStaff(ctx context.Context, in *DeleteStaffReq, opts ...grpc.CallOption) (*DeleteStaffResp, error) {
+	out := new(DeleteStaffResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/DeleteStaff", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) ListStaff(ctx context.Context, in *ListStaffReq, opts ...grpc.CallOption) (*ListStaffResp, error) {
+	out := new(ListStaffResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/ListStaff", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) PageListStaff(ctx context.Context, in *PageListStaffReq, opts ...grpc.CallOption) (*PageListStaffResp, error) {
+	out := new(PageListStaffResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/PageListStaff", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) GetStaff(ctx context.Context, in *GetStaffReq, opts ...grpc.CallOption) (*GetStaffResp, error) {
+	out := new(GetStaffResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/GetStaff", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) CreateSystem(ctx context.Context, in *CreateSystemReq, opts ...grpc.CallOption) (*CreateSystemResp, error) {
+	out := new(CreateSystemResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/CreateSystem", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) UpdateSystem(ctx context.Context, in *UpdateSystemReq, opts ...grpc.CallOption) (*UpdateSystemResp, error) {
+	out := new(UpdateSystemResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/UpdateSystem", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) DeleteSystem(ctx context.Context, in *DeleteSystemReq, opts ...grpc.CallOption) (*DeleteSystemResp, error) {
+	out := new(DeleteSystemResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/DeleteSystem", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) ListSystem(ctx context.Context, in *ListSystemReq, opts ...grpc.CallOption) (*ListSystemResp, error) {
+	out := new(ListSystemResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/ListSystem", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) PageListSystem(ctx context.Context, in *PageListSystemReq, opts ...grpc.CallOption) (*PageListSystemResp, error) {
+	out := new(PageListSystemResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/PageListSystem", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) GetSystem(ctx context.Context, in *GetSystemReq, opts ...grpc.CallOption) (*GetSystemResp, error) {
+	out := new(GetSystemResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/GetSystem", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) CreateRole(ctx context.Context, in *CreateRoleReq, opts ...grpc.CallOption) (*CreateRoleResp, error) {
+	out := new(CreateRoleResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/CreateRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) UpdateRole(ctx context.Context, in *UpdateRoleReq, opts ...grpc.CallOption) (*UpdateRoleResp, error) {
+	out := new(UpdateRoleResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/UpdateRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) DeleteRole(ctx context.Context, in *DeleteRoleReq, opts ...grpc.CallOption) (*DeleteRoleResp, error) {
+	out := new(DeleteRoleResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/DeleteRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) ListRole(ctx context.Context, in *ListRoleReq, opts ...grpc.CallOption) (*ListRoleResp, error) {
+	out := new(ListRoleResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/ListRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) PageListRole(ctx context.Context, in *PageListRoleReq, opts ...grpc.CallOption) (*PageListRoleResp, error) {
+	out := new(PageListRoleResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/PageListRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) GetRole(ctx context.Context, in *GetRoleReq, opts ...grpc.CallOption) (*GetRoleResp, error) {
+	out := new(GetRoleResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/GetRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) CreateMenu(ctx context.Context, in *CreateMenuReq, opts ...grpc.CallOption) (*CreateMenuResp, error) {
+	out := new(CreateMenuResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/CreateMenu", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) UpdateMenu(ctx context.Context, in *UpdateMenuReq, opts ...grpc.CallOption) (*UpdateMenuResp, error) {
+	out := new(UpdateMenuResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/UpdateMenu", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) DeleteMenu(ctx context.Context, in *DeleteMenuReq, opts ...grpc.CallOption) (*DeleteMenuResp, error) {
+	out := new(DeleteMenuResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/DeleteMenu", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) ListMenu(ctx context.Context, in *ListMenuReq, opts ...grpc.CallOption) (*ListMenuResp, error) {
+	out := new(ListMenuResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/ListMenu", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) PageListMenu(ctx context.Context, in *PageListMenuReq, opts ...grpc.CallOption) (*PageListMenuResp, error) {
+	out := new(PageListMenuResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/PageListMenu", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) GetMenu(ctx context.Context, in *GetMenuReq, opts ...grpc.CallOption) (*GetMenuResp, error) {
+	out := new(GetMenuResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/GetMenu", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ShopServer is the server API for Shop service.
 // All implementations must embed UnimplementedShopServer
 // for forward compatibility
 type ShopServer interface {
+	Register(context.Context, *RegisterReq) (*RegisterResp, error)
+	Login(context.Context, *LoginReq) (*LoginResp, error)
 	CreateDict(context.Context, *CreateDictReq) (*CreateDictResp, error)
 	UpdateDict(context.Context, *UpdateDictReq) (*UpdateDictResp, error)
 	DeleteDict(context.Context, *DeleteDictReq) (*DeleteDictResp, error)
 	ListDict(context.Context, *ListDictReq) (*ListDictResp, error)
 	PageListDict(context.Context, *PageListDictReq) (*PageListDictResp, error)
 	GetDict(context.Context, *GetDictReq) (*GetDictResp, error)
+	CreateAccountUser(context.Context, *CreateAccountUserReq) (*CreateAccountUserResp, error)
+	UpdateAccountUser(context.Context, *UpdateAccountUserReq) (*UpdateAccountUserResp, error)
+	DeleteAccountUser(context.Context, *DeleteAccountUserReq) (*DeleteAccountUserResp, error)
+	ListAccountUser(context.Context, *ListAccountUserReq) (*ListAccountUserResp, error)
+	PageListAccountUser(context.Context, *PageListAccountUserReq) (*PageListAccountUserResp, error)
+	GetAccountUser(context.Context, *GetAccountUserReq) (*GetAccountUserResp, error)
+	CreateStaff(context.Context, *CreateStaffReq) (*CreateStaffResp, error)
+	UpdateStaff(context.Context, *UpdateStaffReq) (*UpdateStaffResp, error)
+	DeleteStaff(context.Context, *DeleteStaffReq) (*DeleteStaffResp, error)
+	ListStaff(context.Context, *ListStaffReq) (*ListStaffResp, error)
+	PageListStaff(context.Context, *PageListStaffReq) (*PageListStaffResp, error)
+	GetStaff(context.Context, *GetStaffReq) (*GetStaffResp, error)
+	CreateSystem(context.Context, *CreateSystemReq) (*CreateSystemResp, error)
+	UpdateSystem(context.Context, *UpdateSystemReq) (*UpdateSystemResp, error)
+	DeleteSystem(context.Context, *DeleteSystemReq) (*DeleteSystemResp, error)
+	ListSystem(context.Context, *ListSystemReq) (*ListSystemResp, error)
+	PageListSystem(context.Context, *PageListSystemReq) (*PageListSystemResp, error)
+	GetSystem(context.Context, *GetSystemReq) (*GetSystemResp, error)
+	CreateRole(context.Context, *CreateRoleReq) (*CreateRoleResp, error)
+	UpdateRole(context.Context, *UpdateRoleReq) (*UpdateRoleResp, error)
+	DeleteRole(context.Context, *DeleteRoleReq) (*DeleteRoleResp, error)
+	ListRole(context.Context, *ListRoleReq) (*ListRoleResp, error)
+	PageListRole(context.Context, *PageListRoleReq) (*PageListRoleResp, error)
+	GetRole(context.Context, *GetRoleReq) (*GetRoleResp, error)
+	CreateMenu(context.Context, *CreateMenuReq) (*CreateMenuResp, error)
+	UpdateMenu(context.Context, *UpdateMenuReq) (*UpdateMenuResp, error)
+	DeleteMenu(context.Context, *DeleteMenuReq) (*DeleteMenuResp, error)
+	ListMenu(context.Context, *ListMenuReq) (*ListMenuResp, error)
+	PageListMenu(context.Context, *PageListMenuReq) (*PageListMenuResp, error)
+	GetMenu(context.Context, *GetMenuReq) (*GetMenuResp, error)
 	mustEmbedUnimplementedShopServer()
 }
 
@@ -109,6 +461,12 @@ type ShopServer interface {
 type UnimplementedShopServer struct {
 }
 
+func (UnimplementedShopServer) Register(context.Context, *RegisterReq) (*RegisterResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
+}
+func (UnimplementedShopServer) Login(context.Context, *LoginReq) (*LoginResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+}
 func (UnimplementedShopServer) CreateDict(context.Context, *CreateDictReq) (*CreateDictResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDict not implemented")
 }
@@ -127,6 +485,96 @@ func (UnimplementedShopServer) PageListDict(context.Context, *PageListDictReq) (
 func (UnimplementedShopServer) GetDict(context.Context, *GetDictReq) (*GetDictResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDict not implemented")
 }
+func (UnimplementedShopServer) CreateAccountUser(context.Context, *CreateAccountUserReq) (*CreateAccountUserResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAccountUser not implemented")
+}
+func (UnimplementedShopServer) UpdateAccountUser(context.Context, *UpdateAccountUserReq) (*UpdateAccountUserResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateAccountUser not implemented")
+}
+func (UnimplementedShopServer) DeleteAccountUser(context.Context, *DeleteAccountUserReq) (*DeleteAccountUserResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteAccountUser not implemented")
+}
+func (UnimplementedShopServer) ListAccountUser(context.Context, *ListAccountUserReq) (*ListAccountUserResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListAccountUser not implemented")
+}
+func (UnimplementedShopServer) PageListAccountUser(context.Context, *PageListAccountUserReq) (*PageListAccountUserResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PageListAccountUser not implemented")
+}
+func (UnimplementedShopServer) GetAccountUser(context.Context, *GetAccountUserReq) (*GetAccountUserResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAccountUser not implemented")
+}
+func (UnimplementedShopServer) CreateStaff(context.Context, *CreateStaffReq) (*CreateStaffResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateStaff not implemented")
+}
+func (UnimplementedShopServer) UpdateStaff(context.Context, *UpdateStaffReq) (*UpdateStaffResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateStaff not implemented")
+}
+func (UnimplementedShopServer) DeleteStaff(context.Context, *DeleteStaffReq) (*DeleteStaffResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteStaff not implemented")
+}
+func (UnimplementedShopServer) ListStaff(context.Context, *ListStaffReq) (*ListStaffResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListStaff not implemented")
+}
+func (UnimplementedShopServer) PageListStaff(context.Context, *PageListStaffReq) (*PageListStaffResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PageListStaff not implemented")
+}
+func (UnimplementedShopServer) GetStaff(context.Context, *GetStaffReq) (*GetStaffResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetStaff not implemented")
+}
+func (UnimplementedShopServer) CreateSystem(context.Context, *CreateSystemReq) (*CreateSystemResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateSystem not implemented")
+}
+func (UnimplementedShopServer) UpdateSystem(context.Context, *UpdateSystemReq) (*UpdateSystemResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateSystem not implemented")
+}
+func (UnimplementedShopServer) DeleteSystem(context.Context, *DeleteSystemReq) (*DeleteSystemResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteSystem not implemented")
+}
+func (UnimplementedShopServer) ListSystem(context.Context, *ListSystemReq) (*ListSystemResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListSystem not implemented")
+}
+func (UnimplementedShopServer) PageListSystem(context.Context, *PageListSystemReq) (*PageListSystemResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PageListSystem not implemented")
+}
+func (UnimplementedShopServer) GetSystem(context.Context, *GetSystemReq) (*GetSystemResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSystem not implemented")
+}
+func (UnimplementedShopServer) CreateRole(context.Context, *CreateRoleReq) (*CreateRoleResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateRole not implemented")
+}
+func (UnimplementedShopServer) UpdateRole(context.Context, *UpdateRoleReq) (*UpdateRoleResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateRole not implemented")
+}
+func (UnimplementedShopServer) DeleteRole(context.Context, *DeleteRoleReq) (*DeleteRoleResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
+}
+func (UnimplementedShopServer) ListRole(context.Context, *ListRoleReq) (*ListRoleResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListRole not implemented")
+}
+func (UnimplementedShopServer) PageListRole(context.Context, *PageListRoleReq) (*PageListRoleResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PageListRole not implemented")
+}
+func (UnimplementedShopServer) GetRole(context.Context, *GetRoleReq) (*GetRoleResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRole not implemented")
+}
+func (UnimplementedShopServer) CreateMenu(context.Context, *CreateMenuReq) (*CreateMenuResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateMenu not implemented")
+}
+func (UnimplementedShopServer) UpdateMenu(context.Context, *UpdateMenuReq) (*UpdateMenuResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateMenu not implemented")
+}
+func (UnimplementedShopServer) DeleteMenu(context.Context, *DeleteMenuReq) (*DeleteMenuResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteMenu not implemented")
+}
+func (UnimplementedShopServer) ListMenu(context.Context, *ListMenuReq) (*ListMenuResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListMenu not implemented")
+}
+func (UnimplementedShopServer) PageListMenu(context.Context, *PageListMenuReq) (*PageListMenuResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PageListMenu not implemented")
+}
+func (UnimplementedShopServer) GetMenu(context.Context, *GetMenuReq) (*GetMenuResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMenu not implemented")
+}
 func (UnimplementedShopServer) mustEmbedUnimplementedShopServer() {}
 
 // UnsafeShopServer may be embedded to opt out of forward compatibility for this service.
@@ -138,6 +586,42 @@ type UnsafeShopServer interface {
 
 func RegisterShopServer(s grpc.ServiceRegistrar, srv ShopServer) {
 	s.RegisterService(&Shop_ServiceDesc, srv)
+}
+
+func _Shop_Register_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegisterReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).Register(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/Register",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).Register(ctx, req.(*RegisterReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).Login(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/Login",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).Login(ctx, req.(*LoginReq))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Shop_CreateDict_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -248,6 +732,546 @@ func _Shop_GetDict_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Shop_CreateAccountUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateAccountUserReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).CreateAccountUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/CreateAccountUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).CreateAccountUser(ctx, req.(*CreateAccountUserReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_UpdateAccountUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateAccountUserReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).UpdateAccountUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/UpdateAccountUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).UpdateAccountUser(ctx, req.(*UpdateAccountUserReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_DeleteAccountUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteAccountUserReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).DeleteAccountUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/DeleteAccountUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).DeleteAccountUser(ctx, req.(*DeleteAccountUserReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_ListAccountUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListAccountUserReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).ListAccountUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/ListAccountUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).ListAccountUser(ctx, req.(*ListAccountUserReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_PageListAccountUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PageListAccountUserReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).PageListAccountUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/PageListAccountUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).PageListAccountUser(ctx, req.(*PageListAccountUserReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_GetAccountUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAccountUserReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).GetAccountUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/GetAccountUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).GetAccountUser(ctx, req.(*GetAccountUserReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_CreateStaff_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateStaffReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).CreateStaff(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/CreateStaff",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).CreateStaff(ctx, req.(*CreateStaffReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_UpdateStaff_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateStaffReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).UpdateStaff(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/UpdateStaff",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).UpdateStaff(ctx, req.(*UpdateStaffReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_DeleteStaff_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteStaffReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).DeleteStaff(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/DeleteStaff",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).DeleteStaff(ctx, req.(*DeleteStaffReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_ListStaff_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListStaffReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).ListStaff(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/ListStaff",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).ListStaff(ctx, req.(*ListStaffReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_PageListStaff_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PageListStaffReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).PageListStaff(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/PageListStaff",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).PageListStaff(ctx, req.(*PageListStaffReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_GetStaff_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetStaffReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).GetStaff(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/GetStaff",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).GetStaff(ctx, req.(*GetStaffReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_CreateSystem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateSystemReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).CreateSystem(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/CreateSystem",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).CreateSystem(ctx, req.(*CreateSystemReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_UpdateSystem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateSystemReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).UpdateSystem(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/UpdateSystem",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).UpdateSystem(ctx, req.(*UpdateSystemReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_DeleteSystem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteSystemReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).DeleteSystem(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/DeleteSystem",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).DeleteSystem(ctx, req.(*DeleteSystemReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_ListSystem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListSystemReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).ListSystem(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/ListSystem",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).ListSystem(ctx, req.(*ListSystemReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_PageListSystem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PageListSystemReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).PageListSystem(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/PageListSystem",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).PageListSystem(ctx, req.(*PageListSystemReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_GetSystem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSystemReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).GetSystem(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/GetSystem",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).GetSystem(ctx, req.(*GetSystemReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_CreateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateRoleReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).CreateRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/CreateRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).CreateRole(ctx, req.(*CreateRoleReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_UpdateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateRoleReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).UpdateRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/UpdateRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).UpdateRole(ctx, req.(*UpdateRoleReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_DeleteRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteRoleReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).DeleteRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/DeleteRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).DeleteRole(ctx, req.(*DeleteRoleReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_ListRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListRoleReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).ListRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/ListRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).ListRole(ctx, req.(*ListRoleReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_PageListRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PageListRoleReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).PageListRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/PageListRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).PageListRole(ctx, req.(*PageListRoleReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_GetRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRoleReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).GetRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/GetRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).GetRole(ctx, req.(*GetRoleReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_CreateMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateMenuReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).CreateMenu(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/CreateMenu",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).CreateMenu(ctx, req.(*CreateMenuReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_UpdateMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateMenuReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).UpdateMenu(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/UpdateMenu",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).UpdateMenu(ctx, req.(*UpdateMenuReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_DeleteMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteMenuReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).DeleteMenu(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/DeleteMenu",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).DeleteMenu(ctx, req.(*DeleteMenuReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_ListMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListMenuReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).ListMenu(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/ListMenu",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).ListMenu(ctx, req.(*ListMenuReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_PageListMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PageListMenuReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).PageListMenu(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/PageListMenu",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).PageListMenu(ctx, req.(*PageListMenuReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_GetMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMenuReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).GetMenu(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/GetMenu",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).GetMenu(ctx, req.(*GetMenuReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Shop_ServiceDesc is the grpc.ServiceDesc for Shop service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -255,6 +1279,14 @@ var Shop_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "api.shop.admin.v1.Shop",
 	HandlerType: (*ShopServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Register",
+			Handler:    _Shop_Register_Handler,
+		},
+		{
+			MethodName: "Login",
+			Handler:    _Shop_Login_Handler,
+		},
 		{
 			MethodName: "CreateDict",
 			Handler:    _Shop_CreateDict_Handler,
@@ -278,6 +1310,126 @@ var Shop_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetDict",
 			Handler:    _Shop_GetDict_Handler,
+		},
+		{
+			MethodName: "CreateAccountUser",
+			Handler:    _Shop_CreateAccountUser_Handler,
+		},
+		{
+			MethodName: "UpdateAccountUser",
+			Handler:    _Shop_UpdateAccountUser_Handler,
+		},
+		{
+			MethodName: "DeleteAccountUser",
+			Handler:    _Shop_DeleteAccountUser_Handler,
+		},
+		{
+			MethodName: "ListAccountUser",
+			Handler:    _Shop_ListAccountUser_Handler,
+		},
+		{
+			MethodName: "PageListAccountUser",
+			Handler:    _Shop_PageListAccountUser_Handler,
+		},
+		{
+			MethodName: "GetAccountUser",
+			Handler:    _Shop_GetAccountUser_Handler,
+		},
+		{
+			MethodName: "CreateStaff",
+			Handler:    _Shop_CreateStaff_Handler,
+		},
+		{
+			MethodName: "UpdateStaff",
+			Handler:    _Shop_UpdateStaff_Handler,
+		},
+		{
+			MethodName: "DeleteStaff",
+			Handler:    _Shop_DeleteStaff_Handler,
+		},
+		{
+			MethodName: "ListStaff",
+			Handler:    _Shop_ListStaff_Handler,
+		},
+		{
+			MethodName: "PageListStaff",
+			Handler:    _Shop_PageListStaff_Handler,
+		},
+		{
+			MethodName: "GetStaff",
+			Handler:    _Shop_GetStaff_Handler,
+		},
+		{
+			MethodName: "CreateSystem",
+			Handler:    _Shop_CreateSystem_Handler,
+		},
+		{
+			MethodName: "UpdateSystem",
+			Handler:    _Shop_UpdateSystem_Handler,
+		},
+		{
+			MethodName: "DeleteSystem",
+			Handler:    _Shop_DeleteSystem_Handler,
+		},
+		{
+			MethodName: "ListSystem",
+			Handler:    _Shop_ListSystem_Handler,
+		},
+		{
+			MethodName: "PageListSystem",
+			Handler:    _Shop_PageListSystem_Handler,
+		},
+		{
+			MethodName: "GetSystem",
+			Handler:    _Shop_GetSystem_Handler,
+		},
+		{
+			MethodName: "CreateRole",
+			Handler:    _Shop_CreateRole_Handler,
+		},
+		{
+			MethodName: "UpdateRole",
+			Handler:    _Shop_UpdateRole_Handler,
+		},
+		{
+			MethodName: "DeleteRole",
+			Handler:    _Shop_DeleteRole_Handler,
+		},
+		{
+			MethodName: "ListRole",
+			Handler:    _Shop_ListRole_Handler,
+		},
+		{
+			MethodName: "PageListRole",
+			Handler:    _Shop_PageListRole_Handler,
+		},
+		{
+			MethodName: "GetRole",
+			Handler:    _Shop_GetRole_Handler,
+		},
+		{
+			MethodName: "CreateMenu",
+			Handler:    _Shop_CreateMenu_Handler,
+		},
+		{
+			MethodName: "UpdateMenu",
+			Handler:    _Shop_UpdateMenu_Handler,
+		},
+		{
+			MethodName: "DeleteMenu",
+			Handler:    _Shop_DeleteMenu_Handler,
+		},
+		{
+			MethodName: "ListMenu",
+			Handler:    _Shop_ListMenu_Handler,
+		},
+		{
+			MethodName: "PageListMenu",
+			Handler:    _Shop_PageListMenu_Handler,
+		},
+		{
+			MethodName: "GetMenu",
+			Handler:    _Shop_GetMenu_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

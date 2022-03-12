@@ -4,7 +4,6 @@ import (
 
 	// "github.com/casbin/casbin/v2"
 	// gormadapter "github.com/casbin/gorm-adapter/v3"
-	"context"
 
 	"github.com/go-redis/redis"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/conf"
@@ -20,7 +19,6 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 
-	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/migrate"
 	_ "github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/runtime"
 
 	consul "github.com/go-kratos/consul/registry"
@@ -112,9 +110,9 @@ func NewEntClient(conf *conf.Data, logger log.Logger) *ent.Client {
 		log.Fatalf("failed opening connection to db: %v", err)
 	}
 	// Run the auto migration tool.
-	if err := client.Schema.Create(context.Background(), migrate.WithDropIndex(true), migrate.WithDropColumn(true)); err != nil {
-		log.Fatalf("failed creating schema resources: %v", err)
-	}
+	// if err := client.Schema.Create(context.Background(), migrate.WithDropIndex(true), migrate.WithDropColumn(true)); err != nil {
+	// 	log.Fatalf("failed creating schema resources: %v", err)
+	// }
 	return client
 }
 
@@ -124,9 +122,9 @@ func NewRedisClient(conf *conf.Data, logger log.Logger) *redis.Client {
 		Password: "",
 		DB:       0,
 	})
-	if err := client.Ping().Err(); err != nil {
-		panic(err)
-	}
+	// if err := client.Ping().Err(); err != nil {
+	// 	panic(err)
+	// }
 	return client
 }
 

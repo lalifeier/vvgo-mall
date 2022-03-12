@@ -42,7 +42,7 @@ func (e entDict) BizDict() *biz.Dict {
 func (rp *dictRepo) CreateDict(ctx context.Context, d *biz.Dict) (int64, error) {
 	po, err := rp.data.db.Dict.
 		Create().
-		SetDictTypeID(d.DictTypeTd).
+		SetDictTypeID(d.DictTypeId).
 		SetLabel(d.Label).
 		SetValue(d.Value).
 		SetStatus(d.Status).
