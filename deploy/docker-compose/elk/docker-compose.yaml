@@ -163,26 +163,27 @@ services:
       - ./filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro,Z
       # - ./data/elk/filebeat/data:/usr/share/filebeat/data
       # - ./data/elk/filebeat/log:/usr/share/filebeat/log
-      - ./data/nginx/logs:/var/log/nginx
+      # - ./data/nginx/logs:/var/log/nginx
+      - /var/lib/docker/containers:/var/lib/docker/containers
     depends_on:
       - logstash
       - elasticsearch
       - kibana
 
-  nginx:
-    image: nginx:stable-alpine
-    container_name: nginx
-    ports:
-      - 80:80
-      - 443:443
-    networks:
-      - app_net
-    restart: always
-    privileged: true
-    environment:
-      - TZ=Asia/Shanghai
-    volumes:
-      # - ./nginx/conf.d:/etc/nginx/conf.d
-      # - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./data/nginx/logs:/var/log/nginx
-      # - /code:/var/www/html
+  # nginx:
+  #   image: nginx:stable-alpine
+  #   container_name: nginx
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #   networks:
+  #     - app_net
+  #   restart: always
+  #   privileged: true
+  #   environment:
+  #     - TZ=Asia/Shanghai
+  #   volumes:
+  #     # - ./nginx/conf.d:/etc/nginx/conf.d
+  #     # - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+  #     - ./data/nginx/logs:/var/log/nginx
+  #     # - /code:/var/www/html

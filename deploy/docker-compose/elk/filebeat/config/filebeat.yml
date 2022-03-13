@@ -1,14 +1,21 @@
 filebeat.inputs:
   - type: log
-    access:
     enabled: true
     paths:
-      - /var/log/nginx/access.log
+      #   - /var/log/nginx/access.log
+      - /var/lib/docker/containers/*/*-json.log
     fields:
-      source: nginx-access
+      # source: nginx-access
+      source: log
 
-# processors:
-#   - add_cloud_metadata: ~
+filebeat.config:
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    reload.enabled: false
+
+processors:
+  - add_cloud_metadata: ~
+  - add_docker_metadata: ~
 
 # output.console:
 #   pretty: true
@@ -21,3 +28,4 @@ output.kafka:
     reachable_only: true
   compression: gzip
   max_message_bytes: 1000000
+  required_acks: 1
