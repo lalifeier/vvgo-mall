@@ -1,0 +1,23 @@
+filebeat.inputs:
+  - type: log
+    access:
+    enabled: true
+    paths:
+      - /var/log/nginx/access.log
+    fields:
+      source: nginx-access
+
+# processors:
+#   - add_cloud_metadata: ~
+
+# output.console:
+#   pretty: true
+
+output.kafka:
+  enabled: true
+  hosts: ["kafka:9092"]
+  topic: "elk-%{[fields.source]}"
+  partition.round_robin:
+    reachable_only: true
+  compression: gzip
+  max_message_bytes: 1000000
