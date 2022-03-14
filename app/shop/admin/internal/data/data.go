@@ -33,12 +33,13 @@ import (
 )
 
 // ProviderSet is data providers.
-var ProviderSet = wire.NewSet(NewData, NewEntClient, NewRedisClient, NewKafkaProducer, NewKafkaConsumer, NewDiscovery, NewDictRepo)
+var ProviderSet = wire.NewSet(NewData, NewEntClient, NewRedisClient, NewKafkaProducer, NewKafkaConsumer, NewDiscovery, NewRegistrar, NewDictRepo)
 
 // Data .
 type Data struct {
 	log *log.Helper
 	db  *ent.Client
+	// db  *gorm.DB
 	rdb *redis.Client
 	// casbinEnforcer *casbin.Enforcer
 	// mdb *mongo.Database
@@ -71,6 +72,18 @@ func NewData(entClient *ent.Client, redisClient *redis.Client, producer sarama.A
 }
 
 func NewDiscovery(conf *conf.Registry) registry.Discovery {
+	c := consulAPI.DefaultConfig()
+	c.Address = conf.Consul.Address
+	c.Scheme = conf.Consul.Scheme
+	cli, err := consulAPI.NewClient(c)
+	if err != nil {
+		panic(err)
+	}
+	r := consul.New(cli, consul.WithHealthCheck(false))
+	return r
+}
+
+func NewRegistrar(conf *conf.Registry) registry.Registrar {
 	c := consulAPI.DefaultConfig()
 	c.Address = conf.Consul.Address
 	c.Scheme = conf.Consul.Scheme

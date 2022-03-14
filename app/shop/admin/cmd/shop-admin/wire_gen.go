@@ -34,7 +34,7 @@ func initApp(confServer *conf.Server, confData *conf.Data, auth *conf.Auth, regi
 	shopService := service.NewShopService(logger, authUsecase, dictUsecase)
 	httpServer := server.NewHTTPServer(confServer, auth, logger, shopService)
 	grpcServer := server.NewGRPCServer(confServer, auth, logger, shopService)
-	registrar := server.NewRegistrar(registry)
+	registrar := data.NewRegistrar(registry)
 	app := newApp(logger, httpServer, grpcServer, registrar)
 	return app, func() {
 		cleanup()
