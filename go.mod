@@ -19,7 +19,6 @@ require (
 	github.com/go-stack/stack v1.8.1 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/golang-jwt/jwt/v4 v4.2.0
-	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/wire v0.5.0
 	github.com/gorilla/handlers v1.5.1
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.8.0
@@ -27,7 +26,6 @@ require (
 	github.com/hashicorp/serf v0.9.7 // indirect
 	github.com/jinzhu/copier v0.3.4
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
-	github.com/kr/text v0.2.0 // indirect
 	github.com/magiconair/properties v1.8.5
 	github.com/onsi/ginkgo v1.16.5 // indirect
 	github.com/onsi/gomega v1.16.0 // indirect
