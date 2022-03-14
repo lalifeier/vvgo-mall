@@ -4,6 +4,7 @@ go 1.15
 
 require (
 	entgo.io/ent v0.10.1
+	github.com/Shopify/sarama v1.32.0
 	github.com/aliyun/alibaba-cloud-sdk-go v1.61.1446
 	github.com/envoyproxy/protoc-gen-validate v0.6.3
 	github.com/felixge/httpsnoop v1.0.2 // indirect
@@ -26,7 +27,6 @@ require (
 	github.com/hashicorp/serf v0.9.7 // indirect
 	github.com/jinzhu/copier v0.3.4
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
-	github.com/klauspost/compress v1.14.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/magiconair/properties v1.8.5
 	github.com/onsi/ginkgo v1.16.5 // indirect
@@ -43,7 +43,7 @@ require (
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.7.0 // indirect
 	go.uber.org/zap v1.20.0
-	golang.org/x/crypto v0.0.0-20220112180741-5e0467b6c7ce
+	golang.org/x/crypto v0.0.0-20220214200702-86341886e292
 	golang.org/x/sys v0.0.0-20220227234510-4e6760a101f9 // indirect
 	google.golang.org/genproto v0.0.0-20220304144024-325a89244dc8
 	google.golang.org/grpc v1.44.0

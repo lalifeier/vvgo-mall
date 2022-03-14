@@ -21,7 +21,11 @@ import (
 // initApp init kratos application.
 func initApp(confServer *conf.Server, confData *conf.Data, auth *conf.Auth, registry *conf.Registry, logger log.Logger) (*kratos.App, func(), error) {
 	authUsecase := biz.NewAuthUsecase(auth)
-	dataData, cleanup, err := data.NewData(confData, logger)
+	client := data.NewEntClient(confData, logger)
+	redisClient := data.NewRedisClient(confData, logger)
+	asyncProducer := data.NewKafkaProducer(confData)
+	consumer := data.NewKafkaConsumer(confData)
+	dataData, cleanup, err := data.NewData(client, redisClient, asyncProducer, consumer, logger)
 	if err != nil {
 		return nil, nil, err
 	}

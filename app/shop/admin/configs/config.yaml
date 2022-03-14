@@ -13,6 +13,12 @@ data:
     addr: redis:6379
     read_timeout: 0.2s
     write_timeout: 0.2s
+  kafka:
+    addrs:
+      - kafka:9092
+  mongodb:
+    uri: "mongodb://mongodb:27017"
+    database: ""
 
 trace:
   endpoint: http://jaeger:14268/api/traces

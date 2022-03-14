@@ -5,8 +5,15 @@ import (
 	// "github.com/casbin/casbin/v2"
 	// gormadapter "github.com/casbin/gorm-adapter/v3"
 
+	"context"
+	"time"
+
+	"github.com/Shopify/sarama"
 	"github.com/go-redis/redis"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/conf"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.mongodb.org/mongo-driver/mongo/readpref"
 
 	// "gorm.io/driver/mysql"
 	// "gorm.io/gorm"
@@ -26,7 +33,7 @@ import (
 )
 
 // ProviderSet is data providers.
-var ProviderSet = wire.NewSet(NewData, NewDiscovery, NewDictRepo)
+var ProviderSet = wire.NewSet(NewData, NewEntClient, NewRedisClient, NewKafkaProducer, NewKafkaConsumer, NewDiscovery, NewDictRepo)
 
 // Data .
 type Data struct {
@@ -34,24 +41,33 @@ type Data struct {
 	db  *ent.Client
 	rdb *redis.Client
 	// casbinEnforcer *casbin.Enforcer
+	// mdb *mongo.Database
+	kp sarama.AsyncProducer
+	kc sarama.Consumer
 }
 
 // NewData .
-func NewData(c *conf.Data, logger log.Logger) (*Data, func(), error) {
+func NewData(entClient *ent.Client, redisClient *redis.Client, producer sarama.AsyncProducer, consumer sarama.Consumer, logger log.Logger) (*Data, func(), error) {
 	log := log.NewHelper(log.With(logger, "module", "shop-admin/data"))
-
-	entClient := NewEntClient(c, logger)
-	redisClient := NewRedisClient(c, logger)
 	// casbinEnforcer, err := NewCasbinEnforcer(c.CasbinModelPath, db)
 
-	cleanup := func() {
-		log.Info("closing the data resources")
-	}
-	return &Data{
+	d := &Data{
 		log: log,
 		db:  entClient,
 		rdb: redisClient,
-	}, cleanup, nil
+		kp:  producer,
+		kc:  consumer,
+		// mdb: database,
+	}
+
+	cleanup := func() {
+		if err := d.db.Close(); err != nil {
+			log.Error(err)
+		}
+		d.kp.Close()
+		d.kc.Close()
+	}
+	return d, cleanup, nil
 }
 
 func NewDiscovery(conf *conf.Registry) registry.Discovery {
@@ -99,7 +115,7 @@ func NewDiscovery(conf *conf.Registry) registry.Discovery {
 // }
 
 func NewEntClient(conf *conf.Data, logger log.Logger) *ent.Client {
-	log := log.NewHelper(log.With(logger, "module", "sys-service/data/ent"))
+	log := log.NewHelper(log.With(logger, "module", "shop-admin/data/ent"))
 
 	client, err := ent.Open(
 		conf.Database.Driver,
@@ -118,13 +134,17 @@ func NewEntClient(conf *conf.Data, logger log.Logger) *ent.Client {
 
 func NewRedisClient(conf *conf.Data, logger log.Logger) *redis.Client {
 	client := redis.NewClient(&redis.Options{
-		Addr:     conf.Redis.Network,
-		Password: "",
-		DB:       0,
+		Addr:         conf.Redis.Network,
+		Password:     "",
+		DB:           0,
+		ReadTimeout:  conf.Redis.ReadTimeout.AsDuration(),
+		WriteTimeout: conf.Redis.WriteTimeout.AsDuration(),
+		PoolSize:     10,
 	})
-	// if err := client.Ping().Err(); err != nil {
-	// 	panic(err)
-	// }
+	err := client.Ping().Err()
+	if err != nil {
+		log.Fatalf("redis connect error: %v", err)
+	}
 	return client
 }
 
@@ -143,3 +163,34 @@ func NewRedisClient(conf *conf.Data, logger log.Logger) *redis.Client {
 // 	}
 // 	return e, nil
 // }
+
+func NewMongo(conf *conf.Data) *mongo.Database {
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(conf.Mongodb.Uri))
+	if err != nil {
+		panic(err)
+	}
+	err = client.Ping(ctx, readpref.Primary())
+	if err != nil {
+		panic(err)
+	}
+	return client.Database(conf.Mongodb.Database)
+}
+
+func NewKafkaProducer(conf *conf.Data) sarama.AsyncProducer {
+	c := sarama.NewConfig()
+	p, err := sarama.NewAsyncProducer(conf.Kafka.Addrs, c)
+	if err != nil {
+		panic(err)
+	}
+	return p
+}
+
+func NewKafkaConsumer(conf *conf.Data) sarama.Consumer {
+	c := sarama.NewConfig()
+	p, err := sarama.NewConsumer(conf.Kafka.Addrs, c)
+	if err != nil {
+		panic(err)
+	}
+	return p
+}
