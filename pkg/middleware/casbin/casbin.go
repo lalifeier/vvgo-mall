@@ -25,9 +25,13 @@ func Server(enforcer *casbin.Enforcer) middleware.Middleware {
 				if tr.Kind() == transport.KindHTTP {
 					h := tr.(*transporthttp.Transport)
 
+					// enforcer.AddRoleForUser("test1", "test")
+					// enforcer.AddRoleForUser("test2", "admin")
+					// enforcer.AddPermissionForUser("admin", "/api/register", "POST")
+					// enforcer.AddPermissionForUser("admin", "/api/login", "POST")
 					obj := h.Request().URL.Path
 					act := h.Request().Method
-					sub := ""
+					sub := "test1"
 					println(sub, obj, act)
 					if ok, _ := enforcer.Enforce(sub, obj, act); !ok {
 						return nil, ErrNoPermission
