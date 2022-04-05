@@ -3,6 +3,7 @@ CREATE TABLE `product_brand` (
     `name` varchar(255)  NOT NULL DEFAULT '' COMMENT '品牌名称',
     `desc` varchar(255)  NOT NULL DEFAULT '' COMMENT '品牌描述',
     `logo_url` varchar(255)  NOT NULL DEFAULT '' COMMENT '品牌logo图片',
+    `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
     `create_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
     `create_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建人staff_id',
     `update_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',

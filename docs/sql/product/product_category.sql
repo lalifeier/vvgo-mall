@@ -1,10 +1,11 @@
 CREATE TABLE `product_category` (
     `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类ID',
-    `pid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '父ID',
+    `pid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '父分类ID',
     `name` varchar(255)  NOT NULL DEFAULT '' COMMENT '分类名称',
     `desc` varchar(255)  NOT NULL DEFAULT '' COMMENT '分类描述',
     `pic_url` varchar(255)  NOT NULL DEFAULT '' COMMENT '分类图片',
     `path` varchar(255)  NOT NULL DEFAULT '' COMMENT '分类地址{pid}-{child_id}-...',
+    `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
     `create_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
     `create_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建人staff_id',
     `update_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',

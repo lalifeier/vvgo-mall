@@ -6,8 +6,23 @@ import (
 	"entgo.io/ent/dialect/sql"
 )
 
-// Dict is the predicate function for dict builders.
-type Dict func(*sql.Selector)
+// Api is the predicate function for api builders.
+type Api func(*sql.Selector)
+
+// DictData is the predicate function for dictdata builders.
+type DictData func(*sql.Selector)
 
 // DictType is the predicate function for dicttype builders.
 type DictType func(*sql.Selector)
+
+// Permission is the predicate function for permission builders.
+type Permission func(*sql.Selector)
+
+// Role is the predicate function for role builders.
+type Role func(*sql.Selector)
+
+// User is the predicate function for user builders.
+type User func(*sql.Selector)
+
+// UserRole is the predicate function for userrole builders.
+type UserRole func(*sql.Selector)

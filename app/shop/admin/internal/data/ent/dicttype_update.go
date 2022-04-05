@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"time"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
@@ -27,6 +28,20 @@ func (dtu *DictTypeUpdate) Where(ps ...predicate.DictType) *DictTypeUpdate {
 	return dtu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (dtu *DictTypeUpdate) SetCreatedAt(t time.Time) *DictTypeUpdate {
+	dtu.mutation.SetCreatedAt(t)
+	return dtu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (dtu *DictTypeUpdate) SetNillableCreatedAt(t *time.Time) *DictTypeUpdate {
+	if t != nil {
+		dtu.SetCreatedAt(*t)
+	}
+	return dtu
+}
+
 // SetCreatedBy sets the "created_by" field.
 func (dtu *DictTypeUpdate) SetCreatedBy(i int64) *DictTypeUpdate {
 	dtu.mutation.ResetCreatedBy()
@@ -45,6 +60,12 @@ func (dtu *DictTypeUpdate) SetNillableCreatedBy(i *int64) *DictTypeUpdate {
 // AddCreatedBy adds i to the "created_by" field.
 func (dtu *DictTypeUpdate) AddCreatedBy(i int64) *DictTypeUpdate {
 	dtu.mutation.AddCreatedBy(i)
+	return dtu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (dtu *DictTypeUpdate) SetUpdatedAt(t time.Time) *DictTypeUpdate {
+	dtu.mutation.SetUpdatedAt(t)
 	return dtu
 }
 
@@ -224,6 +245,13 @@ func (dtu *DictTypeUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+	if value, ok := dtu.mutation.CreatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeTime,
+			Value:  value,
+			Column: dicttype.FieldCreatedAt,
+		})
+	}
 	if value, ok := dtu.mutation.CreatedBy(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
@@ -313,6 +341,20 @@ type DictTypeUpdateOne struct {
 	mutation *DictTypeMutation
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (dtuo *DictTypeUpdateOne) SetCreatedAt(t time.Time) *DictTypeUpdateOne {
+	dtuo.mutation.SetCreatedAt(t)
+	return dtuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (dtuo *DictTypeUpdateOne) SetNillableCreatedAt(t *time.Time) *DictTypeUpdateOne {
+	if t != nil {
+		dtuo.SetCreatedAt(*t)
+	}
+	return dtuo
+}
+
 // SetCreatedBy sets the "created_by" field.
 func (dtuo *DictTypeUpdateOne) SetCreatedBy(i int64) *DictTypeUpdateOne {
 	dtuo.mutation.ResetCreatedBy()
@@ -331,6 +373,12 @@ func (dtuo *DictTypeUpdateOne) SetNillableCreatedBy(i *int64) *DictTypeUpdateOne
 // AddCreatedBy adds i to the "created_by" field.
 func (dtuo *DictTypeUpdateOne) AddCreatedBy(i int64) *DictTypeUpdateOne {
 	dtuo.mutation.AddCreatedBy(i)
+	return dtuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (dtuo *DictTypeUpdateOne) SetUpdatedAt(t time.Time) *DictTypeUpdateOne {
+	dtuo.mutation.SetUpdatedAt(t)
 	return dtuo
 }
 
@@ -533,6 +581,13 @@ func (dtuo *DictTypeUpdateOne) sqlSave(ctx context.Context) (_node *DictType, er
 				ps[i](selector)
 			}
 		}
+	}
+	if value, ok := dtuo.mutation.CreatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeTime,
+			Value:  value,
+			Column: dicttype.FieldCreatedAt,
+		})
 	}
 	if value, ok := dtuo.mutation.CreatedBy(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{

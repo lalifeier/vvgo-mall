@@ -32,7 +32,7 @@ services:
       - 6379:6379
     networks:
       - app_net
-    # restart: always
+    restart: always
     environment:
       - TZ=Asia/Shanghai
     volumes:
@@ -41,6 +41,169 @@ services:
     command:
       - redis-server
       - /etc/redis/redis.conf
+
+  zookeeper:
+    image: "bitnami/zookeeper:latest"
+    container_name: zookeeper
+    hostname: zookeeper
+    ports:
+      - 2181:2181
+    networks:
+      - app_net
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    # volumes:
+    #   - /data/zookeeper:/bitnami/zookeeper
+
+  kafka:
+    image: "bitnami/kafka:latest"
+    container_name: kafka
+    hostname: kafka
+    ports:
+      - 9092:9092
+      - 9093:9093
+      - 9999:9999
+    networks:
+      - app_net
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      # 允许使用PLAINTEXT协议(镜像中默认为关闭,需要手动开启)
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://127.0.0.1:9092,EXTERNAL://localhost:9093
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=CLIENT
+      # 关闭自动创建 topic 功能
+      # - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=false
+      # 全局消息过期时间 6 小时(测试时可以设置短一点)
+      # - KAFKA_CFG_LOG_RETENTION_HOURS=6
+      # 开启JMX监控
+      - JMX_PORT=9999
+    # volumes:
+    #   - /data/kafka:/bitnami/kafka
+    depends_on:
+      - zookeeper
+
+  efak:
+    image: nickzurich/kafka-eagle:latest
+    container_name: efak
+    ports:
+      - 8048:8048
+    networks:
+      - app_net
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - EFAK_CLUSTER_ZK_LIST=zookeeper:2181
+    depends_on:
+      - kafka
+
+  elasticsearch:
+    build:
+      context: elasticsearch/
+      args:
+        ELASTIC_VERSION: $ELASTIC_VERSION
+    container_name: elasticsearch
+    hostname: elasticsearch
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - app_net
+    restart: always
+    environment:
+      TZ: Asia/Shanghai
+      ES_JAVA_OPTS: -Xms256m -Xmx256m
+      discovery.type: single-node
+      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
+    volumes:
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,z
+      # - ./elasticsearch/cert/elastic-certificates.p12:/usr/share/elasticsearch/config/elastic-certificates.p12
+      # - ./data/elk/elasticsearch/data:/usr/share/elasticsearch/data:z
+      # - ./data/elk/elasticsearch/plugins:/usr/share/elasticsearch/plugins:z
+      # - ./data/elk/elasticsearch/logs:/usr/share/elasticsearch/logs:z
+    # ulimits:
+    #   memlock:
+    #     soft: -1
+    #     hard: -1
+
+  kibana:
+    build:
+      context: kibana/
+      args:
+        ELASTIC_VERSION: ${ELASTIC_VERSION}
+    container_name: kibana
+    ports:
+      - 5601:5601
+    networks:
+      - app_net
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - KIBANA_SYSTEM_PASSWORD=${KIBANA_SYSTEM_PASSWORD}
+    volumes:
+      - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro,Z
+    depends_on:
+      - elasticsearch
+
+  logstash:
+    build:
+      context: logstash/
+      args:
+        ELASTIC_VERSION: ${ELASTIC_VERSION}
+    container_name: logstash
+    ports:
+      - 5044:5044
+      # - "5000:5000/tcp"
+      # - "5000:5000/udp"
+      # - "9600:9600"
+    networks:
+      - app_net
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - LS_JAVA_OPTS=-Xmx256m -Xms256m
+      - LOGSTASH_SYSTEM_PASSWORD=${LOGSTASH_SYSTEM_PASSWORD}
+    volumes:
+      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro,Z
+      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro,Z
+      # - ./data/elk/logstash/data:/usr/share/logstash/data
+    depends_on:
+      - elasticsearch
+
+  filebeat:
+    build:
+      context: filebeat/
+      args:
+        ELASTIC_VERSION: ${ELASTIC_VERSION}
+    container_name: filebeat
+    user: root
+    command:
+      - -e
+      - --strict.perms=false
+    volumes:
+    networks:
+      - app_net
+    restart: always
+    # privileged: true
+    environment:
+      - TZ=Asia/Shanghai
+      # - ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
+    volumes:
+      - ./filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro,Z
+      # - ./data/elk/filebeat/data:/usr/share/filebeat/data
+      # - ./data/elk/filebeat/log:/usr/share/filebeat/log
+      # - ./data/nginx/logs:/var/log/nginx
+      - /var/lib/docker/containers:/var/lib/docker/containers
+    depends_on:
+      - logstash
+      - elasticsearch
+      - kibana
 
   consul:
     image: bitnami/consul:latest
@@ -77,6 +240,9 @@ services:
     restart: always
     environment:
       COLLECTOR_ZIPKIN_HOST_PORT: 9411
+      # SPAN_STORAGE_TYPE: elasticsearch
+      # ES_SERVER_URLS: http://elasticsearch:9200
+      # LOG_LEVEL: debug
 
   prometheus:
     image: prom/prometheus
@@ -110,20 +276,6 @@ services:
       # - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
       - ./data/grafana/data:/var/lib/grafana
-
-  node_exporter:
-    image: quay.io/prometheus/node-exporter:latest
-    container_name: node_exporter
-    hostname: node_exporter
-    ports:
-      - 9100:9100
-    networks:
-      - app_net
-    restart: always
-    environment:
-      - TZ=Asia/Shanghai
-    volumes:
-      - "/:/host:ro,rslave"
 # dtm:
 #   image: yedf/dtm:latest
 #   container_name: dtm

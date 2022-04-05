@@ -19,7 +19,7 @@ type AuditMixin struct {
 // Fields of the AuditMixin.
 func (AuditMixin) Fields() []ent.Field {
 	return []ent.Field{
-		field.Time("created_at").Immutable().SchemaType(map[string]string{
+		field.Time("created_at").SchemaType(map[string]string{
 			dialect.MySQL: "DATETIME", // Override MySQL.
 		}).Default(time.Now).Comment("创建时间"),
 
@@ -27,7 +27,7 @@ func (AuditMixin) Fields() []ent.Field {
 			dialect.MySQL: "int(11)unsigned", // Override MySQL.
 		}).Default(0).Comment("更新人"),
 
-		field.Time("updated_at").Immutable().SchemaType(map[string]string{
+		field.Time("updated_at").SchemaType(map[string]string{
 			dialect.MySQL: "DATETIME", // Override MySQL.
 		}).Default(time.Now).UpdateDefault(time.Now).Comment("更新时间"),
 

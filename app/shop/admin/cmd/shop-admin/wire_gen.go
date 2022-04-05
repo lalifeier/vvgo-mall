@@ -19,20 +19,25 @@ import (
 // Injectors from wire.go:
 
 // initApp init kratos application.
-func initApp(confServer *conf.Server, confData *conf.Data, auth *conf.Auth, registry *conf.Registry, logger log.Logger) (*kratos.App, func(), error) {
-	authUsecase := biz.NewAuthUsecase(auth)
+func initApp(confServer *conf.Server, confData *conf.Data, casbin *conf.Casbin, auth *conf.Auth, registry *conf.Registry, logger log.Logger) (*kratos.App, func(), error) {
 	client := data.NewEntClient(confData, logger)
 	redisClient := data.NewRedisClient(confData, logger)
+	enforcer := data.NewEnforcer(confData)
 	asyncProducer := data.NewKafkaProducer(confData)
 	consumer := data.NewKafkaConsumer(confData)
-	dataData, cleanup, err := data.NewData(client, redisClient, asyncProducer, consumer, logger)
+	dataData, cleanup, err := data.NewData(client, redisClient, enforcer, asyncProducer, consumer, logger)
 	if err != nil {
 		return nil, nil, err
 	}
-	dictRepo := data.NewDictRepo(dataData, logger)
-	dictUsecase := biz.NewDictUsecase(dictRepo, logger)
-	shopService := service.NewShopService(logger, authUsecase, dictUsecase)
-	httpServer := server.NewHTTPServer(confServer, auth, logger, shopService)
+	userRepo := data.NewUserRepo(dataData, logger)
+	userUsecase := biz.NewUserUsecase(userRepo, enforcer, logger)
+	roleRepo := data.NewRoleRepo(dataData, logger)
+	roleUsecase := biz.NewRoleUsecase(roleRepo, enforcer, logger)
+	authUsecase := biz.NewAuthUsecase(auth)
+	dictDataRepo := data.NewDictDataRepo(dataData, logger)
+	dictDataUsecase := biz.NewDictDataUsecase(dictDataRepo, logger)
+	shopService := service.NewShopService(logger, userUsecase, roleUsecase, authUsecase, dictDataUsecase)
+	httpServer := server.NewHTTPServer(confServer, auth, logger, shopService, enforcer)
 	grpcServer := server.NewGRPCServer(confServer, auth, logger, shopService)
 	registrar := data.NewRegistrar(registry)
 	app := newApp(logger, httpServer, grpcServer, registrar)

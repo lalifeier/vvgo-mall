@@ -6,11 +6,14 @@ import (
 	"github.com/gorilla/handlers"
 	v1 "github.com/lalifeier/vvgo-mall/api/shop/admin/v1"
 
+	"github.com/casbin/casbin/v2"
 	prom "github.com/go-kratos/kratos/contrib/metrics/prometheus/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware/auth/jwt"
 	"github.com/go-kratos/kratos/v2/middleware/logging"
+	"github.com/go-kratos/kratos/v2/middleware/metadata"
 	"github.com/go-kratos/kratos/v2/middleware/metrics"
+	"github.com/go-kratos/kratos/v2/middleware/ratelimit"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/middleware/selector"
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
@@ -19,21 +22,10 @@ import (
 	jwtv4 "github.com/golang-jwt/jwt/v4"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/conf"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/service"
+	casbinMiddleware "github.com/lalifeier/vvgo-mall/pkg/middleware/casbin"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
-
-// func NewWhiteListMatcher() selector.MatchFunc {
-// 	whiteList := make(map[string]struct{})
-// 	// whiteList["/shop.interface.v1.ShopInterface/Login"] = struct{}{}
-// 	// whiteList["/shop.interface.v1.ShopInterface/Register"] = struct{}{}
-// 	return func(operation string) bool {
-// 		if _, ok := whiteList[operation]; ok {
-// 			return false
-// 		}
-// 		return true
-// 	}
-// }
 
 var (
 	_metricSeconds = prometheus.NewHistogramVec(prometheus.HistogramOpts{
@@ -65,7 +57,7 @@ func NewWhiteListMatcher() selector.MatchFunc {
 }
 
 // NewHTTPServer new a HTTP server.
-func NewHTTPServer(c *conf.Server, ac *conf.Auth, logger log.Logger, shopService *service.ShopService) *http.Server {
+func NewHTTPServer(c *conf.Server, ac *conf.Auth, logger log.Logger, shopService *service.ShopService, enforcer *casbin.Enforcer) *http.Server {
 	var opts = []http.ServerOption{
 		http.Middleware(
 			recovery.Recovery(),
@@ -75,7 +67,9 @@ func NewHTTPServer(c *conf.Server, ac *conf.Auth, logger log.Logger, shopService
 				metrics.WithSeconds(prom.NewHistogram(_metricSeconds)),
 				metrics.WithRequests(prom.NewCounter(_metricRequests)),
 			),
-			// ratelimit.Server(),
+			ratelimit.Server(),
+			metadata.Server(),
+			casbinMiddleware.Server(enforcer),
 			selector.Server(
 				jwt.Server(func(token *jwtv4.Token) (interface{}, error) {
 					return []byte(ac.ApiKey), nil

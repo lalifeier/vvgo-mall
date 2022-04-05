@@ -5,12 +5,14 @@ server:
   grpc:
     addr: 0.0.0.0:9000
     timeout: 1s
+
 data:
   database:
     driver: mysql
     source: root:123456@tcp(mysql:3306)/vvgo-mall?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
   redis:
     addr: redis:6379
+    dial_timeout: 0.1s
     read_timeout: 0.2s
     write_timeout: 0.2s
   kafka:
@@ -26,3 +28,10 @@ trace:
 auth:
   service_key: some-secret-key
   api_key: some-secret-key-for-forntend
+
+casbin:
+  enable: true
+  debug: false
+  model_path: rbac_model.conf
+  auto_load: false
+  auto_load_internal: 60

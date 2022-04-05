@@ -1,3 +1,7 @@
+后台
+运营后台 manager
+商家后台 seller
+
 用户体系
 账号服务 account
 权限服务 auth
@@ -22,4 +26,10 @@
 
 售后服务 afterSale
 
+搜索服务 search
+
 http://127.0.0.1:8001/q/swagger-ui
+
+deploy-server.com
+srv-data.com
+nginx-gateway.com

@@ -106,7 +106,7 @@ func (dtq *DictTypeQuery) FirstIDX(ctx context.Context) int64 {
 }
 
 // Only returns a single DictType entity found by the query, ensuring it only returns one.
-// Returns a *NotSingularError when exactly one DictType entity is not found.
+// Returns a *NotSingularError when more than one DictType entity is found.
 // Returns a *NotFoundError when no DictType entities are found.
 func (dtq *DictTypeQuery) Only(ctx context.Context) (*DictType, error) {
 	nodes, err := dtq.Limit(2).All(ctx)
@@ -133,7 +133,7 @@ func (dtq *DictTypeQuery) OnlyX(ctx context.Context) *DictType {
 }
 
 // OnlyID is like Only, but returns the only DictType ID in the query.
-// Returns a *NotSingularError when exactly one DictType ID is not found.
+// Returns a *NotSingularError when more than one DictType ID is found.
 // Returns a *NotFoundError when no entities are found.
 func (dtq *DictTypeQuery) OnlyID(ctx context.Context) (id int64, err error) {
 	var ids []int64
@@ -242,8 +242,9 @@ func (dtq *DictTypeQuery) Clone() *DictTypeQuery {
 		order:      append([]OrderFunc{}, dtq.order...),
 		predicates: append([]predicate.DictType{}, dtq.predicates...),
 		// clone intermediate query.
-		sql:  dtq.sql.Clone(),
-		path: dtq.path,
+		sql:    dtq.sql.Clone(),
+		path:   dtq.path,
+		unique: dtq.unique,
 	}
 }
 
@@ -692,9 +693,7 @@ func (dtgb *DictTypeGroupBy) sqlQuery() *sql.Selector {
 		for _, f := range dtgb.fields {
 			columns = append(columns, selector.C(f))
 		}
-		for _, c := range aggregation {
-			columns = append(columns, c)
-		}
+		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
 	return selector.GroupBy(selector.Columns(dtgb.fields...)...)

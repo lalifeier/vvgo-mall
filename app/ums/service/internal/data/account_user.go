@@ -8,7 +8,7 @@ import (
 	"github.com/lalifeier/vvgo-mall/app/ums/service/internal/biz"
 	"github.com/lalifeier/vvgo-mall/app/ums/service/internal/data/ent"
 	"github.com/lalifeier/vvgo-mall/app/ums/service/internal/data/ent/accountuser"
-	"github.com/lalifeier/vvgo-mall/pkg/utils/pagination"
+	"github.com/lalifeier/vvgo-mall/pkg/util/pagination"
 	"github.com/spf13/cast"
 )
 

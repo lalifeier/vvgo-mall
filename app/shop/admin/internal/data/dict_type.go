@@ -8,7 +8,7 @@ import (
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/dicttype"
 
-	"github.com/lalifeier/vvgo-mall/pkg/utils/pagination"
+	"github.com/lalifeier/vvgo-mall/pkg/util/pagination"
 )
 
 var _ biz.DictTypeRepo = (*dictTypeRepo)(nil)

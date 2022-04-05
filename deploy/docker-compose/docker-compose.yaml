@@ -5,32 +5,47 @@ networks:
     external: true
 
 services:
-  nginx:
-    image: nginx:stable-alpine
-    container_name: nginx
-    ports:
-      - 80:80
-      - 443:443
-    networks:
-      - app_net
-    restart: always
-    privileged: true
-    environment:
-      - TZ=Asia/Shanghai
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      # - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./data/nginx/logs:/var/log/nginx
-      # - /code:/var/www/html
-    depends_on:
-      - shop-admin
+  # openresty:
+  # image: openresty/openresty:alpine
+  # container_name: openresty
+  # ports:
+  #   - 80:80
+  #   - 443:443
+  # networks:
+  #   - app_net
+  # restart: always
+  # environment:
+  #   - TZ=Asia/Shanghai
+  # volumes:
+  #   - ./openresty/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
+  #   - ./openresty/conf.d:/etc/nginx/conf.d
+  #   - ./openresty/lua:/etc/nginx/lua
+  #   - ./data/openresty/logs:/usr/local/openresty/nginx/logs
+  #   # - /code:/var/www/html
 
-  shop-admin:
-    # image: cosmtrek/air:latest
-    build:
-      context: ./air
-    container_name: shop-admin
-    working_dir: /go/src/github.com/vvgo-mall/app/shop/admin
+  # nginx:
+  # image: nginx:alpine
+  # container_name: nginx
+  # ports:
+  #   - 80:80
+  #   - 443:443
+  # networks:
+  #   - app_net
+  # restart: always
+  # privileged: true
+  # environment:
+  #   - TZ=Asia/Shanghai
+  # volumes:
+  #   - ./nginx/conf.d:/etc/nginx/conf.d
+  #   # - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+  #   - ./data/nginx/logs:/var/log/nginx
+  #   # - /code:/var/www/html
+  # depends_on:
+  #   - shop-admin
+
+  vvgo-mall:
+    image: lyumikael/gomodd:v1.0.0
+    container_name: vvgo-mall
     ports:
       - 8000:8000
     networks:
@@ -40,50 +55,6 @@ services:
     environment:
       - TZ=Asia/Shanghai
       - GOPROXY=https://goproxy.cn,direct
+    working_dir: /usr/local/go/src/github.com/lalifeier/vvgo-mall
     volumes:
-      - ../../:/go/src/github.com/vvgo-mall
-    # depends_on:
-    #   - account-service
-    #   - auth-service
-
-  # account-service:
-  #   # image: cosmtrek/air:latest
-  #   build:
-  #     context: ./air
-  #   container_name: account-service
-  #   working_dir: /go/src/github.com/vvgo-mall/app/account/service
-  #   ports:
-  #     - 8001:8001
-  #   networks:
-  #     - app_net
-  #   privileged: true
-  #   restart: always
-  #   environment:
-  #     - TZ=Asia/Shanghai
-  #     - GOPROXY=https://goproxy.cn,direct
-  #   volumes:
-  #     - ../../:/go/src/github.com/vvgo-mall
-  #   depends_on:
-  #     - mysql
-  #     - redis
-
-  # auth-service:
-  #   # image: cosmtrek/air:latest
-  #   build:
-  #     context: ./air
-  #   container_name: auth-service
-  #   working_dir: /go/src/github.com/vvgo-mall/app/auth/service
-  #   ports:
-  #     - 8002:8002
-  #   networks:
-  #     - app_net
-  #   privileged: true
-  #   restart: always
-  #   environment:
-  #     - TZ=Asia/Shanghai
-  #     - GOPROXY=https://goproxy.cn,direct
-  #   volumes:
-  #     - ../../:/go/src/github.com/vvgo-mall
-  #   depends_on:
-  #     - mysql
-  #     - redis
+      - ../..:/usr/local/go/src/github.com/lalifeier/vvgo-mall

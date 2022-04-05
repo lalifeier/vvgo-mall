@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package entpb;
+
+import "options/opts.proto";
+
+option go_package = "github.com/lalifeier/vvgo-mall/ent/proto/entpb";
+
+message User {
+  option (ent.schema).gen = true;
+  int64 id = 1;
+  int64 uid = 2;
+  string name = 3;
+  string phone = 4;
+  string email = 5;
+  string nickname = 6;
+  string avatar = 7;
+  string gender = 8;
+  string remark = 9;
+  int64 dept_id = 10;
+  int64 created_at = 11;
+  int64 created_by = 12;
+  int64 updated_at = 13;
+  int64 updated_by = 14;
+}

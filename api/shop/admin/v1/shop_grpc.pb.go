@@ -24,12 +24,30 @@ const _ = grpc.SupportPackageIsVersion7
 type ShopClient interface {
 	Register(ctx context.Context, in *RegisterReq, opts ...grpc.CallOption) (*RegisterResp, error)
 	Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
-	CreateDict(ctx context.Context, in *CreateDictReq, opts ...grpc.CallOption) (*CreateDictResp, error)
-	UpdateDict(ctx context.Context, in *UpdateDictReq, opts ...grpc.CallOption) (*UpdateDictResp, error)
-	DeleteDict(ctx context.Context, in *DeleteDictReq, opts ...grpc.CallOption) (*DeleteDictResp, error)
-	ListDict(ctx context.Context, in *ListDictReq, opts ...grpc.CallOption) (*ListDictResp, error)
-	PageListDict(ctx context.Context, in *PageListDictReq, opts ...grpc.CallOption) (*PageListDictResp, error)
-	GetDict(ctx context.Context, in *GetDictReq, opts ...grpc.CallOption) (*GetDictResp, error)
+	CreateUser(ctx context.Context, in *CreateUserReq, opts ...grpc.CallOption) (*CreateUserResp, error)
+	UpdateUser(ctx context.Context, in *UpdateUserReq, opts ...grpc.CallOption) (*UpdateUserResp, error)
+	DeleteUser(ctx context.Context, in *DeleteUserReq, opts ...grpc.CallOption) (*DeleteUserResp, error)
+	ListUser(ctx context.Context, in *ListUserReq, opts ...grpc.CallOption) (*ListUserResp, error)
+	PageListUser(ctx context.Context, in *PageListUserReq, opts ...grpc.CallOption) (*PageListUserResp, error)
+	GetUser(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*GetUserResp, error)
+	CreateRole(ctx context.Context, in *CreateRoleReq, opts ...grpc.CallOption) (*CreateRoleResp, error)
+	UpdateRole(ctx context.Context, in *UpdateRoleReq, opts ...grpc.CallOption) (*UpdateRoleResp, error)
+	DeleteRole(ctx context.Context, in *DeleteRoleReq, opts ...grpc.CallOption) (*DeleteRoleResp, error)
+	ListRole(ctx context.Context, in *ListRoleReq, opts ...grpc.CallOption) (*ListRoleResp, error)
+	PageListRole(ctx context.Context, in *PageListRoleReq, opts ...grpc.CallOption) (*PageListRoleResp, error)
+	GetRole(ctx context.Context, in *GetRoleReq, opts ...grpc.CallOption) (*GetRoleResp, error)
+	CreateMenu(ctx context.Context, in *CreateMenuReq, opts ...grpc.CallOption) (*CreateMenuResp, error)
+	UpdateMenu(ctx context.Context, in *UpdateMenuReq, opts ...grpc.CallOption) (*UpdateMenuResp, error)
+	DeleteMenu(ctx context.Context, in *DeleteMenuReq, opts ...grpc.CallOption) (*DeleteMenuResp, error)
+	ListMenu(ctx context.Context, in *ListMenuReq, opts ...grpc.CallOption) (*ListMenuResp, error)
+	PageListMenu(ctx context.Context, in *PageListMenuReq, opts ...grpc.CallOption) (*PageListMenuResp, error)
+	GetMenu(ctx context.Context, in *GetMenuReq, opts ...grpc.CallOption) (*GetMenuResp, error)
+	CreateDictData(ctx context.Context, in *CreateDictDataReq, opts ...grpc.CallOption) (*CreateDictDataResp, error)
+	UpdateDictData(ctx context.Context, in *UpdateDictDataReq, opts ...grpc.CallOption) (*UpdateDictDataResp, error)
+	DeleteDictData(ctx context.Context, in *DeleteDictDataReq, opts ...grpc.CallOption) (*DeleteDictDataResp, error)
+	ListDictData(ctx context.Context, in *ListDictDataReq, opts ...grpc.CallOption) (*ListDictDataResp, error)
+	PageListDictData(ctx context.Context, in *PageListDictDataReq, opts ...grpc.CallOption) (*PageListDictDataResp, error)
+	GetDictData(ctx context.Context, in *GetDictDataReq, opts ...grpc.CallOption) (*GetDictDataResp, error)
 	CreateAccountUser(ctx context.Context, in *CreateAccountUserReq, opts ...grpc.CallOption) (*CreateAccountUserResp, error)
 	UpdateAccountUser(ctx context.Context, in *UpdateAccountUserReq, opts ...grpc.CallOption) (*UpdateAccountUserResp, error)
 	DeleteAccountUser(ctx context.Context, in *DeleteAccountUserReq, opts ...grpc.CallOption) (*DeleteAccountUserResp, error)
@@ -48,18 +66,6 @@ type ShopClient interface {
 	ListSystem(ctx context.Context, in *ListSystemReq, opts ...grpc.CallOption) (*ListSystemResp, error)
 	PageListSystem(ctx context.Context, in *PageListSystemReq, opts ...grpc.CallOption) (*PageListSystemResp, error)
 	GetSystem(ctx context.Context, in *GetSystemReq, opts ...grpc.CallOption) (*GetSystemResp, error)
-	CreateRole(ctx context.Context, in *CreateRoleReq, opts ...grpc.CallOption) (*CreateRoleResp, error)
-	UpdateRole(ctx context.Context, in *UpdateRoleReq, opts ...grpc.CallOption) (*UpdateRoleResp, error)
-	DeleteRole(ctx context.Context, in *DeleteRoleReq, opts ...grpc.CallOption) (*DeleteRoleResp, error)
-	ListRole(ctx context.Context, in *ListRoleReq, opts ...grpc.CallOption) (*ListRoleResp, error)
-	PageListRole(ctx context.Context, in *PageListRoleReq, opts ...grpc.CallOption) (*PageListRoleResp, error)
-	GetRole(ctx context.Context, in *GetRoleReq, opts ...grpc.CallOption) (*GetRoleResp, error)
-	CreateMenu(ctx context.Context, in *CreateMenuReq, opts ...grpc.CallOption) (*CreateMenuResp, error)
-	UpdateMenu(ctx context.Context, in *UpdateMenuReq, opts ...grpc.CallOption) (*UpdateMenuResp, error)
-	DeleteMenu(ctx context.Context, in *DeleteMenuReq, opts ...grpc.CallOption) (*DeleteMenuResp, error)
-	ListMenu(ctx context.Context, in *ListMenuReq, opts ...grpc.CallOption) (*ListMenuResp, error)
-	PageListMenu(ctx context.Context, in *PageListMenuReq, opts ...grpc.CallOption) (*PageListMenuResp, error)
-	GetMenu(ctx context.Context, in *GetMenuReq, opts ...grpc.CallOption) (*GetMenuResp, error)
 }
 
 type shopClient struct {
@@ -88,54 +94,216 @@ func (c *shopClient) Login(ctx context.Context, in *LoginReq, opts ...grpc.CallO
 	return out, nil
 }
 
-func (c *shopClient) CreateDict(ctx context.Context, in *CreateDictReq, opts ...grpc.CallOption) (*CreateDictResp, error) {
-	out := new(CreateDictResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/CreateDict", in, out, opts...)
+func (c *shopClient) CreateUser(ctx context.Context, in *CreateUserReq, opts ...grpc.CallOption) (*CreateUserResp, error) {
+	out := new(CreateUserResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/CreateUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *shopClient) UpdateDict(ctx context.Context, in *UpdateDictReq, opts ...grpc.CallOption) (*UpdateDictResp, error) {
-	out := new(UpdateDictResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/UpdateDict", in, out, opts...)
+func (c *shopClient) UpdateUser(ctx context.Context, in *UpdateUserReq, opts ...grpc.CallOption) (*UpdateUserResp, error) {
+	out := new(UpdateUserResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/UpdateUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *shopClient) DeleteDict(ctx context.Context, in *DeleteDictReq, opts ...grpc.CallOption) (*DeleteDictResp, error) {
-	out := new(DeleteDictResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/DeleteDict", in, out, opts...)
+func (c *shopClient) DeleteUser(ctx context.Context, in *DeleteUserReq, opts ...grpc.CallOption) (*DeleteUserResp, error) {
+	out := new(DeleteUserResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/DeleteUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *shopClient) ListDict(ctx context.Context, in *ListDictReq, opts ...grpc.CallOption) (*ListDictResp, error) {
-	out := new(ListDictResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/ListDict", in, out, opts...)
+func (c *shopClient) ListUser(ctx context.Context, in *ListUserReq, opts ...grpc.CallOption) (*ListUserResp, error) {
+	out := new(ListUserResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/ListUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *shopClient) PageListDict(ctx context.Context, in *PageListDictReq, opts ...grpc.CallOption) (*PageListDictResp, error) {
-	out := new(PageListDictResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/PageListDict", in, out, opts...)
+func (c *shopClient) PageListUser(ctx context.Context, in *PageListUserReq, opts ...grpc.CallOption) (*PageListUserResp, error) {
+	out := new(PageListUserResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/PageListUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *shopClient) GetDict(ctx context.Context, in *GetDictReq, opts ...grpc.CallOption) (*GetDictResp, error) {
-	out := new(GetDictResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/GetDict", in, out, opts...)
+func (c *shopClient) GetUser(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*GetUserResp, error) {
+	out := new(GetUserResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/GetUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) CreateRole(ctx context.Context, in *CreateRoleReq, opts ...grpc.CallOption) (*CreateRoleResp, error) {
+	out := new(CreateRoleResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/CreateRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) UpdateRole(ctx context.Context, in *UpdateRoleReq, opts ...grpc.CallOption) (*UpdateRoleResp, error) {
+	out := new(UpdateRoleResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/UpdateRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) DeleteRole(ctx context.Context, in *DeleteRoleReq, opts ...grpc.CallOption) (*DeleteRoleResp, error) {
+	out := new(DeleteRoleResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/DeleteRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) ListRole(ctx context.Context, in *ListRoleReq, opts ...grpc.CallOption) (*ListRoleResp, error) {
+	out := new(ListRoleResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/ListRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) PageListRole(ctx context.Context, in *PageListRoleReq, opts ...grpc.CallOption) (*PageListRoleResp, error) {
+	out := new(PageListRoleResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/PageListRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) GetRole(ctx context.Context, in *GetRoleReq, opts ...grpc.CallOption) (*GetRoleResp, error) {
+	out := new(GetRoleResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/GetRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) CreateMenu(ctx context.Context, in *CreateMenuReq, opts ...grpc.CallOption) (*CreateMenuResp, error) {
+	out := new(CreateMenuResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/CreateMenu", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) UpdateMenu(ctx context.Context, in *UpdateMenuReq, opts ...grpc.CallOption) (*UpdateMenuResp, error) {
+	out := new(UpdateMenuResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/UpdateMenu", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) DeleteMenu(ctx context.Context, in *DeleteMenuReq, opts ...grpc.CallOption) (*DeleteMenuResp, error) {
+	out := new(DeleteMenuResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/DeleteMenu", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) ListMenu(ctx context.Context, in *ListMenuReq, opts ...grpc.CallOption) (*ListMenuResp, error) {
+	out := new(ListMenuResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/ListMenu", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) PageListMenu(ctx context.Context, in *PageListMenuReq, opts ...grpc.CallOption) (*PageListMenuResp, error) {
+	out := new(PageListMenuResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/PageListMenu", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) GetMenu(ctx context.Context, in *GetMenuReq, opts ...grpc.CallOption) (*GetMenuResp, error) {
+	out := new(GetMenuResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/GetMenu", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) CreateDictData(ctx context.Context, in *CreateDictDataReq, opts ...grpc.CallOption) (*CreateDictDataResp, error) {
+	out := new(CreateDictDataResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/CreateDictData", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) UpdateDictData(ctx context.Context, in *UpdateDictDataReq, opts ...grpc.CallOption) (*UpdateDictDataResp, error) {
+	out := new(UpdateDictDataResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/UpdateDictData", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) DeleteDictData(ctx context.Context, in *DeleteDictDataReq, opts ...grpc.CallOption) (*DeleteDictDataResp, error) {
+	out := new(DeleteDictDataResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/DeleteDictData", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) ListDictData(ctx context.Context, in *ListDictDataReq, opts ...grpc.CallOption) (*ListDictDataResp, error) {
+	out := new(ListDictDataResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/ListDictData", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) PageListDictData(ctx context.Context, in *PageListDictDataReq, opts ...grpc.CallOption) (*PageListDictDataResp, error) {
+	out := new(PageListDictDataResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/PageListDictData", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shopClient) GetDictData(ctx context.Context, in *GetDictDataReq, opts ...grpc.CallOption) (*GetDictDataResp, error) {
+	out := new(GetDictDataResp)
+	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/GetDictData", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -304,126 +472,36 @@ func (c *shopClient) GetSystem(ctx context.Context, in *GetSystemReq, opts ...gr
 	return out, nil
 }
 
-func (c *shopClient) CreateRole(ctx context.Context, in *CreateRoleReq, opts ...grpc.CallOption) (*CreateRoleResp, error) {
-	out := new(CreateRoleResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/CreateRole", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *shopClient) UpdateRole(ctx context.Context, in *UpdateRoleReq, opts ...grpc.CallOption) (*UpdateRoleResp, error) {
-	out := new(UpdateRoleResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/UpdateRole", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *shopClient) DeleteRole(ctx context.Context, in *DeleteRoleReq, opts ...grpc.CallOption) (*DeleteRoleResp, error) {
-	out := new(DeleteRoleResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/DeleteRole", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *shopClient) ListRole(ctx context.Context, in *ListRoleReq, opts ...grpc.CallOption) (*ListRoleResp, error) {
-	out := new(ListRoleResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/ListRole", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *shopClient) PageListRole(ctx context.Context, in *PageListRoleReq, opts ...grpc.CallOption) (*PageListRoleResp, error) {
-	out := new(PageListRoleResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/PageListRole", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *shopClient) GetRole(ctx context.Context, in *GetRoleReq, opts ...grpc.CallOption) (*GetRoleResp, error) {
-	out := new(GetRoleResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/GetRole", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *shopClient) CreateMenu(ctx context.Context, in *CreateMenuReq, opts ...grpc.CallOption) (*CreateMenuResp, error) {
-	out := new(CreateMenuResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/CreateMenu", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *shopClient) UpdateMenu(ctx context.Context, in *UpdateMenuReq, opts ...grpc.CallOption) (*UpdateMenuResp, error) {
-	out := new(UpdateMenuResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/UpdateMenu", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *shopClient) DeleteMenu(ctx context.Context, in *DeleteMenuReq, opts ...grpc.CallOption) (*DeleteMenuResp, error) {
-	out := new(DeleteMenuResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/DeleteMenu", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *shopClient) ListMenu(ctx context.Context, in *ListMenuReq, opts ...grpc.CallOption) (*ListMenuResp, error) {
-	out := new(ListMenuResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/ListMenu", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *shopClient) PageListMenu(ctx context.Context, in *PageListMenuReq, opts ...grpc.CallOption) (*PageListMenuResp, error) {
-	out := new(PageListMenuResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/PageListMenu", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *shopClient) GetMenu(ctx context.Context, in *GetMenuReq, opts ...grpc.CallOption) (*GetMenuResp, error) {
-	out := new(GetMenuResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.Shop/GetMenu", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // ShopServer is the server API for Shop service.
 // All implementations must embed UnimplementedShopServer
 // for forward compatibility
 type ShopServer interface {
 	Register(context.Context, *RegisterReq) (*RegisterResp, error)
 	Login(context.Context, *LoginReq) (*LoginResp, error)
-	CreateDict(context.Context, *CreateDictReq) (*CreateDictResp, error)
-	UpdateDict(context.Context, *UpdateDictReq) (*UpdateDictResp, error)
-	DeleteDict(context.Context, *DeleteDictReq) (*DeleteDictResp, error)
-	ListDict(context.Context, *ListDictReq) (*ListDictResp, error)
-	PageListDict(context.Context, *PageListDictReq) (*PageListDictResp, error)
-	GetDict(context.Context, *GetDictReq) (*GetDictResp, error)
+	CreateUser(context.Context, *CreateUserReq) (*CreateUserResp, error)
+	UpdateUser(context.Context, *UpdateUserReq) (*UpdateUserResp, error)
+	DeleteUser(context.Context, *DeleteUserReq) (*DeleteUserResp, error)
+	ListUser(context.Context, *ListUserReq) (*ListUserResp, error)
+	PageListUser(context.Context, *PageListUserReq) (*PageListUserResp, error)
+	GetUser(context.Context, *GetUserReq) (*GetUserResp, error)
+	CreateRole(context.Context, *CreateRoleReq) (*CreateRoleResp, error)
+	UpdateRole(context.Context, *UpdateRoleReq) (*UpdateRoleResp, error)
+	DeleteRole(context.Context, *DeleteRoleReq) (*DeleteRoleResp, error)
+	ListRole(context.Context, *ListRoleReq) (*ListRoleResp, error)
+	PageListRole(context.Context, *PageListRoleReq) (*PageListRoleResp, error)
+	GetRole(context.Context, *GetRoleReq) (*GetRoleResp, error)
+	CreateMenu(context.Context, *CreateMenuReq) (*CreateMenuResp, error)
+	UpdateMenu(context.Context, *UpdateMenuReq) (*UpdateMenuResp, error)
+	DeleteMenu(context.Context, *DeleteMenuReq) (*DeleteMenuResp, error)
+	ListMenu(context.Context, *ListMenuReq) (*ListMenuResp, error)
+	PageListMenu(context.Context, *PageListMenuReq) (*PageListMenuResp, error)
+	GetMenu(context.Context, *GetMenuReq) (*GetMenuResp, error)
+	CreateDictData(context.Context, *CreateDictDataReq) (*CreateDictDataResp, error)
+	UpdateDictData(context.Context, *UpdateDictDataReq) (*UpdateDictDataResp, error)
+	DeleteDictData(context.Context, *DeleteDictDataReq) (*DeleteDictDataResp, error)
+	ListDictData(context.Context, *ListDictDataReq) (*ListDictDataResp, error)
+	PageListDictData(context.Context, *PageListDictDataReq) (*PageListDictDataResp, error)
+	GetDictData(context.Context, *GetDictDataReq) (*GetDictDataResp, error)
 	CreateAccountUser(context.Context, *CreateAccountUserReq) (*CreateAccountUserResp, error)
 	UpdateAccountUser(context.Context, *UpdateAccountUserReq) (*UpdateAccountUserResp, error)
 	DeleteAccountUser(context.Context, *DeleteAccountUserReq) (*DeleteAccountUserResp, error)
@@ -442,18 +520,6 @@ type ShopServer interface {
 	ListSystem(context.Context, *ListSystemReq) (*ListSystemResp, error)
 	PageListSystem(context.Context, *PageListSystemReq) (*PageListSystemResp, error)
 	GetSystem(context.Context, *GetSystemReq) (*GetSystemResp, error)
-	CreateRole(context.Context, *CreateRoleReq) (*CreateRoleResp, error)
-	UpdateRole(context.Context, *UpdateRoleReq) (*UpdateRoleResp, error)
-	DeleteRole(context.Context, *DeleteRoleReq) (*DeleteRoleResp, error)
-	ListRole(context.Context, *ListRoleReq) (*ListRoleResp, error)
-	PageListRole(context.Context, *PageListRoleReq) (*PageListRoleResp, error)
-	GetRole(context.Context, *GetRoleReq) (*GetRoleResp, error)
-	CreateMenu(context.Context, *CreateMenuReq) (*CreateMenuResp, error)
-	UpdateMenu(context.Context, *UpdateMenuReq) (*UpdateMenuResp, error)
-	DeleteMenu(context.Context, *DeleteMenuReq) (*DeleteMenuResp, error)
-	ListMenu(context.Context, *ListMenuReq) (*ListMenuResp, error)
-	PageListMenu(context.Context, *PageListMenuReq) (*PageListMenuResp, error)
-	GetMenu(context.Context, *GetMenuReq) (*GetMenuResp, error)
 	mustEmbedUnimplementedShopServer()
 }
 
@@ -467,23 +533,77 @@ func (UnimplementedShopServer) Register(context.Context, *RegisterReq) (*Registe
 func (UnimplementedShopServer) Login(context.Context, *LoginReq) (*LoginResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
-func (UnimplementedShopServer) CreateDict(context.Context, *CreateDictReq) (*CreateDictResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateDict not implemented")
+func (UnimplementedShopServer) CreateUser(context.Context, *CreateUserReq) (*CreateUserResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
 }
-func (UnimplementedShopServer) UpdateDict(context.Context, *UpdateDictReq) (*UpdateDictResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateDict not implemented")
+func (UnimplementedShopServer) UpdateUser(context.Context, *UpdateUserReq) (*UpdateUserResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
 }
-func (UnimplementedShopServer) DeleteDict(context.Context, *DeleteDictReq) (*DeleteDictResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteDict not implemented")
+func (UnimplementedShopServer) DeleteUser(context.Context, *DeleteUserReq) (*DeleteUserResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
 }
-func (UnimplementedShopServer) ListDict(context.Context, *ListDictReq) (*ListDictResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListDict not implemented")
+func (UnimplementedShopServer) ListUser(context.Context, *ListUserReq) (*ListUserResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListUser not implemented")
 }
-func (UnimplementedShopServer) PageListDict(context.Context, *PageListDictReq) (*PageListDictResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PageListDict not implemented")
+func (UnimplementedShopServer) PageListUser(context.Context, *PageListUserReq) (*PageListUserResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PageListUser not implemented")
 }
-func (UnimplementedShopServer) GetDict(context.Context, *GetDictReq) (*GetDictResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetDict not implemented")
+func (UnimplementedShopServer) GetUser(context.Context, *GetUserReq) (*GetUserResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUser not implemented")
+}
+func (UnimplementedShopServer) CreateRole(context.Context, *CreateRoleReq) (*CreateRoleResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateRole not implemented")
+}
+func (UnimplementedShopServer) UpdateRole(context.Context, *UpdateRoleReq) (*UpdateRoleResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateRole not implemented")
+}
+func (UnimplementedShopServer) DeleteRole(context.Context, *DeleteRoleReq) (*DeleteRoleResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
+}
+func (UnimplementedShopServer) ListRole(context.Context, *ListRoleReq) (*ListRoleResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListRole not implemented")
+}
+func (UnimplementedShopServer) PageListRole(context.Context, *PageListRoleReq) (*PageListRoleResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PageListRole not implemented")
+}
+func (UnimplementedShopServer) GetRole(context.Context, *GetRoleReq) (*GetRoleResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRole not implemented")
+}
+func (UnimplementedShopServer) CreateMenu(context.Context, *CreateMenuReq) (*CreateMenuResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateMenu not implemented")
+}
+func (UnimplementedShopServer) UpdateMenu(context.Context, *UpdateMenuReq) (*UpdateMenuResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateMenu not implemented")
+}
+func (UnimplementedShopServer) DeleteMenu(context.Context, *DeleteMenuReq) (*DeleteMenuResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteMenu not implemented")
+}
+func (UnimplementedShopServer) ListMenu(context.Context, *ListMenuReq) (*ListMenuResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListMenu not implemented")
+}
+func (UnimplementedShopServer) PageListMenu(context.Context, *PageListMenuReq) (*PageListMenuResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PageListMenu not implemented")
+}
+func (UnimplementedShopServer) GetMenu(context.Context, *GetMenuReq) (*GetMenuResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMenu not implemented")
+}
+func (UnimplementedShopServer) CreateDictData(context.Context, *CreateDictDataReq) (*CreateDictDataResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateDictData not implemented")
+}
+func (UnimplementedShopServer) UpdateDictData(context.Context, *UpdateDictDataReq) (*UpdateDictDataResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateDictData not implemented")
+}
+func (UnimplementedShopServer) DeleteDictData(context.Context, *DeleteDictDataReq) (*DeleteDictDataResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteDictData not implemented")
+}
+func (UnimplementedShopServer) ListDictData(context.Context, *ListDictDataReq) (*ListDictDataResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListDictData not implemented")
+}
+func (UnimplementedShopServer) PageListDictData(context.Context, *PageListDictDataReq) (*PageListDictDataResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PageListDictData not implemented")
+}
+func (UnimplementedShopServer) GetDictData(context.Context, *GetDictDataReq) (*GetDictDataResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDictData not implemented")
 }
 func (UnimplementedShopServer) CreateAccountUser(context.Context, *CreateAccountUserReq) (*CreateAccountUserResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAccountUser not implemented")
@@ -539,42 +659,6 @@ func (UnimplementedShopServer) PageListSystem(context.Context, *PageListSystemRe
 func (UnimplementedShopServer) GetSystem(context.Context, *GetSystemReq) (*GetSystemResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSystem not implemented")
 }
-func (UnimplementedShopServer) CreateRole(context.Context, *CreateRoleReq) (*CreateRoleResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateRole not implemented")
-}
-func (UnimplementedShopServer) UpdateRole(context.Context, *UpdateRoleReq) (*UpdateRoleResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateRole not implemented")
-}
-func (UnimplementedShopServer) DeleteRole(context.Context, *DeleteRoleReq) (*DeleteRoleResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
-}
-func (UnimplementedShopServer) ListRole(context.Context, *ListRoleReq) (*ListRoleResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListRole not implemented")
-}
-func (UnimplementedShopServer) PageListRole(context.Context, *PageListRoleReq) (*PageListRoleResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PageListRole not implemented")
-}
-func (UnimplementedShopServer) GetRole(context.Context, *GetRoleReq) (*GetRoleResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetRole not implemented")
-}
-func (UnimplementedShopServer) CreateMenu(context.Context, *CreateMenuReq) (*CreateMenuResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateMenu not implemented")
-}
-func (UnimplementedShopServer) UpdateMenu(context.Context, *UpdateMenuReq) (*UpdateMenuResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateMenu not implemented")
-}
-func (UnimplementedShopServer) DeleteMenu(context.Context, *DeleteMenuReq) (*DeleteMenuResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteMenu not implemented")
-}
-func (UnimplementedShopServer) ListMenu(context.Context, *ListMenuReq) (*ListMenuResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListMenu not implemented")
-}
-func (UnimplementedShopServer) PageListMenu(context.Context, *PageListMenuReq) (*PageListMenuResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PageListMenu not implemented")
-}
-func (UnimplementedShopServer) GetMenu(context.Context, *GetMenuReq) (*GetMenuResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetMenu not implemented")
-}
 func (UnimplementedShopServer) mustEmbedUnimplementedShopServer() {}
 
 // UnsafeShopServer may be embedded to opt out of forward compatibility for this service.
@@ -624,110 +708,434 @@ func _Shop_Login_Handler(srv interface{}, ctx context.Context, dec func(interfac
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Shop_CreateDict_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateDictReq)
+func _Shop_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateUserReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ShopServer).CreateDict(ctx, in)
+		return srv.(ShopServer).CreateUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.Shop/CreateDict",
+		FullMethod: "/api.shop.admin.v1.Shop/CreateUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopServer).CreateDict(ctx, req.(*CreateDictReq))
+		return srv.(ShopServer).CreateUser(ctx, req.(*CreateUserReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Shop_UpdateDict_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateDictReq)
+func _Shop_UpdateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateUserReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ShopServer).UpdateDict(ctx, in)
+		return srv.(ShopServer).UpdateUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.Shop/UpdateDict",
+		FullMethod: "/api.shop.admin.v1.Shop/UpdateUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopServer).UpdateDict(ctx, req.(*UpdateDictReq))
+		return srv.(ShopServer).UpdateUser(ctx, req.(*UpdateUserReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Shop_DeleteDict_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteDictReq)
+func _Shop_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteUserReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ShopServer).DeleteDict(ctx, in)
+		return srv.(ShopServer).DeleteUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.Shop/DeleteDict",
+		FullMethod: "/api.shop.admin.v1.Shop/DeleteUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopServer).DeleteDict(ctx, req.(*DeleteDictReq))
+		return srv.(ShopServer).DeleteUser(ctx, req.(*DeleteUserReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Shop_ListDict_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListDictReq)
+func _Shop_ListUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListUserReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ShopServer).ListDict(ctx, in)
+		return srv.(ShopServer).ListUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.Shop/ListDict",
+		FullMethod: "/api.shop.admin.v1.Shop/ListUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopServer).ListDict(ctx, req.(*ListDictReq))
+		return srv.(ShopServer).ListUser(ctx, req.(*ListUserReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Shop_PageListDict_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PageListDictReq)
+func _Shop_PageListUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PageListUserReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ShopServer).PageListDict(ctx, in)
+		return srv.(ShopServer).PageListUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.Shop/PageListDict",
+		FullMethod: "/api.shop.admin.v1.Shop/PageListUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopServer).PageListDict(ctx, req.(*PageListDictReq))
+		return srv.(ShopServer).PageListUser(ctx, req.(*PageListUserReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Shop_GetDict_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetDictReq)
+func _Shop_GetUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ShopServer).GetDict(ctx, in)
+		return srv.(ShopServer).GetUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.Shop/GetDict",
+		FullMethod: "/api.shop.admin.v1.Shop/GetUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopServer).GetDict(ctx, req.(*GetDictReq))
+		return srv.(ShopServer).GetUser(ctx, req.(*GetUserReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_CreateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateRoleReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).CreateRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/CreateRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).CreateRole(ctx, req.(*CreateRoleReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_UpdateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateRoleReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).UpdateRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/UpdateRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).UpdateRole(ctx, req.(*UpdateRoleReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_DeleteRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteRoleReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).DeleteRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/DeleteRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).DeleteRole(ctx, req.(*DeleteRoleReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_ListRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListRoleReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).ListRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/ListRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).ListRole(ctx, req.(*ListRoleReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_PageListRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PageListRoleReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).PageListRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/PageListRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).PageListRole(ctx, req.(*PageListRoleReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_GetRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRoleReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).GetRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/GetRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).GetRole(ctx, req.(*GetRoleReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_CreateMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateMenuReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).CreateMenu(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/CreateMenu",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).CreateMenu(ctx, req.(*CreateMenuReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_UpdateMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateMenuReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).UpdateMenu(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/UpdateMenu",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).UpdateMenu(ctx, req.(*UpdateMenuReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_DeleteMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteMenuReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).DeleteMenu(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/DeleteMenu",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).DeleteMenu(ctx, req.(*DeleteMenuReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_ListMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListMenuReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).ListMenu(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/ListMenu",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).ListMenu(ctx, req.(*ListMenuReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_PageListMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PageListMenuReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).PageListMenu(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/PageListMenu",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).PageListMenu(ctx, req.(*PageListMenuReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_GetMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMenuReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).GetMenu(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/GetMenu",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).GetMenu(ctx, req.(*GetMenuReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_CreateDictData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateDictDataReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).CreateDictData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/CreateDictData",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).CreateDictData(ctx, req.(*CreateDictDataReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_UpdateDictData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateDictDataReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).UpdateDictData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/UpdateDictData",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).UpdateDictData(ctx, req.(*UpdateDictDataReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_DeleteDictData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteDictDataReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).DeleteDictData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/DeleteDictData",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).DeleteDictData(ctx, req.(*DeleteDictDataReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_ListDictData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListDictDataReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).ListDictData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/ListDictData",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).ListDictData(ctx, req.(*ListDictDataReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_PageListDictData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PageListDictDataReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).PageListDictData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/PageListDictData",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).PageListDictData(ctx, req.(*PageListDictDataReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Shop_GetDictData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDictDataReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShopServer).GetDictData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.shop.admin.v1.Shop/GetDictData",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShopServer).GetDictData(ctx, req.(*GetDictDataReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1056,222 +1464,6 @@ func _Shop_GetSystem_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Shop_CreateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateRoleReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ShopServer).CreateRole(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.Shop/CreateRole",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopServer).CreateRole(ctx, req.(*CreateRoleReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Shop_UpdateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateRoleReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ShopServer).UpdateRole(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.Shop/UpdateRole",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopServer).UpdateRole(ctx, req.(*UpdateRoleReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Shop_DeleteRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteRoleReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ShopServer).DeleteRole(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.Shop/DeleteRole",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopServer).DeleteRole(ctx, req.(*DeleteRoleReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Shop_ListRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListRoleReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ShopServer).ListRole(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.Shop/ListRole",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopServer).ListRole(ctx, req.(*ListRoleReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Shop_PageListRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PageListRoleReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ShopServer).PageListRole(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.Shop/PageListRole",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopServer).PageListRole(ctx, req.(*PageListRoleReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Shop_GetRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetRoleReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ShopServer).GetRole(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.Shop/GetRole",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopServer).GetRole(ctx, req.(*GetRoleReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Shop_CreateMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateMenuReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ShopServer).CreateMenu(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.Shop/CreateMenu",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopServer).CreateMenu(ctx, req.(*CreateMenuReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Shop_UpdateMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateMenuReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ShopServer).UpdateMenu(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.Shop/UpdateMenu",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopServer).UpdateMenu(ctx, req.(*UpdateMenuReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Shop_DeleteMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteMenuReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ShopServer).DeleteMenu(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.Shop/DeleteMenu",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopServer).DeleteMenu(ctx, req.(*DeleteMenuReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Shop_ListMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListMenuReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ShopServer).ListMenu(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.Shop/ListMenu",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopServer).ListMenu(ctx, req.(*ListMenuReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Shop_PageListMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PageListMenuReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ShopServer).PageListMenu(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.Shop/PageListMenu",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopServer).PageListMenu(ctx, req.(*PageListMenuReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Shop_GetMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetMenuReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ShopServer).GetMenu(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.Shop/GetMenu",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShopServer).GetMenu(ctx, req.(*GetMenuReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // Shop_ServiceDesc is the grpc.ServiceDesc for Shop service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1288,28 +1480,100 @@ var Shop_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Shop_Login_Handler,
 		},
 		{
-			MethodName: "CreateDict",
-			Handler:    _Shop_CreateDict_Handler,
+			MethodName: "CreateUser",
+			Handler:    _Shop_CreateUser_Handler,
 		},
 		{
-			MethodName: "UpdateDict",
-			Handler:    _Shop_UpdateDict_Handler,
+			MethodName: "UpdateUser",
+			Handler:    _Shop_UpdateUser_Handler,
 		},
 		{
-			MethodName: "DeleteDict",
-			Handler:    _Shop_DeleteDict_Handler,
+			MethodName: "DeleteUser",
+			Handler:    _Shop_DeleteUser_Handler,
 		},
 		{
-			MethodName: "ListDict",
-			Handler:    _Shop_ListDict_Handler,
+			MethodName: "ListUser",
+			Handler:    _Shop_ListUser_Handler,
 		},
 		{
-			MethodName: "PageListDict",
-			Handler:    _Shop_PageListDict_Handler,
+			MethodName: "PageListUser",
+			Handler:    _Shop_PageListUser_Handler,
 		},
 		{
-			MethodName: "GetDict",
-			Handler:    _Shop_GetDict_Handler,
+			MethodName: "GetUser",
+			Handler:    _Shop_GetUser_Handler,
+		},
+		{
+			MethodName: "CreateRole",
+			Handler:    _Shop_CreateRole_Handler,
+		},
+		{
+			MethodName: "UpdateRole",
+			Handler:    _Shop_UpdateRole_Handler,
+		},
+		{
+			MethodName: "DeleteRole",
+			Handler:    _Shop_DeleteRole_Handler,
+		},
+		{
+			MethodName: "ListRole",
+			Handler:    _Shop_ListRole_Handler,
+		},
+		{
+			MethodName: "PageListRole",
+			Handler:    _Shop_PageListRole_Handler,
+		},
+		{
+			MethodName: "GetRole",
+			Handler:    _Shop_GetRole_Handler,
+		},
+		{
+			MethodName: "CreateMenu",
+			Handler:    _Shop_CreateMenu_Handler,
+		},
+		{
+			MethodName: "UpdateMenu",
+			Handler:    _Shop_UpdateMenu_Handler,
+		},
+		{
+			MethodName: "DeleteMenu",
+			Handler:    _Shop_DeleteMenu_Handler,
+		},
+		{
+			MethodName: "ListMenu",
+			Handler:    _Shop_ListMenu_Handler,
+		},
+		{
+			MethodName: "PageListMenu",
+			Handler:    _Shop_PageListMenu_Handler,
+		},
+		{
+			MethodName: "GetMenu",
+			Handler:    _Shop_GetMenu_Handler,
+		},
+		{
+			MethodName: "CreateDictData",
+			Handler:    _Shop_CreateDictData_Handler,
+		},
+		{
+			MethodName: "UpdateDictData",
+			Handler:    _Shop_UpdateDictData_Handler,
+		},
+		{
+			MethodName: "DeleteDictData",
+			Handler:    _Shop_DeleteDictData_Handler,
+		},
+		{
+			MethodName: "ListDictData",
+			Handler:    _Shop_ListDictData_Handler,
+		},
+		{
+			MethodName: "PageListDictData",
+			Handler:    _Shop_PageListDictData_Handler,
+		},
+		{
+			MethodName: "GetDictData",
+			Handler:    _Shop_GetDictData_Handler,
 		},
 		{
 			MethodName: "CreateAccountUser",
@@ -1382,54 +1646,6 @@ var Shop_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetSystem",
 			Handler:    _Shop_GetSystem_Handler,
-		},
-		{
-			MethodName: "CreateRole",
-			Handler:    _Shop_CreateRole_Handler,
-		},
-		{
-			MethodName: "UpdateRole",
-			Handler:    _Shop_UpdateRole_Handler,
-		},
-		{
-			MethodName: "DeleteRole",
-			Handler:    _Shop_DeleteRole_Handler,
-		},
-		{
-			MethodName: "ListRole",
-			Handler:    _Shop_ListRole_Handler,
-		},
-		{
-			MethodName: "PageListRole",
-			Handler:    _Shop_PageListRole_Handler,
-		},
-		{
-			MethodName: "GetRole",
-			Handler:    _Shop_GetRole_Handler,
-		},
-		{
-			MethodName: "CreateMenu",
-			Handler:    _Shop_CreateMenu_Handler,
-		},
-		{
-			MethodName: "UpdateMenu",
-			Handler:    _Shop_UpdateMenu_Handler,
-		},
-		{
-			MethodName: "DeleteMenu",
-			Handler:    _Shop_DeleteMenu_Handler,
-		},
-		{
-			MethodName: "ListMenu",
-			Handler:    _Shop_ListMenu_Handler,
-		},
-		{
-			MethodName: "PageListMenu",
-			Handler:    _Shop_PageListMenu_Handler,
-		},
-		{
-			MethodName: "GetMenu",
-			Handler:    _Shop_GetMenu_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -48,7 +48,7 @@ func (DictType) Fields() []ent.Field {
 		}).Default("").Comment("字典类型"),
 
 		field.Int8("status").SchemaType(map[string]string{
-			dialect.MySQL: "tinyint(1)unsigned", // Override MySQL.
+			dialect.MySQL: "tinyint unsigned", // Override MySQL.
 		}).Default(0).Comment("状态 0:禁用 1:启用"),
 
 		field.String("remark").SchemaType(map[string]string{

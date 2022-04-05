@@ -9,11 +9,17 @@ import (
 
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/migrate"
 
-	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/dict"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/api"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/dictdata"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/dicttype"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/permission"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/role"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/user"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/userrole"
 
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
+	"entgo.io/ent/dialect/sql/sqlgraph"
 )
 
 // Client is the client that holds all ent builders.
@@ -21,10 +27,20 @@ type Client struct {
 	config
 	// Schema is the client for creating, migrating and dropping schema.
 	Schema *migrate.Schema
-	// Dict is the client for interacting with the Dict builders.
-	Dict *DictClient
+	// Api is the client for interacting with the Api builders.
+	Api *ApiClient
+	// DictData is the client for interacting with the DictData builders.
+	DictData *DictDataClient
 	// DictType is the client for interacting with the DictType builders.
 	DictType *DictTypeClient
+	// Permission is the client for interacting with the Permission builders.
+	Permission *PermissionClient
+	// Role is the client for interacting with the Role builders.
+	Role *RoleClient
+	// User is the client for interacting with the User builders.
+	User *UserClient
+	// UserRole is the client for interacting with the UserRole builders.
+	UserRole *UserRoleClient
 }
 
 // NewClient creates a new client configured with the given options.
@@ -38,8 +54,13 @@ func NewClient(opts ...Option) *Client {
 
 func (c *Client) init() {
 	c.Schema = migrate.NewSchema(c.driver)
-	c.Dict = NewDictClient(c.config)
+	c.Api = NewApiClient(c.config)
+	c.DictData = NewDictDataClient(c.config)
 	c.DictType = NewDictTypeClient(c.config)
+	c.Permission = NewPermissionClient(c.config)
+	c.Role = NewRoleClient(c.config)
+	c.User = NewUserClient(c.config)
+	c.UserRole = NewUserRoleClient(c.config)
 }
 
 // Open opens a database/sql.DB specified by the driver name and
@@ -71,10 +92,15 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 	cfg := c.config
 	cfg.driver = tx
 	return &Tx{
-		ctx:      ctx,
-		config:   cfg,
-		Dict:     NewDictClient(cfg),
-		DictType: NewDictTypeClient(cfg),
+		ctx:        ctx,
+		config:     cfg,
+		Api:        NewApiClient(cfg),
+		DictData:   NewDictDataClient(cfg),
+		DictType:   NewDictTypeClient(cfg),
+		Permission: NewPermissionClient(cfg),
+		Role:       NewRoleClient(cfg),
+		User:       NewUserClient(cfg),
+		UserRole:   NewUserRoleClient(cfg),
 	}, nil
 }
 
@@ -92,16 +118,22 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 	cfg := c.config
 	cfg.driver = &txDriver{tx: tx, drv: c.driver}
 	return &Tx{
-		config:   cfg,
-		Dict:     NewDictClient(cfg),
-		DictType: NewDictTypeClient(cfg),
+		ctx:        ctx,
+		config:     cfg,
+		Api:        NewApiClient(cfg),
+		DictData:   NewDictDataClient(cfg),
+		DictType:   NewDictTypeClient(cfg),
+		Permission: NewPermissionClient(cfg),
+		Role:       NewRoleClient(cfg),
+		User:       NewUserClient(cfg),
+		UserRole:   NewUserRoleClient(cfg),
 	}, nil
 }
 
 // Debug returns a new debug-client. It's used to get verbose logging on specific operations.
 //
 //	client.Debug().
-//		Dict.
+//		Api.
 //		Query().
 //		Count(ctx)
 //
@@ -124,88 +156,93 @@ func (c *Client) Close() error {
 // Use adds the mutation hooks to all the entity clients.
 // In order to add hooks to a specific client, call: `client.Node.Use(...)`.
 func (c *Client) Use(hooks ...Hook) {
-	c.Dict.Use(hooks...)
+	c.Api.Use(hooks...)
+	c.DictData.Use(hooks...)
 	c.DictType.Use(hooks...)
+	c.Permission.Use(hooks...)
+	c.Role.Use(hooks...)
+	c.User.Use(hooks...)
+	c.UserRole.Use(hooks...)
 }
 
-// DictClient is a client for the Dict schema.
-type DictClient struct {
+// ApiClient is a client for the Api schema.
+type ApiClient struct {
 	config
 }
 
-// NewDictClient returns a client for the Dict from the given config.
-func NewDictClient(c config) *DictClient {
-	return &DictClient{config: c}
+// NewApiClient returns a client for the Api from the given config.
+func NewApiClient(c config) *ApiClient {
+	return &ApiClient{config: c}
 }
 
 // Use adds a list of mutation hooks to the hooks stack.
-// A call to `Use(f, g, h)` equals to `dict.Hooks(f(g(h())))`.
-func (c *DictClient) Use(hooks ...Hook) {
-	c.hooks.Dict = append(c.hooks.Dict, hooks...)
+// A call to `Use(f, g, h)` equals to `api.Hooks(f(g(h())))`.
+func (c *ApiClient) Use(hooks ...Hook) {
+	c.hooks.Api = append(c.hooks.Api, hooks...)
 }
 
-// Create returns a create builder for Dict.
-func (c *DictClient) Create() *DictCreate {
-	mutation := newDictMutation(c.config, OpCreate)
-	return &DictCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+// Create returns a create builder for Api.
+func (c *ApiClient) Create() *APICreate {
+	mutation := newAPIMutation(c.config, OpCreate)
+	return &APICreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// CreateBulk returns a builder for creating a bulk of Dict entities.
-func (c *DictClient) CreateBulk(builders ...*DictCreate) *DictCreateBulk {
-	return &DictCreateBulk{config: c.config, builders: builders}
+// CreateBulk returns a builder for creating a bulk of Api entities.
+func (c *ApiClient) CreateBulk(builders ...*APICreate) *APICreateBulk {
+	return &APICreateBulk{config: c.config, builders: builders}
 }
 
-// Update returns an update builder for Dict.
-func (c *DictClient) Update() *DictUpdate {
-	mutation := newDictMutation(c.config, OpUpdate)
-	return &DictUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+// Update returns an update builder for Api.
+func (c *ApiClient) Update() *APIUpdate {
+	mutation := newAPIMutation(c.config, OpUpdate)
+	return &APIUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *DictClient) UpdateOne(d *Dict) *DictUpdateOne {
-	mutation := newDictMutation(c.config, OpUpdateOne, withDict(d))
-	return &DictUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+func (c *ApiClient) UpdateOne(a *Api) *APIUpdateOne {
+	mutation := newAPIMutation(c.config, OpUpdateOne, withApi(a))
+	return &APIUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
 // UpdateOneID returns an update builder for the given id.
-func (c *DictClient) UpdateOneID(id int64) *DictUpdateOne {
-	mutation := newDictMutation(c.config, OpUpdateOne, withDictID(id))
-	return &DictUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+func (c *ApiClient) UpdateOneID(id int64) *APIUpdateOne {
+	mutation := newAPIMutation(c.config, OpUpdateOne, withApiID(id))
+	return &APIUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// Delete returns a delete builder for Dict.
-func (c *DictClient) Delete() *DictDelete {
-	mutation := newDictMutation(c.config, OpDelete)
-	return &DictDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+// Delete returns a delete builder for Api.
+func (c *ApiClient) Delete() *APIDelete {
+	mutation := newAPIMutation(c.config, OpDelete)
+	return &APIDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
 // DeleteOne returns a delete builder for the given entity.
-func (c *DictClient) DeleteOne(d *Dict) *DictDeleteOne {
-	return c.DeleteOneID(d.ID)
+func (c *ApiClient) DeleteOne(a *Api) *APIDeleteOne {
+	return c.DeleteOneID(a.ID)
 }
 
 // DeleteOneID returns a delete builder for the given id.
-func (c *DictClient) DeleteOneID(id int64) *DictDeleteOne {
-	builder := c.Delete().Where(dict.ID(id))
+func (c *ApiClient) DeleteOneID(id int64) *APIDeleteOne {
+	builder := c.Delete().Where(api.ID(id))
 	builder.mutation.id = &id
 	builder.mutation.op = OpDeleteOne
-	return &DictDeleteOne{builder}
+	return &APIDeleteOne{builder}
 }
 
-// Query returns a query builder for Dict.
-func (c *DictClient) Query() *DictQuery {
-	return &DictQuery{
+// Query returns a query builder for Api.
+func (c *ApiClient) Query() *APIQuery {
+	return &APIQuery{
 		config: c.config,
 	}
 }
 
-// Get returns a Dict entity by its id.
-func (c *DictClient) Get(ctx context.Context, id int64) (*Dict, error) {
-	return c.Query().Where(dict.ID(id)).Only(ctx)
+// Get returns a Api entity by its id.
+func (c *ApiClient) Get(ctx context.Context, id int64) (*Api, error) {
+	return c.Query().Where(api.ID(id)).Only(ctx)
 }
 
 // GetX is like Get, but panics if an error occurs.
-func (c *DictClient) GetX(ctx context.Context, id int64) *Dict {
+func (c *ApiClient) GetX(ctx context.Context, id int64) *Api {
 	obj, err := c.Get(ctx, id)
 	if err != nil {
 		panic(err)
@@ -214,9 +251,100 @@ func (c *DictClient) GetX(ctx context.Context, id int64) *Dict {
 }
 
 // Hooks returns the client hooks.
-func (c *DictClient) Hooks() []Hook {
-	hooks := c.hooks.Dict
-	return append(hooks[:len(hooks):len(hooks)], dict.Hooks[:]...)
+func (c *ApiClient) Hooks() []Hook {
+	hooks := c.hooks.Api
+	return append(hooks[:len(hooks):len(hooks)], api.Hooks[:]...)
+}
+
+// DictDataClient is a client for the DictData schema.
+type DictDataClient struct {
+	config
+}
+
+// NewDictDataClient returns a client for the DictData from the given config.
+func NewDictDataClient(c config) *DictDataClient {
+	return &DictDataClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `dictdata.Hooks(f(g(h())))`.
+func (c *DictDataClient) Use(hooks ...Hook) {
+	c.hooks.DictData = append(c.hooks.DictData, hooks...)
+}
+
+// Create returns a create builder for DictData.
+func (c *DictDataClient) Create() *DictDataCreate {
+	mutation := newDictDataMutation(c.config, OpCreate)
+	return &DictDataCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of DictData entities.
+func (c *DictDataClient) CreateBulk(builders ...*DictDataCreate) *DictDataCreateBulk {
+	return &DictDataCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for DictData.
+func (c *DictDataClient) Update() *DictDataUpdate {
+	mutation := newDictDataMutation(c.config, OpUpdate)
+	return &DictDataUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *DictDataClient) UpdateOne(dd *DictData) *DictDataUpdateOne {
+	mutation := newDictDataMutation(c.config, OpUpdateOne, withDictData(dd))
+	return &DictDataUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *DictDataClient) UpdateOneID(id int64) *DictDataUpdateOne {
+	mutation := newDictDataMutation(c.config, OpUpdateOne, withDictDataID(id))
+	return &DictDataUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for DictData.
+func (c *DictDataClient) Delete() *DictDataDelete {
+	mutation := newDictDataMutation(c.config, OpDelete)
+	return &DictDataDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *DictDataClient) DeleteOne(dd *DictData) *DictDataDeleteOne {
+	return c.DeleteOneID(dd.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *DictDataClient) DeleteOneID(id int64) *DictDataDeleteOne {
+	builder := c.Delete().Where(dictdata.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &DictDataDeleteOne{builder}
+}
+
+// Query returns a query builder for DictData.
+func (c *DictDataClient) Query() *DictDataQuery {
+	return &DictDataQuery{
+		config: c.config,
+	}
+}
+
+// Get returns a DictData entity by its id.
+func (c *DictDataClient) Get(ctx context.Context, id int64) (*DictData, error) {
+	return c.Query().Where(dictdata.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *DictDataClient) GetX(ctx context.Context, id int64) *DictData {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *DictDataClient) Hooks() []Hook {
+	hooks := c.hooks.DictData
+	return append(hooks[:len(hooks):len(hooks)], dictdata.Hooks[:]...)
 }
 
 // DictTypeClient is a client for the DictType schema.
@@ -308,4 +436,382 @@ func (c *DictTypeClient) GetX(ctx context.Context, id int64) *DictType {
 func (c *DictTypeClient) Hooks() []Hook {
 	hooks := c.hooks.DictType
 	return append(hooks[:len(hooks):len(hooks)], dicttype.Hooks[:]...)
+}
+
+// PermissionClient is a client for the Permission schema.
+type PermissionClient struct {
+	config
+}
+
+// NewPermissionClient returns a client for the Permission from the given config.
+func NewPermissionClient(c config) *PermissionClient {
+	return &PermissionClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `permission.Hooks(f(g(h())))`.
+func (c *PermissionClient) Use(hooks ...Hook) {
+	c.hooks.Permission = append(c.hooks.Permission, hooks...)
+}
+
+// Create returns a create builder for Permission.
+func (c *PermissionClient) Create() *PermissionCreate {
+	mutation := newPermissionMutation(c.config, OpCreate)
+	return &PermissionCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of Permission entities.
+func (c *PermissionClient) CreateBulk(builders ...*PermissionCreate) *PermissionCreateBulk {
+	return &PermissionCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Permission.
+func (c *PermissionClient) Update() *PermissionUpdate {
+	mutation := newPermissionMutation(c.config, OpUpdate)
+	return &PermissionUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *PermissionClient) UpdateOne(pe *Permission) *PermissionUpdateOne {
+	mutation := newPermissionMutation(c.config, OpUpdateOne, withPermission(pe))
+	return &PermissionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *PermissionClient) UpdateOneID(id int64) *PermissionUpdateOne {
+	mutation := newPermissionMutation(c.config, OpUpdateOne, withPermissionID(id))
+	return &PermissionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Permission.
+func (c *PermissionClient) Delete() *PermissionDelete {
+	mutation := newPermissionMutation(c.config, OpDelete)
+	return &PermissionDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *PermissionClient) DeleteOne(pe *Permission) *PermissionDeleteOne {
+	return c.DeleteOneID(pe.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *PermissionClient) DeleteOneID(id int64) *PermissionDeleteOne {
+	builder := c.Delete().Where(permission.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &PermissionDeleteOne{builder}
+}
+
+// Query returns a query builder for Permission.
+func (c *PermissionClient) Query() *PermissionQuery {
+	return &PermissionQuery{
+		config: c.config,
+	}
+}
+
+// Get returns a Permission entity by its id.
+func (c *PermissionClient) Get(ctx context.Context, id int64) (*Permission, error) {
+	return c.Query().Where(permission.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *PermissionClient) GetX(ctx context.Context, id int64) *Permission {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *PermissionClient) Hooks() []Hook {
+	return c.hooks.Permission
+}
+
+// RoleClient is a client for the Role schema.
+type RoleClient struct {
+	config
+}
+
+// NewRoleClient returns a client for the Role from the given config.
+func NewRoleClient(c config) *RoleClient {
+	return &RoleClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `role.Hooks(f(g(h())))`.
+func (c *RoleClient) Use(hooks ...Hook) {
+	c.hooks.Role = append(c.hooks.Role, hooks...)
+}
+
+// Create returns a create builder for Role.
+func (c *RoleClient) Create() *RoleCreate {
+	mutation := newRoleMutation(c.config, OpCreate)
+	return &RoleCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of Role entities.
+func (c *RoleClient) CreateBulk(builders ...*RoleCreate) *RoleCreateBulk {
+	return &RoleCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Role.
+func (c *RoleClient) Update() *RoleUpdate {
+	mutation := newRoleMutation(c.config, OpUpdate)
+	return &RoleUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *RoleClient) UpdateOne(r *Role) *RoleUpdateOne {
+	mutation := newRoleMutation(c.config, OpUpdateOne, withRole(r))
+	return &RoleUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *RoleClient) UpdateOneID(id int64) *RoleUpdateOne {
+	mutation := newRoleMutation(c.config, OpUpdateOne, withRoleID(id))
+	return &RoleUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Role.
+func (c *RoleClient) Delete() *RoleDelete {
+	mutation := newRoleMutation(c.config, OpDelete)
+	return &RoleDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *RoleClient) DeleteOne(r *Role) *RoleDeleteOne {
+	return c.DeleteOneID(r.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *RoleClient) DeleteOneID(id int64) *RoleDeleteOne {
+	builder := c.Delete().Where(role.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &RoleDeleteOne{builder}
+}
+
+// Query returns a query builder for Role.
+func (c *RoleClient) Query() *RoleQuery {
+	return &RoleQuery{
+		config: c.config,
+	}
+}
+
+// Get returns a Role entity by its id.
+func (c *RoleClient) Get(ctx context.Context, id int64) (*Role, error) {
+	return c.Query().Where(role.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *RoleClient) GetX(ctx context.Context, id int64) *Role {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *RoleClient) Hooks() []Hook {
+	hooks := c.hooks.Role
+	return append(hooks[:len(hooks):len(hooks)], role.Hooks[:]...)
+}
+
+// UserClient is a client for the User schema.
+type UserClient struct {
+	config
+}
+
+// NewUserClient returns a client for the User from the given config.
+func NewUserClient(c config) *UserClient {
+	return &UserClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `user.Hooks(f(g(h())))`.
+func (c *UserClient) Use(hooks ...Hook) {
+	c.hooks.User = append(c.hooks.User, hooks...)
+}
+
+// Create returns a create builder for User.
+func (c *UserClient) Create() *UserCreate {
+	mutation := newUserMutation(c.config, OpCreate)
+	return &UserCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of User entities.
+func (c *UserClient) CreateBulk(builders ...*UserCreate) *UserCreateBulk {
+	return &UserCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for User.
+func (c *UserClient) Update() *UserUpdate {
+	mutation := newUserMutation(c.config, OpUpdate)
+	return &UserUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *UserClient) UpdateOne(u *User) *UserUpdateOne {
+	mutation := newUserMutation(c.config, OpUpdateOne, withUser(u))
+	return &UserUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *UserClient) UpdateOneID(id int64) *UserUpdateOne {
+	mutation := newUserMutation(c.config, OpUpdateOne, withUserID(id))
+	return &UserUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for User.
+func (c *UserClient) Delete() *UserDelete {
+	mutation := newUserMutation(c.config, OpDelete)
+	return &UserDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *UserClient) DeleteOne(u *User) *UserDeleteOne {
+	return c.DeleteOneID(u.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *UserClient) DeleteOneID(id int64) *UserDeleteOne {
+	builder := c.Delete().Where(user.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &UserDeleteOne{builder}
+}
+
+// Query returns a query builder for User.
+func (c *UserClient) Query() *UserQuery {
+	return &UserQuery{
+		config: c.config,
+	}
+}
+
+// Get returns a User entity by its id.
+func (c *UserClient) Get(ctx context.Context, id int64) (*User, error) {
+	return c.Query().Where(user.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *UserClient) GetX(ctx context.Context, id int64) *User {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// QueryRoles queries the roles edge of a User.
+func (c *UserClient) QueryRoles(u *User) *RoleQuery {
+	query := &RoleQuery{config: c.config}
+	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
+		id := u.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(user.Table, user.FieldID, id),
+			sqlgraph.To(role.Table, role.FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, user.RolesTable, user.RolesColumn),
+		)
+		fromV = sqlgraph.Neighbors(u.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
+// Hooks returns the client hooks.
+func (c *UserClient) Hooks() []Hook {
+	hooks := c.hooks.User
+	return append(hooks[:len(hooks):len(hooks)], user.Hooks[:]...)
+}
+
+// UserRoleClient is a client for the UserRole schema.
+type UserRoleClient struct {
+	config
+}
+
+// NewUserRoleClient returns a client for the UserRole from the given config.
+func NewUserRoleClient(c config) *UserRoleClient {
+	return &UserRoleClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `userrole.Hooks(f(g(h())))`.
+func (c *UserRoleClient) Use(hooks ...Hook) {
+	c.hooks.UserRole = append(c.hooks.UserRole, hooks...)
+}
+
+// Create returns a create builder for UserRole.
+func (c *UserRoleClient) Create() *UserRoleCreate {
+	mutation := newUserRoleMutation(c.config, OpCreate)
+	return &UserRoleCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of UserRole entities.
+func (c *UserRoleClient) CreateBulk(builders ...*UserRoleCreate) *UserRoleCreateBulk {
+	return &UserRoleCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for UserRole.
+func (c *UserRoleClient) Update() *UserRoleUpdate {
+	mutation := newUserRoleMutation(c.config, OpUpdate)
+	return &UserRoleUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *UserRoleClient) UpdateOne(ur *UserRole) *UserRoleUpdateOne {
+	mutation := newUserRoleMutation(c.config, OpUpdateOne, withUserRole(ur))
+	return &UserRoleUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *UserRoleClient) UpdateOneID(id int) *UserRoleUpdateOne {
+	mutation := newUserRoleMutation(c.config, OpUpdateOne, withUserRoleID(id))
+	return &UserRoleUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for UserRole.
+func (c *UserRoleClient) Delete() *UserRoleDelete {
+	mutation := newUserRoleMutation(c.config, OpDelete)
+	return &UserRoleDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *UserRoleClient) DeleteOne(ur *UserRole) *UserRoleDeleteOne {
+	return c.DeleteOneID(ur.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *UserRoleClient) DeleteOneID(id int) *UserRoleDeleteOne {
+	builder := c.Delete().Where(userrole.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &UserRoleDeleteOne{builder}
+}
+
+// Query returns a query builder for UserRole.
+func (c *UserRoleClient) Query() *UserRoleQuery {
+	return &UserRoleQuery{
+		config: c.config,
+	}
+}
+
+// Get returns a UserRole entity by its id.
+func (c *UserRoleClient) Get(ctx context.Context, id int) (*UserRole, error) {
+	return c.Query().Where(userrole.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *UserRoleClient) GetX(ctx context.Context, id int) *UserRole {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *UserRoleClient) Hooks() []Hook {
+	return c.hooks.UserRole
 }

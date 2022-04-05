@@ -9,26 +9,47 @@ import (
 )
 
 var (
-	// SysDictColumns holds the columns for the "sys_dict" table.
-	SysDictColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeInt64, Increment: true, SchemaType: map[string]string{"mysql": "intunsigned"}},
+	// SysAPIColumns holds the columns for the "sys_api" table.
+	SysAPIColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt64, Increment: true, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
 		{Name: "created_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "DATETIME"}},
 		{Name: "created_by", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
 		{Name: "updated_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "DATETIME"}},
 		{Name: "updated_by", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
-		{Name: "dict_type_id", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "intunsigned"}},
+		{Name: "group", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(32)"}},
+		{Name: "name", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(32)"}},
+		{Name: "path", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(255)"}},
+		{Name: "method", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(16)"}},
+		{Name: "desc", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(255)"}},
+		{Name: "permission", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(255)"}},
+		{Name: "status", Type: field.TypeUint8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint unsigned"}},
+	}
+	// SysAPITable holds the schema information for the "sys_api" table.
+	SysAPITable = &schema.Table{
+		Name:       "sys_api",
+		Columns:    SysAPIColumns,
+		PrimaryKey: []*schema.Column{SysAPIColumns[0]},
+	}
+	// SysDictDataColumns holds the columns for the "sys_dict_data" table.
+	SysDictDataColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt64, Increment: true, SchemaType: map[string]string{"mysql": "int unsigned"}},
+		{Name: "created_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "DATETIME"}},
+		{Name: "created_by", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
+		{Name: "updated_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "DATETIME"}},
+		{Name: "updated_by", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
+		{Name: "dict_type_id", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "int unsigned"}},
 		{Name: "label", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(100)"}},
 		{Name: "value", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(100)"}},
-		{Name: "sort", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint(1)unsigned"}},
-		{Name: "status", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint(1)unsigned"}},
+		{Name: "sort", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint unsigned"}},
+		{Name: "status", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint unsigned"}},
 		{Name: "remark", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(500)"}},
-		{Name: "is_default", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint(1)unsigned"}},
+		{Name: "is_default", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint unsigned"}},
 	}
-	// SysDictTable holds the schema information for the "sys_dict" table.
-	SysDictTable = &schema.Table{
-		Name:       "sys_dict",
-		Columns:    SysDictColumns,
-		PrimaryKey: []*schema.Column{SysDictColumns[0]},
+	// SysDictDataTable holds the schema information for the "sys_dict_data" table.
+	SysDictDataTable = &schema.Table{
+		Name:       "sys_dict_data",
+		Columns:    SysDictDataColumns,
+		PrimaryKey: []*schema.Column{SysDictDataColumns[0]},
 	}
 	// SysDictTypeColumns holds the columns for the "sys_dict_type" table.
 	SysDictTypeColumns = []*schema.Column{
@@ -39,7 +60,7 @@ var (
 		{Name: "updated_by", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
 		{Name: "name", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(100)"}},
 		{Name: "type", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(100)"}},
-		{Name: "status", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint(1)unsigned"}},
+		{Name: "status", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint unsigned"}},
 		{Name: "remark", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(500)"}},
 	}
 	// SysDictTypeTable holds the schema information for the "sys_dict_type" table.
@@ -48,21 +69,130 @@ var (
 		Columns:    SysDictTypeColumns,
 		PrimaryKey: []*schema.Column{SysDictTypeColumns[0]},
 	}
+	// SysPermissionColumns holds the columns for the "sys_permission" table.
+	SysPermissionColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt64, Increment: true, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
+		{Name: "menu_id", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
+		{Name: "name", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(255)"}},
+		{Name: "permission", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(255)"}},
+	}
+	// SysPermissionTable holds the schema information for the "sys_permission" table.
+	SysPermissionTable = &schema.Table{
+		Name:       "sys_permission",
+		Columns:    SysPermissionColumns,
+		PrimaryKey: []*schema.Column{SysPermissionColumns[0]},
+	}
+	// SysRoleColumns holds the columns for the "sys_role" table.
+	SysRoleColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt64, Increment: true, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
+		{Name: "created_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "DATETIME"}},
+		{Name: "created_by", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
+		{Name: "updated_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "DATETIME"}},
+		{Name: "updated_by", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
+		{Name: "name", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(30)"}},
+		{Name: "sort", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint unsigned"}},
+		{Name: "status", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint unsigned"}},
+		{Name: "remark", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(500)"}},
+		{Name: "user_roles", Type: field.TypeInt64, Nullable: true, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
+	}
+	// SysRoleTable holds the schema information for the "sys_role" table.
+	SysRoleTable = &schema.Table{
+		Name:       "sys_role",
+		Columns:    SysRoleColumns,
+		PrimaryKey: []*schema.Column{SysRoleColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "sys_role_sys_user_roles",
+				Columns:    []*schema.Column{SysRoleColumns[9]},
+				RefColumns: []*schema.Column{SysUserColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+		},
+	}
+	// SysUserColumns holds the columns for the "sys_user" table.
+	SysUserColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt64, Increment: true, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
+		{Name: "created_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "DATETIME"}},
+		{Name: "created_by", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
+		{Name: "updated_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "DATETIME"}},
+		{Name: "updated_by", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
+		{Name: "uid", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
+		{Name: "nickname", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(30)"}},
+		{Name: "avatar", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(255)"}},
+		{Name: "gender", Type: field.TypeEnum, Enums: []string{"male", "female", "unknow"}, Default: "unknow", SchemaType: map[string]string{"mysql": "enum('male','female','unknow')"}},
+		{Name: "remark", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(500)"}},
+	}
+	// SysUserTable holds the schema information for the "sys_user" table.
+	SysUserTable = &schema.Table{
+		Name:       "sys_user",
+		Columns:    SysUserColumns,
+		PrimaryKey: []*schema.Column{SysUserColumns[0]},
+	}
+	// SysUserRoleColumns holds the columns for the "sys_user_role" table.
+	SysUserRoleColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "user_id", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
+		{Name: "role_id", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
+	}
+	// SysUserRoleTable holds the schema information for the "sys_user_role" table.
+	SysUserRoleTable = &schema.Table{
+		Name:       "sys_user_role",
+		Columns:    SysUserRoleColumns,
+		PrimaryKey: []*schema.Column{SysUserRoleColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "idx_user_id_role_id",
+				Unique:  true,
+				Columns: []*schema.Column{SysUserRoleColumns[1], SysUserRoleColumns[2]},
+			},
+		},
+	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		SysDictTable,
+		SysAPITable,
+		SysDictDataTable,
 		SysDictTypeTable,
+		SysPermissionTable,
+		SysRoleTable,
+		SysUserTable,
+		SysUserRoleTable,
 	}
 )
 
 func init() {
-	SysDictTable.Annotation = &entsql.Annotation{
-		Table:     "sys_dict",
+	SysAPITable.Annotation = &entsql.Annotation{
+		Table:     "sys_api",
+		Charset:   "utf8mb4",
+		Collation: "utf8mb4_unicode_ci",
+	}
+	SysDictDataTable.Annotation = &entsql.Annotation{
+		Table:     "sys_dict_data",
 		Charset:   "utf8mb4",
 		Collation: "utf8mb4_unicode_ci",
 	}
 	SysDictTypeTable.Annotation = &entsql.Annotation{
 		Table:     "sys_dict_type",
+		Charset:   "utf8mb4",
+		Collation: "utf8mb4_unicode_ci",
+	}
+	SysPermissionTable.Annotation = &entsql.Annotation{
+		Table:     "sys_permission",
+		Charset:   "utf8mb4",
+		Collation: "utf8mb4_unicode_ci",
+	}
+	SysRoleTable.ForeignKeys[0].RefTable = SysUserTable
+	SysRoleTable.Annotation = &entsql.Annotation{
+		Table:     "sys_role",
+		Charset:   "utf8mb4",
+		Collation: "utf8mb4_unicode_ci",
+	}
+	SysUserTable.Annotation = &entsql.Annotation{
+		Table:     "sys_user",
+		Charset:   "utf8mb4",
+		Collation: "utf8mb4_unicode_ci",
+	}
+	SysUserRoleTable.Annotation = &entsql.Annotation{
+		Table:     "sys_user_role",
 		Charset:   "utf8mb4",
 		Collation: "utf8mb4_unicode_ci",
 	}

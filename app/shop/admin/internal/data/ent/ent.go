@@ -8,8 +8,13 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/dict"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/api"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/dictdata"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/dicttype"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/permission"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/role"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/user"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/userrole"
 )
 
 // ent aliases to avoid import conflicts in user's code.
@@ -30,8 +35,13 @@ type OrderFunc func(*sql.Selector)
 // columnChecker returns a function indicates if the column exists in the given column.
 func columnChecker(table string) func(string) error {
 	checks := map[string]func(string) bool{
-		dict.Table:     dict.ValidColumn,
-		dicttype.Table: dicttype.ValidColumn,
+		api.Table:        api.ValidColumn,
+		dictdata.Table:   dictdata.ValidColumn,
+		dicttype.Table:   dicttype.ValidColumn,
+		permission.Table: permission.ValidColumn,
+		role.Table:       role.ValidColumn,
+		user.Table:       user.ValidColumn,
+		userrole.Table:   userrole.ValidColumn,
 	}
 	check, ok := checks[table]
 	if !ok {

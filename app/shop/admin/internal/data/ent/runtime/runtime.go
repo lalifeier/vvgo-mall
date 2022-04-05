@@ -5,68 +5,126 @@ package runtime
 import (
 	"time"
 
-	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/dict"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/api"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/dictdata"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/dicttype"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/permission"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/role"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/schema"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/user"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/userrole"
 )
 
 // The init function reads all schema descriptors with runtime code
 // (default values, validators, hooks and policies) and stitches it
 // to their package variables.
 func init() {
-	dictMixin := schema.Dict{}.Mixin()
-	dictMixinHooks0 := dictMixin[0].Hooks()
-	dict.Hooks[0] = dictMixinHooks0[0]
-	dictMixinFields0 := dictMixin[0].Fields()
-	_ = dictMixinFields0
-	dictFields := schema.Dict{}.Fields()
-	_ = dictFields
-	// dictDescCreatedAt is the schema descriptor for created_at field.
-	dictDescCreatedAt := dictMixinFields0[0].Descriptor()
-	// dict.DefaultCreatedAt holds the default value on creation for the created_at field.
-	dict.DefaultCreatedAt = dictDescCreatedAt.Default.(func() time.Time)
-	// dictDescCreatedBy is the schema descriptor for created_by field.
-	dictDescCreatedBy := dictMixinFields0[1].Descriptor()
-	// dict.DefaultCreatedBy holds the default value on creation for the created_by field.
-	dict.DefaultCreatedBy = dictDescCreatedBy.Default.(int64)
-	// dictDescUpdatedAt is the schema descriptor for updated_at field.
-	dictDescUpdatedAt := dictMixinFields0[2].Descriptor()
-	// dict.DefaultUpdatedAt holds the default value on creation for the updated_at field.
-	dict.DefaultUpdatedAt = dictDescUpdatedAt.Default.(func() time.Time)
-	// dict.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
-	dict.UpdateDefaultUpdatedAt = dictDescUpdatedAt.UpdateDefault.(func() time.Time)
-	// dictDescUpdatedBy is the schema descriptor for updated_by field.
-	dictDescUpdatedBy := dictMixinFields0[3].Descriptor()
-	// dict.DefaultUpdatedBy holds the default value on creation for the updated_by field.
-	dict.DefaultUpdatedBy = dictDescUpdatedBy.Default.(int64)
-	// dictDescDictTypeID is the schema descriptor for dict_type_id field.
-	dictDescDictTypeID := dictFields[1].Descriptor()
-	// dict.DefaultDictTypeID holds the default value on creation for the dict_type_id field.
-	dict.DefaultDictTypeID = dictDescDictTypeID.Default.(int64)
-	// dictDescLabel is the schema descriptor for label field.
-	dictDescLabel := dictFields[2].Descriptor()
-	// dict.DefaultLabel holds the default value on creation for the label field.
-	dict.DefaultLabel = dictDescLabel.Default.(string)
-	// dictDescValue is the schema descriptor for value field.
-	dictDescValue := dictFields[3].Descriptor()
-	// dict.DefaultValue holds the default value on creation for the value field.
-	dict.DefaultValue = dictDescValue.Default.(string)
-	// dictDescSort is the schema descriptor for sort field.
-	dictDescSort := dictFields[4].Descriptor()
-	// dict.DefaultSort holds the default value on creation for the sort field.
-	dict.DefaultSort = dictDescSort.Default.(int8)
-	// dictDescStatus is the schema descriptor for status field.
-	dictDescStatus := dictFields[5].Descriptor()
-	// dict.DefaultStatus holds the default value on creation for the status field.
-	dict.DefaultStatus = dictDescStatus.Default.(int8)
-	// dictDescRemark is the schema descriptor for remark field.
-	dictDescRemark := dictFields[6].Descriptor()
-	// dict.DefaultRemark holds the default value on creation for the remark field.
-	dict.DefaultRemark = dictDescRemark.Default.(string)
-	// dictDescIsDefault is the schema descriptor for is_default field.
-	dictDescIsDefault := dictFields[7].Descriptor()
-	// dict.DefaultIsDefault holds the default value on creation for the is_default field.
-	dict.DefaultIsDefault = dictDescIsDefault.Default.(int8)
+	apiMixin := schema.Api{}.Mixin()
+	apiMixinHooks0 := apiMixin[0].Hooks()
+	api.Hooks[0] = apiMixinHooks0[0]
+	apiMixinFields0 := apiMixin[0].Fields()
+	_ = apiMixinFields0
+	apiFields := schema.Api{}.Fields()
+	_ = apiFields
+	// apiDescCreatedAt is the schema descriptor for created_at field.
+	apiDescCreatedAt := apiMixinFields0[0].Descriptor()
+	// api.DefaultCreatedAt holds the default value on creation for the created_at field.
+	api.DefaultCreatedAt = apiDescCreatedAt.Default.(func() time.Time)
+	// apiDescCreatedBy is the schema descriptor for created_by field.
+	apiDescCreatedBy := apiMixinFields0[1].Descriptor()
+	// api.DefaultCreatedBy holds the default value on creation for the created_by field.
+	api.DefaultCreatedBy = apiDescCreatedBy.Default.(int64)
+	// apiDescUpdatedAt is the schema descriptor for updated_at field.
+	apiDescUpdatedAt := apiMixinFields0[2].Descriptor()
+	// api.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	api.DefaultUpdatedAt = apiDescUpdatedAt.Default.(func() time.Time)
+	// api.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	api.UpdateDefaultUpdatedAt = apiDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// apiDescUpdatedBy is the schema descriptor for updated_by field.
+	apiDescUpdatedBy := apiMixinFields0[3].Descriptor()
+	// api.DefaultUpdatedBy holds the default value on creation for the updated_by field.
+	api.DefaultUpdatedBy = apiDescUpdatedBy.Default.(int64)
+	// apiDescGroup is the schema descriptor for group field.
+	apiDescGroup := apiFields[1].Descriptor()
+	// api.DefaultGroup holds the default value on creation for the group field.
+	api.DefaultGroup = apiDescGroup.Default.(string)
+	// apiDescName is the schema descriptor for name field.
+	apiDescName := apiFields[2].Descriptor()
+	// api.DefaultName holds the default value on creation for the name field.
+	api.DefaultName = apiDescName.Default.(string)
+	// apiDescPath is the schema descriptor for path field.
+	apiDescPath := apiFields[3].Descriptor()
+	// api.DefaultPath holds the default value on creation for the path field.
+	api.DefaultPath = apiDescPath.Default.(string)
+	// apiDescMethod is the schema descriptor for method field.
+	apiDescMethod := apiFields[4].Descriptor()
+	// api.DefaultMethod holds the default value on creation for the method field.
+	api.DefaultMethod = apiDescMethod.Default.(string)
+	// apiDescDesc is the schema descriptor for desc field.
+	apiDescDesc := apiFields[5].Descriptor()
+	// api.DefaultDesc holds the default value on creation for the desc field.
+	api.DefaultDesc = apiDescDesc.Default.(string)
+	// apiDescPermission is the schema descriptor for permission field.
+	apiDescPermission := apiFields[6].Descriptor()
+	// api.DefaultPermission holds the default value on creation for the permission field.
+	api.DefaultPermission = apiDescPermission.Default.(string)
+	// apiDescStatus is the schema descriptor for status field.
+	apiDescStatus := apiFields[7].Descriptor()
+	// api.DefaultStatus holds the default value on creation for the status field.
+	api.DefaultStatus = apiDescStatus.Default.(uint8)
+	dictdataMixin := schema.DictData{}.Mixin()
+	dictdataMixinHooks0 := dictdataMixin[0].Hooks()
+	dictdata.Hooks[0] = dictdataMixinHooks0[0]
+	dictdataMixinFields0 := dictdataMixin[0].Fields()
+	_ = dictdataMixinFields0
+	dictdataFields := schema.DictData{}.Fields()
+	_ = dictdataFields
+	// dictdataDescCreatedAt is the schema descriptor for created_at field.
+	dictdataDescCreatedAt := dictdataMixinFields0[0].Descriptor()
+	// dictdata.DefaultCreatedAt holds the default value on creation for the created_at field.
+	dictdata.DefaultCreatedAt = dictdataDescCreatedAt.Default.(func() time.Time)
+	// dictdataDescCreatedBy is the schema descriptor for created_by field.
+	dictdataDescCreatedBy := dictdataMixinFields0[1].Descriptor()
+	// dictdata.DefaultCreatedBy holds the default value on creation for the created_by field.
+	dictdata.DefaultCreatedBy = dictdataDescCreatedBy.Default.(int64)
+	// dictdataDescUpdatedAt is the schema descriptor for updated_at field.
+	dictdataDescUpdatedAt := dictdataMixinFields0[2].Descriptor()
+	// dictdata.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	dictdata.DefaultUpdatedAt = dictdataDescUpdatedAt.Default.(func() time.Time)
+	// dictdata.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	dictdata.UpdateDefaultUpdatedAt = dictdataDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// dictdataDescUpdatedBy is the schema descriptor for updated_by field.
+	dictdataDescUpdatedBy := dictdataMixinFields0[3].Descriptor()
+	// dictdata.DefaultUpdatedBy holds the default value on creation for the updated_by field.
+	dictdata.DefaultUpdatedBy = dictdataDescUpdatedBy.Default.(int64)
+	// dictdataDescDictTypeID is the schema descriptor for dict_type_id field.
+	dictdataDescDictTypeID := dictdataFields[1].Descriptor()
+	// dictdata.DefaultDictTypeID holds the default value on creation for the dict_type_id field.
+	dictdata.DefaultDictTypeID = dictdataDescDictTypeID.Default.(int64)
+	// dictdataDescLabel is the schema descriptor for label field.
+	dictdataDescLabel := dictdataFields[2].Descriptor()
+	// dictdata.DefaultLabel holds the default value on creation for the label field.
+	dictdata.DefaultLabel = dictdataDescLabel.Default.(string)
+	// dictdataDescValue is the schema descriptor for value field.
+	dictdataDescValue := dictdataFields[3].Descriptor()
+	// dictdata.DefaultValue holds the default value on creation for the value field.
+	dictdata.DefaultValue = dictdataDescValue.Default.(string)
+	// dictdataDescSort is the schema descriptor for sort field.
+	dictdataDescSort := dictdataFields[4].Descriptor()
+	// dictdata.DefaultSort holds the default value on creation for the sort field.
+	dictdata.DefaultSort = dictdataDescSort.Default.(int8)
+	// dictdataDescStatus is the schema descriptor for status field.
+	dictdataDescStatus := dictdataFields[5].Descriptor()
+	// dictdata.DefaultStatus holds the default value on creation for the status field.
+	dictdata.DefaultStatus = dictdataDescStatus.Default.(int8)
+	// dictdataDescRemark is the schema descriptor for remark field.
+	dictdataDescRemark := dictdataFields[6].Descriptor()
+	// dictdata.DefaultRemark holds the default value on creation for the remark field.
+	dictdata.DefaultRemark = dictdataDescRemark.Default.(string)
+	// dictdataDescIsDefault is the schema descriptor for is_default field.
+	dictdataDescIsDefault := dictdataFields[7].Descriptor()
+	// dictdata.DefaultIsDefault holds the default value on creation for the is_default field.
+	dictdata.DefaultIsDefault = dictdataDescIsDefault.Default.(int8)
 	dicttypeMixin := schema.DictType{}.Mixin()
 	dicttypeMixinHooks0 := dicttypeMixin[0].Hooks()
 	dicttype.Hooks[0] = dicttypeMixinHooks0[0]
@@ -108,9 +166,115 @@ func init() {
 	dicttypeDescRemark := dicttypeFields[4].Descriptor()
 	// dicttype.DefaultRemark holds the default value on creation for the remark field.
 	dicttype.DefaultRemark = dicttypeDescRemark.Default.(string)
+	permissionFields := schema.Permission{}.Fields()
+	_ = permissionFields
+	// permissionDescMenuID is the schema descriptor for menu_id field.
+	permissionDescMenuID := permissionFields[1].Descriptor()
+	// permission.DefaultMenuID holds the default value on creation for the menu_id field.
+	permission.DefaultMenuID = permissionDescMenuID.Default.(int64)
+	// permissionDescName is the schema descriptor for name field.
+	permissionDescName := permissionFields[2].Descriptor()
+	// permission.DefaultName holds the default value on creation for the name field.
+	permission.DefaultName = permissionDescName.Default.(string)
+	// permissionDescPermission is the schema descriptor for permission field.
+	permissionDescPermission := permissionFields[3].Descriptor()
+	// permission.DefaultPermission holds the default value on creation for the permission field.
+	permission.DefaultPermission = permissionDescPermission.Default.(string)
+	roleMixin := schema.Role{}.Mixin()
+	roleMixinHooks0 := roleMixin[0].Hooks()
+	role.Hooks[0] = roleMixinHooks0[0]
+	roleMixinFields0 := roleMixin[0].Fields()
+	_ = roleMixinFields0
+	roleFields := schema.Role{}.Fields()
+	_ = roleFields
+	// roleDescCreatedAt is the schema descriptor for created_at field.
+	roleDescCreatedAt := roleMixinFields0[0].Descriptor()
+	// role.DefaultCreatedAt holds the default value on creation for the created_at field.
+	role.DefaultCreatedAt = roleDescCreatedAt.Default.(func() time.Time)
+	// roleDescCreatedBy is the schema descriptor for created_by field.
+	roleDescCreatedBy := roleMixinFields0[1].Descriptor()
+	// role.DefaultCreatedBy holds the default value on creation for the created_by field.
+	role.DefaultCreatedBy = roleDescCreatedBy.Default.(int64)
+	// roleDescUpdatedAt is the schema descriptor for updated_at field.
+	roleDescUpdatedAt := roleMixinFields0[2].Descriptor()
+	// role.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	role.DefaultUpdatedAt = roleDescUpdatedAt.Default.(func() time.Time)
+	// role.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	role.UpdateDefaultUpdatedAt = roleDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// roleDescUpdatedBy is the schema descriptor for updated_by field.
+	roleDescUpdatedBy := roleMixinFields0[3].Descriptor()
+	// role.DefaultUpdatedBy holds the default value on creation for the updated_by field.
+	role.DefaultUpdatedBy = roleDescUpdatedBy.Default.(int64)
+	// roleDescName is the schema descriptor for name field.
+	roleDescName := roleFields[1].Descriptor()
+	// role.DefaultName holds the default value on creation for the name field.
+	role.DefaultName = roleDescName.Default.(string)
+	// roleDescSort is the schema descriptor for sort field.
+	roleDescSort := roleFields[2].Descriptor()
+	// role.DefaultSort holds the default value on creation for the sort field.
+	role.DefaultSort = roleDescSort.Default.(int8)
+	// roleDescStatus is the schema descriptor for status field.
+	roleDescStatus := roleFields[3].Descriptor()
+	// role.DefaultStatus holds the default value on creation for the status field.
+	role.DefaultStatus = roleDescStatus.Default.(int8)
+	// roleDescRemark is the schema descriptor for remark field.
+	roleDescRemark := roleFields[4].Descriptor()
+	// role.DefaultRemark holds the default value on creation for the remark field.
+	role.DefaultRemark = roleDescRemark.Default.(string)
+	userMixin := schema.User{}.Mixin()
+	userMixinHooks0 := userMixin[0].Hooks()
+	user.Hooks[0] = userMixinHooks0[0]
+	userMixinFields0 := userMixin[0].Fields()
+	_ = userMixinFields0
+	userFields := schema.User{}.Fields()
+	_ = userFields
+	// userDescCreatedAt is the schema descriptor for created_at field.
+	userDescCreatedAt := userMixinFields0[0].Descriptor()
+	// user.DefaultCreatedAt holds the default value on creation for the created_at field.
+	user.DefaultCreatedAt = userDescCreatedAt.Default.(func() time.Time)
+	// userDescCreatedBy is the schema descriptor for created_by field.
+	userDescCreatedBy := userMixinFields0[1].Descriptor()
+	// user.DefaultCreatedBy holds the default value on creation for the created_by field.
+	user.DefaultCreatedBy = userDescCreatedBy.Default.(int64)
+	// userDescUpdatedAt is the schema descriptor for updated_at field.
+	userDescUpdatedAt := userMixinFields0[2].Descriptor()
+	// user.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	user.DefaultUpdatedAt = userDescUpdatedAt.Default.(func() time.Time)
+	// user.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	user.UpdateDefaultUpdatedAt = userDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// userDescUpdatedBy is the schema descriptor for updated_by field.
+	userDescUpdatedBy := userMixinFields0[3].Descriptor()
+	// user.DefaultUpdatedBy holds the default value on creation for the updated_by field.
+	user.DefaultUpdatedBy = userDescUpdatedBy.Default.(int64)
+	// userDescUID is the schema descriptor for uid field.
+	userDescUID := userFields[1].Descriptor()
+	// user.DefaultUID holds the default value on creation for the uid field.
+	user.DefaultUID = userDescUID.Default.(int64)
+	// userDescNickname is the schema descriptor for nickname field.
+	userDescNickname := userFields[2].Descriptor()
+	// user.DefaultNickname holds the default value on creation for the nickname field.
+	user.DefaultNickname = userDescNickname.Default.(string)
+	// userDescAvatar is the schema descriptor for avatar field.
+	userDescAvatar := userFields[3].Descriptor()
+	// user.DefaultAvatar holds the default value on creation for the avatar field.
+	user.DefaultAvatar = userDescAvatar.Default.(string)
+	// userDescRemark is the schema descriptor for remark field.
+	userDescRemark := userFields[5].Descriptor()
+	// user.DefaultRemark holds the default value on creation for the remark field.
+	user.DefaultRemark = userDescRemark.Default.(string)
+	userroleFields := schema.UserRole{}.Fields()
+	_ = userroleFields
+	// userroleDescUserID is the schema descriptor for user_id field.
+	userroleDescUserID := userroleFields[0].Descriptor()
+	// userrole.DefaultUserID holds the default value on creation for the user_id field.
+	userrole.DefaultUserID = userroleDescUserID.Default.(int64)
+	// userroleDescRoleID is the schema descriptor for role_id field.
+	userroleDescRoleID := userroleFields[1].Descriptor()
+	// userrole.DefaultRoleID holds the default value on creation for the role_id field.
+	userrole.DefaultRoleID = userroleDescRoleID.Default.(int64)
 }
 
 const (
-	Version = "v0.9.2-0.20211030195115-681d03e89680"            // Version of ent codegen.
-	Sum     = "h1:3unIS8ZjoiML6TTT1tJjjJjbCHIBNHNtgA7VBIEQZDE=" // Sum of ent codegen.
+	Version = "v0.10.1"                                         // Version of ent codegen.
+	Sum     = "h1:dM5h4Zk6yHGIgw4dCqVzGw3nWgpGYJiV4/kyHEF6PFo=" // Sum of ent codegen.
 )
