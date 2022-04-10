@@ -12,8 +12,8 @@ import (
 // Tx is a transactional client that is created by calling Client.Tx().
 type Tx struct {
 	config
-	// AccountUser is the client for interacting with the AccountUser builders.
-	AccountUser *AccountUserClient
+	// User is the client for interacting with the User builders.
+	User *UserClient
 
 	// lazily loaded.
 	client     *Client
@@ -30,7 +30,7 @@ type Tx struct {
 }
 
 type (
-	// Committer is the interface that wraps the Committer method.
+	// Committer is the interface that wraps the Commit method.
 	Committer interface {
 		Commit(context.Context, *Tx) error
 	}
@@ -85,7 +85,7 @@ func (tx *Tx) OnCommit(f CommitHook) {
 }
 
 type (
-	// Rollbacker is the interface that wraps the Rollbacker method.
+	// Rollbacker is the interface that wraps the Rollback method.
 	Rollbacker interface {
 		Rollback(context.Context, *Tx) error
 	}
@@ -149,7 +149,7 @@ func (tx *Tx) Client() *Client {
 }
 
 func (tx *Tx) init() {
-	tx.AccountUser = NewAccountUserClient(tx.config)
+	tx.User = NewUserClient(tx.config)
 }
 
 // txDriver wraps the given dialect.Tx with a nop dialect.Driver implementation.
@@ -159,7 +159,7 @@ func (tx *Tx) init() {
 // of them in order to commit or rollback the transaction.
 //
 // If a closed transaction is embedded in one of the generated entities, and the entity
-// applies a query, for example: AccountUser.QueryXXX(), the query will be executed
+// applies a query, for example: User.QueryXXX(), the query will be executed
 // through the driver which created this transaction.
 //
 // Note that txDriver is not goroutine safe.

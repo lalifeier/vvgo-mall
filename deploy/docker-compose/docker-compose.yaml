@@ -48,6 +48,8 @@ services:
     container_name: vvgo-mall
     ports:
       - 8000:8000
+      - 8001:8001
+      - 8002:8002
     networks:
       - app_net
     privileged: true

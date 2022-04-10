@@ -33,8 +33,11 @@ message Data {
   message Redis {
     string network = 1;
     string addr = 2;
-    google.protobuf.Duration read_timeout = 3;
-    google.protobuf.Duration write_timeout = 4;
+    int32 db = 3;
+    string password = 4;
+    google.protobuf.Duration dial_timeout = 5;
+    google.protobuf.Duration read_timeout = 6;
+    google.protobuf.Duration write_timeout = 7;
   }
   Database database = 1;
   Redis redis = 2;
@@ -47,3 +50,5 @@ message Registry {
   }
   Consul consul = 1;
 }
+
+message Trace { string endpoint = 1; }

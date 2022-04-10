@@ -2,95 +2,122 @@ syntax = "proto3";
 
 package api.auth.service.v1;
 
-import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "github.com/lalifeier/vvgo-mall/api/auth/service/v1;v1";
 
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info : {title : "auth";
+version : "1.0";
+}
+;
+}
+;
+
 service Auth {
-  rpc CreateSystem(CreateSystemReq) returns (CreateSystemResp);
-  rpc UpdateSystem(UpdateSystemReq) returns (UpdateSystemResp);
-  rpc DeleteSystem(DeleteSystemReq) returns (DeleteSystemResp);
-  rpc GetSystem(GetSystemReq) returns (GetSystemResp);
-  rpc ListSystem(ListSystemReq) returns (ListSystemResp);
-  rpc PageListSystem(PageListSystemReq) returns (PageListSystemResp);
+  rpc GetCaptcha(GetCaptchaReq) returns (GetCaptchaResp) {
+    option (google.api.http) = {
+      get : "/api/getCaptcha"
+    };
+  }
 
-  rpc CreateRole(CreateRoleReq) returns (CreateRoleResp);
-  rpc UpdateRole(UpdateRoleReq) returns (UpdateRoleResp);
-  rpc DeleteRole(DeleteRoleReq) returns (DeleteRoleResp);
-  rpc GetRole(GetRoleReq) returns (GetRoleResp);
-  rpc ListRole(ListRoleReq) returns (ListRoleResp);
-  rpc PageListRole(PageListRoleReq) returns (PageListRoleResp);
+  rpc VerifyCaptcha(VerifyCaptchaReq) returns (VerifyCaptchaResp) {
+    option (google.api.http) = {
+      post : "/api/verifyCaptcha"
+      body : "*"
+    };
+  }
 
-  rpc CreateMenu(CreateMenuReq) returns (CreateMenuResp);
-  rpc UpdateMenu(UpdateMenuReq) returns (UpdateMenuResp);
-  rpc DeleteMenu(DeleteMenuReq) returns (DeleteMenuResp);
-  rpc GetMenu(GetMenuReq) returns (GetMenuResp);
-  rpc ListMenu(ListMenuReq) returns (ListMenuResp);
-  rpc PageListMenu(PageListMenuReq) returns (PageListMenuResp);
-}
+  // rpc Authorize(AuthorizeReq) returns (AuthorizeResp) {
+  //   option (google.api.http) = {
+  //     post : "/api/authorize"
+  //     body : "*"
+  //   };
+  // }
 
-message System { int64 id = 1; }
-message CreateSystemReq {}
-message CreateSystemResp {}
-message UpdateSystemReq { int64 id = 1; }
-message UpdateSystemResp {}
-message DeleteSystemReq { int64 id = 1; }
-message DeleteSystemResp {}
-message GetSystemReq { int64 id = 1; }
-message GetSystemResp { int64 id = 1; }
-message ListSystemReq {}
-message ListSystemResp { repeated System list = 1; }
-message PageListSystemReq {
-  int64 pageNum = 1;
-  int64 pageSize = 4;
-}
-message PageListSystemResp {
-  repeated System list = 1;
-  int64 total = 2;
-  int64 page = 3;
-  int64 pageSize = 4;
-}
+  // rpc Token(TokenReq) returns (TokenResp) {
+  //   option (google.api.http) = {
+  //     post : "/api/token"
+  //     body : "*"
+  //   };
+  // }
 
-message Role { int64 id = 1; }
-message CreateRoleReq {}
-message CreateRoleResp {}
-message UpdateRoleReq { int64 id = 1; }
-message UpdateRoleResp {}
-message DeleteRoleReq { int64 id = 1; }
-message DeleteRoleResp {}
-message GetRoleReq { int64 id = 1; }
-message GetRoleResp { int64 id = 1; }
-message ListRoleReq {}
-message ListRoleResp { repeated Role list = 1; }
-message PageListRoleReq {
-  int64 pageNum = 1;
-  int64 pageSize = 4;
-}
-message PageListRoleResp {
-  repeated Role list = 1;
-  int64 total = 2;
-  int64 page = 3;
-  int64 pageSize = 4;
+  // rpc Verify(VerifyReq) returns (VerifyResp) {
+  //   option (google.api.http) = {
+  //     get : "/api/verify"
+  //   };
+  // }
+
+  // rpc RefreshToken(RefreshTokenReq) returns (RefreshTokenResp) {
+  //   option (google.api.http) = {
+  //     post : "/api/refresh_token"
+  //     body : "*"
+  //   };
+  // }
+
+  // rpc Logout(LogoutReq) returns (LogoutResp) {
+  //   option (google.api.http) = {
+  //     get : "/api/logout"
+  //   };
+  // }
 }
 
-message Menu { int64 id = 1; }
-message CreateMenuReq {}
-message CreateMenuResp {}
-message UpdateMenuReq { int64 id = 1; }
-message UpdateMenuResp {}
-message DeleteMenuReq { int64 id = 1; }
-message DeleteMenuResp {}
-message GetMenuReq { int64 id = 1; }
-message GetMenuResp { int64 id = 1; }
-message ListMenuReq {}
-message ListMenuResp { repeated Menu list = 1; }
-message PageListMenuReq {
-  int64 pageNum = 1;
-  int64 pageSize = 4;
+message GetCaptchaReq {}
+message GetCaptchaResp {
+  string captcha_id = 1;
+  string img_bytes = 2;
 }
-message PageListMenuResp {
-  repeated Menu list = 1;
-  int64 total = 2;
-  int64 page = 3;
-  int64 pageSize = 4;
+
+message VerifyCaptchaReq {
+  string captcha_id = 1;
+  string captcha_code = 2;
 }
+message VerifyCaptchaResp {}
+
+message AuthorizeReq {
+  string client_id = 1;
+  string response_type = 2;
+  string scope = 3;
+  string state = 4;
+  string redirect_uri = 5;
+}
+message AuthorizeResp {}
+
+message TokenReq {
+  string grant_type = 1;
+  string code = 2;
+  string client_id = 3;
+}
+message TokenResp {
+  string access_token = 1;
+  int64 expires_in = 2;
+  string refresh_token = 3;
+  string scope = 4;
+  string token_type = 5;
+}
+
+// Token : Bearer access_token
+message VerifyReq {}
+message VerifyResp {
+  string client_id = 1;
+  string domain = 2;
+  int64 expires_in = 3;
+  string scope = 4;
+  string user_id = 5;
+}
+
+message RefreshTokenReq {
+  string grant_type = 1;
+  string refresh_token = 2;
+}
+message RefreshTokenResp {
+  string access_token = 1;
+  int64 expires_in = 2;
+  string refresh_token = 3;
+  string scope = 4;
+  string token_type = 5;
+}
+
+message LogoutReq { string redirect_uri = 1; }
+message LogoutResp {}

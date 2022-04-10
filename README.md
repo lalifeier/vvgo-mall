@@ -33,3 +33,22 @@ http://127.0.0.1:8001/q/swagger-ui
 deploy-server.com
 srv-data.com
 nginx-gateway.com
+
+# 权限管理
+
+用户管理
+角色管理
+部门管理
+岗位管理
+
+菜单管理
+
+接口权限
+按钮权限
+
+# 系统设置
+
+数据字典
+
+- 字典分类管理
+- 字典数据管理

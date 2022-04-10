@@ -9,7 +9,7 @@ import (
 
 	"github.com/lalifeier/vvgo-mall/app/auth/service/internal/data/ent/migrate"
 
-	"github.com/lalifeier/vvgo-mall/app/auth/service/internal/data/ent/accountuser"
+	"github.com/lalifeier/vvgo-mall/app/auth/service/internal/data/ent/user"
 
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
@@ -20,8 +20,8 @@ type Client struct {
 	config
 	// Schema is the client for creating, migrating and dropping schema.
 	Schema *migrate.Schema
-	// AccountUser is the client for interacting with the AccountUser builders.
-	AccountUser *AccountUserClient
+	// User is the client for interacting with the User builders.
+	User *UserClient
 }
 
 // NewClient creates a new client configured with the given options.
@@ -35,7 +35,7 @@ func NewClient(opts ...Option) *Client {
 
 func (c *Client) init() {
 	c.Schema = migrate.NewSchema(c.driver)
-	c.AccountUser = NewAccountUserClient(c.config)
+	c.User = NewUserClient(c.config)
 }
 
 // Open opens a database/sql.DB specified by the driver name and
@@ -67,9 +67,9 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 	cfg := c.config
 	cfg.driver = tx
 	return &Tx{
-		ctx:         ctx,
-		config:      cfg,
-		AccountUser: NewAccountUserClient(cfg),
+		ctx:    ctx,
+		config: cfg,
+		User:   NewUserClient(cfg),
 	}, nil
 }
 
@@ -87,15 +87,16 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 	cfg := c.config
 	cfg.driver = &txDriver{tx: tx, drv: c.driver}
 	return &Tx{
-		config:      cfg,
-		AccountUser: NewAccountUserClient(cfg),
+		ctx:    ctx,
+		config: cfg,
+		User:   NewUserClient(cfg),
 	}, nil
 }
 
 // Debug returns a new debug-client. It's used to get verbose logging on specific operations.
 //
 //	client.Debug().
-//		AccountUser.
+//		User.
 //		Query().
 //		Count(ctx)
 //
@@ -118,87 +119,87 @@ func (c *Client) Close() error {
 // Use adds the mutation hooks to all the entity clients.
 // In order to add hooks to a specific client, call: `client.Node.Use(...)`.
 func (c *Client) Use(hooks ...Hook) {
-	c.AccountUser.Use(hooks...)
+	c.User.Use(hooks...)
 }
 
-// AccountUserClient is a client for the AccountUser schema.
-type AccountUserClient struct {
+// UserClient is a client for the User schema.
+type UserClient struct {
 	config
 }
 
-// NewAccountUserClient returns a client for the AccountUser from the given config.
-func NewAccountUserClient(c config) *AccountUserClient {
-	return &AccountUserClient{config: c}
+// NewUserClient returns a client for the User from the given config.
+func NewUserClient(c config) *UserClient {
+	return &UserClient{config: c}
 }
 
 // Use adds a list of mutation hooks to the hooks stack.
-// A call to `Use(f, g, h)` equals to `accountuser.Hooks(f(g(h())))`.
-func (c *AccountUserClient) Use(hooks ...Hook) {
-	c.hooks.AccountUser = append(c.hooks.AccountUser, hooks...)
+// A call to `Use(f, g, h)` equals to `user.Hooks(f(g(h())))`.
+func (c *UserClient) Use(hooks ...Hook) {
+	c.hooks.User = append(c.hooks.User, hooks...)
 }
 
-// Create returns a create builder for AccountUser.
-func (c *AccountUserClient) Create() *AccountUserCreate {
-	mutation := newAccountUserMutation(c.config, OpCreate)
-	return &AccountUserCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+// Create returns a create builder for User.
+func (c *UserClient) Create() *UserCreate {
+	mutation := newUserMutation(c.config, OpCreate)
+	return &UserCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// CreateBulk returns a builder for creating a bulk of AccountUser entities.
-func (c *AccountUserClient) CreateBulk(builders ...*AccountUserCreate) *AccountUserCreateBulk {
-	return &AccountUserCreateBulk{config: c.config, builders: builders}
+// CreateBulk returns a builder for creating a bulk of User entities.
+func (c *UserClient) CreateBulk(builders ...*UserCreate) *UserCreateBulk {
+	return &UserCreateBulk{config: c.config, builders: builders}
 }
 
-// Update returns an update builder for AccountUser.
-func (c *AccountUserClient) Update() *AccountUserUpdate {
-	mutation := newAccountUserMutation(c.config, OpUpdate)
-	return &AccountUserUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+// Update returns an update builder for User.
+func (c *UserClient) Update() *UserUpdate {
+	mutation := newUserMutation(c.config, OpUpdate)
+	return &UserUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
 // UpdateOne returns an update builder for the given entity.
-func (c *AccountUserClient) UpdateOne(au *AccountUser) *AccountUserUpdateOne {
-	mutation := newAccountUserMutation(c.config, OpUpdateOne, withAccountUser(au))
-	return &AccountUserUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+func (c *UserClient) UpdateOne(u *User) *UserUpdateOne {
+	mutation := newUserMutation(c.config, OpUpdateOne, withUser(u))
+	return &UserUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
 // UpdateOneID returns an update builder for the given id.
-func (c *AccountUserClient) UpdateOneID(id int64) *AccountUserUpdateOne {
-	mutation := newAccountUserMutation(c.config, OpUpdateOne, withAccountUserID(id))
-	return &AccountUserUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+func (c *UserClient) UpdateOneID(id int) *UserUpdateOne {
+	mutation := newUserMutation(c.config, OpUpdateOne, withUserID(id))
+	return &UserUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
-// Delete returns a delete builder for AccountUser.
-func (c *AccountUserClient) Delete() *AccountUserDelete {
-	mutation := newAccountUserMutation(c.config, OpDelete)
-	return &AccountUserDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+// Delete returns a delete builder for User.
+func (c *UserClient) Delete() *UserDelete {
+	mutation := newUserMutation(c.config, OpDelete)
+	return &UserDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
 }
 
 // DeleteOne returns a delete builder for the given entity.
-func (c *AccountUserClient) DeleteOne(au *AccountUser) *AccountUserDeleteOne {
-	return c.DeleteOneID(au.ID)
+func (c *UserClient) DeleteOne(u *User) *UserDeleteOne {
+	return c.DeleteOneID(u.ID)
 }
 
 // DeleteOneID returns a delete builder for the given id.
-func (c *AccountUserClient) DeleteOneID(id int64) *AccountUserDeleteOne {
-	builder := c.Delete().Where(accountuser.ID(id))
+func (c *UserClient) DeleteOneID(id int) *UserDeleteOne {
+	builder := c.Delete().Where(user.ID(id))
 	builder.mutation.id = &id
 	builder.mutation.op = OpDeleteOne
-	return &AccountUserDeleteOne{builder}
+	return &UserDeleteOne{builder}
 }
 
-// Query returns a query builder for AccountUser.
-func (c *AccountUserClient) Query() *AccountUserQuery {
-	return &AccountUserQuery{
+// Query returns a query builder for User.
+func (c *UserClient) Query() *UserQuery {
+	return &UserQuery{
 		config: c.config,
 	}
 }
 
-// Get returns a AccountUser entity by its id.
-func (c *AccountUserClient) Get(ctx context.Context, id int64) (*AccountUser, error) {
-	return c.Query().Where(accountuser.ID(id)).Only(ctx)
+// Get returns a User entity by its id.
+func (c *UserClient) Get(ctx context.Context, id int) (*User, error) {
+	return c.Query().Where(user.ID(id)).Only(ctx)
 }
 
 // GetX is like Get, but panics if an error occurs.
-func (c *AccountUserClient) GetX(ctx context.Context, id int64) *AccountUser {
+func (c *UserClient) GetX(ctx context.Context, id int) *User {
 	obj, err := c.Get(ctx, id)
 	if err != nil {
 		panic(err)
@@ -207,6 +208,7 @@ func (c *AccountUserClient) GetX(ctx context.Context, id int64) *AccountUser {
 }
 
 // Hooks returns the client hooks.
-func (c *AccountUserClient) Hooks() []Hook {
-	return c.hooks.AccountUser
+func (c *UserClient) Hooks() []Hook {
+	hooks := c.hooks.User
+	return append(hooks[:len(hooks):len(hooks)], user.Hooks[:]...)
 }

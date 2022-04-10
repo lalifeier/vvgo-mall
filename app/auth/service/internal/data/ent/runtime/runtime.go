@@ -2,9 +2,45 @@
 
 package runtime
 
-// The schema-stitching logic is generated in github.com/lalifeier/vvgo-mall/app/auth/service/internal/data/ent/runtime.go
+import (
+	"time"
+
+	"github.com/lalifeier/vvgo-mall/app/auth/service/internal/data/ent/schema"
+	"github.com/lalifeier/vvgo-mall/app/auth/service/internal/data/ent/user"
+)
+
+// The init function reads all schema descriptors with runtime code
+// (default values, validators, hooks and policies) and stitches it
+// to their package variables.
+func init() {
+	userMixin := schema.User{}.Mixin()
+	userMixinHooks0 := userMixin[0].Hooks()
+	user.Hooks[0] = userMixinHooks0[0]
+	userMixinFields0 := userMixin[0].Fields()
+	_ = userMixinFields0
+	userFields := schema.User{}.Fields()
+	_ = userFields
+	// userDescCreatedAt is the schema descriptor for created_at field.
+	userDescCreatedAt := userMixinFields0[0].Descriptor()
+	// user.DefaultCreatedAt holds the default value on creation for the created_at field.
+	user.DefaultCreatedAt = userDescCreatedAt.Default.(func() time.Time)
+	// userDescCreatedBy is the schema descriptor for created_by field.
+	userDescCreatedBy := userMixinFields0[1].Descriptor()
+	// user.DefaultCreatedBy holds the default value on creation for the created_by field.
+	user.DefaultCreatedBy = userDescCreatedBy.Default.(int64)
+	// userDescUpdatedAt is the schema descriptor for updated_at field.
+	userDescUpdatedAt := userMixinFields0[2].Descriptor()
+	// user.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	user.DefaultUpdatedAt = userDescUpdatedAt.Default.(func() time.Time)
+	// user.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	user.UpdateDefaultUpdatedAt = userDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// userDescUpdatedBy is the schema descriptor for updated_by field.
+	userDescUpdatedBy := userMixinFields0[3].Descriptor()
+	// user.DefaultUpdatedBy holds the default value on creation for the updated_by field.
+	user.DefaultUpdatedBy = userDescUpdatedBy.Default.(int64)
+}
 
 const (
-	Version = "v0.9.2-0.20211030195115-681d03e89680"            // Version of ent codegen.
-	Sum     = "h1:3unIS8ZjoiML6TTT1tJjjJjbCHIBNHNtgA7VBIEQZDE=" // Sum of ent codegen.
+	Version = "v0.10.1"                                         // Version of ent codegen.
+	Sum     = "h1:dM5h4Zk6yHGIgw4dCqVzGw3nWgpGYJiV4/kyHEF6PFo=" // Sum of ent codegen.
 )

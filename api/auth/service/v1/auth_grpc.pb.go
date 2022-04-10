@@ -22,24 +22,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AuthClient interface {
-	CreateSystem(ctx context.Context, in *CreateSystemReq, opts ...grpc.CallOption) (*CreateSystemResp, error)
-	UpdateSystem(ctx context.Context, in *UpdateSystemReq, opts ...grpc.CallOption) (*UpdateSystemResp, error)
-	DeleteSystem(ctx context.Context, in *DeleteSystemReq, opts ...grpc.CallOption) (*DeleteSystemResp, error)
-	GetSystem(ctx context.Context, in *GetSystemReq, opts ...grpc.CallOption) (*GetSystemResp, error)
-	ListSystem(ctx context.Context, in *ListSystemReq, opts ...grpc.CallOption) (*ListSystemResp, error)
-	PageListSystem(ctx context.Context, in *PageListSystemReq, opts ...grpc.CallOption) (*PageListSystemResp, error)
-	CreateRole(ctx context.Context, in *CreateRoleReq, opts ...grpc.CallOption) (*CreateRoleResp, error)
-	UpdateRole(ctx context.Context, in *UpdateRoleReq, opts ...grpc.CallOption) (*UpdateRoleResp, error)
-	DeleteRole(ctx context.Context, in *DeleteRoleReq, opts ...grpc.CallOption) (*DeleteRoleResp, error)
-	GetRole(ctx context.Context, in *GetRoleReq, opts ...grpc.CallOption) (*GetRoleResp, error)
-	ListRole(ctx context.Context, in *ListRoleReq, opts ...grpc.CallOption) (*ListRoleResp, error)
-	PageListRole(ctx context.Context, in *PageListRoleReq, opts ...grpc.CallOption) (*PageListRoleResp, error)
-	CreateMenu(ctx context.Context, in *CreateMenuReq, opts ...grpc.CallOption) (*CreateMenuResp, error)
-	UpdateMenu(ctx context.Context, in *UpdateMenuReq, opts ...grpc.CallOption) (*UpdateMenuResp, error)
-	DeleteMenu(ctx context.Context, in *DeleteMenuReq, opts ...grpc.CallOption) (*DeleteMenuResp, error)
-	GetMenu(ctx context.Context, in *GetMenuReq, opts ...grpc.CallOption) (*GetMenuResp, error)
-	ListMenu(ctx context.Context, in *ListMenuReq, opts ...grpc.CallOption) (*ListMenuResp, error)
-	PageListMenu(ctx context.Context, in *PageListMenuReq, opts ...grpc.CallOption) (*PageListMenuResp, error)
+	GetCaptcha(ctx context.Context, in *GetCaptchaReq, opts ...grpc.CallOption) (*GetCaptchaResp, error)
+	VerifyCaptcha(ctx context.Context, in *VerifyCaptchaReq, opts ...grpc.CallOption) (*VerifyCaptchaResp, error)
 }
 
 type authClient struct {
@@ -50,162 +34,18 @@ func NewAuthClient(cc grpc.ClientConnInterface) AuthClient {
 	return &authClient{cc}
 }
 
-func (c *authClient) CreateSystem(ctx context.Context, in *CreateSystemReq, opts ...grpc.CallOption) (*CreateSystemResp, error) {
-	out := new(CreateSystemResp)
-	err := c.cc.Invoke(ctx, "/api.auth.service.v1.Auth/CreateSystem", in, out, opts...)
+func (c *authClient) GetCaptcha(ctx context.Context, in *GetCaptchaReq, opts ...grpc.CallOption) (*GetCaptchaResp, error) {
+	out := new(GetCaptchaResp)
+	err := c.cc.Invoke(ctx, "/api.auth.service.v1.Auth/GetCaptcha", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *authClient) UpdateSystem(ctx context.Context, in *UpdateSystemReq, opts ...grpc.CallOption) (*UpdateSystemResp, error) {
-	out := new(UpdateSystemResp)
-	err := c.cc.Invoke(ctx, "/api.auth.service.v1.Auth/UpdateSystem", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authClient) DeleteSystem(ctx context.Context, in *DeleteSystemReq, opts ...grpc.CallOption) (*DeleteSystemResp, error) {
-	out := new(DeleteSystemResp)
-	err := c.cc.Invoke(ctx, "/api.auth.service.v1.Auth/DeleteSystem", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authClient) GetSystem(ctx context.Context, in *GetSystemReq, opts ...grpc.CallOption) (*GetSystemResp, error) {
-	out := new(GetSystemResp)
-	err := c.cc.Invoke(ctx, "/api.auth.service.v1.Auth/GetSystem", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authClient) ListSystem(ctx context.Context, in *ListSystemReq, opts ...grpc.CallOption) (*ListSystemResp, error) {
-	out := new(ListSystemResp)
-	err := c.cc.Invoke(ctx, "/api.auth.service.v1.Auth/ListSystem", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authClient) PageListSystem(ctx context.Context, in *PageListSystemReq, opts ...grpc.CallOption) (*PageListSystemResp, error) {
-	out := new(PageListSystemResp)
-	err := c.cc.Invoke(ctx, "/api.auth.service.v1.Auth/PageListSystem", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authClient) CreateRole(ctx context.Context, in *CreateRoleReq, opts ...grpc.CallOption) (*CreateRoleResp, error) {
-	out := new(CreateRoleResp)
-	err := c.cc.Invoke(ctx, "/api.auth.service.v1.Auth/CreateRole", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authClient) UpdateRole(ctx context.Context, in *UpdateRoleReq, opts ...grpc.CallOption) (*UpdateRoleResp, error) {
-	out := new(UpdateRoleResp)
-	err := c.cc.Invoke(ctx, "/api.auth.service.v1.Auth/UpdateRole", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authClient) DeleteRole(ctx context.Context, in *DeleteRoleReq, opts ...grpc.CallOption) (*DeleteRoleResp, error) {
-	out := new(DeleteRoleResp)
-	err := c.cc.Invoke(ctx, "/api.auth.service.v1.Auth/DeleteRole", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authClient) GetRole(ctx context.Context, in *GetRoleReq, opts ...grpc.CallOption) (*GetRoleResp, error) {
-	out := new(GetRoleResp)
-	err := c.cc.Invoke(ctx, "/api.auth.service.v1.Auth/GetRole", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authClient) ListRole(ctx context.Context, in *ListRoleReq, opts ...grpc.CallOption) (*ListRoleResp, error) {
-	out := new(ListRoleResp)
-	err := c.cc.Invoke(ctx, "/api.auth.service.v1.Auth/ListRole", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authClient) PageListRole(ctx context.Context, in *PageListRoleReq, opts ...grpc.CallOption) (*PageListRoleResp, error) {
-	out := new(PageListRoleResp)
-	err := c.cc.Invoke(ctx, "/api.auth.service.v1.Auth/PageListRole", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authClient) CreateMenu(ctx context.Context, in *CreateMenuReq, opts ...grpc.CallOption) (*CreateMenuResp, error) {
-	out := new(CreateMenuResp)
-	err := c.cc.Invoke(ctx, "/api.auth.service.v1.Auth/CreateMenu", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authClient) UpdateMenu(ctx context.Context, in *UpdateMenuReq, opts ...grpc.CallOption) (*UpdateMenuResp, error) {
-	out := new(UpdateMenuResp)
-	err := c.cc.Invoke(ctx, "/api.auth.service.v1.Auth/UpdateMenu", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authClient) DeleteMenu(ctx context.Context, in *DeleteMenuReq, opts ...grpc.CallOption) (*DeleteMenuResp, error) {
-	out := new(DeleteMenuResp)
-	err := c.cc.Invoke(ctx, "/api.auth.service.v1.Auth/DeleteMenu", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authClient) GetMenu(ctx context.Context, in *GetMenuReq, opts ...grpc.CallOption) (*GetMenuResp, error) {
-	out := new(GetMenuResp)
-	err := c.cc.Invoke(ctx, "/api.auth.service.v1.Auth/GetMenu", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authClient) ListMenu(ctx context.Context, in *ListMenuReq, opts ...grpc.CallOption) (*ListMenuResp, error) {
-	out := new(ListMenuResp)
-	err := c.cc.Invoke(ctx, "/api.auth.service.v1.Auth/ListMenu", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authClient) PageListMenu(ctx context.Context, in *PageListMenuReq, opts ...grpc.CallOption) (*PageListMenuResp, error) {
-	out := new(PageListMenuResp)
-	err := c.cc.Invoke(ctx, "/api.auth.service.v1.Auth/PageListMenu", in, out, opts...)
+func (c *authClient) VerifyCaptcha(ctx context.Context, in *VerifyCaptchaReq, opts ...grpc.CallOption) (*VerifyCaptchaResp, error) {
+	out := new(VerifyCaptchaResp)
+	err := c.cc.Invoke(ctx, "/api.auth.service.v1.Auth/VerifyCaptcha", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -216,24 +56,8 @@ func (c *authClient) PageListMenu(ctx context.Context, in *PageListMenuReq, opts
 // All implementations must embed UnimplementedAuthServer
 // for forward compatibility
 type AuthServer interface {
-	CreateSystem(context.Context, *CreateSystemReq) (*CreateSystemResp, error)
-	UpdateSystem(context.Context, *UpdateSystemReq) (*UpdateSystemResp, error)
-	DeleteSystem(context.Context, *DeleteSystemReq) (*DeleteSystemResp, error)
-	GetSystem(context.Context, *GetSystemReq) (*GetSystemResp, error)
-	ListSystem(context.Context, *ListSystemReq) (*ListSystemResp, error)
-	PageListSystem(context.Context, *PageListSystemReq) (*PageListSystemResp, error)
-	CreateRole(context.Context, *CreateRoleReq) (*CreateRoleResp, error)
-	UpdateRole(context.Context, *UpdateRoleReq) (*UpdateRoleResp, error)
-	DeleteRole(context.Context, *DeleteRoleReq) (*DeleteRoleResp, error)
-	GetRole(context.Context, *GetRoleReq) (*GetRoleResp, error)
-	ListRole(context.Context, *ListRoleReq) (*ListRoleResp, error)
-	PageListRole(context.Context, *PageListRoleReq) (*PageListRoleResp, error)
-	CreateMenu(context.Context, *CreateMenuReq) (*CreateMenuResp, error)
-	UpdateMenu(context.Context, *UpdateMenuReq) (*UpdateMenuResp, error)
-	DeleteMenu(context.Context, *DeleteMenuReq) (*DeleteMenuResp, error)
-	GetMenu(context.Context, *GetMenuReq) (*GetMenuResp, error)
-	ListMenu(context.Context, *ListMenuReq) (*ListMenuResp, error)
-	PageListMenu(context.Context, *PageListMenuReq) (*PageListMenuResp, error)
+	GetCaptcha(context.Context, *GetCaptchaReq) (*GetCaptchaResp, error)
+	VerifyCaptcha(context.Context, *VerifyCaptchaReq) (*VerifyCaptchaResp, error)
 	mustEmbedUnimplementedAuthServer()
 }
 
@@ -241,59 +65,11 @@ type AuthServer interface {
 type UnimplementedAuthServer struct {
 }
 
-func (UnimplementedAuthServer) CreateSystem(context.Context, *CreateSystemReq) (*CreateSystemResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateSystem not implemented")
+func (UnimplementedAuthServer) GetCaptcha(context.Context, *GetCaptchaReq) (*GetCaptchaResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCaptcha not implemented")
 }
-func (UnimplementedAuthServer) UpdateSystem(context.Context, *UpdateSystemReq) (*UpdateSystemResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateSystem not implemented")
-}
-func (UnimplementedAuthServer) DeleteSystem(context.Context, *DeleteSystemReq) (*DeleteSystemResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteSystem not implemented")
-}
-func (UnimplementedAuthServer) GetSystem(context.Context, *GetSystemReq) (*GetSystemResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetSystem not implemented")
-}
-func (UnimplementedAuthServer) ListSystem(context.Context, *ListSystemReq) (*ListSystemResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListSystem not implemented")
-}
-func (UnimplementedAuthServer) PageListSystem(context.Context, *PageListSystemReq) (*PageListSystemResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PageListSystem not implemented")
-}
-func (UnimplementedAuthServer) CreateRole(context.Context, *CreateRoleReq) (*CreateRoleResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateRole not implemented")
-}
-func (UnimplementedAuthServer) UpdateRole(context.Context, *UpdateRoleReq) (*UpdateRoleResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateRole not implemented")
-}
-func (UnimplementedAuthServer) DeleteRole(context.Context, *DeleteRoleReq) (*DeleteRoleResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
-}
-func (UnimplementedAuthServer) GetRole(context.Context, *GetRoleReq) (*GetRoleResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetRole not implemented")
-}
-func (UnimplementedAuthServer) ListRole(context.Context, *ListRoleReq) (*ListRoleResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListRole not implemented")
-}
-func (UnimplementedAuthServer) PageListRole(context.Context, *PageListRoleReq) (*PageListRoleResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PageListRole not implemented")
-}
-func (UnimplementedAuthServer) CreateMenu(context.Context, *CreateMenuReq) (*CreateMenuResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateMenu not implemented")
-}
-func (UnimplementedAuthServer) UpdateMenu(context.Context, *UpdateMenuReq) (*UpdateMenuResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateMenu not implemented")
-}
-func (UnimplementedAuthServer) DeleteMenu(context.Context, *DeleteMenuReq) (*DeleteMenuResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteMenu not implemented")
-}
-func (UnimplementedAuthServer) GetMenu(context.Context, *GetMenuReq) (*GetMenuResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetMenu not implemented")
-}
-func (UnimplementedAuthServer) ListMenu(context.Context, *ListMenuReq) (*ListMenuResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListMenu not implemented")
-}
-func (UnimplementedAuthServer) PageListMenu(context.Context, *PageListMenuReq) (*PageListMenuResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PageListMenu not implemented")
+func (UnimplementedAuthServer) VerifyCaptcha(context.Context, *VerifyCaptchaReq) (*VerifyCaptchaResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VerifyCaptcha not implemented")
 }
 func (UnimplementedAuthServer) mustEmbedUnimplementedAuthServer() {}
 
@@ -308,326 +84,38 @@ func RegisterAuthServer(s grpc.ServiceRegistrar, srv AuthServer) {
 	s.RegisterService(&Auth_ServiceDesc, srv)
 }
 
-func _Auth_CreateSystem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateSystemReq)
+func _Auth_GetCaptcha_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCaptchaReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServer).CreateSystem(ctx, in)
+		return srv.(AuthServer).GetCaptcha(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.auth.service.v1.Auth/CreateSystem",
+		FullMethod: "/api.auth.service.v1.Auth/GetCaptcha",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).CreateSystem(ctx, req.(*CreateSystemReq))
+		return srv.(AuthServer).GetCaptcha(ctx, req.(*GetCaptchaReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Auth_UpdateSystem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateSystemReq)
+func _Auth_VerifyCaptcha_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VerifyCaptchaReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServer).UpdateSystem(ctx, in)
+		return srv.(AuthServer).VerifyCaptcha(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.auth.service.v1.Auth/UpdateSystem",
+		FullMethod: "/api.auth.service.v1.Auth/VerifyCaptcha",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).UpdateSystem(ctx, req.(*UpdateSystemReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Auth_DeleteSystem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteSystemReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServer).DeleteSystem(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.auth.service.v1.Auth/DeleteSystem",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).DeleteSystem(ctx, req.(*DeleteSystemReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Auth_GetSystem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetSystemReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServer).GetSystem(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.auth.service.v1.Auth/GetSystem",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).GetSystem(ctx, req.(*GetSystemReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Auth_ListSystem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListSystemReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServer).ListSystem(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.auth.service.v1.Auth/ListSystem",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).ListSystem(ctx, req.(*ListSystemReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Auth_PageListSystem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PageListSystemReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServer).PageListSystem(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.auth.service.v1.Auth/PageListSystem",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).PageListSystem(ctx, req.(*PageListSystemReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Auth_CreateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateRoleReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServer).CreateRole(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.auth.service.v1.Auth/CreateRole",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).CreateRole(ctx, req.(*CreateRoleReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Auth_UpdateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateRoleReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServer).UpdateRole(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.auth.service.v1.Auth/UpdateRole",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).UpdateRole(ctx, req.(*UpdateRoleReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Auth_DeleteRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteRoleReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServer).DeleteRole(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.auth.service.v1.Auth/DeleteRole",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).DeleteRole(ctx, req.(*DeleteRoleReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Auth_GetRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetRoleReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServer).GetRole(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.auth.service.v1.Auth/GetRole",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).GetRole(ctx, req.(*GetRoleReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Auth_ListRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListRoleReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServer).ListRole(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.auth.service.v1.Auth/ListRole",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).ListRole(ctx, req.(*ListRoleReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Auth_PageListRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PageListRoleReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServer).PageListRole(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.auth.service.v1.Auth/PageListRole",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).PageListRole(ctx, req.(*PageListRoleReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Auth_CreateMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateMenuReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServer).CreateMenu(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.auth.service.v1.Auth/CreateMenu",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).CreateMenu(ctx, req.(*CreateMenuReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Auth_UpdateMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateMenuReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServer).UpdateMenu(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.auth.service.v1.Auth/UpdateMenu",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).UpdateMenu(ctx, req.(*UpdateMenuReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Auth_DeleteMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteMenuReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServer).DeleteMenu(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.auth.service.v1.Auth/DeleteMenu",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).DeleteMenu(ctx, req.(*DeleteMenuReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Auth_GetMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetMenuReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServer).GetMenu(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.auth.service.v1.Auth/GetMenu",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).GetMenu(ctx, req.(*GetMenuReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Auth_ListMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListMenuReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServer).ListMenu(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.auth.service.v1.Auth/ListMenu",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).ListMenu(ctx, req.(*ListMenuReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Auth_PageListMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PageListMenuReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServer).PageListMenu(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.auth.service.v1.Auth/PageListMenu",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).PageListMenu(ctx, req.(*PageListMenuReq))
+		return srv.(AuthServer).VerifyCaptcha(ctx, req.(*VerifyCaptchaReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -640,76 +128,12 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*AuthServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CreateSystem",
-			Handler:    _Auth_CreateSystem_Handler,
+			MethodName: "GetCaptcha",
+			Handler:    _Auth_GetCaptcha_Handler,
 		},
 		{
-			MethodName: "UpdateSystem",
-			Handler:    _Auth_UpdateSystem_Handler,
-		},
-		{
-			MethodName: "DeleteSystem",
-			Handler:    _Auth_DeleteSystem_Handler,
-		},
-		{
-			MethodName: "GetSystem",
-			Handler:    _Auth_GetSystem_Handler,
-		},
-		{
-			MethodName: "ListSystem",
-			Handler:    _Auth_ListSystem_Handler,
-		},
-		{
-			MethodName: "PageListSystem",
-			Handler:    _Auth_PageListSystem_Handler,
-		},
-		{
-			MethodName: "CreateRole",
-			Handler:    _Auth_CreateRole_Handler,
-		},
-		{
-			MethodName: "UpdateRole",
-			Handler:    _Auth_UpdateRole_Handler,
-		},
-		{
-			MethodName: "DeleteRole",
-			Handler:    _Auth_DeleteRole_Handler,
-		},
-		{
-			MethodName: "GetRole",
-			Handler:    _Auth_GetRole_Handler,
-		},
-		{
-			MethodName: "ListRole",
-			Handler:    _Auth_ListRole_Handler,
-		},
-		{
-			MethodName: "PageListRole",
-			Handler:    _Auth_PageListRole_Handler,
-		},
-		{
-			MethodName: "CreateMenu",
-			Handler:    _Auth_CreateMenu_Handler,
-		},
-		{
-			MethodName: "UpdateMenu",
-			Handler:    _Auth_UpdateMenu_Handler,
-		},
-		{
-			MethodName: "DeleteMenu",
-			Handler:    _Auth_DeleteMenu_Handler,
-		},
-		{
-			MethodName: "GetMenu",
-			Handler:    _Auth_GetMenu_Handler,
-		},
-		{
-			MethodName: "ListMenu",
-			Handler:    _Auth_ListMenu_Handler,
-		},
-		{
-			MethodName: "PageListMenu",
-			Handler:    _Auth_PageListMenu_Handler,
+			MethodName: "VerifyCaptcha",
+			Handler:    _Auth_VerifyCaptcha_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

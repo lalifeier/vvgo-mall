@@ -9,35 +9,29 @@ import (
 )
 
 var (
-	// AuthSystemColumns holds the columns for the "auth_system" table.
-	AuthSystemColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeInt64, Increment: true, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
-		{Name: "username", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(30)"}},
-		{Name: "phone", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(15)"}},
-		{Name: "email", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(30)"}},
-		{Name: "password", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(32)"}},
-		{Name: "create_at", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "int(11)"}},
-		{Name: "create_ip_at", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(12)"}},
-		{Name: "last_login_at", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "int(11)"}},
-		{Name: "last_login_ip_at", Type: field.TypeString, Default: "", SchemaType: map[string]string{"mysql": "varchar(12)"}},
-		{Name: "login_times", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "int(11)"}},
-		{Name: "status", Type: field.TypeInt8, Default: 0, SchemaType: map[string]string{"mysql": "tinyint(1)"}},
+	// SysUserColumns holds the columns for the "sys_user" table.
+	SysUserColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "created_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "DATETIME"}},
+		{Name: "created_by", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
+		{Name: "updated_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "DATETIME"}},
+		{Name: "updated_by", Type: field.TypeInt64, Default: 0, SchemaType: map[string]string{"mysql": "int(11)unsigned"}},
 	}
-	// AuthSystemTable holds the schema information for the "auth_system" table.
-	AuthSystemTable = &schema.Table{
-		Name:       "auth_system",
-		Columns:    AuthSystemColumns,
-		PrimaryKey: []*schema.Column{AuthSystemColumns[0]},
+	// SysUserTable holds the schema information for the "sys_user" table.
+	SysUserTable = &schema.Table{
+		Name:       "sys_user",
+		Columns:    SysUserColumns,
+		PrimaryKey: []*schema.Column{SysUserColumns[0]},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
-		AuthSystemTable,
+		SysUserTable,
 	}
 )
 
 func init() {
-	AuthSystemTable.Annotation = &entsql.Annotation{
-		Table:     "auth_system",
+	SysUserTable.Annotation = &entsql.Annotation{
+		Table:     "sys_user",
 		Charset:   "utf8mb4",
 		Collation: "utf8mb4_unicode_ci",
 	}

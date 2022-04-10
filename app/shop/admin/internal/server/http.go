@@ -17,6 +17,7 @@ import (
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/middleware/selector"
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
+	"github.com/go-kratos/kratos/v2/middleware/validate"
 	"github.com/go-kratos/kratos/v2/transport/http"
 	"github.com/go-kratos/swagger-api/openapiv2"
 	jwtv4 "github.com/golang-jwt/jwt/v4"
@@ -69,6 +70,7 @@ func NewHTTPServer(c *conf.Server, ac *conf.Auth, logger log.Logger, shopService
 			),
 			ratelimit.Server(),
 			metadata.Server(),
+			validate.Validator(),
 			casbinMiddleware.Server(enforcer),
 			selector.Server(
 				jwt.Server(func(token *jwtv4.Token) (interface{}, error) {

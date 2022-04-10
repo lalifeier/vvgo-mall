@@ -8,11 +8,12 @@ server:
 data:
   database:
     driver: mysql
-    source: root:123456@tcp(127.0.0.1:3306)/vvgo-mall?parseTime=true
+    source: root:123456@tcp(mysql:3306)/vvgo-mall?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
   redis:
-    addr: 127.0.0.1:6379
+    addr: redis:6379
+    dial_timeout: 0.1s
     read_timeout: 0.2s
     write_timeout: 0.2s
-  kafka:
-    addrs:
-      - 127.0.0.1:9092
+
+trace:
+  endpoint: http://jaeger:14268/api/traces
