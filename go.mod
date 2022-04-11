@@ -10,6 +10,7 @@ require (
 	github.com/aliyun/alibaba-cloud-sdk-go v1.61.1545
 	github.com/casbin/casbin/v2 v2.43.2
 	github.com/casbin/ent-adapter v0.2.1
+	github.com/choby/oauth2.0_golang/server v0.0.0-20220118012349-ddd13d0cf187 // indirect
 	github.com/envoyproxy/protoc-gen-validate v0.6.7
 	github.com/felixge/httpsnoop v1.0.2 // indirect
 	github.com/gin-gonic/gin v1.7.7 // indirect
@@ -22,6 +23,7 @@ require (
 	github.com/go-playground/assert/v2 v2.0.1
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-resty/resty/v2 v2.7.0
+	github.com/go-session/session v3.1.2+incompatible // indirect
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/go-stack/stack v1.8.1 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible
@@ -48,6 +50,8 @@ require (
 	github.com/spf13/cast v1.4.1
 	github.com/spf13/cobra v1.4.0 // indirect
 	github.com/stretchr/testify v1.7.1
+	github.com/tidwall/btree v1.1.0 // indirect
+	github.com/tidwall/buntdb v1.2.8 // indirect
 	github.com/tidwall/pretty v1.2.0 // indirect
 	github.com/youmark/pkcs8 v0.0.0-20201027041543-1326539a0a0a // indirect
 	github.com/zclconf/go-cty v1.10.0 // indirect

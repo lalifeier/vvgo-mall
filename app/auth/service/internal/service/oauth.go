@@ -5,7 +5,7 @@ import (
 	"github.com/go-oauth2/oauth2/v4"
 )
 
-// http://localhost:8002/auth/authorize?client_id=1&response_type=code
+//  http://localhost:8002/auth/authorize?client_id=test_client_1&response_type=code&scope=all&state=xyz&redirect_uri=http://localhost:8002/cb
 func (s *AuthService) Authorize(ctx http.Context) error {
 	w := ctx.Response()
 	r := ctx.Request()
