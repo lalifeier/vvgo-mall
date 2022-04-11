@@ -22,7 +22,7 @@ import (
 func initApp(confServer *conf.Server, confData *conf.Data, registry *conf.Registry, logger log.Logger) (*kratos.App, func(), error) {
 	authUsecase := biz.NewAuthUsecase(logger)
 	captchaUsecase := biz.NewCaptchaUsecase(logger)
-	serverServer := data.NewOauthServer()
+	serverServer := server.NewOAuthServer()
 	authService := service.NewAuthService(logger, authUsecase, captchaUsecase, serverServer)
 	httpServer := server.NewHTTPServer(confServer, logger, authService)
 	grpcServer := server.NewGRPCServer(confServer, logger, authService)
