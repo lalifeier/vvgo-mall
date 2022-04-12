@@ -10,7 +10,6 @@ require (
 	github.com/aliyun/alibaba-cloud-sdk-go v1.61.1545
 	github.com/casbin/casbin/v2 v2.43.2
 	github.com/casbin/ent-adapter v0.2.1
-	github.com/choby/oauth2.0_golang/server v0.0.0-20220118012349-ddd13d0cf187 // indirect
 	github.com/envoyproxy/protoc-gen-validate v0.6.7
 	github.com/felixge/httpsnoop v1.0.2 // indirect
 	github.com/go-kratos/consul v0.1.5

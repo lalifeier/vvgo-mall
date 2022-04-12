@@ -64,12 +64,11 @@ func NewHTTPServer(c *conf.Server, logger log.Logger, authService *service.AuthS
 	}
 	srv := http.NewServer(opts...)
 
-	r := srv.Route("/auth")
+	r := srv.Route("/oauth")
 	r.GET("/authorize", authService.Authorize)
 	r.GET("/token", authService.Token)
 	r.GET("/verify", authService.Verify)
 	r.PUT("/logout", authService.Logout)
-	r.GET("/refresh_token", authService.RefreshToken)
 
 	openAPIhandler := openapiv2.NewHandler()
 	srv.HandlePrefix("/q/", openAPIhandler)

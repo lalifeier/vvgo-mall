@@ -65,21 +65,26 @@ func NewOAuthServer() *server.Server {
 
 	srv.SetUserAuthorizationHandler(userAuthorizeHandler)
 
-	srv.SetPasswordAuthorizationHandler(passwordAuthorizationHandler)
+	// srv.SetPasswordAuthorizationHandler(passwordAuthorizationHandler)
 
-	srv.SetInternalErrorHandler(func(err error) (re *errors.Response) {
-		log.Println("Internal Error:", err.Error())
-		return
-	})
-
-	srv.SetResponseErrorHandler(func(re *errors.Response) {
-		log.Println("Response Error:", re.Error.Error())
-	})
+	srv.SetInternalErrorHandler(internalErrorHandler)
+	srv.SetResponseErrorHandler(responseErrorHandler)
 
 	return srv
 }
 
+func internalErrorHandler(err error) (re *errors.Response) {
+	log.Println("Internal Error:", err.Error())
+	return
+}
+
+func responseErrorHandler(re *errors.Response) {
+	log.Println("Response Error:", re.Error.Error())
+}
+
 func userAuthorizeHandler(w http.ResponseWriter, r *http.Request) (userID string, err error) {
+	userID = "test"
+	return
 	store, err := session.Start(r.Context(), w, r)
 	if err != nil {
 		return
@@ -106,6 +111,9 @@ func userAuthorizeHandler(w http.ResponseWriter, r *http.Request) (userID string
 }
 
 func passwordAuthorizationHandler(ctx context.Context, username, password string) (userID string, err error) {
+	if username == "test" && password == "123456" {
+		userID = "test"
+	}
 	return
 }
 
