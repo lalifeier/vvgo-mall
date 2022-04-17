@@ -1,6 +1,7 @@
 package server
 
 import (
+	"github.com/gin-gonic/gin"
 	"github.com/gorilla/handlers"
 	v1 "github.com/lalifeier/vvgo-mall/api/auth/service/v1"
 
@@ -36,7 +37,7 @@ var (
 )
 
 // NewHTTPServer new a HTTP server.
-func NewHTTPServer(c *conf.Server, logger log.Logger, authService *service.AuthService) *http.Server {
+func NewHTTPServer(c *conf.Server, logger log.Logger, authService *service.AuthService, router *gin.Engine) *http.Server {
 	var opts = []http.ServerOption{
 		http.Middleware(
 			recovery.Recovery(),
@@ -64,16 +65,21 @@ func NewHTTPServer(c *conf.Server, logger log.Logger, authService *service.AuthS
 	}
 	srv := http.NewServer(opts...)
 
-	r := srv.Route("/oauth")
-	r.GET("/authorize", authService.Authorize)
-	r.GET("/token", authService.Token)
-	r.GET("/verify", authService.Verify)
-	r.PUT("/logout", authService.Logout)
+	// r := srv.Route("/oauth")
+
+	// r.GET("/login", authService.Login)
+
+	// r.GET("/authorize", authService.Authorize)
+	// r.GET("/token", authService.Token)
+	// r.GET("/verify", authService.Verify)
+	// r.PUT("/logout", authService.Logout)
 
 	openAPIhandler := openapiv2.NewHandler()
 	srv.HandlePrefix("/q/", openAPIhandler)
 
 	srv.Handle("/metrics", promhttp.Handler())
+
+	srv.HandlePrefix("/", router)
 
 	v1.RegisterAuthHTTPServer(srv, authService)
 	return srv

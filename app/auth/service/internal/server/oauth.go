@@ -6,6 +6,7 @@ import (
 
 	"net/http"
 
+	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-oauth2/oauth2/v4"
 	"github.com/go-oauth2/oauth2/v4/errors"
 	"github.com/go-oauth2/oauth2/v4/generates"
@@ -39,7 +40,7 @@ func initClientStore() *store.ClientStore {
 
 func initManage() *manage.Manager {
 	manager := manage.NewDefaultManager()
-	manager.SetAuthorizeCodeTokenCfg(manage.DefaultAuthorizeCodeTokenCfg)
+	// manager.SetAuthorizeCodeTokenCfg(manage.DefaultAuthorizeCodeTokenCfg)
 
 	// token store
 	manager.MustTokenStorage(store.NewMemoryTokenStore())
@@ -62,10 +63,8 @@ func NewOAuthServer() *server.Server {
 	srv.SetAllowGetAccessRequest(true)
 
 	srv.SetAuthorizeScopeHandler(authorizeScopeHandler)
-
 	srv.SetUserAuthorizationHandler(userAuthorizeHandler)
-
-	// srv.SetPasswordAuthorizationHandler(passwordAuthorizationHandler)
+	srv.SetPasswordAuthorizationHandler(passwordAuthorizationHandler)
 
 	srv.SetInternalErrorHandler(internalErrorHandler)
 	srv.SetResponseErrorHandler(responseErrorHandler)
@@ -83,8 +82,6 @@ func responseErrorHandler(re *errors.Response) {
 }
 
 func userAuthorizeHandler(w http.ResponseWriter, r *http.Request) (userID string, err error) {
-	userID = "test"
-	return
 	store, err := session.Start(r.Context(), w, r)
 	if err != nil {
 		return
@@ -105,8 +102,10 @@ func userAuthorizeHandler(w http.ResponseWriter, r *http.Request) (userID string
 	}
 
 	userID = uid.(string)
+
 	store.Delete("LoggedInUserID")
 	store.Save()
+
 	return
 }
 
@@ -118,5 +117,11 @@ func passwordAuthorizationHandler(ctx context.Context, username, password string
 }
 
 func authorizeScopeHandler(w http.ResponseWriter, r *http.Request) (scope string, err error) {
+	if r.Form == nil {
+		r.ParseForm()
+	}
+
+	// r.Form.Get("client_id")
+	// r.Form.Get("scope")
 	return
 }
