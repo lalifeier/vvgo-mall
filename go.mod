@@ -48,7 +48,7 @@ require (
 	github.com/onsi/ginkgo v1.16.5 // indirect
 	github.com/onsi/gomega v1.19.0 // indirect
 	github.com/prometheus/client_golang v1.12.1
-	github.com/rogpeppe/go-internal v1.6.2 // indirect
+	github.com/qiniu/go-sdk/v7 v7.12.0
 	github.com/sony/sonyflake v1.0.0
 	github.com/spf13/cast v1.4.1
 	github.com/stretchr/testify v1.7.1

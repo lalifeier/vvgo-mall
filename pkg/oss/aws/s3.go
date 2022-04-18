@@ -21,6 +21,7 @@ type (
 		SessionToken    string
 		Region          string
 		Bucket          string
+		Endpoint        string
 	}
 
 	Client struct {
@@ -29,11 +30,20 @@ type (
 	}
 )
 
+func (c Client) GetEndpoint() string {
+	return c.Config.Endpoint
+}
+
+func (c Client) GetBucket() string {
+	return c.Config.Bucket
+}
+
 func New(c *Config) (*Client, error) {
 	cfg, err := config.LoadDefaultConfig(context.TODO(),
 		config.WithRegion(c.Region),
 		config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider(c.AccessKeyId, c.AccessKeySecret, c.SessionToken)),
 	)
+
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +57,7 @@ func New(c *Config) (*Client, error) {
 
 func (c *Client) CopyObject(destinationBucket, objectKey string) error {
 	input := &s3.CopyObjectInput{
-		Bucket:     aws.String(c.Config.Bucket),
+		Bucket:     aws.String(c.GetBucket()),
 		CopySource: aws.String(destinationBucket),
 		Key:        aws.String(objectKey),
 	}
@@ -65,7 +75,7 @@ func (c *Client) CreateBucket(bucket string) error {
 
 func (c *Client) DeleteBucket() error {
 	input := &s3.DeleteBucketInput{
-		Bucket: aws.String(c.Config.Bucket),
+		Bucket: aws.String(c.GetBucket()),
 	}
 	_, err := c.S3.DeleteBucket(context.TODO(), input)
 	return err
@@ -73,7 +83,7 @@ func (c *Client) DeleteBucket() error {
 
 func (c *Client) PutObject(objectKey string, reader io.Reader) (err error) {
 	input := &s3.PutObjectInput{
-		Bucket: aws.String(c.Config.Bucket),
+		Bucket: aws.String(c.GetBucket()),
 		Key:    aws.String(objectKey),
 		Body:   reader,
 	}
@@ -84,16 +94,16 @@ func (c *Client) PutObject(objectKey string, reader io.Reader) (err error) {
 
 func (c *Client) DeleteObject(objectKey string) error {
 	input := &s3.DeleteObjectInput{
-		Bucket: aws.String(c.Config.Bucket),
+		Bucket: aws.String(c.GetBucket()),
 		Key:    aws.String(objectKey),
 	}
 	_, err := c.S3.DeleteObject(context.TODO(), input)
 	return err
 }
 
-func (c *Client) GetObject(objectKey string, expires int64) (io.ReadCloser, error) {
+func (c *Client) GetObject(objectKey string) (io.ReadCloser, error) {
 	input := &s3.GetObjectInput{
-		Bucket: aws.String(c.Config.Bucket),
+		Bucket: aws.String(c.GetBucket()),
 		Key:    aws.String(objectKey),
 	}
 
@@ -106,7 +116,7 @@ func (c *Client) GetObject(objectKey string, expires int64) (io.ReadCloser, erro
 
 func (c *Client) GetObjectURL(objectKey string, expires int64) (string, error) {
 	input := &s3.GetObjectInput{
-		Bucket: aws.String(c.Config.Bucket),
+		Bucket: aws.String(c.GetBucket()),
 		Key:    aws.String(objectKey),
 	}
 
@@ -121,7 +131,7 @@ func (c *Client) GetObjectURL(objectKey string, expires int64) (string, error) {
 
 func (c *Client) ListObjects() error {
 	input := &s3.ListObjectsV2Input{
-		Bucket: aws.String(c.Config.Bucket),
+		Bucket: aws.String(c.GetBucket()),
 	}
 
 	result, err := c.S3.ListObjectsV2(context.TODO(), input)

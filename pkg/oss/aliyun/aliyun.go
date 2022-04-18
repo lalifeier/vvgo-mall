@@ -13,8 +13,10 @@ type (
 	Config struct {
 		AccessKeyId     string
 		AccessKeySecret string
-		Endpoint        string
+		SessionToken    string
+		Region          string
 		Bucket          string
+		Endpoint        string
 		UseCname        bool
 		ACL             oss.ACLType
 		ClientOptions   []oss.ClientOption
@@ -98,7 +100,7 @@ func (c *Client) ListObjects(objectName string) (err error) {
 
 	// var objects []*oss.Object
 	for _, result := range results.Objects {
-		print(result)
+		print(result.Key)
 	}
 
 	return nil

@@ -81,7 +81,7 @@ func (c *Client) DeleteObjects(objectKeys []string) error {
 	return err
 }
 
-func (c *Client) GetObject(objectKey string, expires int64) (io.ReadCloser, error) {
+func (c *Client) GetObject(objectKey string) (io.ReadCloser, error) {
 	resp, err := c.Client.Object.Get(context.Background(), objectKey, nil)
 	if err != nil {
 		return nil, err
