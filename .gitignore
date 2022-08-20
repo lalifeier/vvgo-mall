@@ -36,3 +36,5 @@ bin/
 *.swp
 
 tmp/
+
+data/server
