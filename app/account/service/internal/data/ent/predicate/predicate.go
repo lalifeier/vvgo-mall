@@ -8,6 +8,3 @@ import (
 
 // AccountUser is the predicate function for accountuser builders.
 type AccountUser func(*sql.Selector)
-
-// Staff is the predicate function for staff builders.
-type Staff func(*sql.Selector)

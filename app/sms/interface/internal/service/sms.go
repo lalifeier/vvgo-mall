@@ -10,11 +10,11 @@ import (
 
 type SmsService struct {
 	pb.UnimplementedSmsServer
-	uc  *biz.SmsUsecase
+	uc  *biz.SmsUseCase
 	log *log.Helper
 }
 
-func NewSmsService(uc *biz.SmsUsecase, logger log.Logger) *SmsService {
+func NewSmsService(uc *biz.SmsUseCase, logger log.Logger) *SmsService {
 	return &SmsService{
 		uc: uc, log: log.NewHelper(logger),
 	}

@@ -11,6 +11,7 @@ import (
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/permission"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/role"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/schema"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/staff"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/user"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/userrole"
 )
@@ -221,6 +222,50 @@ func init() {
 	roleDescRemark := roleFields[4].Descriptor()
 	// role.DefaultRemark holds the default value on creation for the remark field.
 	role.DefaultRemark = roleDescRemark.Default.(string)
+	staffFields := schema.Staff{}.Fields()
+	_ = staffFields
+	// staffDescUID is the schema descriptor for uid field.
+	staffDescUID := staffFields[1].Descriptor()
+	// staff.DefaultUID holds the default value on creation for the uid field.
+	staff.DefaultUID = staffDescUID.Default.(int64)
+	// staffDescName is the schema descriptor for name field.
+	staffDescName := staffFields[2].Descriptor()
+	// staff.DefaultName holds the default value on creation for the name field.
+	staff.DefaultName = staffDescName.Default.(string)
+	// staffDescPhone is the schema descriptor for phone field.
+	staffDescPhone := staffFields[3].Descriptor()
+	// staff.DefaultPhone holds the default value on creation for the phone field.
+	staff.DefaultPhone = staffDescPhone.Default.(string)
+	// staffDescEmail is the schema descriptor for email field.
+	staffDescEmail := staffFields[4].Descriptor()
+	// staff.DefaultEmail holds the default value on creation for the email field.
+	staff.DefaultEmail = staffDescEmail.Default.(string)
+	// staffDescNickname is the schema descriptor for nickname field.
+	staffDescNickname := staffFields[5].Descriptor()
+	// staff.DefaultNickname holds the default value on creation for the nickname field.
+	staff.DefaultNickname = staffDescNickname.Default.(string)
+	// staffDescAvatar is the schema descriptor for avatar field.
+	staffDescAvatar := staffFields[6].Descriptor()
+	// staff.DefaultAvatar holds the default value on creation for the avatar field.
+	staff.DefaultAvatar = staffDescAvatar.Default.(string)
+	// staffDescCreatedAt is the schema descriptor for created_at field.
+	staffDescCreatedAt := staffFields[7].Descriptor()
+	// staff.DefaultCreatedAt holds the default value on creation for the created_at field.
+	staff.DefaultCreatedAt = staffDescCreatedAt.Default.(func() time.Time)
+	// staffDescCreatedBy is the schema descriptor for created_by field.
+	staffDescCreatedBy := staffFields[8].Descriptor()
+	// staff.DefaultCreatedBy holds the default value on creation for the created_by field.
+	staff.DefaultCreatedBy = staffDescCreatedBy.Default.(int64)
+	// staffDescUpdatedAt is the schema descriptor for updated_at field.
+	staffDescUpdatedAt := staffFields[9].Descriptor()
+	// staff.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	staff.DefaultUpdatedAt = staffDescUpdatedAt.Default.(func() time.Time)
+	// staff.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	staff.UpdateDefaultUpdatedAt = staffDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// staffDescUpdatedBy is the schema descriptor for updated_by field.
+	staffDescUpdatedBy := staffFields[10].Descriptor()
+	// staff.DefaultUpdatedBy holds the default value on creation for the updated_by field.
+	staff.DefaultUpdatedBy = staffDescUpdatedBy.Default.(int64)
 	userMixin := schema.User{}.Mixin()
 	userMixinHooks0 := userMixin[0].Hooks()
 	user.Hooks[0] = userMixinHooks0[0]

@@ -2,11 +2,11 @@ package server
 
 import (
 	"context"
-	"log"
 
 	"net/http"
 
-	"github.com/go-kratos/kratos/v2/log"
+	"log"
+
 	"github.com/go-oauth2/oauth2/v4"
 	"github.com/go-oauth2/oauth2/v4/errors"
 	"github.com/go-oauth2/oauth2/v4/generates"
@@ -40,7 +40,7 @@ func initClientStore() *store.ClientStore {
 
 func initManage() *manage.Manager {
 	manager := manage.NewDefaultManager()
-	// manager.SetAuthorizeCodeTokenCfg(manage.DefaultAuthorizeCodeTokenCfg)
+	manager.SetAuthorizeCodeTokenCfg(manage.DefaultAuthorizeCodeTokenCfg)
 
 	// token store
 	manager.MustTokenStorage(store.NewMemoryTokenStore())
@@ -62,9 +62,10 @@ func NewOAuthServer() *server.Server {
 	srv.SetAllowedGrantType(oauth2.AuthorizationCode, oauth2.Refreshing)
 	srv.SetAllowGetAccessRequest(true)
 
-	srv.SetAuthorizeScopeHandler(authorizeScopeHandler)
-	srv.SetUserAuthorizationHandler(userAuthorizeHandler)
 	srv.SetPasswordAuthorizationHandler(passwordAuthorizationHandler)
+	srv.SetUserAuthorizationHandler(userAuthorizeHandler)
+
+	// srv.SetAuthorizeScopeHandler(authorizeScopeHandler)
 
 	srv.SetInternalErrorHandler(internalErrorHandler)
 	srv.SetResponseErrorHandler(responseErrorHandler)

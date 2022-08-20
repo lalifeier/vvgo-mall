@@ -29,20 +29,20 @@ type SmsRepo interface {
 	Del(key string) (int64, error)
 }
 
-type SmsUsecase struct {
+type SmsUseCase struct {
 	repo SmsRepo
 	log  *log.Helper
 }
 
-func NewSmsUsecase(repo SmsRepo, logger log.Logger) *SmsUsecase {
-	return &SmsUsecase{repo: repo, log: log.NewHelper(logger)}
+func NewSmsUseCase(repo SmsRepo, logger log.Logger) *SmsUseCase {
+	return &SmsUseCase{repo: repo, log: log.NewHelper(logger)}
 }
 
 func generateCodeKey(mobile string) string {
 	return codePrefix + mobile
 }
 
-func (uc *SmsUsecase) SendCode(ctx context.Context, mobile string) error {
+func (uc *SmsUseCase) SendCode(ctx context.Context, mobile string) error {
 	code := sms.Code()
 	err := uc.repo.SendSmsCode(mobile, code)
 
@@ -55,7 +55,7 @@ func (uc *SmsUsecase) SendCode(ctx context.Context, mobile string) error {
 	return uc.repo.Set(key, code, codeExpire)
 }
 
-func (uc *SmsUsecase) VerifyCode(ctx context.Context, mobile, code string) error {
+func (uc *SmsUseCase) VerifyCode(ctx context.Context, mobile, code string) error {
 	key := generateCodeKey(mobile)
 	val, err := uc.repo.Get(key)
 	if err != nil {

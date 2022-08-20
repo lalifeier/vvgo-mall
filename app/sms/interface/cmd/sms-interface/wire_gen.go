@@ -26,8 +26,8 @@ func initApp(confServer *conf.Server, confData *conf.Data, logger log.Logger, sm
 		return nil, nil, err
 	}
 	smsRepo := data.NewSmsRepo(dataData, logger)
-	smsUsecase := biz.NewSmsUsecase(smsRepo, logger)
-	smsService := service.NewSmsService(smsUsecase, logger)
+	smsUseCase := biz.NewSmsUseCase(smsRepo, logger)
+	smsService := service.NewSmsService(smsUseCase, logger)
 	httpServer := server.NewHTTPServer(confServer, smsService, logger)
 	grpcServer := server.NewGRPCServer(confServer, smsService, logger)
 	app := newApp(logger, httpServer, grpcServer)

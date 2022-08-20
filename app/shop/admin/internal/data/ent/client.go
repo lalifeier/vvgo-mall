@@ -14,6 +14,7 @@ import (
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/dicttype"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/permission"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/role"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/staff"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/user"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/userrole"
 
@@ -37,6 +38,8 @@ type Client struct {
 	Permission *PermissionClient
 	// Role is the client for interacting with the Role builders.
 	Role *RoleClient
+	// Staff is the client for interacting with the Staff builders.
+	Staff *StaffClient
 	// User is the client for interacting with the User builders.
 	User *UserClient
 	// UserRole is the client for interacting with the UserRole builders.
@@ -59,6 +62,7 @@ func (c *Client) init() {
 	c.DictType = NewDictTypeClient(c.config)
 	c.Permission = NewPermissionClient(c.config)
 	c.Role = NewRoleClient(c.config)
+	c.Staff = NewStaffClient(c.config)
 	c.User = NewUserClient(c.config)
 	c.UserRole = NewUserRoleClient(c.config)
 }
@@ -99,6 +103,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		DictType:   NewDictTypeClient(cfg),
 		Permission: NewPermissionClient(cfg),
 		Role:       NewRoleClient(cfg),
+		Staff:      NewStaffClient(cfg),
 		User:       NewUserClient(cfg),
 		UserRole:   NewUserRoleClient(cfg),
 	}, nil
@@ -125,6 +130,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		DictType:   NewDictTypeClient(cfg),
 		Permission: NewPermissionClient(cfg),
 		Role:       NewRoleClient(cfg),
+		Staff:      NewStaffClient(cfg),
 		User:       NewUserClient(cfg),
 		UserRole:   NewUserRoleClient(cfg),
 	}, nil
@@ -161,6 +167,7 @@ func (c *Client) Use(hooks ...Hook) {
 	c.DictType.Use(hooks...)
 	c.Permission.Use(hooks...)
 	c.Role.Use(hooks...)
+	c.Staff.Use(hooks...)
 	c.User.Use(hooks...)
 	c.UserRole.Use(hooks...)
 }
@@ -617,6 +624,96 @@ func (c *RoleClient) GetX(ctx context.Context, id int64) *Role {
 func (c *RoleClient) Hooks() []Hook {
 	hooks := c.hooks.Role
 	return append(hooks[:len(hooks):len(hooks)], role.Hooks[:]...)
+}
+
+// StaffClient is a client for the Staff schema.
+type StaffClient struct {
+	config
+}
+
+// NewStaffClient returns a client for the Staff from the given config.
+func NewStaffClient(c config) *StaffClient {
+	return &StaffClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `staff.Hooks(f(g(h())))`.
+func (c *StaffClient) Use(hooks ...Hook) {
+	c.hooks.Staff = append(c.hooks.Staff, hooks...)
+}
+
+// Create returns a create builder for Staff.
+func (c *StaffClient) Create() *StaffCreate {
+	mutation := newStaffMutation(c.config, OpCreate)
+	return &StaffCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of Staff entities.
+func (c *StaffClient) CreateBulk(builders ...*StaffCreate) *StaffCreateBulk {
+	return &StaffCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Staff.
+func (c *StaffClient) Update() *StaffUpdate {
+	mutation := newStaffMutation(c.config, OpUpdate)
+	return &StaffUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *StaffClient) UpdateOne(s *Staff) *StaffUpdateOne {
+	mutation := newStaffMutation(c.config, OpUpdateOne, withStaff(s))
+	return &StaffUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *StaffClient) UpdateOneID(id int64) *StaffUpdateOne {
+	mutation := newStaffMutation(c.config, OpUpdateOne, withStaffID(id))
+	return &StaffUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Staff.
+func (c *StaffClient) Delete() *StaffDelete {
+	mutation := newStaffMutation(c.config, OpDelete)
+	return &StaffDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *StaffClient) DeleteOne(s *Staff) *StaffDeleteOne {
+	return c.DeleteOneID(s.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *StaffClient) DeleteOneID(id int64) *StaffDeleteOne {
+	builder := c.Delete().Where(staff.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &StaffDeleteOne{builder}
+}
+
+// Query returns a query builder for Staff.
+func (c *StaffClient) Query() *StaffQuery {
+	return &StaffQuery{
+		config: c.config,
+	}
+}
+
+// Get returns a Staff entity by its id.
+func (c *StaffClient) Get(ctx context.Context, id int64) (*Staff, error) {
+	return c.Query().Where(staff.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *StaffClient) GetX(ctx context.Context, id int64) *Staff {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *StaffClient) Hooks() []Hook {
+	return c.hooks.Staff
 }
 
 // UserClient is a client for the User schema.

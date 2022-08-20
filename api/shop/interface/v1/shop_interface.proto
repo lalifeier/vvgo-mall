@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package api.sms.interface.v1;
+
+import "google/api/annotations.proto";
+
+import "validate/validate.proto";
+
+option go_package = "github.com/lalifeier/vvgo-mall/api/sms/interface/v1;v1";
+
+service ShopInterface {
+  rpc Register(RegisterReq) returns (RegisterResp) {
+    option (google.api.http) = {
+      post : "/api/register"
+      body : "*"
+    };
+  }
+  rpc Login(LoginReq) returns (LoginResp) {
+    option (google.api.http) = {
+      post : "/api/login"
+      body : "*"
+    };
+  }
+  // rpc QuickLogin(LoginReq) returns (LoginResp) {
+  //   option (google.api.http) = {
+  //     post : "/api/quickLogin"
+  //     body : "*"
+  //   };
+  // }
+  rpc GetUserInfo(GetUserInfoReq) returns (GetUserInfoResp) {
+    option (google.api.http) = {
+      post : "/api/user/info"
+      body : "*"
+    };
+  }
+}
+
+message User {
+  int64 id = 1;
+  string username = 2;
+  string email = 3;
+  string phone = 4;
+  string nickname = 5;
+  string avatar = 6;
+}
+
+message RegisterReq {
+  string username = 1;
+  string password = 2;
+  string email = 3;
+  string phone = 4;
+  string code = 5;
+}
+message RegisterResp {
+  int64 id = 1;
+  string username = 2;
+  string nickname = 3;
+  string avatar = 4;
+  string gender = 5;
+}
+message LoginReq {
+  string username = 1;
+  string password = 2;
+  string email = 3;
+  string phone = 4;
+  string code = 5;
+  string type = 6;
+}
+message LoginResp {}
+
+message GetUserInfoReq { int64 id = 1; }
+message GetUserInfoResp { User user = 1; }

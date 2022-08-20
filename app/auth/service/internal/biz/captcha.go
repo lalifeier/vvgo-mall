@@ -16,21 +16,21 @@ type CaptchaRepo interface {
 	// SendSmsCode(ctx context.Context, phone string) error
 }
 
-type CaptchaUsecase struct {
+type CaptchaUseCase struct {
 	log *log.Helper
 	// repo CaptchaRepo
 }
 
-func NewCaptchaUsecase(logger log.Logger) *CaptchaUsecase {
-	return &CaptchaUsecase{log: log.NewHelper(logger)}
+func NewCaptchaUseCase(logger log.Logger) *CaptchaUseCase {
+	return &CaptchaUseCase{log: log.NewHelper(logger)}
 }
 
-func (us *CaptchaUsecase) GetCaptcha(ctx context.Context) (captchaInfo *captcha.CaptchaInfo, err error) {
+func (us *CaptchaUseCase) GetCaptcha(ctx context.Context) (captchaInfo *captcha.CaptchaInfo, err error) {
 	captchaInfo, err = captcha.GetCaptcha()
 	return
 }
 
-func (us *CaptchaUsecase) VerifyCaptcha(ctx context.Context, captchaId string, captchaCode string) (err error) {
+func (us *CaptchaUseCase) VerifyCaptcha(ctx context.Context, captchaId string, captchaCode string) (err error) {
 	ok := captcha.VerifyCaptcha(captchaId, captchaCode)
 	if !ok {
 		return ErrCaptcha

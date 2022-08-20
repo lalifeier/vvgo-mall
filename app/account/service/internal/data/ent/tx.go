@@ -14,8 +14,6 @@ type Tx struct {
 	config
 	// AccountUser is the client for interacting with the AccountUser builders.
 	AccountUser *AccountUserClient
-	// Staff is the client for interacting with the Staff builders.
-	Staff *StaffClient
 
 	// lazily loaded.
 	client     *Client
@@ -32,7 +30,7 @@ type Tx struct {
 }
 
 type (
-	// Committer is the interface that wraps the Committer method.
+	// Committer is the interface that wraps the Commit method.
 	Committer interface {
 		Commit(context.Context, *Tx) error
 	}
@@ -87,7 +85,7 @@ func (tx *Tx) OnCommit(f CommitHook) {
 }
 
 type (
-	// Rollbacker is the interface that wraps the Rollbacker method.
+	// Rollbacker is the interface that wraps the Rollback method.
 	Rollbacker interface {
 		Rollback(context.Context, *Tx) error
 	}
@@ -152,7 +150,6 @@ func (tx *Tx) Client() *Client {
 
 func (tx *Tx) init() {
 	tx.AccountUser = NewAccountUserClient(tx.config)
-	tx.Staff = NewStaffClient(tx.config)
 }
 
 // txDriver wraps the given dialect.Tx with a nop dialect.Driver implementation.

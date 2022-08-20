@@ -23,7 +23,6 @@ func (AccountUser) Annotations() []schema.Annotation {
 	}
 }
 
-
 // Fields of the AccountUser.
 func (AccountUser) Fields() []ent.Field {
 

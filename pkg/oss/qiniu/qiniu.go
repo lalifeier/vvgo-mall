@@ -8,11 +8,15 @@ import (
 	"os"
 	"time"
 
+	gooss "github.com/lalifeier/vvgo-mall/pkg/oss"
+	"github.com/lalifeier/vvgo-mall/pkg/util"
 	"github.com/qiniu/go-sdk/v7/auth/qbox"
 	"github.com/qiniu/go-sdk/v7/storage"
 )
 
 // https://developer.qiniu.com/kodo/1238/go
+
+var _ gooss.IOSS = (*Client)(nil)
 
 type (
 	Config struct {
@@ -42,7 +46,12 @@ func (c Client) GetBucket() string {
 }
 
 var zonedata = map[string]*storage.Zone{
-	"huadong": &storage.ZoneHuadong,
+	"huadong":    &storage.ZoneHuadong,
+	"huabei":     &storage.ZoneHuabei,
+	"huanan":     &storage.ZoneHuanan,
+	"beimei":     &storage.ZoneBeimei,
+	"xinjiapo":   &storage.ZoneXinjiapo,
+	"fogcneast1": &storage.ZoneFogCnEast1,
 }
 
 func New(c *Config) (*Client, error) {
@@ -68,7 +77,7 @@ func New(c *Config) (*Client, error) {
 	}, nil
 }
 
-func (c *Client) PutObject(objectKey string, filepath string) (err error) {
+func (c *Client) PutObject(objectKey string, filePath string) (err error) {
 	putPolicy := storage.PutPolicy{
 		Scope: c.GetBucket(),
 	}
@@ -88,7 +97,7 @@ func (c *Client) PutObject(objectKey string, filepath string) (err error) {
 	putExtra := storage.RputV2Extra{
 		Recorder: recorder,
 	}
-	err = resumeUploader.PutFile(context.Background(), &ret, upToken, objectKey, filepath, &putExtra)
+	err = resumeUploader.PutFile(context.Background(), &ret, upToken, objectKey, filePath, &putExtra)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -125,9 +134,8 @@ func (c *Client) GetObject(objectKey string) (io.ReadCloser, error) {
 }
 
 func (c *Client) GetObjectURL(objectKey string, expires int64) (url string, err error) {
-
 	if c.Config.PrivateURL {
-		deadline := time.Now().Add(time.Second * 3600).Unix()
+		deadline := time.Now().Unix() + expires
 		url = storage.MakePrivateURL(c.Mac, c.GetEndpoint(), objectKey, deadline)
 		return
 	}
@@ -136,32 +144,33 @@ func (c *Client) GetObjectURL(objectKey string, expires int64) (url string, err 
 	return
 }
 
-func (c *Client) DownloadObject(objectKey string, filepath string) (io.ReadCloser, error) {
-	url, err := c.GetObjectURL(objectKey, 0)
+func (c *Client) GetObjectToFile(objectKey string, filePath string) error {
+	url, err := c.GetObjectURL(objectKey, 3600)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	result, err := http.Get(url)
-	if err == nil && result.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("file %s not found", objectKey)
-	}
-	return result.Body, nil
+	return util.WriteFile(url, filePath)
 }
 
-func (c *Client) ListObjects(objectKey string) error {
-	prefix := "qshell/"
-	delimiter := ""
+func (c *Client) ListObjects(prefix string) ([]*gooss.Object, error) {
+	var objects []*gooss.Object
+
 	marker := ""
 	for {
-		entries, _, nextMarker, hasNext, err := c.BucketManager.ListFiles(c.GetBucket(), prefix, delimiter, marker, 1000)
+		entries, _, nextMarker, hasNext, err := c.BucketManager.ListFiles(c.GetBucket(), prefix, "", marker, 1000)
 		if err != nil {
 			fmt.Println("list error,", err)
 			break
 		}
 		//print entries
 		for _, entry := range entries {
-			fmt.Println(entry.Key)
+			t := time.Unix(entry.PutTime, 0)
+			objects = append(objects, &gooss.Object{
+				Key:          entry.Key,
+				Size:         entry.Fsize,
+				LastModified: &t,
+			})
 		}
 		if hasNext {
 			marker = nextMarker
@@ -170,5 +179,5 @@ func (c *Client) ListObjects(objectKey string) error {
 			break
 		}
 	}
-	return nil
+	return objects, nil
 }

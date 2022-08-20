@@ -85,7 +85,7 @@ func (s *ShopService) GetSystem(ctx context.Context, req *pb.GetSystemReq) (*pb.
 }
 
 func (s *ShopService) CreateDictData(ctx context.Context, req *pb.CreateDictDataReq) (*pb.CreateDictDataResp, error) {
-	id, err := s.dictDataUsecase.CreateDictData(ctx, &biz.DictData{
+	id, err := s.dictDataUseCase.CreateDictData(ctx, &biz.DictData{
 		DictTypeId: req.DictTypeId,
 		Label:      req.Label,
 		Value:      req.Value,
@@ -102,7 +102,7 @@ func (s *ShopService) CreateDictData(ctx context.Context, req *pb.CreateDictData
 	}, nil
 }
 func (s *ShopService) UpdateDictData(ctx context.Context, req *pb.UpdateDictDataReq) (*pb.UpdateDictDataResp, error) {
-	err := s.dictDataUsecase.UpdateDictData(ctx, &biz.DictData{
+	err := s.dictDataUseCase.UpdateDictData(ctx, &biz.DictData{
 		Id: req.Id,
 	})
 	if err != nil {
@@ -111,14 +111,14 @@ func (s *ShopService) UpdateDictData(ctx context.Context, req *pb.UpdateDictData
 	return &pb.UpdateDictDataResp{}, nil
 }
 func (s *ShopService) DeleteDictData(ctx context.Context, req *pb.DeleteDictDataReq) (*pb.DeleteDictDataResp, error) {
-	err := s.dictDataUsecase.DeleteDictData(ctx, req.Id)
+	err := s.dictDataUseCase.DeleteDictData(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}
 	return &pb.DeleteDictDataResp{}, nil
 }
 func (s *ShopService) ListDictData(ctx context.Context, req *pb.ListDictDataReq) (*pb.ListDictDataResp, error) {
-	rv, err := s.dictDataUsecase.ListDictData(ctx, &biz.DictDataListReq{})
+	rv, err := s.dictDataUseCase.ListDictData(ctx, &biz.DictDataListReq{})
 	if err != nil {
 		return nil, err
 	}
@@ -134,7 +134,7 @@ func (s *ShopService) ListDictData(ctx context.Context, req *pb.ListDictDataReq)
 	}, nil
 }
 func (s *ShopService) PageListDictData(ctx context.Context, req *pb.PageListDictDataReq) (*pb.PageListDictDataResp, error) {
-	pos, err := s.dictDataUsecase.PageListDictData(ctx, &biz.DictDataPageListReq{PageNum: req.PageNum, PageSize: req.PageSize})
+	pos, err := s.dictDataUseCase.PageListDictData(ctx, &biz.DictDataPageListReq{PageNum: req.PageNum, PageSize: req.PageSize})
 	if err != nil {
 		return nil, err
 	}
@@ -153,7 +153,7 @@ func (s *ShopService) PageListDictData(ctx context.Context, req *pb.PageListDict
 	}, nil
 }
 func (s *ShopService) GetDictData(ctx context.Context, req *pb.GetDictDataReq) (*pb.GetDictDataResp, error) {
-	au, err := s.dictDataUsecase.GetDictData(ctx, req.Id)
+	au, err := s.dictDataUseCase.GetDictData(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}

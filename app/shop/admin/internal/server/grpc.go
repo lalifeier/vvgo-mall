@@ -43,6 +43,6 @@ func NewGRPCServer(c *conf.Server, ac *conf.Auth, logger log.Logger, shopService
 	}
 	srv := grpc.NewServer(opts...)
 
-	v1.RegisterShopServer(srv, shopService)
+	v1.RegisterShopAdminServer(srv, shopService)
 	return srv
 }

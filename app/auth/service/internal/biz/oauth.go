@@ -5,11 +5,11 @@ import (
 	"github.com/go-oauth2/oauth2/v4/server"
 )
 
-type OauthUsecase struct {
+type OauthUseCase struct {
 	log    *log.Helper
 	server *server.Server
 }
 
-func NewOauthUsecase(logger log.Logger, server *server.Server) *OauthUsecase {
-	return &OauthUsecase{log: log.NewHelper(logger), server: server}
+func NewOauthUseCase(logger log.Logger, server *server.Server) *OauthUseCase {
+	return &OauthUseCase{log: log.NewHelper(logger), server: server}
 }

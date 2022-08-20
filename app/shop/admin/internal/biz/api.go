@@ -35,35 +35,35 @@ type ApiRepo interface {
 	PageListApi(ctx context.Context, req *ApiPageListReq) (*ApiPageListResp, error)
 }
 
-type ApiUsecase struct {
+type ApiUseCase struct {
 	repo ApiRepo
 	log  *log.Helper
 }
 
-func NewApiUsecase(repo ApiRepo, logger log.Logger) *ApiUsecase {
-	return &ApiUsecase{repo: repo, log: log.NewHelper(logger)}
+func NewApiUseCase(repo ApiRepo, logger log.Logger) *ApiUseCase {
+	return &ApiUseCase{repo: repo, log: log.NewHelper(logger)}
 }
 
-func (uc *ApiUsecase) CreateApi(ctx context.Context, a *Api) (int64, error) {
+func (uc *ApiUseCase) CreateApi(ctx context.Context, a *Api) (int64, error) {
 	return uc.repo.CreateApi(ctx, a)
 }
 
-func (uc *ApiUsecase) UpdateApi(ctx context.Context, a *Api) error {
+func (uc *ApiUseCase) UpdateApi(ctx context.Context, a *Api) error {
 	return uc.repo.UpdateApi(ctx, a)
 }
 
-func (uc *ApiUsecase) DeleteApi(ctx context.Context, id int64) error {
+func (uc *ApiUseCase) DeleteApi(ctx context.Context, id int64) error {
 	return uc.repo.DeleteApi(ctx, id)
 }
 
-func (uc *ApiUsecase) GetApi(ctx context.Context, id int64) (*Api, error) {
+func (uc *ApiUseCase) GetApi(ctx context.Context, id int64) (*Api, error) {
 	return uc.repo.GetApi(ctx, id)
 }
 
-func (uc *ApiUsecase) ListApi(ctx context.Context, req *ApiListReq) ([]*Api, error) {
+func (uc *ApiUseCase) ListApi(ctx context.Context, req *ApiListReq) ([]*Api, error) {
 	return uc.repo.ListApi(ctx, req)
 }
 
-func (uc *ApiUsecase) PageListApi(ctx context.Context, req *ApiPageListReq) (*ApiPageListResp, error) {
+func (uc *ApiUseCase) PageListApi(ctx context.Context, req *ApiPageListReq) (*ApiPageListResp, error) {
 	return uc.repo.PageListApi(ctx, req)
 }

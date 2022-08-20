@@ -17,14 +17,14 @@ func (b bizAccountUser) protoStruct() *pb.AccountUser {
 }
 
 func (s *AccountService) CreateAccountUser(ctx context.Context, req *pb.AccountUser) (*pb.AccountUser, error) {
-	p, err := s.accountUserUsecase.CreateAccountUser(ctx, &biz.AccountUser{})
+	p, err := s.accountUserUseCase.CreateAccountUser(ctx, &biz.AccountUser{})
 	if err != nil {
 		return nil, err
 	}
 	return bizAccountUser(*p).protoStruct(), nil
 }
 func (s *AccountService) UpdateAccountUser(ctx context.Context, req *pb.AccountUser) (*pb.AccountUser, error) {
-	p, err := s.accountUserUsecase.UpdateAccountUser(ctx, &biz.AccountUser{
+	p, err := s.accountUserUseCase.UpdateAccountUser(ctx, &biz.AccountUser{
 		Id: req.Id,
 	})
 	if err != nil {
@@ -33,21 +33,21 @@ func (s *AccountService) UpdateAccountUser(ctx context.Context, req *pb.AccountU
 	return bizAccountUser(*p).protoStruct(), nil
 }
 func (s *AccountService) DeleteAccountUser(ctx context.Context, req *pb.DeleteAccountUserReq) (*emptypb.Empty, error) {
-	err := s.accountUserUsecase.DeleteAccountUser(ctx, req.Id)
+	err := s.accountUserUseCase.DeleteAccountUser(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, nil
 }
 func (s *AccountService) GetAccountUser(ctx context.Context, req *pb.GetAccountUserReq) (*pb.AccountUser, error) {
-	p, err := s.accountUserUsecase.GetAccountUser(ctx, req.Id)
+	p, err := s.accountUserUseCase.GetAccountUser(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}
 	return bizAccountUser(*p).protoStruct(), nil
 }
 func (s *AccountService) ListAccountUser(ctx context.Context, req *pb.ListAccountUserReq) (*pb.ListAccountUserResp, error) {
-	rv, err := s.accountUserUsecase.ListAccountUser(ctx, req)
+	rv, err := s.accountUserUseCase.ListAccountUser(ctx, req)
 	if err != nil {
 		return nil, err
 	}
@@ -62,7 +62,7 @@ func (s *AccountService) ListAccountUser(ctx context.Context, req *pb.ListAccoun
 	}, nil
 }
 func (s *AccountService) PageListAccountUser(ctx context.Context, req *pb.PageListAccountUserReq) (*pb.PageListAccountUserResp, error) {
-	rv, total, err := s.accountUserUsecase.PageListAccountUser(ctx, req)
+	rv, total, err := s.accountUserUseCase.PageListAccountUser(ctx, req)
 	if err != nil {
 		return nil, err
 	}

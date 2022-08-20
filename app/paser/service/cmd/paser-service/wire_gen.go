@@ -24,8 +24,8 @@ func initApp(confServer *conf.Server, confData *conf.Data, logger log.Logger) (*
 		return nil, nil, err
 	}
 	paserRepo := data.NewPaserRepo(dataData, logger)
-	paserUsecase := biz.NewPaserUsecase(paserRepo, logger)
-	paserService := service.NewPaserService(paserUsecase, logger)
+	paserUseCase := biz.NewPaserUseCase(paserRepo, logger)
+	paserService := service.NewPaserService(paserUseCase, logger)
 	httpServer := server.NewHTTPServer(confServer, paserService, logger)
 	grpcServer := server.NewGRPCServer(confServer, paserService, logger)
 	app := newApp(logger, httpServer, grpcServer)

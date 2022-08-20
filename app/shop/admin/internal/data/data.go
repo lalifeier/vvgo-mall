@@ -21,7 +21,11 @@ import (
 	// "gorm.io/gorm"
 
 	"github.com/go-kratos/kratos/v2/log"
+	"github.com/go-kratos/kratos/v2/middleware/recovery"
+	"github.com/go-kratos/kratos/v2/middleware/tracing"
 	"github.com/go-kratos/kratos/v2/registry"
+	"github.com/go-kratos/kratos/v2/transport/grpc"
+
 	"github.com/google/wire"
 
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent"
@@ -38,6 +42,9 @@ import (
 	entadapterent "github.com/casbin/ent-adapter/ent"
 	consul "github.com/go-kratos/consul/registry"
 	consulAPI "github.com/hashicorp/consul/api"
+
+	accountv1 "github.com/lalifeier/vvgo-mall/api/account/service/v1"
+	tracesdk "go.opentelemetry.io/otel/sdk/trace"
 )
 
 // ProviderSet is data providers.
@@ -47,6 +54,7 @@ var ProviderSet = wire.NewSet(
 	NewDiscovery, NewRegistrar,
 	NewEnforcer,
 	NewUserRepo, NewRoleRepo, NewDictDataRepo,
+	NewAccountServiceClient, NewAccountRepo,
 )
 
 // Data .
@@ -60,10 +68,17 @@ type Data struct {
 	kc sarama.Consumer
 
 	enforcer *casbin.Enforcer
+
+	ac accountv1.AccountClient
 }
 
 // NewData .
-func NewData(entClient *ent.Client, redisClient *redis.Client, enforcer *casbin.Enforcer, producer sarama.AsyncProducer, consumer sarama.Consumer, logger log.Logger) (*Data, func(), error) {
+func NewData(logger log.Logger,
+	entClient *ent.Client, redisClient *redis.Client,
+	enforcer *casbin.Enforcer,
+	producer sarama.AsyncProducer, consumer sarama.Consumer,
+	ac accountv1.AccountClient,
+) (*Data, func(), error) {
 	log := log.NewHelper(log.With(logger, "module", "shop-admin/data"))
 
 	d := &Data{
@@ -74,6 +89,8 @@ func NewData(entClient *ent.Client, redisClient *redis.Client, enforcer *casbin.
 		kc:  consumer,
 		// mdb: database,
 		enforcer: enforcer,
+
+		ac: ac,
 	}
 
 	cleanup := func() {
@@ -292,3 +309,21 @@ func NewKafkaConsumer(conf *conf.Data) sarama.Consumer {
 // 	c := sysV1.NewSysClient(conn)
 // 	return c
 // }
+
+func NewAccountServiceClient(r registry.Discovery, tp *tracesdk.TracerProvider) accountv1.AccountClient {
+	conn, err := grpc.DialInsecure(
+		context.Background(),
+		grpc.WithEndpoint("discovery:///vvgo-mall.account.service"),
+		// grpc.WithEndpoint("127.0.0.1:9002"),
+		grpc.WithDiscovery(r),
+		grpc.WithMiddleware(
+			tracing.Client(tracing.WithTracerProvider(tp)),
+			recovery.Recovery(),
+		),
+	)
+	if err != nil {
+		panic(err)
+	}
+	c := accountv1.NewAccountClient(conn)
+	return c
+}

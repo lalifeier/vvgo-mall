@@ -13,13 +13,13 @@ import (
 type PaserRepo interface {
 }
 
-type PaserUsecase struct {
+type PaserUseCase struct {
 	repo PaserRepo
 	log  *log.Helper
 }
 
-func NewPaserUsecase(repo PaserRepo, logger log.Logger) *PaserUsecase {
-	return &PaserUsecase{repo: repo, log: log.NewHelper(logger)}
+func NewPaserUseCase(repo PaserRepo, logger log.Logger) *PaserUseCase {
+	return &PaserUseCase{repo: repo, log: log.NewHelper(logger)}
 }
 
 func getDomain(uri string) (string, error) {
@@ -31,7 +31,7 @@ func getDomain(uri string) (string, error) {
 	return parts[len(parts)-2] + "." + parts[len(parts)-1], nil
 }
 
-func (uc PaserUsecase) Paser(url string) (*pb.PaserReply, error) {
+func (uc PaserUseCase) Paser(url string) (*pb.PaserReply, error) {
 	domain, err := getDomain(url)
 	if err != nil {
 		return nil, err

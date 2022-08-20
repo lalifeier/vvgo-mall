@@ -10,14 +10,15 @@ type AccountService struct {
 	pb.UnimplementedAccountServer
 	log *log.Helper
 
-	accountUserUsecase *biz.AccountUserUsecase
-	staffUsecase       *biz.StaffUsecase
+	accountUserUseCase *biz.AccountUserUseCase
+
+	authUseCase *biz.AuthUseCase
 }
 
-func NewAccountService(logger log.Logger, accountUserUsecase *biz.AccountUserUsecase, staffUsecase *biz.StaffUsecase) *AccountService {
+func NewAccountService(logger log.Logger, accountUserUseCase *biz.AccountUserUseCase, authUseCase *biz.AuthUseCase) *AccountService {
 	return &AccountService{
 		log:                log.NewHelper(log.With(logger, "module", "account-service/service")),
-		accountUserUsecase: accountUserUsecase,
-		staffUsecase:       staffUsecase,
+		accountUserUseCase: accountUserUseCase,
+		authUseCase:        authUseCase,
 	}
 }

@@ -13,6 +13,7 @@ import (
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/dicttype"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/permission"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/role"
+	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/staff"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/user"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/userrole"
 )
@@ -40,6 +41,7 @@ func columnChecker(table string) func(string) error {
 		dicttype.Table:   dicttype.ValidColumn,
 		permission.Table: permission.ValidColumn,
 		role.Table:       role.ValidColumn,
+		staff.Table:      staff.ValidColumn,
 		user.Table:       user.ValidColumn,
 		userrole.Table:   userrole.ValidColumn,
 	}

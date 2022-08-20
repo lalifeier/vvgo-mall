@@ -31,12 +31,6 @@ type AccountClient interface {
 	GetAccountUser(ctx context.Context, in *GetAccountUserReq, opts ...grpc.CallOption) (*AccountUser, error)
 	ListAccountUser(ctx context.Context, in *ListAccountUserReq, opts ...grpc.CallOption) (*ListAccountUserResp, error)
 	PageListAccountUser(ctx context.Context, in *PageListAccountUserReq, opts ...grpc.CallOption) (*PageListAccountUserResp, error)
-	CreateStaff(ctx context.Context, in *Staff, opts ...grpc.CallOption) (*Staff, error)
-	UpdateStaff(ctx context.Context, in *Staff, opts ...grpc.CallOption) (*Staff, error)
-	DeleteStaff(ctx context.Context, in *DeleteStaffReq, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	GetStaff(ctx context.Context, in *GetStaffReq, opts ...grpc.CallOption) (*Staff, error)
-	ListStaff(ctx context.Context, in *ListStaffReq, opts ...grpc.CallOption) (*ListStaffResp, error)
-	PageListStaff(ctx context.Context, in *PageListStaffReq, opts ...grpc.CallOption) (*PageListStaffResp, error)
 }
 
 type accountClient struct {
@@ -119,60 +113,6 @@ func (c *accountClient) PageListAccountUser(ctx context.Context, in *PageListAcc
 	return out, nil
 }
 
-func (c *accountClient) CreateStaff(ctx context.Context, in *Staff, opts ...grpc.CallOption) (*Staff, error) {
-	out := new(Staff)
-	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/CreateStaff", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *accountClient) UpdateStaff(ctx context.Context, in *Staff, opts ...grpc.CallOption) (*Staff, error) {
-	out := new(Staff)
-	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/UpdateStaff", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *accountClient) DeleteStaff(ctx context.Context, in *DeleteStaffReq, opts ...grpc.CallOption) (*emptypb.Empty, error) {
-	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/DeleteStaff", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *accountClient) GetStaff(ctx context.Context, in *GetStaffReq, opts ...grpc.CallOption) (*Staff, error) {
-	out := new(Staff)
-	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/GetStaff", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *accountClient) ListStaff(ctx context.Context, in *ListStaffReq, opts ...grpc.CallOption) (*ListStaffResp, error) {
-	out := new(ListStaffResp)
-	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/ListStaff", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *accountClient) PageListStaff(ctx context.Context, in *PageListStaffReq, opts ...grpc.CallOption) (*PageListStaffResp, error) {
-	out := new(PageListStaffResp)
-	err := c.cc.Invoke(ctx, "/api.account.service.v1.Account/PageListStaff", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // AccountServer is the server API for Account service.
 // All implementations must embed UnimplementedAccountServer
 // for forward compatibility
@@ -185,12 +125,6 @@ type AccountServer interface {
 	GetAccountUser(context.Context, *GetAccountUserReq) (*AccountUser, error)
 	ListAccountUser(context.Context, *ListAccountUserReq) (*ListAccountUserResp, error)
 	PageListAccountUser(context.Context, *PageListAccountUserReq) (*PageListAccountUserResp, error)
-	CreateStaff(context.Context, *Staff) (*Staff, error)
-	UpdateStaff(context.Context, *Staff) (*Staff, error)
-	DeleteStaff(context.Context, *DeleteStaffReq) (*emptypb.Empty, error)
-	GetStaff(context.Context, *GetStaffReq) (*Staff, error)
-	ListStaff(context.Context, *ListStaffReq) (*ListStaffResp, error)
-	PageListStaff(context.Context, *PageListStaffReq) (*PageListStaffResp, error)
 	mustEmbedUnimplementedAccountServer()
 }
 
@@ -221,24 +155,6 @@ func (UnimplementedAccountServer) ListAccountUser(context.Context, *ListAccountU
 }
 func (UnimplementedAccountServer) PageListAccountUser(context.Context, *PageListAccountUserReq) (*PageListAccountUserResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PageListAccountUser not implemented")
-}
-func (UnimplementedAccountServer) CreateStaff(context.Context, *Staff) (*Staff, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateStaff not implemented")
-}
-func (UnimplementedAccountServer) UpdateStaff(context.Context, *Staff) (*Staff, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateStaff not implemented")
-}
-func (UnimplementedAccountServer) DeleteStaff(context.Context, *DeleteStaffReq) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteStaff not implemented")
-}
-func (UnimplementedAccountServer) GetStaff(context.Context, *GetStaffReq) (*Staff, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetStaff not implemented")
-}
-func (UnimplementedAccountServer) ListStaff(context.Context, *ListStaffReq) (*ListStaffResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListStaff not implemented")
-}
-func (UnimplementedAccountServer) PageListStaff(context.Context, *PageListStaffReq) (*PageListStaffResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PageListStaff not implemented")
 }
 func (UnimplementedAccountServer) mustEmbedUnimplementedAccountServer() {}
 
@@ -397,114 +313,6 @@ func _Account_PageListAccountUser_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Account_CreateStaff_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Staff)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AccountServer).CreateStaff(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.account.service.v1.Account/CreateStaff",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).CreateStaff(ctx, req.(*Staff))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Account_UpdateStaff_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Staff)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AccountServer).UpdateStaff(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.account.service.v1.Account/UpdateStaff",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).UpdateStaff(ctx, req.(*Staff))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Account_DeleteStaff_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteStaffReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AccountServer).DeleteStaff(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.account.service.v1.Account/DeleteStaff",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).DeleteStaff(ctx, req.(*DeleteStaffReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Account_GetStaff_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetStaffReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AccountServer).GetStaff(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.account.service.v1.Account/GetStaff",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).GetStaff(ctx, req.(*GetStaffReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Account_ListStaff_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListStaffReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AccountServer).ListStaff(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.account.service.v1.Account/ListStaff",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).ListStaff(ctx, req.(*ListStaffReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Account_PageListStaff_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PageListStaffReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AccountServer).PageListStaff(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/api.account.service.v1.Account/PageListStaff",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServer).PageListStaff(ctx, req.(*PageListStaffReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // Account_ServiceDesc is the grpc.ServiceDesc for Account service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -543,30 +351,6 @@ var Account_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PageListAccountUser",
 			Handler:    _Account_PageListAccountUser_Handler,
-		},
-		{
-			MethodName: "CreateStaff",
-			Handler:    _Account_CreateStaff_Handler,
-		},
-		{
-			MethodName: "UpdateStaff",
-			Handler:    _Account_UpdateStaff_Handler,
-		},
-		{
-			MethodName: "DeleteStaff",
-			Handler:    _Account_DeleteStaff_Handler,
-		},
-		{
-			MethodName: "GetStaff",
-			Handler:    _Account_GetStaff_Handler,
-		},
-		{
-			MethodName: "ListStaff",
-			Handler:    _Account_ListStaff_Handler,
-		},
-		{
-			MethodName: "PageListStaff",
-			Handler:    _Account_PageListStaff_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

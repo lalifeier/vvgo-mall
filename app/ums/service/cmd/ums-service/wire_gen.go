@@ -25,8 +25,8 @@ func initApp(confServer *conf.Server, confData *conf.Data, registry *conf.Regist
 		return nil, nil, err
 	}
 	accountUserRepo := data.NewAccountUserRepo(dataData, logger)
-	accountUserUsecase := biz.NewAccountUserUsecase(accountUserRepo, logger)
-	umsService := service.NewUmsService(accountUserUsecase, logger)
+	accountUserUseCase := biz.NewAccountUserUseCase(accountUserRepo, logger)
+	umsService := service.NewUmsService(accountUserUseCase, logger)
 	grpcServer := server.NewGRPCServer(confServer, umsService, logger)
 	registrar := server.NewRegistrar(registry)
 	app := newApp(logger, grpcServer, registrar)

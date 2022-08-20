@@ -46,13 +46,13 @@ type AccountUserRepo interface {
 	List(ctx context.Context, req *AccountUserListReq) (*AccountUserListResp, error)
 }
 
-type AccountUserUsecase struct {
+type AccountUserUseCase struct {
 	repo AccountUserRepo
 	log  *log.Helper
 }
 
-func NewAccountUserUsecase(repo AccountUserRepo, logger log.Logger) *AccountUserUsecase {
-	return &AccountUserUsecase{repo: repo, log: log.NewHelper(logger)}
+func NewAccountUserUseCase(repo AccountUserRepo, logger log.Logger) *AccountUserUseCase {
+	return &AccountUserUseCase{repo: repo, log: log.NewHelper(logger)}
 }
 
 func (au *AccountUser) CheckPassword(password string) bool {
@@ -66,7 +66,7 @@ func (au *AccountUser) SetPassword(password string) {
 	}
 }
 
-func (uc *AccountUserUsecase) Login(ctx context.Context, account, password string) (*AccountUser, error) {
+func (uc *AccountUserUseCase) Login(ctx context.Context, account, password string) (*AccountUser, error) {
 	accounts, err := uc.repo.GetAccountUserByUsernameOrMobileOrEmail(ctx, account)
 	if err != nil {
 		return nil, err
@@ -80,7 +80,7 @@ func (uc *AccountUserUsecase) Login(ctx context.Context, account, password strin
 	return nil, errors.New("账号或密码错误")
 }
 
-func (uc *AccountUserUsecase) Register(ctx context.Context, au *AccountUser) (*AccountUser, error) {
+func (uc *AccountUserUseCase) Register(ctx context.Context, au *AccountUser) (*AccountUser, error) {
 	if au.Username == "" {
 		return nil, errors.New("用户名不能为空")
 	}
@@ -92,30 +92,30 @@ func (uc *AccountUserUsecase) Register(ctx context.Context, au *AccountUser) (*A
 	return uc.Register(ctx, au)
 }
 
-func (uc *AccountUserUsecase) UpdateAccountUser(ctx context.Context, id int64, au *AccountUser) (*AccountUser, error) {
+func (uc *AccountUserUseCase) UpdateAccountUser(ctx context.Context, id int64, au *AccountUser) (*AccountUser, error) {
 	if au.Password != "" {
 		au.SetPassword(au.Password)
 	}
 	return au, uc.Update(ctx, au)
 }
 
-func (uc *AccountUserUsecase) Create(ctx context.Context, au *AccountUser) (int64, error) {
+func (uc *AccountUserUseCase) Create(ctx context.Context, au *AccountUser) (int64, error) {
 	return uc.repo.Create(ctx, au)
 }
 
-func (uc *AccountUserUsecase) Update(ctx context.Context, au *AccountUser) error {
+func (uc *AccountUserUseCase) Update(ctx context.Context, au *AccountUser) error {
 	return uc.repo.Update(ctx, au)
 }
 
-func (uc *AccountUserUsecase) Delete(ctx context.Context, id int64) error {
+func (uc *AccountUserUseCase) Delete(ctx context.Context, id int64) error {
 	return uc.repo.Delete(ctx, id)
 }
 
-func (uc *AccountUserUsecase) Get(ctx context.Context, id int64) (*AccountUser, error) {
+func (uc *AccountUserUseCase) Get(ctx context.Context, id int64) (*AccountUser, error) {
 	return uc.repo.Get(ctx, id)
 }
 
-func (uc *AccountUserUsecase) List(ctx context.Context, req *AccountUserListReq) (*AccountUserListResp, error) {
+func (uc *AccountUserUseCase) List(ctx context.Context, req *AccountUserListReq) (*AccountUserListResp, error) {
 	return uc.repo.List(ctx, &AccountUserListReq{
 		PageNum:  req.PageNum,
 		PageSize: req.PageSize,

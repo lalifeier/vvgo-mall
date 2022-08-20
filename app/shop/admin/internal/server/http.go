@@ -47,8 +47,8 @@ var (
 
 func NewWhiteListMatcher() selector.MatchFunc {
 	whiteList := make(map[string]struct{})
-	whiteList["/api.shop.admin.v1.Shop/Login"] = struct{}{}
-	whiteList["/api.shop.admin.v1.Shop/Register"] = struct{}{}
+	whiteList["/api.shop.admin.v1.ShopAdmin/Login"] = struct{}{}
+	whiteList["/api.shop.admin.v1.ShopAdmin/Register"] = struct{}{}
 	return func(ctx context.Context, operation string) bool {
 		if _, ok := whiteList[operation]; ok {
 			return false
@@ -102,6 +102,6 @@ func NewHTTPServer(c *conf.Server, ac *conf.Auth, logger log.Logger, shopService
 
 	srv.Handle("/metrics", promhttp.Handler())
 
-	v1.RegisterShopHTTPServer(srv, shopService)
+	v1.RegisterShopAdminHTTPServer(srv, shopService)
 	return srv
 }

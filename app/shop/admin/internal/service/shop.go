@@ -7,25 +7,25 @@ import (
 )
 
 type ShopService struct {
-	pb.UnimplementedShopServer
+	pb.UnimplementedShopAdminServer
 
 	log *log.Helper
 
-	userUsecase *biz.UserUsecase
-	roleUsecase *biz.RoleUsecase
+	userUseCase *biz.UserUseCase
+	roleUseCase *biz.RoleUseCase
 
-	authUsecase     *biz.AuthUsecase
-	dictDataUsecase *biz.DictDataUsecase
+	authUseCase     *biz.AuthUseCase
+	dictDataUseCase *biz.DictDataUseCase
 }
 
-func NewShopService(logger log.Logger, userUsecase *biz.UserUsecase, roleUsecase *biz.RoleUsecase, authUsecase *biz.AuthUsecase, dictDataUsecase *biz.DictDataUsecase) *ShopService {
+func NewShopService(logger log.Logger, userUseCase *biz.UserUseCase, roleUseCase *biz.RoleUseCase, authUseCase *biz.AuthUseCase, dictDataUseCase *biz.DictDataUseCase) *ShopService {
 	return &ShopService{
 		log: log.NewHelper(log.With(logger, "module", "shop-admin/service")),
 
-		userUsecase: userUsecase,
-		roleUsecase: roleUsecase,
+		userUseCase: userUseCase,
+		roleUseCase: roleUseCase,
 
-		authUsecase:     authUsecase,
-		dictDataUsecase: dictDataUsecase,
+		authUseCase:     authUseCase,
+		dictDataUseCase: dictDataUseCase,
 	}
 }

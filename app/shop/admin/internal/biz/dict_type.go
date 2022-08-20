@@ -41,35 +41,35 @@ type DictTypeRepo interface {
 	PageListDictType(ctx context.Context, req *DictTypePageListReq) (*DictTypePageListResp, error)
 }
 
-type DictTypeUsecase struct {
+type DictTypeUseCase struct {
 	repo DictTypeRepo
 	log  *log.Helper
 }
 
-func NewDictTypeUsecase(repo DictTypeRepo, logger log.Logger) *DictTypeUsecase {
-	return &DictTypeUsecase{repo: repo, log: log.NewHelper(logger)}
+func NewDictTypeUseCase(repo DictTypeRepo, logger log.Logger) *DictTypeUseCase {
+	return &DictTypeUseCase{repo: repo, log: log.NewHelper(logger)}
 }
 
-func (uc *DictTypeUsecase) CreateDictType(ctx context.Context, dicttype *DictType) (int64, error) {
+func (uc *DictTypeUseCase) CreateDictType(ctx context.Context, dicttype *DictType) (int64, error) {
 	return uc.repo.CreateDictType(ctx, dicttype)
 }
 
-func (uc *DictTypeUsecase) UpdateDictType(ctx context.Context, dicttype *DictType) error {
+func (uc *DictTypeUseCase) UpdateDictType(ctx context.Context, dicttype *DictType) error {
 	return uc.repo.UpdateDictType(ctx, dicttype)
 }
 
-func (uc *DictTypeUsecase) DeleteDictType(ctx context.Context, id int64) error {
+func (uc *DictTypeUseCase) DeleteDictType(ctx context.Context, id int64) error {
 	return uc.repo.DeleteDictType(ctx, id)
 }
 
-func (uc *DictTypeUsecase) GetDictType(ctx context.Context, id int64) (*DictType, error) {
+func (uc *DictTypeUseCase) GetDictType(ctx context.Context, id int64) (*DictType, error) {
 	return uc.repo.GetDictType(ctx, id)
 }
 
-func (uc *DictTypeUsecase) ListDictType(ctx context.Context, req *DictTypeListReq) ([]*DictType, error) {
+func (uc *DictTypeUseCase) ListDictType(ctx context.Context, req *DictTypeListReq) ([]*DictType, error) {
 	return uc.repo.ListDictType(ctx, req)
 }
 
-func (uc *DictTypeUsecase) PageListDictType(ctx context.Context, req *DictTypePageListReq) (*DictTypePageListResp, error) {
+func (uc *DictTypeUseCase) PageListDictType(ctx context.Context, req *DictTypePageListReq) (*DictTypePageListResp, error) {
 	return uc.repo.PageListDictType(ctx, req)
 }

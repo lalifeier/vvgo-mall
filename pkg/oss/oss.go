@@ -12,11 +12,11 @@ type Object struct {
 	LastModified *time.Time
 }
 
-type StorageInterface interface {
-	PutObject(objectKey string, filepath string) error
+type IOSS interface {
+	PutObject(objectKey string, filePath string) error
 	DeleteObject(objectKey string) error
 	GetObject(objectKey string) (io.ReadCloser, error)
 	GetObjectURL(objectKey string, expires int64) (string, error)
-	ListObjects(objectKey string) ([]*Object, error)
-	DownloadObject(objectKey, filePath string) error
+	GetObjectToFile(objectKey, filePath string) error
+	ListObjects(prefix string) ([]*Object, error)
 }

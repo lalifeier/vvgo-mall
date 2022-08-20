@@ -29,6 +29,7 @@ type hooks struct {
 	DictType   []ent.Hook
 	Permission []ent.Hook
 	Role       []ent.Hook
+	Staff      []ent.Hook
 	User       []ent.Hook
 	UserRole   []ent.Hook
 }

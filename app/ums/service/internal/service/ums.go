@@ -26,13 +26,13 @@ type UmsService struct {
 	pb.UnimplementedUmsServer
 
 	log                *log.Helper
-	accountUserUsecase *biz.AccountUserUsecase
+	accountUserUseCase *biz.AccountUserUseCase
 }
 
-func NewUmsService(accountUserUsecase *biz.AccountUserUsecase, logger log.Logger) *UmsService {
+func NewUmsService(accountUserUseCase *biz.AccountUserUseCase, logger log.Logger) *UmsService {
 	return &UmsService{
 		log:                log.NewHelper(log.With(logger, "module", "ums-service/service")),
-		accountUserUsecase: accountUserUsecase,
+		accountUserUseCase: accountUserUseCase,
 	}
 }
 
@@ -41,7 +41,7 @@ func (s *UmsService) Register(ctx context.Context, req *pb.RegisterReq) (*pb.Reg
 }
 
 func (s *UmsService) Login(ctx context.Context, req *pb.LoginReq) (*pb.LoginResp, error) {
-	_, err := s.accountUserUsecase.Login(ctx, req.Username, req.Password)
+	_, err := s.accountUserUseCase.Login(ctx, req.Username, req.Password)
 	if err != nil {
 		return nil, errors.New(err.Error())
 	}

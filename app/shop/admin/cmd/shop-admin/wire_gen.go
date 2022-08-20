@@ -14,29 +14,33 @@ import (
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/server"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/service"
+	"go.opentelemetry.io/otel/sdk/trace"
 )
 
 // Injectors from wire.go:
 
 // initApp init kratos application.
-func initApp(confServer *conf.Server, confData *conf.Data, casbin *conf.Casbin, auth *conf.Auth, registry *conf.Registry, logger log.Logger) (*kratos.App, func(), error) {
+func initApp(confServer *conf.Server, confData *conf.Data, casbin *conf.Casbin, auth *conf.Auth, registry *conf.Registry, logger log.Logger, tracerProvider *trace.TracerProvider) (*kratos.App, func(), error) {
 	client := data.NewEntClient(confData, logger)
 	redisClient := data.NewRedisClient(confData, logger)
 	enforcer := data.NewEnforcer(confData)
 	asyncProducer := data.NewKafkaProducer(confData)
 	consumer := data.NewKafkaConsumer(confData)
-	dataData, cleanup, err := data.NewData(client, redisClient, enforcer, asyncProducer, consumer, logger)
+	discovery := data.NewDiscovery(registry)
+	accountClient := data.NewAccountServiceClient(discovery, tracerProvider)
+	dataData, cleanup, err := data.NewData(logger, client, redisClient, enforcer, asyncProducer, consumer, accountClient)
 	if err != nil {
 		return nil, nil, err
 	}
 	userRepo := data.NewUserRepo(dataData, logger)
-	userUsecase := biz.NewUserUsecase(userRepo, enforcer, logger)
+	accountRepo := data.NewAccountRepo(dataData, logger)
+	userUseCase := biz.NewUserUseCase(userRepo, enforcer, logger)
 	roleRepo := data.NewRoleRepo(dataData, logger)
-	roleUsecase := biz.NewRoleUsecase(roleRepo, enforcer, logger)
-	authUsecase := biz.NewAuthUsecase(auth)
+	roleUseCase := biz.NewRoleUseCase(roleRepo, enforcer, logger)
+	authUseCase := biz.NewAuthUseCase(auth, userRepo, accountRepo)
 	dictDataRepo := data.NewDictDataRepo(dataData, logger)
-	dictDataUsecase := biz.NewDictDataUsecase(dictDataRepo, logger)
-	shopService := service.NewShopService(logger, userUsecase, roleUsecase, authUsecase, dictDataUsecase)
+	dictDataUseCase := biz.NewDictDataUseCase(dictDataRepo, logger)
+	shopService := service.NewShopService(logger, userUseCase, roleUseCase, authUseCase, dictDataUseCase)
 	httpServer := server.NewHTTPServer(confServer, auth, logger, shopService, enforcer)
 	grpcServer := server.NewGRPCServer(confServer, auth, logger, shopService)
 	registrar := data.NewRegistrar(registry)

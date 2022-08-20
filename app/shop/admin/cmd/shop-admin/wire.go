@@ -14,9 +14,10 @@ import (
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/server"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/service"
+	tracesdk "go.opentelemetry.io/otel/sdk/trace"
 )
 
 // initApp init kratos application.
-func initApp(*conf.Server, *conf.Data, *conf.Casbin, *conf.Auth, *conf.Registry, log.Logger) (*kratos.App, func(), error) {
+func initApp(*conf.Server, *conf.Data, *conf.Casbin, *conf.Auth, *conf.Registry, log.Logger, *tracesdk.TracerProvider) (*kratos.App, func(), error) {
 	panic(wire.Build(server.ProviderSet, data.ProviderSet, biz.ProviderSet, service.ProviderSet, newApp))
 }

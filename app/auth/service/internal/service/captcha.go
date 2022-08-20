@@ -11,7 +11,7 @@ func (s *AuthService) GetCaptcha(ctx context.Context, req *pb.GetCaptchaReq) (*p
 
 	// tr, _ := transport.FromServerContext(ctx)
 	// tr.RequestHeader()
-	captchaInfo, err := s.captchaUsecase.GetCaptcha(ctx)
+	captchaInfo, err := s.captchaUseCase.GetCaptcha(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -22,7 +22,7 @@ func (s *AuthService) GetCaptcha(ctx context.Context, req *pb.GetCaptchaReq) (*p
 }
 
 func (s *AuthService) VerifyCaptcha(ctx context.Context, req *pb.VerifyCaptchaReq) (*pb.VerifyCaptchaResp, error) {
-	err := s.captchaUsecase.VerifyCaptcha(ctx, req.CaptchaId, req.CaptchaCode)
+	err := s.captchaUseCase.VerifyCaptcha(ctx, req.CaptchaId, req.CaptchaCode)
 	if err != nil {
 		return nil, err
 	}

@@ -7,10 +7,13 @@ import (
 	"net/http"
 	"net/url"
 
+	gooss "github.com/lalifeier/vvgo-mall/pkg/oss"
 	"github.com/tencentyun/cos-go-sdk-v5"
 )
 
-// https://aws.github.io/aws-sdk-go-v2/docs/
+// https://cloud.tencent.com/document/product/436/31215
+
+var _ gooss.IOSS = (*Client)(nil)
 
 type (
 	Config struct {
@@ -56,8 +59,8 @@ func New(c *Config) (*Client, error) {
 	}, nil
 }
 
-func (c *Client) PutObject(objectKey string, filepath string) (err error) {
-	_, _, err = c.Client.Object.Upload(context.Background(), objectKey, filepath, nil)
+func (c *Client) PutObject(objectKey string, filePath string) (err error) {
+	_, _, err = c.Client.Object.Upload(context.Background(), objectKey, filePath, nil)
 	return err
 }
 
@@ -94,24 +97,25 @@ func (c *Client) GetObjectURL(objectKey string, expires int64) (string, error) {
 	return url.Path, nil
 }
 
-func (c *Client) DownloadObject(objectKey string, filepath string) (io.ReadCloser, error) {
+func (c *Client) GetObjectToFile(objectKey string, filePath string) error {
 	opt := &cos.MultiDownloadOptions{
 		ThreadPoolSize: 5,
 	}
 
-	result, err := c.Client.Object.Download(context.Background(), objectKey, filepath, opt)
+	_, err := c.Client.Object.Download(context.Background(), objectKey, filePath, opt)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return result.Body, nil
+	return nil
 }
 
-func (c *Client) ListObjects(objectKey string) error {
+func (c *Client) ListObjects(prefix string) ([]*gooss.Object, error) {
+	var objects []*gooss.Object
 	var marker string
 	opt := &cos.BucketGetOptions{
-		Prefix:    "folder/", // prefix表示要查询的文件夹
-		Delimiter: "/",       // deliter表示分隔符, 设置为/表示列出当前目录下的object, 设置为空表示列出所有的object
-		MaxKeys:   1000,      // 设置最大遍历出多少个对象, 一次listobject最大支持1000
+		Prefix:    prefix, // prefix表示要查询的文件夹
+		Delimiter: "/",    // deliter表示分隔符, 设置为/表示列出当前目录下的object, 设置为空表示列出所有的object
+		MaxKeys:   1000,   // 设置最大遍历出多少个对象, 一次listobject最大支持1000
 	}
 	isTruncated := true
 	for isTruncated {
@@ -122,7 +126,10 @@ func (c *Client) ListObjects(objectKey string) error {
 			break
 		}
 		for _, content := range v.Contents {
-			fmt.Printf("Object: %v\n", content.Key)
+			objects = append(objects, &gooss.Object{
+				Key:  content.Key,
+				Size: content.Size,
+			})
 		}
 		// common prefix表示表示被delimiter截断的路径, 如delimter设置为/, common prefix则表示所有子目录的路径
 		for _, commonPrefix := range v.CommonPrefixes {
@@ -131,7 +138,7 @@ func (c *Client) ListObjects(objectKey string) error {
 		isTruncated = v.IsTruncated // 是否还有数据
 		marker = v.NextMarker       // 设置下次请求的起始 key
 	}
-	return nil
+	return objects, nil
 }
 
 func (c *Client) IsObjectExist(objectKey string) (bool, error) {

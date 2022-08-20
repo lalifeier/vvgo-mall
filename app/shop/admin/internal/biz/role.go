@@ -37,17 +37,17 @@ type RoleRepo interface {
 	PageListRole(ctx context.Context, req *RolePageListReq) (*RolePageListResp, error)
 }
 
-type RoleUsecase struct {
+type RoleUseCase struct {
 	repo     RoleRepo
 	log      *log.Helper
 	enforcer *casbin.Enforcer
 }
 
-func NewRoleUsecase(repo RoleRepo, enforcer *casbin.Enforcer, logger log.Logger) *RoleUsecase {
-	return &RoleUsecase{repo: repo, enforcer: enforcer, log: log.NewHelper(logger)}
+func NewRoleUseCase(repo RoleRepo, enforcer *casbin.Enforcer, logger log.Logger) *RoleUseCase {
+	return &RoleUseCase{repo: repo, enforcer: enforcer, log: log.NewHelper(logger)}
 }
 
-func (uc *RoleUsecase) CreateRole(ctx context.Context, role *Role) (int64, error) {
+func (uc *RoleUseCase) CreateRole(ctx context.Context, role *Role) (int64, error) {
 	id, err := uc.repo.CreateRole(ctx, role)
 	if err != nil {
 		return 0, err
@@ -58,7 +58,7 @@ func (uc *RoleUsecase) CreateRole(ctx context.Context, role *Role) (int64, error
 	return id, nil
 }
 
-func (uc *RoleUsecase) UpdateRole(ctx context.Context, role *Role) error {
+func (uc *RoleUseCase) UpdateRole(ctx context.Context, role *Role) error {
 	err := uc.repo.UpdateRole(ctx, role)
 	if err != nil {
 		return err
@@ -70,7 +70,7 @@ func (uc *RoleUsecase) UpdateRole(ctx context.Context, role *Role) error {
 	return nil
 }
 
-func (uc *RoleUsecase) DeleteRole(ctx context.Context, id int64) error {
+func (uc *RoleUseCase) DeleteRole(ctx context.Context, id int64) error {
 	err := uc.repo.DeleteRole(ctx, id)
 	if err != nil {
 		return err
@@ -80,18 +80,18 @@ func (uc *RoleUsecase) DeleteRole(ctx context.Context, id int64) error {
 	return nil
 }
 
-func (uc *RoleUsecase) GetRole(ctx context.Context, id int64) (*Role, error) {
+func (uc *RoleUseCase) GetRole(ctx context.Context, id int64) (*Role, error) {
 	return uc.repo.GetRole(ctx, id)
 }
 
-func (uc *RoleUsecase) ListRole(ctx context.Context, req *RoleListReq) ([]*Role, error) {
+func (uc *RoleUseCase) ListRole(ctx context.Context, req *RoleListReq) ([]*Role, error) {
 	return uc.repo.ListRole(ctx, req)
 }
 
-func (uc *RoleUsecase) PageListRole(ctx context.Context, req *RolePageListReq) (*RolePageListResp, error) {
+func (uc *RoleUseCase) PageListRole(ctx context.Context, req *RolePageListReq) (*RolePageListResp, error) {
 	return uc.repo.PageListRole(ctx, req)
 }
 
-// func (uc *RoleUsecase) compareRoleRoles(ctx context.Context, oldRoleRoles, newRoleRoles RoleRoles) (addList, delList RoleRoles) {
+// func (uc *RoleUseCase) compareRoleRoles(ctx context.Context, oldRoleRoles, newRoleRoles RoleRoles) (addList, delList RoleRoles) {
 // 	return
 // }

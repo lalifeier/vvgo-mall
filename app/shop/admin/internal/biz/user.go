@@ -46,17 +46,17 @@ type UserRepo interface {
 	PageListUser(ctx context.Context, req *UserPageListReq) (*UserPageListResp, error)
 }
 
-type UserUsecase struct {
+type UserUseCase struct {
 	repo     UserRepo
 	log      *log.Helper
 	enforcer *casbin.Enforcer
 }
 
-func NewUserUsecase(repo UserRepo, enforcer *casbin.Enforcer, logger log.Logger) *UserUsecase {
-	return &UserUsecase{repo: repo, enforcer: enforcer, log: log.NewHelper(logger)}
+func NewUserUseCase(repo UserRepo, enforcer *casbin.Enforcer, logger log.Logger) *UserUseCase {
+	return &UserUseCase{repo: repo, enforcer: enforcer, log: log.NewHelper(logger)}
 }
 
-func (uc *UserUsecase) CreateUser(ctx context.Context, user *User) (int64, error) {
+func (uc *UserUseCase) CreateUser(ctx context.Context, user *User) (int64, error) {
 	id, err := uc.repo.CreateUser(ctx, user)
 	if err != nil {
 		return 0, err
@@ -67,7 +67,7 @@ func (uc *UserUsecase) CreateUser(ctx context.Context, user *User) (int64, error
 	return id, nil
 }
 
-func (uc *UserUsecase) UpdateUser(ctx context.Context, user *User) error {
+func (uc *UserUseCase) UpdateUser(ctx context.Context, user *User) error {
 	err := uc.repo.UpdateUser(ctx, user)
 	if err != nil {
 		return err
@@ -86,7 +86,7 @@ func (uc *UserUsecase) UpdateUser(ctx context.Context, user *User) error {
 	return nil
 }
 
-func (uc *UserUsecase) DeleteUser(ctx context.Context, id int64) error {
+func (uc *UserUseCase) DeleteUser(ctx context.Context, id int64) error {
 	err := uc.repo.DeleteUser(ctx, id)
 	if err != nil {
 		return err
@@ -96,18 +96,18 @@ func (uc *UserUsecase) DeleteUser(ctx context.Context, id int64) error {
 	return nil
 }
 
-func (uc *UserUsecase) GetUser(ctx context.Context, id int64) (*User, error) {
+func (uc *UserUseCase) GetUser(ctx context.Context, id int64) (*User, error) {
 	return uc.repo.GetUser(ctx, id)
 }
 
-func (uc *UserUsecase) ListUser(ctx context.Context, req *UserListReq) ([]*User, error) {
+func (uc *UserUseCase) ListUser(ctx context.Context, req *UserListReq) ([]*User, error) {
 	return uc.repo.ListUser(ctx, req)
 }
 
-func (uc *UserUsecase) PageListUser(ctx context.Context, req *UserPageListReq) (*UserPageListResp, error) {
+func (uc *UserUseCase) PageListUser(ctx context.Context, req *UserPageListReq) (*UserPageListResp, error) {
 	return uc.repo.PageListUser(ctx, req)
 }
 
-func (uc *UserUsecase) compareUserRoles(ctx context.Context, oldUserRoles, newUserRoles UserRoles) (addList, delList UserRoles) {
+func (uc *UserUseCase) compareUserRoles(ctx context.Context, oldUserRoles, newUserRoles UserRoles) (addList, delList UserRoles) {
 	return
 }

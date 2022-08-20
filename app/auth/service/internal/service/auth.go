@@ -12,17 +12,17 @@ type AuthService struct {
 	pb.UnimplementedAuthServer
 	log *log.Helper
 
-	authUsecase    *biz.AuthUsecase
-	captchaUsecase *biz.CaptchaUsecase
+	authUseCase    *biz.AuthUseCase
+	captchaUseCase *biz.CaptchaUseCase
 
 	server *server.Server
 }
 
-func NewAuthService(logger log.Logger, authUsecase *biz.AuthUsecase, captchaUsecase *biz.CaptchaUsecase, server *server.Server) *AuthService {
+func NewAuthService(logger log.Logger, authUseCase *biz.AuthUseCase, captchaUseCase *biz.CaptchaUseCase, server *server.Server) *AuthService {
 	return &AuthService{
 		log:            log.NewHelper(log.With(logger, "module", "auth-service/service")),
-		authUsecase:    authUsecase,
-		captchaUsecase: captchaUsecase,
+		authUseCase:    authUseCase,
+		captchaUseCase: captchaUseCase,
 		server:         server,
 	}
 }

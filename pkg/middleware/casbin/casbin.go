@@ -27,11 +27,11 @@ func Server(enforcer *casbin.Enforcer) middleware.Middleware {
 
 					// enforcer.AddRoleForUser("test1", "test")
 					// enforcer.AddRoleForUser("test2", "admin")
-					// enforcer.AddPermissionForUser("admin", "/api/register", "POST")
-					// enforcer.AddPermissionForUser("admin", "/api/login", "POST")
+					enforcer.AddPermissionForUser("admin", "/api/v1/register", "POST")
+					enforcer.AddPermissionForUser("admin", "/api/v1/login", "POST")
 					obj := h.Request().URL.Path
 					act := h.Request().Method
-					sub := "test1"
+					sub := "admin"
 					println(sub, obj, act)
 					if ok, _ := enforcer.Enforce(sub, obj, act); !ok {
 						return nil, ErrNoPermission

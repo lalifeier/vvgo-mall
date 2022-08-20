@@ -20,10 +20,10 @@ import (
 
 // initApp init kratos application.
 func initApp(confServer *conf.Server, confData *conf.Data, registry *conf.Registry, logger log.Logger) (*kratos.App, func(), error) {
-	authUsecase := biz.NewAuthUsecase(logger)
-	captchaUsecase := biz.NewCaptchaUsecase(logger)
+	authUseCase := biz.NewAuthUseCase(logger)
+	captchaUseCase := biz.NewCaptchaUseCase(logger)
 	serverServer := server.NewOAuthServer()
-	authService := service.NewAuthService(logger, authUsecase, captchaUsecase, serverServer)
+	authService := service.NewAuthService(logger, authUseCase, captchaUseCase, serverServer)
 	engine := server.NewGinServer(authService)
 	httpServer := server.NewHTTPServer(confServer, logger, authService, engine)
 	grpcServer := server.NewGRPCServer(confServer, logger, authService)

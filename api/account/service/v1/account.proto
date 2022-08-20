@@ -17,31 +17,29 @@ service Account {
   rpc ListAccountUser(ListAccountUserReq) returns (ListAccountUserResp);
   rpc PageListAccountUser(PageListAccountUserReq)
       returns (PageListAccountUserResp);
-
-  rpc CreateStaff(Staff) returns (Staff);
-  rpc UpdateStaff(Staff) returns (Staff);
-  rpc DeleteStaff(DeleteStaffReq) returns (google.protobuf.Empty);
-  rpc GetStaff(GetStaffReq) returns (Staff);
-  rpc ListStaff(ListStaffReq) returns (ListStaffResp);
-  rpc PageListStaff(PageListStaffReq) returns (PageListStaffResp);
 }
 
 message RegisterReq {
-  string email = 1;
-  string phone = 2;
-  string username = 3;
-  string password = 4;
+  string username = 1;
+  string password = 2;
+  string email = 3;
+  string phone = 4;
 }
 message RegisterResp { int64 id = 1; }
 message LoginReq {
   string username = 1;
   string password = 2;
-  string phone = 3;
-  string email = 4;
+  string email = 3;
+  string phone = 4;
   string code = 5;
   string type = 6;
 }
-message LoginResp {}
+message LoginResp {
+  int64 id = 1;
+  string username = 2;
+  string email = 3;
+  string phone = 4;
+}
 
 message AccountUser { int64 id = 1; }
 message DeleteAccountUserReq { int64 id = 1; }
@@ -54,26 +52,6 @@ message PageListAccountUserReq {
 }
 message PageListAccountUserResp {
   repeated AccountUser list = 1;
-  int64 total = 2;
-  int64 page = 3;
-  int64 pageSize = 4;
-}
-
-message Staff { int64 id = 1; }
-message CreateStaffReq {}
-message CreateStaffResp {}
-message UpdateStaffReq { int64 id = 1; }
-message UpdateStaffResp {}
-message DeleteStaffReq { int64 id = 1; }
-message GetStaffReq { int64 id = 1; }
-message ListStaffReq {}
-message ListStaffResp { repeated Staff list = 1; }
-message PageListStaffReq {
-  int64 pageNum = 1;
-  int64 pageSize = 4;
-}
-message PageListStaffResp {
-  repeated Staff list = 1;
   int64 total = 2;
   int64 page = 3;
   int64 pageSize = 4;

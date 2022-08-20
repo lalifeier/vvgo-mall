@@ -12,16 +12,16 @@ type PaserService struct {
 	pb.UnimplementedPaserServer
 
 	log          *log.Helper
-	paserUsecase *biz.PaserUsecase
+	paserUseCase *biz.PaserUseCase
 }
 
-func NewPaserService(paserUsecase *biz.PaserUsecase, logger log.Logger) *PaserService {
+func NewPaserService(paserUseCase *biz.PaserUseCase, logger log.Logger) *PaserService {
 	return &PaserService{
 		log:          log.NewHelper(log.With(logger, "module", "ums-service/service")),
-		paserUsecase: paserUsecase,
+		paserUseCase: paserUseCase,
 	}
 }
 
 func (s *PaserService) Paser(ctx context.Context, req *pb.PaserReq) (*pb.PaserReply, error) {
-	return s.paserUsecase.Paser(req.Url)
+	return s.paserUseCase.Paser(req.Url)
 }

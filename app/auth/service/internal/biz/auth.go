@@ -4,10 +4,10 @@ import (
 	"github.com/go-kratos/kratos/v2/log"
 )
 
-type AuthUsecase struct {
+type AuthUseCase struct {
 	log *log.Helper
 }
 
-func NewAuthUsecase(logger log.Logger) *AuthUsecase {
-	return &AuthUsecase{log: log.NewHelper(logger)}
+func NewAuthUseCase(logger log.Logger) *AuthUseCase {
+	return &AuthUseCase{log: log.NewHelper(logger)}
 }

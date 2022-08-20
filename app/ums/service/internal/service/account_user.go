@@ -12,7 +12,7 @@ import (
 
 func (s *UmsService) CreateAccountUser(ctx context.Context, req *pb.CreateAccountUserReq) (*pb.CreateAccountUserResp, error) {
 	fmt.Println(req)
-	id, err := s.accountUserUsecase.Create(ctx, &biz.AccountUser{
+	id, err := s.accountUserUseCase.Create(ctx, &biz.AccountUser{
 		Username: req.Username,
 		Password: req.Password,
 		Phone:    req.Phone,
@@ -27,7 +27,7 @@ func (s *UmsService) CreateAccountUser(ctx context.Context, req *pb.CreateAccoun
 }
 
 func (s *UmsService) UpdateAccountUser(ctx context.Context, req *pb.UpdateAccountUserReq) (*emptypb.Empty, error) {
-	err := s.accountUserUsecase.Update(ctx, &biz.AccountUser{
+	err := s.accountUserUseCase.Update(ctx, &biz.AccountUser{
 		Id:       req.Id,
 		Username: req.Username,
 		Password: req.Password,
@@ -41,7 +41,7 @@ func (s *UmsService) UpdateAccountUser(ctx context.Context, req *pb.UpdateAccoun
 }
 
 func (s *UmsService) DeleteAccountUser(ctx context.Context, req *pb.DeleteAccountUserReq) (*emptypb.Empty, error) {
-	err := s.accountUserUsecase.Delete(ctx, req.Id)
+	err := s.accountUserUseCase.Delete(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}
@@ -49,7 +49,7 @@ func (s *UmsService) DeleteAccountUser(ctx context.Context, req *pb.DeleteAccoun
 }
 
 func (s *UmsService) GetAccountUser(ctx context.Context, req *pb.GetAccountUserReq) (*pb.GetAccountUserResp, error) {
-	au, err := s.accountUserUsecase.Get(ctx, req.Id)
+	au, err := s.accountUserUseCase.Get(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}
@@ -64,7 +64,7 @@ func (s *UmsService) GetAccountUser(ctx context.Context, req *pb.GetAccountUserR
 }
 
 func (s *UmsService) ListAccountUser(ctx context.Context, req *pb.ListAccountUserReq) (*pb.ListAccountUserResp, error) {
-	pos, err := s.accountUserUsecase.List(ctx, &biz.AccountUserListReq{PageNum: req.PageNum, PageSize: req.PageSize})
+	pos, err := s.accountUserUseCase.List(ctx, &biz.AccountUserListReq{PageNum: req.PageNum, PageSize: req.PageSize})
 	if err != nil {
 		return nil, err
 	}

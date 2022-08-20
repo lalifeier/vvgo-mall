@@ -106,7 +106,7 @@ func (auq *AccountUserQuery) FirstIDX(ctx context.Context) int64 {
 }
 
 // Only returns a single AccountUser entity found by the query, ensuring it only returns one.
-// Returns a *NotSingularError when exactly one AccountUser entity is not found.
+// Returns a *NotSingularError when more than one AccountUser entity is found.
 // Returns a *NotFoundError when no AccountUser entities are found.
 func (auq *AccountUserQuery) Only(ctx context.Context) (*AccountUser, error) {
 	nodes, err := auq.Limit(2).All(ctx)
@@ -133,7 +133,7 @@ func (auq *AccountUserQuery) OnlyX(ctx context.Context) *AccountUser {
 }
 
 // OnlyID is like Only, but returns the only AccountUser ID in the query.
-// Returns a *NotSingularError when exactly one AccountUser ID is not found.
+// Returns a *NotSingularError when more than one AccountUser ID is found.
 // Returns a *NotFoundError when no entities are found.
 func (auq *AccountUserQuery) OnlyID(ctx context.Context) (id int64, err error) {
 	var ids []int64
@@ -242,8 +242,9 @@ func (auq *AccountUserQuery) Clone() *AccountUserQuery {
 		order:      append([]OrderFunc{}, auq.order...),
 		predicates: append([]predicate.AccountUser{}, auq.predicates...),
 		// clone intermediate query.
-		sql:  auq.sql.Clone(),
-		path: auq.path,
+		sql:    auq.sql.Clone(),
+		path:   auq.path,
+		unique: auq.unique,
 	}
 }
 
@@ -692,9 +693,7 @@ func (augb *AccountUserGroupBy) sqlQuery() *sql.Selector {
 		for _, f := range augb.fields {
 			columns = append(columns, selector.C(f))
 		}
-		for _, c := range aggregation {
-			columns = append(columns, c)
-		}
+		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
 	return selector.GroupBy(selector.Columns(augb.fields...)...)

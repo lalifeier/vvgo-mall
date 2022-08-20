@@ -9,7 +9,6 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/data/ent/accountuser"
-	"github.com/lalifeier/vvgo-mall/app/account/service/internal/data/ent/staff"
 )
 
 // ent aliases to avoid import conflicts in user's code.
@@ -31,7 +30,6 @@ type OrderFunc func(*sql.Selector)
 func columnChecker(table string) func(string) error {
 	checks := map[string]func(string) bool{
 		accountuser.Table: accountuser.ValidColumn,
-		staff.Table:       staff.ValidColumn,
 	}
 	check, ok := checks[table]
 	if !ok {
