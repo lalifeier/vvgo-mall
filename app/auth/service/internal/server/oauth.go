@@ -5,8 +5,6 @@ import (
 
 	"net/http"
 
-	"log"
-
 	"github.com/go-oauth2/oauth2/v4"
 	"github.com/go-oauth2/oauth2/v4/errors"
 	"github.com/go-oauth2/oauth2/v4/generates"
@@ -40,7 +38,7 @@ func initClientStore() *store.ClientStore {
 
 func initManage() *manage.Manager {
 	manager := manage.NewDefaultManager()
-	manager.SetAuthorizeCodeTokenCfg(manage.DefaultAuthorizeCodeTokenCfg)
+	// manager.SetAuthorizeCodeTokenCfg(manage.DefaultAuthorizeCodeTokenCfg)
 
 	// token store
 	manager.MustTokenStorage(store.NewMemoryTokenStore())
@@ -62,10 +60,9 @@ func NewOAuthServer() *server.Server {
 	srv.SetAllowedGrantType(oauth2.AuthorizationCode, oauth2.Refreshing)
 	srv.SetAllowGetAccessRequest(true)
 
-	srv.SetPasswordAuthorizationHandler(passwordAuthorizationHandler)
+	srv.SetAuthorizeScopeHandler(authorizeScopeHandler)
 	srv.SetUserAuthorizationHandler(userAuthorizeHandler)
-
-	// srv.SetAuthorizeScopeHandler(authorizeScopeHandler)
+	// srv.SetPasswordAuthorizationHandler(passwordAuthorizationHandler)
 
 	srv.SetInternalErrorHandler(internalErrorHandler)
 	srv.SetResponseErrorHandler(responseErrorHandler)
@@ -74,12 +71,12 @@ func NewOAuthServer() *server.Server {
 }
 
 func internalErrorHandler(err error) (re *errors.Response) {
-	log.Println("Internal Error:", err.Error())
+	// log.Println("Internal Error:", err.Error())
 	return
 }
 
 func responseErrorHandler(re *errors.Response) {
-	log.Println("Response Error:", re.Error.Error())
+	// log.Println("Response Error:", re.Error.Error())
 }
 
 func userAuthorizeHandler(w http.ResponseWriter, r *http.Request) (userID string, err error) {

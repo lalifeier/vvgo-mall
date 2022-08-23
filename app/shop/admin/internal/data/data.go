@@ -13,9 +13,10 @@ import (
 	"github.com/Shopify/sarama"
 	"github.com/go-redis/redis"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/conf"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
-	"go.mongodb.org/mongo-driver/mongo/readpref"
+
+	// "go.mongodb.org/mongo-driver/mongo"
+	// "go.mongodb.org/mongo-driver/mongo/options"
+	// "go.mongodb.org/mongo-driver/mongo/readpref"
 
 	// "gorm.io/driver/mysql"
 	// "gorm.io/gorm"
@@ -262,18 +263,18 @@ func NewCasbinEnforcer(c *conf.Casbin, adapter persist.Adapter) (*casbin.SyncedE
 	return e, cleanup, nil
 }
 
-func NewMongo(conf *conf.Data) *mongo.Database {
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI(conf.Mongodb.Uri))
-	if err != nil {
-		panic(err)
-	}
-	err = client.Ping(ctx, readpref.Primary())
-	if err != nil {
-		panic(err)
-	}
-	return client.Database(conf.Mongodb.Database)
-}
+// func NewMongo(conf *conf.Data) *mongo.Database {
+// 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+// 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(conf.Mongodb.Uri))
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	err = client.Ping(ctx, readpref.Primary())
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	return client.Database(conf.Mongodb.Database)
+// }
 
 func NewKafkaProducer(conf *conf.Data) sarama.AsyncProducer {
 	c := sarama.NewConfig()
