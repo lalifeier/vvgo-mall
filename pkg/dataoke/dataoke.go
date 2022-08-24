@@ -1,69 +1,93 @@
 package dataoke
 
-import "github.com/lalifeier/vvgo-mall/pkg/request"
+import (
+	"fmt"
+	"strings"
+	"time"
 
-type Client struct {
-	Options *Options
+	"github.com/lalifeier/vvgo-mall/pkg/crypto/md5"
+	"github.com/lalifeier/vvgo-mall/pkg/random"
+	"github.com/lalifeier/vvgo-mall/pkg/request"
+	"github.com/lalifeier/vvgo-mall/pkg/util/convert"
+)
+
+var defaultClientOptions = ClientOptions{
+	Version: "v2.0.0",
 }
 
-type OptionsFunc func(*Options)
+type ClientOption func(*ClientOptions)
 
-type Options struct {
+type ClientOptions struct {
+	Version string
+}
+
+func WithVersion(v string) ClientOption {
+	return func(o *ClientOptions) {
+		o.Version = v
+	}
+}
+
+type Client interface {
+	GenerateSign(params map[string]string) map[string]string
+	Get(url string, params map[string]string) (string, error)
+
+	CarouseList(params map[string]string) (string, error)
+}
+
+type client struct {
 	appKey    string
 	appSecret string
 	version   string
 }
 
-func WithAppKey(v string) OptionsFunc {
-	return func(o *Options) {
-		o.appKey = v
+func NewClient(appKey, appSecret string, opts ...ClientOption) Client {
+	options := defaultClientOptions
+
+	for _, o := range opts {
+		o(&options)
+	}
+
+	return &client{
+		appKey:    appKey,
+		appSecret: appSecret,
+		version:   options.Version,
 	}
 }
-
-func WithAppSecret(v string) OptionsFunc {
-	return func(o *Options) {
-		o.appSecret = v
-	}
-}
-
-// func NewClient(opts ...Options) *Server {
-// 	options := Options{}
-
-// 	for _, opt := range opts {
-// 		opt.apply(&options)
-// 	}
-
-// 	return &Server{}
-// }
 
 // appKey
 // appsecret
 // nonce：一个6位的随机数
 // timer：毫秒级时间戳
-func (c *Client) GenerateSign(params map[string]string) {
+func (c *client) GenerateSign(params map[string]string) map[string]string {
 	if _, ok := params["appKey"]; !ok {
-		params["appKey"] = c.Options.appKey
+		params["appKey"] = c.appKey
 	}
 	if _, ok := params["appSecret"]; !ok {
-		params["appSecret"] = c.Options.appSecret
+		params["key"] = c.appSecret
 	}
 	if _, ok := params["version"]; !ok {
-		params["version"] = c.Options.version
+		params["version"] = c.version
 	}
 
-	// md5 signRan
-	// appKey=xxx&timer=xxx&nonce=xxx&key=xxx
+	params["nonce"] = random.GenerateNumber(6)
+	params["timer"] = convert.Int64ToString(time.Now().Unix() * 1000)
+
+	data := fmt.Sprintf("appKey=%s&timer=%s&nonce=%s&key=%s", params["appKey"], params["timer"], params["nonce"], params["key"])
+	params["signRan"] = strings.ToUpper(md5.Encode(data))
+
+	return params
 }
 
-func (c *Client) Get(url string, params map[string]string) (string, error) {
+func (c *client) Get(url string, params map[string]string) (string, error) {
+	params = c.GenerateSign(params)
 	return request.Get(url, params, nil)
 }
 
-func (c *Client) PostJson(url string, data map[string]string) (string, error) {
-	return request.PostJson(url, data, nil)
-}
+// func (c *Client) PostJson(url string, data map[string]string) (string, error) {
+// 	return request.PostJson(url, data, nil)
+// }
 
 // 轮播图
-func (c *Client) CarouseList() (string, error) {
-	return c.Get("https://openapi.dataoke.com/api/goods/topic/carouse-list", nil)
+func (c *client) CarouseList(params map[string]string) (string, error) {
+	return c.Get("https://openapi.dataoke.com/api/goods/topic/carouse-list", params)
 }
