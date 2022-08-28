@@ -29,22 +29,28 @@ type Data struct {
 	ActivityID string `json:"activityId"`
 }
 
-func Test(t *testing.T) {
+func TestCarouseList(t *testing.T) {
 	c := NewClient(appKey, appSecret, WithVersion(version))
 
 	var (
 		params = make(map[string]string)
 	)
 
-	// params[""] =
+	data, _ := c.CarouseList(params)
+	carouseList, _ := json.Marshal(data)
 
-	resp, _ := c.CarouseList(params)
+	fmt.Println(string(carouseList))
+}
 
-	var data CarouseList
-	if err := json.Unmarshal([]byte(resp), &data); err != nil {
-		fmt.Println(err)
-		return
-	}
-	fmt.Println(data.Code)
-	fmt.Println(data.Data[0].TopicID)
+func TestGetSuperCategory(t *testing.T) {
+	c := NewClient(appKey, appSecret, WithVersion(version))
+
+	var (
+		params = make(map[string]string)
+	)
+
+	data, _ := c.GetSuperCategory(params)
+	_data, _ := json.Marshal(data)
+
+	fmt.Println(string(_data))
 }

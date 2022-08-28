@@ -91,7 +91,7 @@ wire:
 .PHONY: ent
 # ent
 ent:
-	cd internal/data/ && ent generate ./ent/schema
+	cd internal/data/ && go generate ./ent/schema
 
 .PHONY: docker
 # docker

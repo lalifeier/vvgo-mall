@@ -1,0 +1,27 @@
+server:
+  http:
+    addr: 0.0.0.0:8010
+    timeout: 1s
+  grpc:
+    addr: 0.0.0.0:9010
+    timeout: 1s
+
+data:
+  database:
+    driver: mysql
+    source: localhost:123456@tcp(mysql:3306)/vvgo-mall?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+  redis:
+    addr: localhost:6379
+    dial_timeout: 0.1s
+    read_timeout: 0.2s
+    write_timeout: 0.2s
+  daTaoKe:
+    app_key:
+    app_secret:
+
+trace:
+  endpoint: http://jaeger:14268/api/traces
+
+auth:
+  service_key: some-secret-key
+  api_key: some-secret-key-for-forntend

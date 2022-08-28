@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package api.taoke.interface.v1;
+import "errors/errors.proto";
+
+option go_package = "github.com/lalifeier/vvgo-mall/api/account/service/v1;v1";
+option java_multiple_files = true;
+
+enum TaokeInterfaceErrorReason {
+  option (errors.default_code) = 500;
+
+  UNKNOWN_ERROR = 0;
+  LOGIN_FAILED = 1;
+  REGISTER_FAILED = 2;
+}

@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package api.taoke.interface.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "github.com/lalifeier/vvgo-mall/api/taoke/interface/v1;v1";
+
+service TaoKe {
+  rpc GetCarouseList(GetCarouseListReq) returns (GetCarouseListResp) {
+    option (google.api.http) = {
+      get : "/api/goods/topic/carouse-list"
+    };
+  }
+
+  rpc GetSuperCategory(GetSuperCategoryReq) returns (GetSuperCategoryResp) {
+    option (google.api.http) = {
+      get : "/api/category/get-super-category"
+    };
+  }
+}
+
+message Carouse {
+  int64 sourceType = 1;
+  string topicName = 2;
+  string topicImage = 3;
+  int64 topicId = 4;
+  string link = 5;
+  string activityId = 6;
+}
+
+message GetCarouseListReq {}
+message GetCarouseListResp { repeated Carouse data = 1; }
+
+message Categories {
+  int64 cid = 1;
+  string cname = 2;
+  string cpic = 3;
+  repeated Subcategories subcategories = 4;
+}
+
+message Subcategories {
+  string scpic = 1;
+  int64 subcid = 2;
+  string subcname = 3;
+}
+
+message GetSuperCategoryReq {}
+message GetSuperCategoryResp { repeated Categories data = 1; }

@@ -13,12 +13,14 @@ import (
 
 var defaultClientOptions = ClientOptions{
 	Version: "v2.0.0",
+	BaseUrl: "https://openapi.dataoke.com/api",
 }
 
 type ClientOption func(*ClientOptions)
 
 type ClientOptions struct {
 	Version string
+	BaseUrl string
 }
 
 func WithVersion(v string) ClientOption {
@@ -27,30 +29,32 @@ func WithVersion(v string) ClientOption {
 	}
 }
 
-type Client interface {
-	GenerateSign(params map[string]string) map[string]string
-	Get(url string, params map[string]string) (string, error)
+// type Client interface {
+// 	GenerateSign(params map[string]string) map[string]string
+// 	Get(url string, params map[string]string) (string, error)
 
-	CarouseList(params map[string]string) (string, error)
-}
+// 	CarouseList(params map[string]string) (string, error)
+// }
 
-type client struct {
+type Client struct {
 	appKey    string
 	appSecret string
 	version   string
+	baseUrl   string
 }
 
-func NewClient(appKey, appSecret string, opts ...ClientOption) Client {
+func NewClient(appKey, appSecret string, opts ...ClientOption) *Client {
 	options := defaultClientOptions
 
 	for _, o := range opts {
 		o(&options)
 	}
 
-	return &client{
+	return &Client{
 		appKey:    appKey,
 		appSecret: appSecret,
 		version:   options.Version,
+		baseUrl:   options.BaseUrl,
 	}
 }
 
@@ -58,7 +62,7 @@ func NewClient(appKey, appSecret string, opts ...ClientOption) Client {
 // appsecret
 // nonce：一个6位的随机数
 // timer：毫秒级时间戳
-func (c *client) GenerateSign(params map[string]string) map[string]string {
+func (c *Client) GenerateSign(params map[string]string) map[string]string {
 	if _, ok := params["appKey"]; !ok {
 		params["appKey"] = c.appKey
 	}
@@ -78,16 +82,8 @@ func (c *client) GenerateSign(params map[string]string) map[string]string {
 	return params
 }
 
-func (c *client) Get(url string, params map[string]string) (string, error) {
+func (c *Client) Get(url string, params map[string]string) (string, error) {
 	params = c.GenerateSign(params)
+	url = c.baseUrl + url
 	return request.Get(url, params, nil)
-}
-
-// func (c *Client) PostJson(url string, data map[string]string) (string, error) {
-// 	return request.PostJson(url, data, nil)
-// }
-
-// 轮播图
-func (c *client) CarouseList(params map[string]string) (string, error) {
-	return c.Get("https://openapi.dataoke.com/api/goods/topic/carouse-list", params)
 }
