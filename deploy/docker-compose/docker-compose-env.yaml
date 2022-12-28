@@ -21,8 +21,8 @@ services:
       - MYSQL_ROOT_PASSWORD=123456
     volumes:
       - ./mysql/conf.d:/etc/mysql/conf.d
-      - ./data/mysql/data:/var/lib/mysql
-      - ./data/mysql/logs:/var/log/mysql
+      - /data/mysql/data:/var/lib/mysql
+      - /data/mysql/logs:/var/log/mysql
 
   redis:
     image: redis:alpine
@@ -37,7 +37,7 @@ services:
       - TZ=Asia/Shanghai
     volumes:
       - ./redis/redis.conf:/etc/redis/redis.conf
-      - ./data/redis/data:/data
+      - /data/redis/data:/data
     command:
       - redis-server
       - /etc/redis/redis.conf
@@ -220,7 +220,7 @@ services:
       - app_net
     restart: always
     volumes:
-      - ./data/consul/data:/bitnami/consul
+      - /data/consul/data:/bitnami/consul
 
   jaeger:
     image: jaegertracing/all-in-one:latest
@@ -275,7 +275,7 @@ services:
       # - GF_SECURITY_ADMIN_USER=admin
       # - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
-      - ./data/grafana/data:/var/lib/grafana
+      - /data/grafana/data:/var/lib/grafana
 # dtm:
 #   image: yedf/dtm:latest
 #   container_name: dtm

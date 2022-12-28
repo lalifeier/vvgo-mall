@@ -12,9 +12,9 @@ CREATE TABLE `product_spu` (
     `market_price_fee` int unsigned NOT NULL DEFAULT 0 COMMENT '市场价，整数方式保存',
     `market_price_scale` tinyint unsigned NOT NULL DEFAULT 0 COMMENT '市场价，金额对应的小数位数',
     `create_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-    `create_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建人staff_id',
+    `create_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建人',
     `update_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-    `update_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改人staff_id',
+    `update_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改人',
     `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态 1:enable, 0:disable, -1:deleted',
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT AUTO_INCREMENT=666666 CHARSET=utf8mb4 COMMENT='spu表';

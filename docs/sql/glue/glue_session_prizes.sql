@@ -9,9 +9,9 @@ CREATE TABLE `glue_session_prizes` (
     `value` varchar(255)  NOT NULL DEFAULT '' COMMENT '奖品抽象值 优惠券:优惠券ID, 积分:积分值, 实物: sku ID',
     `probability` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '中奖概率1~100',
     `create_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-    `create_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建人staff_id',
+    `create_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建人',
     `update_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-    `update_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改人staff_id',
+    `update_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改人',
     `status` tinyint(1)  NOT NULL DEFAULT '0' COMMENT '状态 -1:deleted, 0:disable, 1:enable',
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='抽奖场次奖品表';

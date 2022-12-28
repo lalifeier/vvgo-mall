@@ -46,12 +46,11 @@ func (c Client) GetBucket() string {
 }
 
 var zonedata = map[string]*storage.Zone{
-	"huadong":    &storage.ZoneHuadong,
-	"huabei":     &storage.ZoneHuabei,
-	"huanan":     &storage.ZoneHuanan,
-	"beimei":     &storage.ZoneBeimei,
-	"xinjiapo":   &storage.ZoneXinjiapo,
-	"fogcneast1": &storage.ZoneFogCnEast1,
+	"huadong":  &storage.ZoneHuadong,
+	"huabei":   &storage.ZoneHuabei,
+	"huanan":   &storage.ZoneHuanan,
+	"beimei":   &storage.ZoneBeimei,
+	"xinjiapo": &storage.ZoneXinjiapo,
 }
 
 func New(c *Config) (*Client, error) {

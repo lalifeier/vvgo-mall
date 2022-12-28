@@ -11,20 +11,20 @@ import (
 	"github.com/lalifeier/vvgo-mall/pkg/util/convert"
 )
 
-var defaultClientOptions = ClientOptions{
+var defaultClientOptions = clientOptions{
 	Version: "v2.0.0",
 	BaseUrl: "https://openapi.dataoke.com/api",
 }
 
-type ClientOption func(*ClientOptions)
+type ClientOption func(*clientOptions)
 
-type ClientOptions struct {
+type clientOptions struct {
 	Version string
 	BaseUrl string
 }
 
 func WithVersion(v string) ClientOption {
-	return func(o *ClientOptions) {
+	return func(o *clientOptions) {
 		o.Version = v
 	}
 }
