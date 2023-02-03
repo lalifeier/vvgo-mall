@@ -1,0 +1,18 @@
+# 设置JVM
+startup --host_jvm_args=-XX:+UseParallelGC --host_jvm_args=-Xmx6g --host_jvm_args=-Xms1g
+# 设置CoreDump
+startup --unlimit_coredumps
+
+# 设置GOPROXY
+test --action_env=GOPROXY=https://goproxy.cn
+build --action_env=GOPROXY=https://goproxy.cn
+run --action_env=GOPROXY=https://goproxy.cn
+
+# 设置GOSUMDB
+test --action_env=GOSUMDB=goproxy.cn/sumdb/sum.golang.org
+build --action_env=GOSUMDB=goproxy.cn/sumdb/sum.golang.org
+run --action_env=GOSUMDB=goproxy.cn/sumdb/sum.golang.org
+
+# 设置编译目标平台
+build --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64
+run --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64

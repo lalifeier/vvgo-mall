@@ -1,54 +1,64 @@
-后台
-运营后台 manager
-商家后台 seller
+# vvgo-mall
 
-用户体系
-账号服务 account
-权限服务 auth
+- 基于 golang 微服务框架 [go-kratos](https://go-kratos.dev)
 
-购物体系
-商品服务 product
-购物车 cart
+## 技术栈
 
-订单
-订单服务 order
+- [Kratos](https://go-kratos.dev)
+- [Consul](https://www.consul.io)
+- [OpenTelemetry](https://opentelemetry.io)
+- [Prometheus](https://prometheus.io)
+- [Wire](https://github.com/google/wire)
+- [Ent](https://entgo.io)
+- [MySQL](https://www.mysql.com)
+- [MongoDB](https://www.mongodb.com)
+- [Redis](https://redis.io)
+- [copier](https://github.com/jinzhu/copier)
+- [Casbin](https://casbin.org)
+- [OAuth2](https://github.com/golang/oauth2)
+- [jwt-go](https://github.com/golang-jwt/jwt)
+- [Sarama](https://github.com/Shopify/sarama)
+- [AWS SDK](https://aws.github.io/aws-sdk-go-v2/docs)
+- [Alibaba Cloud SDK](https://help.aliyun.com/document_detail/122613.html)
+- [Qiniu Cloud SDK](https://developer.qiniu.com/kodo/1238/go)
+- [tencentyun SDK](https://cloud.tencent.com/document/product/436/31215)
 
-交易中心
-支付服务 payment
+## 构建
 
-营销
-秒杀服务 seckill
-优惠券服务 coupon
+请在`app/{服务名}/service`下执行：
 
-库存 inventory
+- 初始化开发环境
 
-物流 shipping
+  ```bash
+  make init
+  ```
 
-售后服务 afterSale
+- 生成 API 的 go 代码
 
-搜索服务 search
+  ```bash
+  make api
+  ```
 
-http://127.0.0.1:8001/q/swagger-ui
+- 生成 API 的 OpenAPI v3 文档
 
-deploy-server.com
-srv-data.com
-nginx-gateway.com
+  ```bash
+  make openapi
+  ```
 
-# 权限管理
+- 生成配置结构代码
 
-用户管理
-角色管理
-部门管理
-岗位管理
+  ```bash
+  make config
+  ```
 
-菜单管理
+- 生成 wire 代码
 
-接口权限
-按钮权限
+  ```bash
+  make wire
+  ```
 
-# 系统设置
+- 生成 ent 代码
 
-数据字典
-
-- 字典分类管理
-- 字典数据管理
+  ```bash
+  make ent
+  ```
