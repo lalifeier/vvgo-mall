@@ -7,7 +7,7 @@ go_library(
         "audit.go",
         "time.go",
     ],
-    importpath = "vvgo-mall/app/ums/service/internal/data/ent/schema",
+    importpath = "github.com/lalifeier/vvgo-mall/app/ums/service/internal/data/ent/schema",
     visibility = ["//app/ums/service:__subpackages__"],
     deps = [
         "@io_entgo_ent//:ent",

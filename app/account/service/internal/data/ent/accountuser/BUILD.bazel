@@ -6,10 +6,10 @@ go_library(
         "accountuser.go",
         "where.go",
     ],
-    importpath = "vvgo-mall/app/account/service/internal/data/ent/accountuser",
+    importpath = "github.com/lalifeier/vvgo-mall/app/account/service/internal/data/ent/accountuser",
     visibility = ["//app/account/service:__subpackages__"],
     deps = [
-        "//app/account/service/internal/data/ent/predicate:go_default_library",
+        "//app/account/service/internal/data/ent/predicate",
         "@io_entgo_ent//dialect/sql",
     ],
 )

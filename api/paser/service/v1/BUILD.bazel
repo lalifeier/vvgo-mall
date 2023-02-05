@@ -15,7 +15,8 @@ go_library(
         "paser.pb.validate.go",
         "paser_http.pb.go",
     ],
-    importpath = "github.com/example/project/api/paser/service/v1",
+    embed = [":v1_go_proto"],
+    importpath = "github.com/lalifeier/vvgo-mall/api/paser/service/v1",
     visibility = ["//visibility:public"],
     deps = [
         "@com_github_go_kratos_kratos_v2//transport/http",
@@ -30,4 +31,5 @@ go_proto_library(
     importpath = "github.com/lalifeier/vvgo-mall/api/paser/service/v1",
     proto = ":v1_proto",
     visibility = ["//visibility:public"],
+    deps = ["@go_googleapis//google/api:annotations_go_proto"],
 )

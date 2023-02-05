@@ -3,7 +3,7 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "schema",
     srcs = ["user.go"],
-    importpath = "vvgo-mall/ent/schema",
+    importpath = "github.com/lalifeier/vvgo-mall/ent/schema",
     visibility = ["//visibility:public"],
     deps = [
         "@io_entgo_ent//:ent",

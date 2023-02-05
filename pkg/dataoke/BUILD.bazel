@@ -10,13 +10,13 @@ go_library(
         "taobao.go",
         "vip.go",
     ],
-    importpath = "vvgo-mall/pkg/dataoke",
+    importpath = "github.com/lalifeier/vvgo-mall/pkg/dataoke",
     visibility = ["//visibility:public"],
     deps = [
-        "//pkg/crypto/md5:go_default_library",
-        "//pkg/random:go_default_library",
-        "//pkg/request:go_default_library",
-        "//pkg/util/convert:go_default_library",
+        "//pkg/crypto/md5",
+        "//pkg/random",
+        "//pkg/request",
+        "//pkg/util/convert",
     ],
 )
 

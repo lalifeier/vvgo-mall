@@ -3,10 +3,10 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "oauth",
     srcs = ["oauth.go"],
-    importpath = "vvgo-mall/pkg/middleware/oauth",
+    importpath = "github.com/lalifeier/vvgo-mall/pkg/middleware/oauth",
     visibility = ["//visibility:public"],
     deps = [
-        "//third_party/errors:errors_go_proto",
+        "//third_party/errors",
         "@com_github_go_kratos_kratos_v2//middleware",
         "@com_github_go_kratos_kratos_v2//transport",
         "@com_github_go_kratos_kratos_v2//transport/http",

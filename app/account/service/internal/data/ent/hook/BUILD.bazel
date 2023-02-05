@@ -3,7 +3,7 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "hook",
     srcs = ["hook.go"],
-    importpath = "vvgo-mall/app/account/service/internal/data/ent/hook",
+    importpath = "github.com/lalifeier/vvgo-mall/app/account/service/internal/data/ent/hook",
     visibility = ["//app/account/service:__subpackages__"],
-    deps = ["//app/account/service/internal/data/ent:go_default_library"],
+    deps = ["//app/account/service/internal/data/ent"],
 )

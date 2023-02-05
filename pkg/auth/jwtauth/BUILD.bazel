@@ -8,7 +8,7 @@ go_library(
         "options.go",
         "token.go",
     ],
-    importpath = "vvgo-mall/pkg/auth/jwtauth",
+    importpath = "github.com/lalifeier/vvgo-mall/pkg/auth/jwtauth",
     visibility = ["//visibility:public"],
     deps = ["@com_github_golang_jwt_jwt//:jwt"],
 )

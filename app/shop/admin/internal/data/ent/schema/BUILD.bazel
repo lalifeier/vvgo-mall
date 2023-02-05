@@ -12,10 +12,10 @@ go_library(
         "user.go",
         "user_role.go",
     ],
-    importpath = "vvgo-mall/app/shop/admin/internal/data/ent/schema",
+    importpath = "github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/schema",
     visibility = ["//app/shop/admin:__subpackages__"],
     deps = [
-        "//pkg/ent/mixin:go_default_library",
+        "//pkg/ent/mixin",
         "@io_entgo_ent//:ent",
         "@io_entgo_ent//dialect",
         "@io_entgo_ent//dialect/entsql",

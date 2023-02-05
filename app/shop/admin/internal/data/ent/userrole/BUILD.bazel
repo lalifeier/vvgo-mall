@@ -6,10 +6,10 @@ go_library(
         "userrole.go",
         "where.go",
     ],
-    importpath = "vvgo-mall/app/shop/admin/internal/data/ent/userrole",
+    importpath = "github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/userrole",
     visibility = ["//app/shop/admin:__subpackages__"],
     deps = [
-        "//app/shop/admin/internal/data/ent/predicate:go_default_library",
+        "//app/shop/admin/internal/data/ent/predicate",
         "@io_entgo_ent//dialect/sql",
     ],
 )

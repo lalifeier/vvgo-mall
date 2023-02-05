@@ -3,7 +3,7 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "aliyun",
     srcs = ["client.go"],
-    importpath = "vvgo-mall/pkg/sms/aliyun",
+    importpath = "github.com/lalifeier/vvgo-mall/pkg/sms/aliyun",
     visibility = ["//visibility:public"],
     deps = ["@com_github_aliyun_alibaba_cloud_sdk_go//services/dysmsapi"],
 )

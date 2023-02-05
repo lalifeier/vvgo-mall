@@ -3,6 +3,6 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "interface",
     srcs = ["generate.go"],
-    importpath = "vvgo-mall/app/taoke/interface",
+    importpath = "github.com/lalifeier/vvgo-mall/app/taoke/interface",
     visibility = ["//visibility:public"],
 )

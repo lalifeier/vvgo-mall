@@ -9,7 +9,7 @@ go_library(
         "query.go",
         "update.go",
     ],
-    importpath = "vvgo-mall/pkg/datasource/mongox",
+    importpath = "github.com/lalifeier/vvgo-mall/pkg/datasource/mongox",
     visibility = ["//visibility:public"],
     deps = [
         "@org_mongodb_go_mongo_driver//mongo",

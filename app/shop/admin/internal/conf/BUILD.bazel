@@ -18,12 +18,7 @@ go_proto_library(
 
 go_library(
     name = "conf",
-    srcs = ["conf.pb.go"],
-    importpath = "vvgo-mall/app/shop/admin/internal/conf",
+    embed = [":conf_go_proto"],
+    importpath = "interface/internal/conf",
     visibility = ["//app/shop/admin:__subpackages__"],
-    deps = [
-        "@org_golang_google_protobuf//reflect/protoreflect",
-        "@org_golang_google_protobuf//runtime/protoimpl",
-        "@org_golang_google_protobuf//types/known/durationpb",
-    ],
 )

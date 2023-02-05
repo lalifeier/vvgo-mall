@@ -18,7 +18,7 @@ proto_library(
 go_library(
     name = "interface",
     srcs = ["taoke_http.pb.go"],
-    importpath = "github.com/example/project/api/taoke/interface/v1",
+    importpath = "github.com/lalifeier/vvgo-mall/api/taoke/interface/v1",
     visibility = ["//visibility:public"],
     deps = [
         "@com_github_go_kratos_kratos_v2//transport/http",

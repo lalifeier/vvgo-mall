@@ -3,12 +3,12 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "aws",
     srcs = ["s3.go"],
-    importpath = "vvgo-mall/pkg/oss/aws",
+    importpath = "github.com/lalifeier/vvgo-mall/pkg/oss/aws",
     visibility = ["//visibility:public"],
     deps = [
-        "//pkg/oss:go_default_library",
-        "//pkg/util:go_default_library",
-        "//pkg/util/convert:go_default_library",
+        "//pkg/oss",
+        "//pkg/util",
+        "//pkg/util/convert",
         "@com_github_aws_aws_sdk_go_v2//aws",
         "@com_github_aws_aws_sdk_go_v2_config//:config",
         "@com_github_aws_aws_sdk_go_v2_credentials//:credentials",

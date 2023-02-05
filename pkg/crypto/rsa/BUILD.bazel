@@ -3,7 +3,7 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 go_library(
     name = "rsa",
     srcs = ["rsa.go"],
-    importpath = "vvgo-mall/pkg/crypto/rsa",
+    importpath = "github.com/lalifeier/vvgo-mall/pkg/crypto/rsa",
     visibility = ["//visibility:public"],
 )
 
@@ -12,7 +12,7 @@ go_test(
     srcs = ["rsa_test.go"],
     embed = [":rsa"],
     deps = [
-        "//pkg/encoding/base64:go_default_library",
+        "//pkg/encoding/base64",
         "@com_github_go_playground_assert_v2//:assert",
     ],
 )

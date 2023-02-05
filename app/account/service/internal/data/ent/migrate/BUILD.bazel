@@ -6,7 +6,7 @@ go_library(
         "migrate.go",
         "schema.go",
     ],
-    importpath = "vvgo-mall/app/account/service/internal/data/ent/migrate",
+    importpath = "github.com/lalifeier/vvgo-mall/app/account/service/internal/data/ent/migrate",
     visibility = ["//app/account/service:__subpackages__"],
     deps = [
         "@io_entgo_ent//dialect",

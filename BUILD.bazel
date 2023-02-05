@@ -1,8 +1,6 @@
 load("@bazel_gazelle//:def.bzl", "gazelle")
 
-# gazelle:prefix vvgo-mall
-# gazelle:proto disable
-# gazelle:exclude api
+# gazelle:prefix github.com/lalifeier/vvgo-mall
 gazelle(name = "gazelle")
 
 gazelle(

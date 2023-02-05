@@ -3,6 +3,6 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "service",
     srcs = ["generate.go"],
-    importpath = "vvgo-mall/app/account/service",
+    importpath = "github.com/lalifeier/vvgo-mall/app/account/service",
     visibility = ["//visibility:public"],
 )

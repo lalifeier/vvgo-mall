@@ -3,10 +3,10 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "runtime",
     srcs = ["runtime.go"],
-    importpath = "vvgo-mall/app/auth/service/internal/data/ent/runtime",
+    importpath = "github.com/lalifeier/vvgo-mall/app/auth/service/internal/data/ent/runtime",
     visibility = ["//app/auth/service:__subpackages__"],
     deps = [
-        "//app/auth/service/internal/data/ent/schema:go_default_library",
-        "//app/auth/service/internal/data/ent/user:go_default_library",
+        "//app/auth/service/internal/data/ent/schema",
+        "//app/auth/service/internal/data/ent/user",
     ],
 )

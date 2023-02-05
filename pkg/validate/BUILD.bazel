@@ -3,6 +3,6 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "validate",
     srcs = ["validate.go"],
-    importpath = "vvgo-mall/pkg/validate",
+    importpath = "github.com/lalifeier/vvgo-mall/pkg/validate",
     visibility = ["//visibility:public"],
 )

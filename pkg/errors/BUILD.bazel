@@ -3,7 +3,7 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "errors",
     srcs = ["errors.go"],
-    importpath = "vvgo-mall/pkg/errors",
+    importpath = "github.com/lalifeier/vvgo-mall/pkg/errors",
     visibility = ["//visibility:public"],
-    deps = ["//third_party/errors:errors_go_proto"],
+    deps = ["//third_party/errors"],
 )

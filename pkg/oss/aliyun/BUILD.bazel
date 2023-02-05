@@ -3,11 +3,11 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 go_library(
     name = "aliyun",
     srcs = ["aliyun.go"],
-    importpath = "vvgo-mall/pkg/oss/aliyun",
+    importpath = "github.com/lalifeier/vvgo-mall/pkg/oss/aliyun",
     visibility = ["//visibility:public"],
     deps = [
-        "//pkg/oss:go_default_library",
-        "//pkg/util/convert:go_default_library",
+        "//pkg/oss",
+        "//pkg/util/convert",
         "@com_github_aliyun_aliyun_oss_go_sdk//oss",
     ],
 )

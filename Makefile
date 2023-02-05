@@ -17,6 +17,7 @@ PROTO_PATH=${shell echo ${APP_BASE_RELATIVE_PATH}third_party}
 .PHONY: init
 # init env
 init:
+	go install github.com/bazelbuild/bazel-gazelle/cmd/gazelle@latest
 	go get -u github.com/go-kratos/kratos/cmd/kratos/v2
 	go get -u google.golang.org/protobuf/cmd/protoc-gen-go
 	go get -u google.golang.org/grpc/cmd/protoc-gen-go-grpc
@@ -27,7 +28,6 @@ init:
 	go get github.com/google/wire/cmd/wire
 	go get entgo.io/ent/cmd/ent
 	go get -u gorm.io/gorm
-
 
 .PHONY: api
 # generate api proto

@@ -1,3 +1,4 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
 load("@rules_proto//proto:defs.bzl", "proto_library")
 load("@io_bazel_rules_go//proto:def.bzl", "go_proto_library")
 
@@ -12,5 +13,12 @@ go_proto_library(
     name = "errors_go_proto",
     importpath = "github.com/go-kratos/kratos/v2/errors",
     proto = ":errors_proto",
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "errors",
+    embed = [":errors_go_proto"],
+    importpath = "github.com/go-kratos/kratos/v2/errors",
     visibility = ["//visibility:public"],
 )

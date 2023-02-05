@@ -3,7 +3,7 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 go_library(
     name = "hex",
     srcs = ["hex.go"],
-    importpath = "vvgo-mall/pkg/encoding/hex",
+    importpath = "github.com/lalifeier/vvgo-mall/pkg/encoding/hex",
     visibility = ["//visibility:public"],
 )
 

@@ -3,11 +3,11 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "qiniu",
     srcs = ["qiniu.go"],
-    importpath = "vvgo-mall/pkg/oss/qiniu",
+    importpath = "github.com/lalifeier/vvgo-mall/pkg/oss/qiniu",
     visibility = ["//visibility:public"],
     deps = [
-        "//pkg/oss:go_default_library",
-        "//pkg/util:go_default_library",
+        "//pkg/oss",
+        "//pkg/util",
         "@com_github_qiniu_go_sdk_v7//auth/qbox",
         "@com_github_qiniu_go_sdk_v7//storage",
     ],
