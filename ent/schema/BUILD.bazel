@@ -1,0 +1,13 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "schema",
+    srcs = ["user.go"],
+    importpath = "vvgo-mall/ent/schema",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@io_entgo_ent//:ent",
+        "@io_entgo_ent//schema",
+        "@io_entgo_ent//schema/field",
+    ],
+)

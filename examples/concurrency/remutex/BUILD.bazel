@@ -1,0 +1,14 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "remutex_lib",
+    srcs = ["main.go"],
+    importpath = "vvgo-mall/examples/concurrency/remutex",
+    visibility = ["//visibility:private"],
+)
+
+go_binary(
+    name = "remutex",
+    embed = [":remutex_lib"],
+    visibility = ["//visibility:public"],
+)

@@ -1,0 +1,31 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "sms-interface_lib",
+    srcs = [
+        "main.go",
+        "wire_gen.go",
+    ],
+    importpath = "vvgo-mall/app/sms/interface/cmd/sms-interface",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//app/sms/interface/internal/biz:go_default_library",
+        "//app/sms/interface/internal/conf:go_default_library",
+        "//app/sms/interface/internal/data:go_default_library",
+        "//app/sms/interface/internal/server:go_default_library",
+        "//app/sms/interface/internal/service:go_default_library",
+        "@com_github_go_kratos_kratos_v2//:kratos",
+        "@com_github_go_kratos_kratos_v2//config",
+        "@com_github_go_kratos_kratos_v2//config/file",
+        "@com_github_go_kratos_kratos_v2//log",
+        "@com_github_go_kratos_kratos_v2//middleware/tracing",
+        "@com_github_go_kratos_kratos_v2//transport/grpc",
+        "@com_github_go_kratos_kratos_v2//transport/http",
+    ],
+)
+
+go_binary(
+    name = "sms-interface",
+    embed = [":sms-interface_lib"],
+    visibility = ["//visibility:public"],
+)

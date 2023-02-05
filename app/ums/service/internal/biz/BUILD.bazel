@@ -1,0 +1,16 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "biz",
+    srcs = [
+        "account_user.go",
+        "biz.go",
+    ],
+    importpath = "vvgo-mall/app/ums/service/internal/biz",
+    visibility = ["//app/ums/service:__subpackages__"],
+    deps = [
+        "//pkg/crypto/bcrypt:go_default_library",
+        "@com_github_go_kratos_kratos_v2//log",
+        "@com_github_google_wire//:wire",
+    ],
+)

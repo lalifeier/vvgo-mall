@@ -1,0 +1,31 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "paser-service_lib",
+    srcs = [
+        "main.go",
+        "wire_gen.go",
+    ],
+    importpath = "vvgo-mall/app/paser/service/cmd/paser-service",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//app/paser/service/internal/biz:go_default_library",
+        "//app/paser/service/internal/conf:go_default_library",
+        "//app/paser/service/internal/data:go_default_library",
+        "//app/paser/service/internal/server:go_default_library",
+        "//app/paser/service/internal/service:go_default_library",
+        "@com_github_go_kratos_kratos_v2//:kratos",
+        "@com_github_go_kratos_kratos_v2//config",
+        "@com_github_go_kratos_kratos_v2//config/file",
+        "@com_github_go_kratos_kratos_v2//log",
+        "@com_github_go_kratos_kratos_v2//middleware/tracing",
+        "@com_github_go_kratos_kratos_v2//transport/grpc",
+        "@com_github_go_kratos_kratos_v2//transport/http",
+    ],
+)
+
+go_binary(
+    name = "paser-service",
+    embed = [":paser-service_lib"],
+    visibility = ["//visibility:public"],
+)

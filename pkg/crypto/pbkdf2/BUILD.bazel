@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "pbkdf2",
+    srcs = ["pbkdf2.go"],
+    importpath = "vvgo-mall/pkg/crypto/pbkdf2",
+    visibility = ["//visibility:public"],
+    deps = ["@org_golang_x_crypto//pbkdf2"],
+)
+
+go_test(
+    name = "pbkdf2_test",
+    srcs = ["pbkdf2_test.go"],
+    embed = [":pbkdf2"],
+)

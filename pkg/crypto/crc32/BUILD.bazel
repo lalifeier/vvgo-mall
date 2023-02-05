@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "crc32",
+    srcs = ["crc32.go"],
+    importpath = "vvgo-mall/pkg/crypto/crc32",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "crc32_test",
+    srcs = ["crc32_test.go"],
+    embed = [":crc32"],
+    deps = ["@com_github_go_playground_assert_v2//:assert"],
+)

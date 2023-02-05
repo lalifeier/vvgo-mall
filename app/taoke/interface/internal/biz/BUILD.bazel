@@ -1,0 +1,22 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "biz",
+    srcs = [
+        "biz.go",
+        "jd.go",
+        "pdd.go",
+        "taobao.go",
+        "tiktok.go",
+        "vip.go",
+    ],
+    importpath = "vvgo-mall/app/taoke/interface/internal/biz",
+    visibility = ["//app/taoke/interface:__subpackages__"],
+    deps = [
+        "//app/taoke/interface/internal/conf:go_default_library",
+        "//pkg/dataoke:go_default_library",
+        "@com_github_go_kratos_kratos_v2//log",
+        "@com_github_google_wire//:wire",
+        "@com_github_jinzhu_copier//:copier",
+    ],
+)

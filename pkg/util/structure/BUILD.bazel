@@ -1,0 +1,9 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "structure",
+    srcs = ["structure.go"],
+    importpath = "vvgo-mall/pkg/util/structure",
+    visibility = ["//visibility:public"],
+    deps = ["@com_github_jinzhu_copier//:copier"],
+)

@@ -1,0 +1,23 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "data",
+    srcs = [
+        "account_user.go",
+        "data.go",
+    ],
+    importpath = "vvgo-mall/app/account/service/internal/data",
+    visibility = ["//app/account/service:__subpackages__"],
+    deps = [
+        "//api/account/service/v1:go_default_library",
+        "//app/account/service/internal/biz:go_default_library",
+        "//app/account/service/internal/conf:go_default_library",
+        "//app/account/service/internal/data/ent:go_default_library",
+        "//app/account/service/internal/data/ent/accountuser:go_default_library",
+        "//app/account/service/internal/data/ent/runtime:go_default_library",
+        "//pkg/util/pagination:go_default_library",
+        "@com_github_go_kratos_kratos_v2//log",
+        "@com_github_go_sql_driver_mysql//:mysql",
+        "@com_github_google_wire//:wire",
+    ],
+)

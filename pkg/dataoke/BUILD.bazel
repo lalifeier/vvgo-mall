@@ -1,0 +1,27 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "dataoke",
+    srcs = [
+        "dataoke.go",
+        "jd.go",
+        "model.go",
+        "pdd.go",
+        "taobao.go",
+        "vip.go",
+    ],
+    importpath = "vvgo-mall/pkg/dataoke",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//pkg/crypto/md5:go_default_library",
+        "//pkg/random:go_default_library",
+        "//pkg/request:go_default_library",
+        "//pkg/util/convert:go_default_library",
+    ],
+)
+
+go_test(
+    name = "dataoke_test",
+    srcs = ["dataoke_test.go"],
+    embed = [":dataoke"],
+)

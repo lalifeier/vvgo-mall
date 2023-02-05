@@ -1,0 +1,12 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "tencent",
+    srcs = ["tencent.go"],
+    importpath = "vvgo-mall/pkg/oss/tencent",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//pkg/oss:go_default_library",
+        "@com_github_tencentyun_cos_go_sdk_v5//:cos-go-sdk-v5",
+    ],
+)

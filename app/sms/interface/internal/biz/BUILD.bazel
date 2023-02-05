@@ -1,0 +1,17 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "biz",
+    srcs = [
+        "biz.go",
+        "sms.go",
+    ],
+    importpath = "vvgo-mall/app/sms/interface/internal/biz",
+    visibility = ["//app/sms/interface:__subpackages__"],
+    deps = [
+        "//pkg/sms/aliyun:go_default_library",
+        "//third_party/errors:errors_go_proto",
+        "@com_github_go_kratos_kratos_v2//log",
+        "@com_github_google_wire//:wire",
+    ],
+)

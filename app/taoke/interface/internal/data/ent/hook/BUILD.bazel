@@ -1,0 +1,9 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "hook",
+    srcs = ["hook.go"],
+    importpath = "vvgo-mall/app/taoke/interface/internal/data/ent/hook",
+    visibility = ["//app/taoke/interface:__subpackages__"],
+    deps = ["//app/taoke/interface/internal/data/ent:go_default_library"],
+)

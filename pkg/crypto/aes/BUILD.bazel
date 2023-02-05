@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "aes",
+    srcs = ["aes.go"],
+    importpath = "vvgo-mall/pkg/crypto/aes",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "aes_test",
+    srcs = ["aes_test.go"],
+    embed = [":aes"],
+    deps = ["@com_github_go_playground_assert_v2//:assert"],
+)

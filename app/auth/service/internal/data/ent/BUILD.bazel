@@ -1,0 +1,31 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "ent",
+    srcs = [
+        "client.go",
+        "config.go",
+        "context.go",
+        "ent.go",
+        "mutation.go",
+        "runtime.go",
+        "tx.go",
+        "user.go",
+        "user_create.go",
+        "user_delete.go",
+        "user_query.go",
+        "user_update.go",
+    ],
+    importpath = "vvgo-mall/app/auth/service/internal/data/ent",
+    visibility = ["//app/auth/service:__subpackages__"],
+    deps = [
+        "//app/auth/service/internal/data/ent/migrate:go_default_library",
+        "//app/auth/service/internal/data/ent/predicate:go_default_library",
+        "//app/auth/service/internal/data/ent/user:go_default_library",
+        "@io_entgo_ent//:ent",
+        "@io_entgo_ent//dialect",
+        "@io_entgo_ent//dialect/sql",
+        "@io_entgo_ent//dialect/sql/sqlgraph",
+        "@io_entgo_ent//schema/field",
+    ],
+)

@@ -1,0 +1,12 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "douyin",
+    srcs = ["douyin.go"],
+    importpath = "vvgo-mall/app/paser/service/internal/data/douyin",
+    visibility = ["//app/paser/service:__subpackages__"],
+    deps = [
+        "//api/paser/service/v1:go_default_library",
+        "@com_github_go_resty_resty_v2//:resty",
+    ],
+)

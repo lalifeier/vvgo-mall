@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "des",
+    srcs = ["des.go"],
+    importpath = "vvgo-mall/pkg/crypto/des",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "des_test",
+    srcs = ["des_test.go"],
+    embed = [":des"],
+    deps = ["@com_github_go_playground_assert_v2//:assert"],
+)

@@ -1,0 +1,14 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "schema",
+    srcs = ["user.go"],
+    importpath = "vvgo-mall/app/auth/service/internal/data/ent/schema",
+    visibility = ["//app/auth/service:__subpackages__"],
+    deps = [
+        "//pkg/ent/mixin:go_default_library",
+        "@io_entgo_ent//:ent",
+        "@io_entgo_ent//dialect/entsql",
+        "@io_entgo_ent//schema",
+    ],
+)

@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "staff",
+    srcs = [
+        "staff.go",
+        "where.go",
+    ],
+    importpath = "vvgo-mall/app/shop/admin/internal/data/ent/staff",
+    visibility = ["//app/shop/admin:__subpackages__"],
+    deps = [
+        "//app/shop/admin/internal/data/ent/predicate:go_default_library",
+        "@io_entgo_ent//dialect/sql",
+    ],
+)

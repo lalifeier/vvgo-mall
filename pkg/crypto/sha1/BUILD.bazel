@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "sha1",
+    srcs = ["sha1.go"],
+    importpath = "vvgo-mall/pkg/crypto/sha1",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "sha1_test",
+    srcs = ["sha1_test.go"],
+    embed = [":sha1"],
+    deps = ["@com_github_go_playground_assert_v2//:assert"],
+)

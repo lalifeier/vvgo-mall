@@ -1,0 +1,27 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "schema",
+    srcs = [
+        "api.go",
+        "dict_data.go",
+        "dict_type.go",
+        "permission.go",
+        "role.go",
+        "staff.go",
+        "user.go",
+        "user_role.go",
+    ],
+    importpath = "vvgo-mall/app/shop/admin/internal/data/ent/schema",
+    visibility = ["//app/shop/admin:__subpackages__"],
+    deps = [
+        "//pkg/ent/mixin:go_default_library",
+        "@io_entgo_ent//:ent",
+        "@io_entgo_ent//dialect",
+        "@io_entgo_ent//dialect/entsql",
+        "@io_entgo_ent//schema",
+        "@io_entgo_ent//schema/edge",
+        "@io_entgo_ent//schema/field",
+        "@io_entgo_ent//schema/index",
+    ],
+)

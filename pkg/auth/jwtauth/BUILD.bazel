@@ -1,0 +1,21 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "jwtauth",
+    srcs = [
+        "auth.go",
+        "claims.go",
+        "options.go",
+        "token.go",
+    ],
+    importpath = "vvgo-mall/pkg/auth/jwtauth",
+    visibility = ["//visibility:public"],
+    deps = ["@com_github_golang_jwt_jwt//:jwt"],
+)
+
+go_test(
+    name = "jwtauth_test",
+    srcs = ["auth_test.go"],
+    embed = [":jwtauth"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)

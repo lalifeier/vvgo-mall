@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "accountuser",
+    srcs = [
+        "accountuser.go",
+        "where.go",
+    ],
+    importpath = "vvgo-mall/app/ums/service/internal/data/ent/accountuser",
+    visibility = ["//app/ums/service:__subpackages__"],
+    deps = [
+        "//app/ums/service/internal/data/ent/predicate:go_default_library",
+        "@io_entgo_ent//dialect/sql",
+    ],
+)

@@ -1,0 +1,20 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "schema",
+    srcs = [
+        "account_user.go",
+        "audit.go",
+        "time.go",
+    ],
+    importpath = "vvgo-mall/app/ums/service/internal/data/ent/schema",
+    visibility = ["//app/ums/service:__subpackages__"],
+    deps = [
+        "@io_entgo_ent//:ent",
+        "@io_entgo_ent//dialect",
+        "@io_entgo_ent//dialect/entsql",
+        "@io_entgo_ent//schema",
+        "@io_entgo_ent//schema/field",
+        "@io_entgo_ent//schema/mixin",
+    ],
+)

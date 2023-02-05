@@ -1,0 +1,31 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "account-service_lib",
+    srcs = [
+        "main.go",
+        "wire_gen.go",
+    ],
+    importpath = "vvgo-mall/app/account/service/cmd/account-service",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//app/account/service/internal/biz:go_default_library",
+        "//app/account/service/internal/conf:go_default_library",
+        "//app/account/service/internal/data:go_default_library",
+        "//app/account/service/internal/server:go_default_library",
+        "//app/account/service/internal/service:go_default_library",
+        "@com_github_go_kratos_kratos_v2//:kratos",
+        "@com_github_go_kratos_kratos_v2//config",
+        "@com_github_go_kratos_kratos_v2//config/file",
+        "@com_github_go_kratos_kratos_v2//log",
+        "@com_github_go_kratos_kratos_v2//middleware/tracing",
+        "@com_github_go_kratos_kratos_v2//registry",
+        "@com_github_go_kratos_kratos_v2//transport/grpc",
+    ],
+)
+
+go_binary(
+    name = "account-service",
+    embed = [":account-service_lib"],
+    visibility = ["//visibility:public"],
+)

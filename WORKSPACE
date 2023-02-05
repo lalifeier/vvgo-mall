@@ -1,42 +1,82 @@
-workspace(name = "vvgo-mall")
+# 定义工作环境名称
+workspace(name = "com_github_lalifeier_vvgo_mall")
 
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+# 下载所需要的软件包
+load("//:DOWNLOAD.bzl", "download_package")
 
-http_archive(
-    name = "io_bazel_rules_go",
-    sha256 = "56d8c5a5c91e1af73eca71a6fab2ced959b67c86d12ba37feedb0a2dfea441a6",
-    urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.37.0/rules_go-v0.37.0.zip",
-        "https://github.com/bazelbuild/rules_go/releases/download/v0.37.0/rules_go-v0.37.0.zip",
-    ],
-)
+download_package()
 
-http_archive(
-    name = "bazel_gazelle",
-    sha256 = "ecba0f04f96b4960a5b250c8e8eeec42281035970aa8852dda73098274d14a1d",
-    urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.29.0/bazel-gazelle-v0.29.0.tar.gz",
-        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.29.0/bazel-gazelle-v0.29.0.tar.gz",
-    ],
-)
-
-
+# Go语言 规则集 初始化
+# 导入go_register_toolchains和go_rules_dependencies方法
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
-load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
 
-############################################################
-# Define your own dependencies here using go_repository.
-# Else, dependencies declared by rules_go/gazelle will be used.
-# The first declaration of an external repository "wins".
-############################################################
-
+# 初始化go规则集的依赖项
 go_rules_dependencies()
 
-go_register_toolchains(version = "1.19.5")
+# 注册go 1.19.5版本的工具链，包含下载安装go环境
+go_register_toolchains(version = "1.19.4")
 
-load("//:deps.bzl", "gazelle_dependencies")
+# Gazelle 规则集 初始化
+# 导入gazelle_dependencies和go_repository方法
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
+load("//:repos.bzl", "go_dependencies")
 
+# gazelle:repository_macro repos.bzl%go_dependencies
+go_dependencies()
+
+# 初始化Gazelle规则集的依赖项
 gazelle_dependencies()
 
-# gazelle update-repos -from_file=go.mod -to_macro=repositories.bzl%go_repositories
-go_dependencies()
+# Docker 规则集 初始化
+# 导入container_repositories方法
+load(
+    "@io_bazel_rules_docker//repositories:repositories.bzl",
+    container_repositories = "repositories",
+)
+container_repositories()
+
+# 导入container_deps方法
+load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
+
+container_deps()
+
+# 导入container_pull方法
+load(
+    "@io_bazel_rules_docker//container:container.bzl",
+    "container_pull",
+)
+
+# 拉取Alpine Linux
+# 该发行版使用musl libc，并且缺乏一些调试工具。
+container_pull(
+    name = "alpine_linux_amd64",
+    registry = "index.docker.io",
+    repository = "library/alpine",
+    tag = "latest",
+)
+
+# 拉取Debian-Slim Linux
+# container_pull(
+#     name = "slim_linux_amd64",
+#     registry = "index.docker.io",
+#     repository = "library/debian",
+#     tag = "stable-slim",
+# )
+
+# Kubernetes 规则集 初始化
+
+load("@io_bazel_rules_k8s//k8s:k8s.bzl", "k8s_repositories")
+
+k8s_repositories()
+
+# pkg 规则集 初始化
+
+load("@rules_pkg//:deps.bzl", "rules_pkg_dependencies")
+
+rules_pkg_dependencies()
+
+# Bazel protoc 初始化
+
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+
+protobuf_deps()

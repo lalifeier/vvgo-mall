@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "sha256",
+    srcs = ["sha256.go"],
+    importpath = "vvgo-mall/pkg/crypto/sha256",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "sha256_test",
+    srcs = ["sha256_test.go"],
+    embed = [":sha256"],
+    deps = ["@com_github_magiconair_properties//assert"],
+)

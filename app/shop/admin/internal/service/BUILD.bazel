@@ -1,0 +1,21 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "service",
+    srcs = [
+        "account.go",
+        "auth.go",
+        "service.go",
+        "shop.go",
+        "sys.go",
+    ],
+    importpath = "vvgo-mall/app/shop/admin/internal/service",
+    visibility = ["//app/shop/admin:__subpackages__"],
+    deps = [
+        "//api/shop/admin/v1:go_default_library",
+        "//app/shop/admin/internal/biz:go_default_library",
+        "@com_github_go_kratos_kratos_v2//log",
+        "@com_github_google_wire//:wire",
+        "@com_github_jinzhu_copier//:copier",
+    ],
+)

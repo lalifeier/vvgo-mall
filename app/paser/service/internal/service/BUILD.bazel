@@ -1,0 +1,17 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "service",
+    srcs = [
+        "paser.go",
+        "service.go",
+    ],
+    importpath = "vvgo-mall/app/paser/service/internal/service",
+    visibility = ["//app/paser/service:__subpackages__"],
+    deps = [
+        "//api/paser/service/v1:go_default_library",
+        "//app/paser/service/internal/biz:go_default_library",
+        "@com_github_go_kratos_kratos_v2//log",
+        "@com_github_google_wire//:wire",
+    ],
+)

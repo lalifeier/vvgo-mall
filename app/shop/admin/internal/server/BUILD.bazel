@@ -1,0 +1,38 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "server",
+    srcs = [
+        "grpc.go",
+        "http.go",
+        "server.go",
+    ],
+    importpath = "vvgo-mall/app/shop/admin/internal/server",
+    visibility = ["//app/shop/admin:__subpackages__"],
+    deps = [
+        "//api/shop/admin/v1:go_default_library",
+        "//app/shop/admin/internal/conf:go_default_library",
+        "//app/shop/admin/internal/service:go_default_library",
+        "//pkg/middleware/casbin:go_default_library",
+        "@com_github_casbin_casbin_v2//:casbin",
+        "@com_github_go_kratos_kratos_contrib_metrics_prometheus_v2//:prometheus",
+        "@com_github_go_kratos_kratos_v2//log",
+        "@com_github_go_kratos_kratos_v2//middleware/auth/jwt",
+        "@com_github_go_kratos_kratos_v2//middleware/logging",
+        "@com_github_go_kratos_kratos_v2//middleware/metadata",
+        "@com_github_go_kratos_kratos_v2//middleware/metrics",
+        "@com_github_go_kratos_kratos_v2//middleware/ratelimit",
+        "@com_github_go_kratos_kratos_v2//middleware/recovery",
+        "@com_github_go_kratos_kratos_v2//middleware/selector",
+        "@com_github_go_kratos_kratos_v2//middleware/tracing",
+        "@com_github_go_kratos_kratos_v2//middleware/validate",
+        "@com_github_go_kratos_kratos_v2//transport/grpc",
+        "@com_github_go_kratos_kratos_v2//transport/http",
+        "@com_github_go_kratos_swagger_api//openapiv2",
+        "@com_github_golang_jwt_jwt_v4//:jwt",
+        "@com_github_google_wire//:wire",
+        "@com_github_gorilla_handlers//:handlers",
+        "@com_github_prometheus_client_golang//prometheus",
+        "@com_github_prometheus_client_golang//prometheus/promhttp",
+    ],
+)

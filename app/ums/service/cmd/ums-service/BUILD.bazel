@@ -1,0 +1,31 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "ums-service_lib",
+    srcs = [
+        "main.go",
+        "wire_gen.go",
+    ],
+    importpath = "vvgo-mall/app/ums/service/cmd/ums-service",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//app/ums/service/internal/biz:go_default_library",
+        "//app/ums/service/internal/conf:go_default_library",
+        "//app/ums/service/internal/data:go_default_library",
+        "//app/ums/service/internal/server:go_default_library",
+        "//app/ums/service/internal/service:go_default_library",
+        "@com_github_go_kratos_kratos_v2//:kratos",
+        "@com_github_go_kratos_kratos_v2//config",
+        "@com_github_go_kratos_kratos_v2//config/file",
+        "@com_github_go_kratos_kratos_v2//log",
+        "@com_github_go_kratos_kratos_v2//middleware/tracing",
+        "@com_github_go_kratos_kratos_v2//registry",
+        "@com_github_go_kratos_kratos_v2//transport/grpc",
+    ],
+)
+
+go_binary(
+    name = "ums-service",
+    embed = [":ums-service_lib"],
+    visibility = ["//visibility:public"],
+)

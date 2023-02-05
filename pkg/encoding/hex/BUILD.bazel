@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "hex",
+    srcs = ["hex.go"],
+    importpath = "vvgo-mall/pkg/encoding/hex",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "hex_test",
+    srcs = ["hex_test.go"],
+    embed = [":hex"],
+    deps = ["@com_github_go_playground_assert_v2//:assert"],
+)

@@ -38,3 +38,15 @@ bin/
 tmp/
 
 data/server
+
+/bazel-bazel-gazelle
+/bazel-bin
+/bazel-out
+/bazel-testlogs
+/tests/bcr/bazel-bcr
+/tests/bcr/bazel-bin
+/tests/bcr/bazel-out
+/tests/bcr/bazel-testlogs
+
+bazel-*/
+bazel-*
