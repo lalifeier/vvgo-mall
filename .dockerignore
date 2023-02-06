@@ -1,0 +1,9 @@
+.git/
+
+bazel-bazel-gazelle/
+bazel-bin/
+bazel-out/
+bazel-testlogs/
+
+bin/
+*.test.bin

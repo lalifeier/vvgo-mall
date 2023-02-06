@@ -23,7 +23,7 @@ def publish_service(service_name, repository_name = "", repository_version = "",
     # 将配置文件打包
     native.filegroup(
         name = conf_file_group_name,
-        srcs = native.glob(["app/{}/service/configs/**".format(service_name)]),
+        srcs = native.glob(["github.com/lalifeier/vvgo-mall/app/{}/service/configs/**".format(service_name)]),
         visibility = ["//visibility:public"],
     )
 
