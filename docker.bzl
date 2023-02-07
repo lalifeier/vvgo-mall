@@ -16,14 +16,14 @@ def publish_service(service_name, repository_name = "", repository_version = "",
     # 为服务的编译目标定义一个别名
     native.alias(
         name = service_new_name,
-        actual = "//app/{}/service/cmd/{}:{}".format(service_name,service_new_name,service_new_name),
+        actual = "//app/{}/service/cmd/server:server".format(service_name),
         visibility = ["//visibility:private"],
     )
 
     # 将配置文件打包
     native.filegroup(
         name = conf_file_group_name,
-        srcs = native.glob(["github.com/lalifeier/vvgo-mall/app/{}/service/configs/**".format(service_name)]),
+        srcs = native.glob(["app/{}/service/configs/**".format(service_name)]),
         visibility = ["//visibility:public"],
     )
 
@@ -87,7 +87,7 @@ def publish_service(service_name, repository_name = "", repository_version = "",
             # 镜像库的注册链接
             registry = "index.docker.io",
             ## 目标镜像库中的镜像名
-            repository = "{}/vvgo-mall/{}-service".format(repository_name, service_name),
+            repository = "{}/kratoscms-{}-service".format(repository_name, service_name),
             # 镜像标签
             tag = repository_version,
         )

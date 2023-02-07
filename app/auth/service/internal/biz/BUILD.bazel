@@ -12,7 +12,7 @@ go_library(
     visibility = ["//app/auth/service:__subpackages__"],
     deps = [
         "//pkg/captcha",
-        "//third_party/errors:errors_go_proto",
+        "@com_github_go_kratos_kratos_v2//errors",
         "@com_github_go_kratos_kratos_v2//log",
         "@com_github_go_oauth2_oauth2_v4//server",
         "@com_github_google_wire//:wire",

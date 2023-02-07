@@ -26,6 +26,30 @@ go_library(
 
 go_binary(
     name = "ums-service",
-    embed = [":ums-service_lib"],
+    embed = [":server_lib"],
     visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "server_lib",
+    srcs = [
+        "main.go",
+        "wire_gen.go",
+    ],
+    importpath = "github.com/lalifeier/vvgo-mall/app/ums/service/cmd/server",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//app/ums/service/internal/biz",
+        "//app/ums/service/internal/conf",
+        "//app/ums/service/internal/data",
+        "//app/ums/service/internal/server",
+        "//app/ums/service/internal/service",
+        "@com_github_go_kratos_kratos_v2//:kratos",
+        "@com_github_go_kratos_kratos_v2//config",
+        "@com_github_go_kratos_kratos_v2//config/file",
+        "@com_github_go_kratos_kratos_v2//log",
+        "@com_github_go_kratos_kratos_v2//middleware/tracing",
+        "@com_github_go_kratos_kratos_v2//registry",
+        "@com_github_go_kratos_kratos_v2//transport/grpc",
+    ],
 )

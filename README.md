@@ -10,6 +10,7 @@
 - [Prometheus](https://prometheus.io)
 - [Wire](https://github.com/google/wire)
 - [Ent](https://entgo.io)
+- [GORM](https://gorm.io)
 - [MySQL](https://www.mysql.com)
 - [MongoDB](https://www.mongodb.com)
 - [Redis](https://redis.io)

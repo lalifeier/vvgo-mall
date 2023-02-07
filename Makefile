@@ -24,12 +24,12 @@ APP_RELATIVE_PATH=$(shell a=`basename $$PWD` && cd .. && b=`basename $$PWD` && e
 
 API_PROTO_FILES=$(shell cd ${API_PATH} && find . -name *.proto)
 APP_NAME=$(shell echo $(APP_RELATIVE_PATH) | sed -En "s/\//-/p")
-DOCKER_IMAGE=$(shell echo $(APP_NAME) |awk -F '@' '{print "go-kratos/gvc-" $$0 ":0.1.0"}')
+DOCKER_IMAGE=$(shell echo $(APP_NAME) |awk -F '@' '{print "vvgo-mall/" $$0 ":0.1.0"}')
 
 API_PATH=${shell echo ${APP_BASE_RELATIVE_PATH}api/${APP_RELATIVE_PATH}}
 PROTO_PATH=${shell echo ${APP_BASE_RELATIVE_PATH}third_party}
 
-.PHONY: init api wire config ent run build generate test cover vet lint docker swagger app
+.PHONY: init api wire config ent run build generate test cover vet lint clean docker swagger app
 
 # init env
 init:
@@ -54,7 +54,7 @@ api:
 
 # wire
 wire:
-	cd cmd/$(APP_NAME)/ && wire
+	wire ./cmd/server
 
 # generate internal proto
 config:
@@ -65,11 +65,11 @@ config:
 
 # ent
 ent:
-	cd internal/data/ && go generate ./ent/schema
+	go generate ./internal/data/ent/schema
 
 # run
 run:
-	cd cmd/$(APP_NAME)/ && go run .
+	go run ./cmd/server -conf ./configs
 
 # build
 build:
@@ -95,10 +95,17 @@ vet:
 lint:
 	golangci-lint run
 
+# clean build files
+clean:
+	go clean
+	$(if $(IS_WINDOWS), del "coverage.out", rm -f "coverage.out")
+
 # docker
 docker:
-	cd ../../ && \
-	docker build -f deploy/build/Dockerfile --build-arg APP_RELATIVE_PATH=$(APP_RELATIVE_PATH) -t $(DOCKER_IMAGE) .
+	cd ../../../ && \
+	docker build -t $(DOCKER_IMAGE) . \
+							 -f deploy/build/Dockerfile  \
+							 --build-arg APP_RELATIVE_PATH=$(APP_RELATIVE_PATH)
 
 # generate swagger
 swagger:

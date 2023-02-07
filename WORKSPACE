@@ -66,15 +66,15 @@ container_pull(
 
 # Bazel Kubernetes 规则集 初始化
 
-load("@io_bazel_rules_k8s//k8s:k8s.bzl", "k8s_repositories")
+# load("@io_bazel_rules_k8s//k8s:k8s.bzl", "k8s_repositories")
 
-k8s_repositories()
+# k8s_repositories()
 
 # Bazel pkg 规则集 初始化
 
-load("@rules_pkg//:deps.bzl", "rules_pkg_dependencies")
+# load("@rules_pkg//:deps.bzl", "rules_pkg_dependencies")
 
-rules_pkg_dependencies()
+# rules_pkg_dependencies()
 
 # Bazel protoc 初始化
 

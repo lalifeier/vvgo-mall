@@ -1,4 +1,4 @@
-FROM golang:1.15 AS builder
+FROM golang:1.19 AS builder
 
 ARG APP_RELATIVE_PATH
 
@@ -25,4 +25,4 @@ EXPOSE 8000
 EXPOSE 9000
 VOLUME /data/conf
 
-CMD ["./server", "-conf", "/data/conf"
+CMD ["./server", "-conf", "/data/conf"]
