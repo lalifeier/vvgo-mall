@@ -22,6 +22,7 @@ init:
 	go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest
 	go install github.com/google/gnostic/cmd/protoc-gen-openapi@latest
 	go install github.com/envoyproxy/protoc-gen-validate@latest
+	go install github.com/bazelbuild/bazelisk@latest
 	go install github.com/bufbuild/buf/cmd/buf@latest
 	go install github.com/google/gnostic@latest
 	go install entgo.io/ent/cmd/ent@latest
