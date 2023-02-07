@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 
-	pb "github.com/lalifeier/vvgo-mall/api/shop/admin/v1"
+	pb "github.com/lalifeier/vvgo-mall/gen/api/shop/admin/v1"
 )
 
 func (s *ShopService) CreateAccountUser(ctx context.Context, req *pb.CreateAccountUserReq) (*pb.CreateAccountUserResp, error) {

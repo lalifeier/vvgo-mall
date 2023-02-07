@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/gorilla/handlers"
-	v1 "github.com/lalifeier/vvgo-mall/api/shop/admin/v1"
+	v1 "github.com/lalifeier/vvgo-mall/gen/api/shop/admin/v1"
 
 	"github.com/casbin/casbin/v2"
 	prom "github.com/go-kratos/kratos/contrib/metrics/prometheus/v2"

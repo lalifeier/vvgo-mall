@@ -2,8 +2,8 @@ package service
 
 import (
 	"github.com/go-kratos/kratos/v2/log"
-	pb "github.com/lalifeier/vvgo-mall/api/taoke/interface/v1"
 	"github.com/lalifeier/vvgo-mall/app/taoke/interface/internal/biz"
+	pb "github.com/lalifeier/vvgo-mall/gen/api/taoke/interface/v1"
 )
 
 type TaoKeService struct {

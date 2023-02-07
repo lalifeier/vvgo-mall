@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/go-kratos/kratos/v2/log"
-	acV1 "github.com/lalifeier/vvgo-mall/api/account/service/v1"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/biz"
+	acV1 "github.com/lalifeier/vvgo-mall/gen/api/account/service/v1"
 )
 
 var _ biz.AccountRepo = (*accountRepo)(nil)

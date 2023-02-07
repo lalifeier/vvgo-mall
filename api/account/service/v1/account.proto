@@ -4,7 +4,7 @@ package api.account.service.v1;
 
 import "google/protobuf/empty.proto";
 
-option go_package = "github.com/lalifeier/vvgo-mall/api/account/service/v1;v1";
+option go_package = "github.com/lalifeier/vvgo-mall/gen/api/account/service/v1;v1";
 
 service Account {
   rpc Register(RegisterReq) returns (RegisterResp);

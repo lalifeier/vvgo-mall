@@ -5,9 +5,9 @@ import (
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/middleware/validate"
 	"github.com/go-kratos/kratos/v2/transport/http"
-	v1 "github.com/lalifeier/vvgo-mall/api/sms/interface/v1"
 	"github.com/lalifeier/vvgo-mall/app/sms/interface/internal/conf"
 	"github.com/lalifeier/vvgo-mall/app/sms/interface/internal/service"
+	v1 "github.com/lalifeier/vvgo-mall/gen/api/sms/interface/v1"
 )
 
 // NewHTTPServer new a HTTP server.

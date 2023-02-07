@@ -4,7 +4,7 @@ package api.ums.service.v1;
 
 import "google/protobuf/empty.proto";
 
-option go_package = "github.com/lalifeier/vvgo-mall/api/ums/service/v1;v1";
+option go_package = "github.com/lalifeier/vvgo-mall/gen/api/ums/service/v1;v1";
 
 service Ums {
   rpc Register(RegisterReq) returns (RegisterResp);

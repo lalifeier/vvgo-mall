@@ -9,7 +9,7 @@ import (
 	"github.com/lalifeier/vvgo-mall/pkg/crypto/bcrypt"
 	"github.com/lalifeier/vvgo-mall/pkg/validate"
 
-	v1 "github.com/lalifeier/vvgo-mall/api/account/service/v1"
+	v1 "github.com/lalifeier/vvgo-mall/gen/api/account/service/v1"
 )
 
 type AuthUseCase struct {

@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/jinzhu/copier"
-	pb "github.com/lalifeier/vvgo-mall/api/taoke/interface/v1"
+	pb "github.com/lalifeier/vvgo-mall/gen/api/taoke/interface/v1"
 )
 
 func (s *TaoKeService) GetCarouseList(ctx context.Context, req *pb.GetCarouseListReq) (*pb.GetCarouseListResp, error) {

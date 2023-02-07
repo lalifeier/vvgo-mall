@@ -4,8 +4,8 @@ import (
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-oauth2/oauth2/v4/server"
 
-	pb "github.com/lalifeier/vvgo-mall/api/auth/service/v1"
 	"github.com/lalifeier/vvgo-mall/app/auth/service/internal/biz"
+	pb "github.com/lalifeier/vvgo-mall/gen/api/auth/service/v1"
 )
 
 type AuthService struct {

@@ -1,0 +1,25 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "interface",
+    srcs = [
+        "sms_interface.pb.go",
+        "sms_interface.pb.validate.go",
+        "sms_interface_grpc.pb.go",
+        "sms_interface_http.pb.go",
+    ],
+    importpath = "github.com/lalifeier/vvgo-mall/gen/api/go/sms/interface/v1",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//third_party/validate",
+        "@com_github_go_kratos_kratos_v2//transport/http",
+        "@com_github_go_kratos_kratos_v2//transport/http/binding",
+        "@go_googleapis//google/api:annotations_go_proto",
+        "@org_golang_google_grpc//:go_default_library",
+        "@org_golang_google_grpc//codes",
+        "@org_golang_google_grpc//status",
+        "@org_golang_google_protobuf//reflect/protoreflect",
+        "@org_golang_google_protobuf//runtime/protoimpl",
+        "@org_golang_google_protobuf//types/known/anypb",
+    ],
+)

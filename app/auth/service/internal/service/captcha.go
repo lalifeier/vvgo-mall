@@ -4,7 +4,7 @@ import (
 	"context"
 
 	// "github.com/go-kratos/kratos/v2/transport"
-	pb "github.com/lalifeier/vvgo-mall/api/auth/service/v1"
+	pb "github.com/lalifeier/vvgo-mall/gen/api/auth/service/v1"
 )
 
 func (s *AuthService) GetCaptcha(ctx context.Context, req *pb.GetCaptchaReq) (*pb.GetCaptchaResp, error) {

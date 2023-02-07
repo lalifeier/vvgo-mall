@@ -2,7 +2,7 @@ package server
 
 import (
 	jwtv4 "github.com/golang-jwt/jwt/v4"
-	v1 "github.com/lalifeier/vvgo-mall/api/taoke/interface/v1"
+	v1 "github.com/lalifeier/vvgo-mall/gen/api/taoke/interface/v1"
 
 	prom "github.com/go-kratos/kratos/contrib/metrics/prometheus/v2"
 	"github.com/go-kratos/kratos/v2/log"

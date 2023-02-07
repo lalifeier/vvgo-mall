@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 
-	pb "github.com/lalifeier/vvgo-mall/api/shop/admin/v1"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/biz"
+	pb "github.com/lalifeier/vvgo-mall/gen/api/shop/admin/v1"
 )
 
 func (s *ShopService) Register(ctx context.Context, req *pb.RegisterReq) (*pb.RegisterResp, error) {

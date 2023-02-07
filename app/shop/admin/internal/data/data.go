@@ -44,7 +44,7 @@ import (
 	consul "github.com/go-kratos/consul/registry"
 	consulAPI "github.com/hashicorp/consul/api"
 
-	accountv1 "github.com/lalifeier/vvgo-mall/api/account/service/v1"
+	accountv1 "github.com/lalifeier/vvgo-mall/gen/api/account/service/v1"
 	tracesdk "go.opentelemetry.io/otel/sdk/trace"
 )
 
