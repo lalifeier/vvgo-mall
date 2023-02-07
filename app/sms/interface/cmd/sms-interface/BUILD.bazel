@@ -10,7 +10,7 @@ go_library(
     visibility = ["//visibility:private"],
     deps = [
         "//app/sms/interface/internal/biz",
-        "//app/sms/interface/internal/conf:go_default_library",
+        "//app/sms/interface/internal/conf",
         "//app/sms/interface/internal/data",
         "//app/sms/interface/internal/server",
         "//app/sms/interface/internal/service",

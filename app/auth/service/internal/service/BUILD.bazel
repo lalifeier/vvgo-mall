@@ -11,10 +11,10 @@ go_library(
     importpath = "github.com/lalifeier/vvgo-mall/app/auth/service/internal/service",
     visibility = ["//app/auth/service:__subpackages__"],
     deps = [
-        "//api/auth/service/v1:service",
         "//app/auth/service/internal/biz",
+        "//gen/api/go/auth/service/v1:service",
         "//pkg/gin",
-        "//third_party/errors",
+        "//third_party/errors:errors_go_proto",
         "@com_github_gin_gonic_gin//:gin",
         "@com_github_go_kratos_kratos_v2//log",
         "@com_github_go_oauth2_oauth2_v4//server",

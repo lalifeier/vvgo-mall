@@ -10,7 +10,7 @@ go_library(
     visibility = ["//visibility:private"],
     deps = [
         "//app/taoke/interface/internal/biz",
-        "//app/taoke/interface/internal/conf:go_default_library",
+        "//app/taoke/interface/internal/conf",
         "//app/taoke/interface/internal/data",
         "//app/taoke/interface/internal/server",
         "//app/taoke/interface/internal/service",

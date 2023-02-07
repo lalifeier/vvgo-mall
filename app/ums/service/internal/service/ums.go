@@ -7,7 +7,7 @@ import (
 	"github.com/go-kratos/kratos/v2/log"
 
 	"github.com/lalifeier/vvgo-mall/app/ums/service/internal/biz"
-	pb "github.com/lalifeier/vvgo-mall/gen/api/ums/service/v1"
+	pb "github.com/lalifeier/vvgo-mall/gen/api/go/ums/service/v1"
 )
 
 // type bizAccountUser biz.AccountUser

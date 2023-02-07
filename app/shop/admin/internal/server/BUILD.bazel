@@ -10,9 +10,9 @@ go_library(
     importpath = "github.com/lalifeier/vvgo-mall/app/shop/admin/internal/server",
     visibility = ["//app/shop/admin:__subpackages__"],
     deps = [
-        "//api/shop/admin/v1:admin",
-        "//app/shop/admin/internal/conf:go_default_library",
+        "//app/shop/admin/internal/conf",
         "//app/shop/admin/internal/service",
+        "//gen/api/go/shop/admin/v1:admin",
         "//pkg/middleware/casbin",
         "@com_github_casbin_casbin_v2//:casbin",
         "@com_github_go_kratos_kratos_contrib_metrics_prometheus_v2//:prometheus",

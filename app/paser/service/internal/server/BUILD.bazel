@@ -10,9 +10,9 @@ go_library(
     importpath = "github.com/lalifeier/vvgo-mall/app/paser/service/internal/server",
     visibility = ["//app/paser/service:__subpackages__"],
     deps = [
-        "//api/paser/service/v1:service",
-        "//app/paser/service/internal/conf:go_default_library",
+        "//app/paser/service/internal/conf",
         "//app/paser/service/internal/service",
+        "//gen/api/go/paser/service/v1:service",
         "@com_github_go_kratos_kratos_v2//log",
         "@com_github_go_kratos_kratos_v2//middleware/recovery",
         "@com_github_go_kratos_kratos_v2//transport/grpc",

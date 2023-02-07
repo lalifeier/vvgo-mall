@@ -9,7 +9,7 @@ go_library(
     importpath = "github.com/lalifeier/vvgo-mall/app/taoke/interface/internal/data",
     visibility = ["//app/taoke/interface:__subpackages__"],
     deps = [
-        "//app/taoke/interface/internal/conf:go_default_library",
+        "//app/taoke/interface/internal/conf",
         "//app/taoke/interface/internal/data/ent",
         "//app/taoke/interface/internal/data/ent/runtime",
         "//pkg/dataoke",

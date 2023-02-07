@@ -4,7 +4,7 @@ package api.taoke.interface.v1;
 
 import "google/api/annotations.proto";
 
-option go_package = "github.com/lalifeier/vvgo-mall/gen/api/taoke/interface/v1;v1";
+option go_package = "github.com/lalifeier/vvgo-mall/gen/api/go/taoke/interface/v1;v1";
 
 service TaoKe {
   rpc GetCarouseList(GetCarouseListReq) returns (GetCarouseListResp) {

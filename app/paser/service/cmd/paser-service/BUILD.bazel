@@ -10,7 +10,7 @@ go_library(
     visibility = ["//visibility:private"],
     deps = [
         "//app/paser/service/internal/biz",
-        "//app/paser/service/internal/conf:go_default_library",
+        "//app/paser/service/internal/conf",
         "//app/paser/service/internal/data",
         "//app/paser/service/internal/server",
         "//app/paser/service/internal/service",

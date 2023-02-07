@@ -10,6 +10,7 @@ go_library(
     importpath = "github.com/lalifeier/vvgo-mall/app/account/service/internal/biz",
     visibility = ["//app/account/service:__subpackages__"],
     deps = [
+        "//gen/api/go/account/service/v1:service",
         "//pkg/crypto/bcrypt",
         "//pkg/validate",
         "@com_github_go_kratos_kratos_v2//log",

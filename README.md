@@ -23,6 +23,14 @@
 - [Qiniu Cloud SDK](https://developer.qiniu.com/kodo/1238/go)
 - [tencentyun SDK](https://cloud.tencent.com/document/product/436/31215)
 
+## 前置环境
+
+### Protobuf
+
+```bash
+sudo apt install protobuf-compiler
+```
+
 ## Make 构建
 
 在`app/{服务名}/service`下执行

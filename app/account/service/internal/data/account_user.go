@@ -7,7 +7,7 @@ import (
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/biz"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/data/ent"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/data/ent/accountuser"
-	pb "github.com/lalifeier/vvgo-mall/gen/api/account/service/v1"
+	pb "github.com/lalifeier/vvgo-mall/gen/api/go/account/service/v1"
 
 	"github.com/lalifeier/vvgo-mall/pkg/util/pagination"
 )

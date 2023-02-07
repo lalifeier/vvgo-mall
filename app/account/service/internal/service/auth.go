@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/biz"
-	pb "github.com/lalifeier/vvgo-mall/gen/api/account/service/v1"
+	pb "github.com/lalifeier/vvgo-mall/gen/api/go/account/service/v1"
 )
 
 func (s *AccountService) Register(ctx context.Context, req *pb.RegisterReq) (*pb.RegisterResp, error) {

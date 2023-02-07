@@ -10,7 +10,7 @@ go_library(
     visibility = ["//app/sms/interface:__subpackages__"],
     deps = [
         "//app/sms/interface/internal/biz",
-        "//app/sms/interface/internal/conf:go_default_library",
+        "//app/sms/interface/internal/conf",
         "//pkg/sms/aliyun",
         "@com_github_go_kratos_kratos_v2//log",
         "@com_github_go_redis_redis//:redis",

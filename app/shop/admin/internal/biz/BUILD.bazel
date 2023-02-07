@@ -14,7 +14,7 @@ go_library(
     importpath = "github.com/lalifeier/vvgo-mall/app/shop/admin/internal/biz",
     visibility = ["//app/shop/admin:__subpackages__"],
     deps = [
-        "//app/shop/admin/internal/conf:go_default_library",
+        "//app/shop/admin/internal/conf",
         "//pkg/util/convert",
         "@com_github_casbin_casbin_v2//:casbin",
         "@com_github_go_kratos_kratos_v2//log",

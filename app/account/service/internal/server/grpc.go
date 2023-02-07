@@ -6,7 +6,7 @@ import (
 	"github.com/go-kratos/kratos/v2/transport/grpc"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/conf"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/service"
-	v1 "github.com/lalifeier/vvgo-mall/gen/api/account/service/v1"
+	v1 "github.com/lalifeier/vvgo-mall/gen/api/go/account/service/v1"
 )
 
 // NewGRPCServer new a gRPC server.

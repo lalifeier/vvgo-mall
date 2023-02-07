@@ -6,7 +6,7 @@ go_library(
     importpath = "github.com/lalifeier/vvgo-mall/app/paser/service/internal/data/douyin",
     visibility = ["//app/paser/service:__subpackages__"],
     deps = [
-        "//api/paser/service/v1:service",
+        "//gen/api/go/paser/service/v1:service",
         "@com_github_go_resty_resty_v2//:resty",
     ],
 )

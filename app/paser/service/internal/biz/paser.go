@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/lalifeier/vvgo-mall/app/paser/service/internal/data/douyin"
-	pb "github.com/lalifeier/vvgo-mall/gen/api/paser/service/v1"
+	pb "github.com/lalifeier/vvgo-mall/gen/api/go/paser/service/v1"
 )
 
 type PaserRepo interface {

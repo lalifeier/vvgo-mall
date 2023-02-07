@@ -10,7 +10,7 @@ go_library(
     visibility = ["//app/auth/service:__subpackages__"],
     deps = [
         "//app/auth/service/internal/biz",
-        "//app/auth/service/internal/conf:go_default_library",
+        "//app/auth/service/internal/conf",
         "//app/auth/service/internal/data/ent",
         "//app/auth/service/internal/data/ent/migrate",
         "//app/auth/service/internal/data/ent/runtime",

@@ -6,7 +6,7 @@ import (
 
 	"github.com/jinzhu/copier"
 	"github.com/lalifeier/vvgo-mall/app/ums/service/internal/biz"
-	pb "github.com/lalifeier/vvgo-mall/gen/api/ums/service/v1"
+	pb "github.com/lalifeier/vvgo-mall/gen/api/go/ums/service/v1"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 

@@ -9,8 +9,9 @@ go_library(
     importpath = "github.com/lalifeier/vvgo-mall/app/account/service/internal/server",
     visibility = ["//app/account/service:__subpackages__"],
     deps = [
-        "//app/account/service/internal/conf:go_default_library",
+        "//app/account/service/internal/conf",
         "//app/account/service/internal/service",
+        "//gen/api/go/account/service/v1:service",
         "@com_github_go_kratos_consul//registry",
         "@com_github_go_kratos_kratos_v2//log",
         "@com_github_go_kratos_kratos_v2//middleware/recovery",

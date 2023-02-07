@@ -5,7 +5,7 @@ import (
 	"github.com/go-oauth2/oauth2/v4/server"
 
 	"github.com/lalifeier/vvgo-mall/app/auth/service/internal/biz"
-	pb "github.com/lalifeier/vvgo-mall/gen/api/auth/service/v1"
+	pb "github.com/lalifeier/vvgo-mall/gen/api/go/auth/service/v1"
 )
 
 type AuthService struct {

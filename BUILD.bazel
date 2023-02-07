@@ -1,6 +1,8 @@
 load("@bazel_gazelle//:def.bzl", "gazelle")
 
 # gazelle:prefix github.com/lalifeier/vvgo-mall
+# gazelle:proto disable
+# gazelle:exclude api third_party
 gazelle(name = "gazelle")
 
 gazelle(
@@ -9,6 +11,7 @@ gazelle(
         "-from_file=go.mod",
         "-to_macro=repos.bzl%go_dependencies",
         "-prune",
+        "-build_file_proto_mode=disable",
     ],
     command = "update-repos",
 )

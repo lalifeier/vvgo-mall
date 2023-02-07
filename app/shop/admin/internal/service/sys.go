@@ -5,7 +5,7 @@ import (
 
 	"github.com/jinzhu/copier"
 	"github.com/lalifeier/vvgo-mall/app/shop/admin/internal/biz"
-	pb "github.com/lalifeier/vvgo-mall/gen/api/shop/admin/v1"
+	pb "github.com/lalifeier/vvgo-mall/gen/api/go/shop/admin/v1"
 )
 
 func (s *ShopService) CreateUser(ctx context.Context, req *pb.CreateUserReq) (*pb.CreateUserResp, error) {

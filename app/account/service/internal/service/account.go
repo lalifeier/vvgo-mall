@@ -3,7 +3,7 @@ package service
 import (
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/biz"
-	pb "github.com/lalifeier/vvgo-mall/gen/api/account/service/v1"
+	pb "github.com/lalifeier/vvgo-mall/gen/api/go/account/service/v1"
 )
 
 type AccountService struct {

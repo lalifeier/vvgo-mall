@@ -12,9 +12,9 @@ go_library(
     importpath = "github.com/lalifeier/vvgo-mall/app/auth/service/internal/server",
     visibility = ["//app/auth/service:__subpackages__"],
     deps = [
-        "//api/auth/service/v1:service",
-        "//app/auth/service/internal/conf:go_default_library",
+        "//app/auth/service/internal/conf",
         "//app/auth/service/internal/service",
+        "//gen/api/go/auth/service/v1:service",
         "@com_github_gin_gonic_gin//:gin",
         "@com_github_go_kratos_kratos_contrib_metrics_prometheus_v2//:prometheus",
         "@com_github_go_kratos_kratos_v2//log",

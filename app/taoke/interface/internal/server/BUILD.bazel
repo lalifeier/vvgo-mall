@@ -10,9 +10,9 @@ go_library(
     importpath = "github.com/lalifeier/vvgo-mall/app/taoke/interface/internal/server",
     visibility = ["//app/taoke/interface:__subpackages__"],
     deps = [
-        "//api/taoke/interface/v1:interface",
-        "//app/taoke/interface/internal/conf:go_default_library",
+        "//app/taoke/interface/internal/conf",
         "//app/taoke/interface/internal/service",
+        "//gen/api/go/taoke/interface/v1:interface",
         "@com_github_go_kratos_kratos_contrib_metrics_prometheus_v2//:prometheus",
         "@com_github_go_kratos_kratos_v2//log",
         "@com_github_go_kratos_kratos_v2//middleware/auth/jwt",
