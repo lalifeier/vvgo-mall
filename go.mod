@@ -19,7 +19,7 @@ require (
 	github.com/go-kratos/kratos/contrib/metrics/prometheus/v2 v2.0.0-20221220065744-a017ab09576f
 	github.com/go-kratos/kratos/v2 v2.5.3
 	github.com/go-kratos/swagger-api v1.0.1
-	github.com/go-oauth2/oauth2/v4 v4.5.1
+	github.com/go-oauth2/oauth2/v4 v4.5.2
 	github.com/go-playground/assert/v2 v2.2.0
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-resty/resty/v2 v2.7.0
