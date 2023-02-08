@@ -30,10 +30,7 @@ gazelle_dependencies()
 
 # Bazel Docker 规则集 初始化
 # 导入container_repositories方法
-load(
-    "@io_bazel_rules_docker//repositories:repositories.bzl",
-    container_repositories = "repositories",
-)
+load("@io_bazel_rules_docker//repositories:repositories.bzl", container_repositories = "repositories")
 container_repositories()
 
 # 导入container_deps方法
@@ -42,10 +39,7 @@ load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
 container_deps()
 
 # 导入container_pull方法
-load(
-    "@io_bazel_rules_docker//container:container.bzl",
-    "container_pull",
-)
+load("@io_bazel_rules_docker//container:container.bzl", "container_pull")
 
 # 拉取Alpine Linux
 # 该发行版使用musl libc，并且缺乏一些调试工具。
@@ -57,12 +51,12 @@ container_pull(
 )
 
 # 拉取Debian-Slim Linux
-# container_pull(
-#     name = "slim_linux_amd64",
-#     registry = "index.docker.io",
-#     repository = "library/debian",
-#     tag = "stable-slim",
-# )
+container_pull(
+     name = "slim_linux_amd64",
+     registry = "index.docker.io",
+     repository = "library/debian",
+     tag = "stable-slim",
+)
 
 # Bazel Kubernetes 规则集 初始化
 
@@ -78,9 +72,9 @@ container_pull(
 
 # Bazel protoc 初始化
 
-load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+# load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 
-protobuf_deps()
+# protobuf_deps()
 
 # Bazel Buf 规则集 初始化
 

@@ -1,14 +1,14 @@
 load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_layer", "container_push")
 
 # 发布服务
-def publish_service(service_name, repository_name = "", repository_version = "", publish = False):
-    service_new_name = "{}-service".format(service_name)
-    image_name = "{}-service-image".format(service_name)
-    conf_file_group_name = "{}-service-configs".format(service_name)
-    conf_layer_name = "{}-service-configs-layer".format(service_name)
+def publish_service(service_name, service_type, repository_name = "", repository_version = "", publish = False):
+    service_new_name = "{}-{}".format(service_name,service_type)
+    image_name = "{}-image".format(service_new_name)
+    conf_file_group_name = "{}-configs".format(service_new_name)
+    conf_layer_name = "{}-configs-layer".format(service_new_name)
 
-    app_path = "/app/{}/service/bin".format(service_name)
-    conf_path = "/app/{}/service/configs".format(service_name)
+    app_path = "/app/{}/{}/bin".format(service_name,service_type)
+    conf_path = "/app/{}/{}/configs".format(service_name,service_type)
 
     if repository_version == "":
         repository_version = "{BUILD_TIMESTAMP}"
@@ -16,17 +16,18 @@ def publish_service(service_name, repository_name = "", repository_version = "",
     # 为服务的编译目标定义一个别名
     native.alias(
         name = service_new_name,
-        actual = "//app/{}/service/cmd/server:server".format(service_name),
+        actual = "//app/{}/{}/cmd/server:server".format(service_name,service_type),
         visibility = ["//visibility:private"],
     )
 
     # 将配置文件打包
     native.filegroup(
         name = conf_file_group_name,
-        srcs = native.glob(["app/{}/service/configs/**".format(service_name)]),
+        srcs = native.glob([
+          "app/{}/{}/configs/**".format(service_name,service_type)
+        ]),
         visibility = ["//visibility:public"],
     )
-
     container_layer(
         name = conf_layer_name,
         directory = "/{}".format(conf_path),
@@ -87,7 +88,7 @@ def publish_service(service_name, repository_name = "", repository_version = "",
             # 镜像库的注册链接
             registry = "index.docker.io",
             ## 目标镜像库中的镜像名
-            repository = "{}/kratoscms-{}-service".format(repository_name, service_name),
+            repository = "{}/vvgo-mall/{}-{}".format(repository_name, service_name, service_type),
             # 镜像标签
             tag = repository_version,
         )
