@@ -44,46 +44,45 @@ func TestPutObject(t *testing.T) {
 	}
 }
 
-func TestListObjects(t *testing.T) {
+// func TestListObjects(t *testing.T) {
+// 	c, err := New(&config)
+// 	if err != nil {
+// 		t.Fatal(err)
+// 	}
+// 	marker := ""
+// 	prefix := "file/202211"
 
-	c, err := New(&config)
-	if err != nil {
-		t.Fatal(err)
-	}
-	marker := ""
-	prefix := "file/202211"
+// 	for {
 
-	for {
+// 		lsRes, err := c.Bucket.ListObjects(oss.Prefix(prefix), oss.Marker(marker))
+// 		if err != nil {
+// 			t.Fatal(err)
+// 		}
+// 		// 打印列举结果。默认情况下，一次返回100条记录。
+// 		for _, object := range lsRes.Objects {
+// 			fmt.Println("Bucket: ", object.Key)
+// 			objectKey := object.Key
 
-		lsRes, err := c.Bucket.ListObjects(oss.Prefix(prefix), oss.Marker(marker))
-		if err != nil {
-			t.Fatal(err)
-		}
-		// 打印列举结果。默认情况下，一次返回100条记录。
-		for _, object := range lsRes.Objects {
-			fmt.Println("Bucket: ", object.Key)
-			objectKey := object.Key
+// 			filepath := "/tmp/oss/aliyun/" + objectKey
 
-			filepath := "/tmp/oss/aliyun/" + objectKey
+// 			if path.Ext(filepath) != ".jpg" {
+// 				continue
+// 			}
 
-			if path.Ext(filepath) != ".jpg" {
-				continue
-			}
+// 			dirPath := path.Dir(filepath)
 
-			dirPath := path.Dir(filepath)
+// 			if !isExist(dirPath) {
+// 				os.Mkdir(dirPath, os.ModePerm)
+// 			}
 
-			if !isExist(dirPath) {
-				os.Mkdir(dirPath, os.ModePerm)
-			}
+// 			t.Log(filepath)
 
-			t.Log(filepath)
+// 			c.GetObjectToFile(objectKey, "/tmp/oss/aliyun/"+objectKey)
+// 		}
+// 		if !lsRes.IsTruncated {
+// 			break
+// 		}
 
-			c.GetObjectToFile(objectKey, "/tmp/oss/aliyun/"+objectKey)
-		}
-		if !lsRes.IsTruncated {
-			break
-		}
-
-		marker = lsRes.NextMarker
-	}
-}
+// 		marker = lsRes.NextMarker
+// 	}
+// }

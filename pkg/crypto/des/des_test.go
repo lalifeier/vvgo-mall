@@ -11,6 +11,10 @@ func Test(t *testing.T) {
 
 	encryptData, _ := Encrypt([]byte("123456"), key)
 	decryptData, _ := Decrypt([]byte("b80a17bdec2dee79"), key)
+
+
+	t.Log(string(encryptData))
+	t.Log(decryptData)
 	assert.Equal(t, string(encryptData), "b80a17bdec2dee79")
 	assert.Equal(t, decryptData, "123456")
 }

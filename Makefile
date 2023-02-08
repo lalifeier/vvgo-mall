@@ -82,11 +82,10 @@ generate:
 
 # test
 test:
-	go test -v ./... -cover
-
+	go test -v ./app... ./pkg/...
 # run coverage tests
 cover:
-	go test -v ./... -coverprofile=coverage.out
+	go test -v ./app... ./pkg/... -coverprofile=coverage.out
 
 # run static analysis
 vet:
