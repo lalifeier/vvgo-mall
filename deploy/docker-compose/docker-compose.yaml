@@ -60,3 +60,14 @@ services:
     working_dir: /usr/local/go/src/github.com/lalifeier/vvgo-mall
     volumes:
       - ../..:/usr/local/go/src/github.com/lalifeier/vvgo-mall
+
+
+  # account-service:
+  #   image: kratos-blog/account-service:0.1.0
+  #   container_name: account-service
+  #   networks:
+  #     - app_net
+  #   restart: always
+  #   privileged: true
+  #   environment:
+  #     - TZ=Asia/Shanghai

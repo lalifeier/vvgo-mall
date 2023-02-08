@@ -88,7 +88,7 @@ def publish_service(service_name, service_type, repository_name = "", repository
             # 镜像库的注册链接
             registry = "index.docker.io",
             ## 目标镜像库中的镜像名
-            repository = "{}/vvgo-mall/{}-{}".format(repository_name, service_name, service_type),
+            repository = "{}/vvgo-mall/{}".format(repository_name, service_new_name),
             # 镜像标签
             tag = repository_version,
         )

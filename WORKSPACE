@@ -72,9 +72,9 @@ container_pull(
 
 # Bazel protoc 初始化
 
-# load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 
-# protobuf_deps()
+protobuf_deps()
 
 # Bazel Buf 规则集 初始化
 
