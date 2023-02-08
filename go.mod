@@ -12,7 +12,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/credentials v1.13.7
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.29.6
 	github.com/casbin/casbin/v2 v2.60.0
-	github.com/casbin/ent-adapter v0.2.2
+	github.com/casbin/ent-adapter v0.2.3
 	github.com/envoyproxy/protoc-gen-validate v0.9.1
 	github.com/gin-gonic/gin v1.8.2
 	github.com/go-kratos/consul v0.1.5
