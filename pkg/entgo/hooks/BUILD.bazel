@@ -3,7 +3,7 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "hooks",
     srcs = ["audit.go"],
-    importpath = "github.com/lalifeier/vvgo-mall/pkg/ent/hooks",
+    importpath = "github.com/lalifeier/vvgo-mall/pkg/entgo/hooks",
     visibility = ["//visibility:public"],
     deps = ["@io_entgo_ent//:ent"],
 )

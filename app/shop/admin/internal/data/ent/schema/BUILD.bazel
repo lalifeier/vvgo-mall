@@ -15,7 +15,7 @@ go_library(
     importpath = "github.com/lalifeier/vvgo-mall/app/shop/admin/internal/data/ent/schema",
     visibility = ["//app/shop/admin:__subpackages__"],
     deps = [
-        "//pkg/ent/mixin",
+        "//pkg/entgo/mixin",
         "@io_entgo_ent//:ent",
         "@io_entgo_ent//dialect",
         "@io_entgo_ent//dialect/entsql",

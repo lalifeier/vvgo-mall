@@ -7,9 +7,9 @@ server:
     timeout: 1s
 data:
   database:
-    driver: mysql
+    driver: postgres
     source: root:123456@tcp(127.0.0.1:3306)/vgo
   redis:
-    addr: 127.0.0.1:6379
+    addr: redis.docker.localhost:6379
     read_timeout: 0.2s
     write_timeout: 0.2s

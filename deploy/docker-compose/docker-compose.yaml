@@ -5,24 +5,6 @@ networks:
     external: true
 
 services:
-  # openresty:
-  # image: openresty/openresty:alpine
-  # container_name: openresty
-  # ports:
-  #   - 80:80
-  #   - 443:443
-  # networks:
-  #   - app_net
-  # restart: always
-  # environment:
-  #   - TZ=Asia/Shanghai
-  # volumes:
-  #   - ./openresty/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
-  #   - ./openresty/conf.d:/etc/nginx/conf.d
-  #   - ./openresty/lua:/etc/nginx/lua
-  #   - ./data/openresty/logs:/usr/local/openresty/nginx/logs
-  #   # - /code:/var/www/html
-
   nginx:
     image: nginx:alpine
     container_name: nginx

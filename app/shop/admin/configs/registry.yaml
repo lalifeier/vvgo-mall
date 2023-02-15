@@ -1,3 +1,3 @@
 consul:
-  address: consul:8500
+  address: consul.docker.localhost:8500
   scheme: http

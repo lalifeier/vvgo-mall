@@ -8,7 +8,7 @@ server:
 
 data:
   database:
-    driver: mysql
+    driver: postgres
     source: localhost:123456@tcp(mysql:3306)/vvgo-mall?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
   redis:
     addr: localhost:6379
@@ -20,7 +20,7 @@ data:
     app_secret:
 
 trace:
-  endpoint: http://jaeger:14268/api/traces
+  endpoint: http://jaeger.docker.localhost:14268/api/traces
 
 auth:
   service_key: some-secret-key

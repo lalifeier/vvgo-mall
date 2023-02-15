@@ -1,10 +1,9 @@
 syntax = "proto3";
 
 package api.account.service.v1;
+option go_package = "github.com/lalifeier/vvgo-mall/gen/api/go/account/service/v1;v1";
 
 import "google/protobuf/empty.proto";
-
-option go_package = "github.com/lalifeier/vvgo-mall/gen/api/go/account/service/v1;v1";
 
 service Account {
   rpc Register(RegisterReq) returns (RegisterResp);

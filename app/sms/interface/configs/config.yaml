@@ -13,9 +13,9 @@ sms:
   template_code: ""
 data:
   database:
-    driver: mysql
+    driver: postgres
     source: root:root@tcp(127.0.0.1:3306)/test
   redis:
-    addr: 127.0.0.1:6379
+    addr: redis.docker.localhost:6379
     read_timeout: 0.2s
     write_timeout: 0.2s

@@ -7,12 +7,12 @@ server:
     timeout: 1s
 data:
   database:
-    driver: mysql
-    source: root:123456@tcp(mysql:3306)/vvgo-mall?parseTime=true
+    driver: postgres
+    source: host=postgres.docker.localhost port=5432 user=postgres password=123456 dbname=vvgo-mall sslmode=disable
   redis:
-    addr: 127.0.0.1:6379
+    addr: redis.docker.localhost:6379
+    dial_timeout: 1s
     read_timeout: 0.2s
     write_timeout: 0.2s
-  kafka:
-    addrs:
-      - 127.0.0.1:9092
+trace:
+  endpoint: http://jaeger.docker.localhost:14268/api/traces

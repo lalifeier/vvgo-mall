@@ -7,7 +7,7 @@ import (
 	"entgo.io/ent/schema"
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
-	"github.com/lalifeier/vvgo-mall/pkg/ent/mixin"
+	"github.com/lalifeier/vvgo-mall/pkg/entgo/mixin"
 )
 
 func (User) Annotations() []schema.Annotation {
