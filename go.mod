@@ -3,7 +3,7 @@ module github.com/lalifeier/vvgo-mall
 go 1.19
 
 require (
-	entgo.io/ent v0.11.4
+	entgo.io/ent v0.11.8
 	github.com/Shopify/sarama v1.37.2
 	github.com/aliyun/alibaba-cloud-sdk-go v1.62.156
 	github.com/aliyun/aliyun-oss-go-sdk v2.2.6+incompatible
@@ -135,7 +135,7 @@ require (
 )
 
 require (
-	ariga.io/atlas v0.8.3 // indirect
+	ariga.io/atlas v0.9.1-0.20230119145809-92243f7c55cb // indirect
 	github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
 	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect
