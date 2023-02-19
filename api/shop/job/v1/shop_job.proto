@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package api.shop.admin.v1;
+
+import "google/api/annotations.proto";
+option go_package = "github.com/lalifeier/vvgo-mall/gen/api/go/shop/job/v1;v1";
+
+
+service ShopJob {
+}
+
+
+message Foo {
+
+}

@@ -6,6 +6,7 @@
 
 - [Kratos](https://go-kratos.dev)
 - [Consul](https://www.consul.io)
+- [Jaeger](https://www.jaegertracing.io)
 - [OpenTelemetry](https://opentelemetry.io)
 - [Prometheus](https://prometheus.io)
 - [Wire](https://github.com/google/wire)
@@ -14,6 +15,7 @@
 - [MySQL](https://www.mysql.com)
 - [MongoDB](https://www.mongodb.com)
 - [Redis](https://redis.io)
+- [Kafka](https://kafka.apache.org)
 - [copier](https://github.com/jinzhu/copier)
 - [Casbin](https://casbin.org)
 - [OAuth2](https://github.com/golang/oauth2)
