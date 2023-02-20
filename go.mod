@@ -3,15 +3,14 @@ module github.com/lalifeier/vvgo-mall
 go 1.19
 
 require (
-	entgo.io/ent v0.11.4
-	github.com/Shopify/sarama v1.38.1
 	entgo.io/ent v0.11.8
+	github.com/Shopify/sarama v1.38.1
 	github.com/aliyun/alibaba-cloud-sdk-go v1.62.174
 	github.com/aliyun/aliyun-oss-go-sdk v2.2.6+incompatible
 	github.com/aws/aws-sdk-go-v2 v1.17.4
 	github.com/aws/aws-sdk-go-v2/config v1.18.12
 	github.com/aws/aws-sdk-go-v2/credentials v1.13.12
-	github.com/aws/aws-sdk-go-v2/service/s3 v1.30.2
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.30.3
 	github.com/casbin/casbin/v2 v2.60.0
 	github.com/casbin/ent-adapter v0.2.3
 	github.com/envoyproxy/protoc-gen-validate v0.9.1
@@ -146,7 +145,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/internal/configsources v1.1.28 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.4.22 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/ini v1.3.29 // indirect
-	github.com/aws/aws-sdk-go-v2/internal/v4a v1.0.19 // indirect
+	github.com/aws/aws-sdk-go-v2/internal/v4a v1.0.20 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.9.11 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.1.23 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.9.22 // indirect
