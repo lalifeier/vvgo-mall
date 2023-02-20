@@ -57,7 +57,7 @@ func RegisterShopJobServer(s grpc.ServiceRegistrar, srv ShopJobServer) {
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ShopJob_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.shop.admin.v1.ShopJob",
+	ServiceName: "shop.admin.v1.ShopJob",
 	HandlerType: (*ShopJobServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams:     []grpc.StreamDesc{},

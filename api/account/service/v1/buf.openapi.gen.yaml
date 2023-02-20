@@ -1,0 +1,10 @@
+version: v1
+managed:
+  enabled: false
+plugins:
+  # generate openapi V3 yaml doc
+  - name: openapi
+    out: ./docs/openapi/account
+    opt:
+      - naming=json
+      - paths=source_relative

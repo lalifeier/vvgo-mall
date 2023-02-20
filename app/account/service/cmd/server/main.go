@@ -2,64 +2,52 @@ package main
 
 import (
 	"flag"
-	"os"
+
+	"github.com/lalifeier/vvgo-mall/app/account/service/internal/conf"
+	"github.com/lalifeier/vvgo-mall/pkg/bootstrap"
 
 	"github.com/go-kratos/kratos/v2"
-	"github.com/go-kratos/kratos/v2/config"
-	"github.com/go-kratos/kratos/v2/config/file"
 	"github.com/go-kratos/kratos/v2/log"
-	"github.com/go-kratos/kratos/v2/middleware/tracing"
 	"github.com/go-kratos/kratos/v2/registry"
 	"github.com/go-kratos/kratos/v2/transport/grpc"
-	"github.com/lalifeier/vvgo-mall/app/account/service/internal/conf"
+	"github.com/go-kratos/kratos/v2/transport/http"
+
+	_ "go.uber.org/automaxprocs"
 )
 
 // go build -ldflags "-X main.Version=x.y.z"
 var (
-	// Name is the name of the compiled software.
-	Name string = "vvgo-mall.account.service"
-	// Version is the version of the compiled software.
-	Version string
-	// flagconf is the config flag.
-	flagconf string
+	Service = bootstrap.NewServiceInfo(
+		"vvgo-mall.account.service",
+		"1.0.0",
+		"",
+	)
 
-	id, _ = os.Hostname()
+	Flags = bootstrap.NewCommandFlags()
 )
 
 func init() {
-	flag.StringVar(&flagconf, "conf", "../../configs", "config path, eg: -conf config.yaml")
+	Flags.Init()
 }
 
-func newApp(logger log.Logger, gs *grpc.Server, rr registry.Registrar) *kratos.App {
+func newApp(logger log.Logger, hs *http.Server, gs *grpc.Server, rr registry.Registrar) *kratos.App {
 	return kratos.New(
-		// kratos.ID(id),
-		kratos.Name(Name),
-		kratos.Version(Version),
-		kratos.Metadata(map[string]string{}),
+		kratos.ID(Service.GetInstanceId()),
+		kratos.Name(Service.Name),
+		kratos.Version(Service.Version),
+		kratos.Metadata(Service.Metadata),
 		kratos.Logger(logger),
 		kratos.Server(
+			hs,
 			gs,
 		),
 		kratos.Registrar(rr),
 	)
 }
 
-func main() {
-	flag.Parse()
-	logger := log.With(log.NewStdLogger(os.Stdout),
-		"ts", log.DefaultTimestamp,
-		"caller", log.DefaultCaller,
-		"service.id", id,
-		"service.name", Name,
-		"service.version", Version,
-		"trace_id", tracing.TraceID(),
-		"span_id", tracing.SpanID(),
-	)
-	c := config.New(
-		config.WithSource(
-			file.NewSource(flagconf),
-		),
-	)
+func loadConfig() (*conf.Bootstrap, *conf.Registry) {
+	c := bootstrap.NewConfigProvider(Flags.ConfigType, Flags.ConfigHost, Flags.Conf, Service.Name)
+
 	if err := c.Load(); err != nil {
 		panic(err)
 	}
@@ -74,7 +62,25 @@ func main() {
 		panic(err)
 	}
 
-	app, cleanup, err := initApp(bc.Server, bc.Data, &rc, logger)
+	return &bc, &rc
+}
+
+func main() {
+	flag.Parse()
+
+	logger := bootstrap.NewLoggerProvider(&Service)
+
+	bc, rc := loadConfig()
+	if bc == nil || rc == nil {
+		panic("load config failed")
+	}
+
+	err := bootstrap.NewTracerProvider(bc.Trace.Batcher, bc.Trace.Endpoint, Flags.Env, &Service)
+	if err != nil {
+		panic(err)
+	}
+
+	app, cleanup, err := wireApp(bc.Server, rc, bc.Data, logger)
 	if err != nil {
 		panic(err)
 	}

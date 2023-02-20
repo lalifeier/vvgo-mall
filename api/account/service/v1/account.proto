@@ -1,21 +1,33 @@
 syntax = "proto3";
 
-package api.account.service.v1;
+package account.service.v1;
 option go_package = "github.com/lalifeier/vvgo-mall/gen/api/go/account/service/v1;v1";
 
+import "openapi/v3/annotations.proto";
+import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 
-service Account {
-  rpc Register(RegisterReq) returns (RegisterResp);
-  rpc Login(LoginReq) returns (LoginResp);
+option (openapi.v3.document) = {
+  info: {
+    title: "帐号管理接口";
+    description: "帐号管理";
+    version: "1.0";
+  }
+};
 
-  rpc CreateAccountUser(AccountUser) returns (AccountUser);
-  rpc UpdateAccountUser(AccountUser) returns (AccountUser);
-  rpc DeleteAccountUser(DeleteAccountUserReq) returns (google.protobuf.Empty);
-  rpc GetAccountUser(GetAccountUserReq) returns (AccountUser);
-  rpc ListAccountUser(ListAccountUserReq) returns (ListAccountUserResp);
-  rpc PageListAccountUser(PageListAccountUserReq)
-      returns (PageListAccountUserResp);
+service AccountService {
+  rpc Register(RegisterReq) returns (RegisterResp) {
+    option (google.api.http) = {
+      post: "/v1/register"
+      body: "*"
+    };
+  }
+  rpc Login(LoginReq) returns (LoginResp) {
+    option (google.api.http) = {
+      post: "/v1/login"
+      body: "*"
+    };
+  }
 }
 
 message RegisterReq {
@@ -38,20 +50,4 @@ message LoginResp {
   string username = 2;
   string email = 3;
   string phone = 4;
-}
-
-message AccountUser { int64 id = 1; }
-message DeleteAccountUserReq { int64 id = 1; }
-message GetAccountUserReq { int64 id = 1; }
-message ListAccountUserReq {}
-message ListAccountUserResp { repeated AccountUser list = 1; }
-message PageListAccountUserReq {
-  int64 pageNum = 1;
-  int64 pageSize = 4;
-}
-message PageListAccountUserResp {
-  repeated AccountUser list = 1;
-  int64 total = 2;
-  int64 page = 3;
-  int64 pageSize = 4;
 }

@@ -1,6 +1,8 @@
 package data
 
 import (
+	"context"
+
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-redis/redis"
 	"github.com/google/wire"
@@ -9,24 +11,31 @@ import (
 
 	_ "github.com/lib/pq"
 
+	"github.com/lalifeier/vvgo-mall/app/account/service/internal/data/ent/migrate"
 	_ "github.com/lalifeier/vvgo-mall/app/account/service/internal/data/ent/runtime"
 )
 
 // ProviderSet is data providers.
-var ProviderSet = wire.NewSet(NewData, NewEntClient, NewRedisClient, NewAccountUserRepo)
+var ProviderSet = wire.NewSet(
+	NewData,
+
+	NewEntClient,
+	NewRedisClient,
+
+	NewAccountUserRepo,
+)
 
 // Data .
 type Data struct {
+	log *log.Helper
 	db  *ent.Client
 	rdb *redis.Client
-	log *log.Helper
 }
 
 // NewData .
-func NewData(c *conf.Data, redisClient *redis.Client, logger log.Logger) (*Data, func(), error) {
+func NewData(logger log.Logger, entClient *ent.Client, redisClient *redis.Client) (*Data, func(), error) {
 	log := log.NewHelper(log.With(logger, "module", "account-service/data"))
 
-	entClient := NewEntClient(c, logger)
 	d := &Data{
 		db:  entClient,
 		rdb: redisClient,
@@ -58,13 +67,17 @@ func NewEntClient(conf *conf.Data, logger log.Logger) *ent.Client {
 		log.Fatalf("failed opening connection to db: %v", err)
 	}
 	// Run the auto migration tool.
-	// if err := client.Schema.Create(context.Background(), migrate.WithForeignKeys(false)); err != nil {
-	// 	log.Fatalf("failed creating schema resources: %v", err)
-	// }
+	if false {
+		if err := client.Schema.Create(context.Background(), migrate.WithForeignKeys(false)); err != nil {
+			log.Fatalf("failed creating schema resources: %v", err)
+		}
+	}
 	return client
 }
 
 func NewRedisClient(c *conf.Data, logger log.Logger) *redis.Client {
+	log := log.NewHelper(log.With(logger, "module", "account-service/data/redis"))
+
 	client := redis.NewClient(&redis.Options{
 		Addr:         c.Redis.Network,
 		Password:     c.Redis.Password,
@@ -73,9 +86,9 @@ func NewRedisClient(c *conf.Data, logger log.Logger) *redis.Client {
 		ReadTimeout:  c.Redis.ReadTimeout.AsDuration(),
 		WriteTimeout: c.Redis.WriteTimeout.AsDuration(),
 	})
-	// err := client.Ping().Err()
-	// if err != nil {
-	// 	log.Fatalf("redis connect error: %v", err)
-	// }
+
+	if client == nil {
+		log.Fatalf("failed opening connection to redis")
+	}
 	return client
 }
