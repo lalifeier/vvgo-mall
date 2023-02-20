@@ -32,7 +32,7 @@ require (
 	github.com/go-kratos/kratos/contrib/registry/polaris/v2 v2.0.0-20230213033822-0a076443cba1
 	github.com/go-kratos/kratos/contrib/registry/servicecomb/v2 v2.0.0-20230213033822-0a076443cba1
 	github.com/go-kratos/kratos/contrib/registry/zookeeper/v2 v2.0.0-20230213033822-0a076443cba1
-	github.com/go-kratos/kratos/v2 v2.5.3
+	github.com/go-kratos/kratos/v2 v2.5.4
 	github.com/go-kratos/swagger-api v1.0.1
 	github.com/go-oauth2/oauth2/v4 v4.5.2
 	github.com/go-playground/assert/v2 v2.2.0
