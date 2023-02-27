@@ -3,10 +3,26 @@ package service
 import (
 	"context"
 
+	"github.com/go-kratos/kratos/v2/log"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/biz"
 	pb "github.com/lalifeier/vvgo-mall/gen/api/go/account/service/v1"
+	v1 "github.com/lalifeier/vvgo-mall/gen/api/go/account/service/v1"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
+
+type AccountUserService struct {
+	v1.UnimplementedAccountUserServiceServer
+	log *log.Helper
+
+	accountUserUseCase *biz.AccountUserUseCase
+}
+
+func NewAccountUserService(logger log.Logger, accountUserUseCase *biz.AccountUserUseCase) *AccountUserService {
+	return &AccountUserService{
+		log:                log.NewHelper(log.With(logger, "module", "account-service/service")),
+		accountUserUseCase: accountUserUseCase,
+	}
+}
 
 type bizAccountUser biz.AccountUser
 

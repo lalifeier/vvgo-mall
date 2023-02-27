@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package account.service.v1;
+option go_package = "github.com/lalifeier/vvgo-mall/gen/api/go/account/service/v1;v1";
+
+import "google/protobuf/empty.proto";
+
+service AccountUserService {
+  rpc CreateAccountUser(CreateAccountUserReq) returns (AccountUser);
+  rpc UpdateAccountUser(UpdateAccountUserReq) returns (AccountUser);
+  rpc DeleteAccountUser(DeleteAccountUserReq) returns (google.protobuf.Empty);
+  rpc GetAccountUser(GetAccountUserReq) returns (AccountUser);
+  rpc ListAccountUser(ListAccountUserReq) returns (ListAccountUserResp);
+  rpc PageListAccountUser(PageListAccountUserReq)
+      returns (PageListAccountUserResp);
+}
+
+message AccountUser { int64 id = 1; }
+
+message CreateAccountUserReq {}
+message UpdateAccountUserReq {}
+message DeleteAccountUserReq { int64 id = 1; }
+message GetAccountUserReq { int64 id = 1; }
+message ListAccountUserReq {}
+message ListAccountUserResp { repeated AccountUser list = 1; }
+message PageListAccountUserReq {
+  int64 pageNum = 1;
+  int64 pageSize = 4;
+}
+message PageListAccountUserResp {
+  repeated AccountUser list = 1;
+  int64 total = 2;
+  int64 page = 3;
+  int64 pageSize = 4;
+}

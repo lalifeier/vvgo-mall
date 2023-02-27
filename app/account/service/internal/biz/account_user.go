@@ -5,7 +5,7 @@ import (
 	"errors"
 
 	"github.com/go-kratos/kratos/v2/log"
-	pb "github.com/lalifeier/vvgo-mall/gen/api/go/account/service/v1"
+	v1 "github.com/lalifeier/vvgo-mall/gen/api/go/account/service/v1"
 )
 
 var (
@@ -27,8 +27,8 @@ type AccountUserRepo interface {
 	Update(ctx context.Context, accountuser *AccountUser) (*AccountUser, error)
 	Delete(ctx context.Context, id int64) error
 	Get(ctx context.Context, id int64) (*AccountUser, error)
-	List(ctx context.Context, req *pb.ListAccountUserReq) ([]*AccountUser, error)
-	PageList(ctx context.Context, req *pb.PageListAccountUserReq) ([]*AccountUser, int64, error)
+	List(ctx context.Context, req *v1.ListAccountUserReq) ([]*AccountUser, error)
+	PageList(ctx context.Context, req *v1.PageListAccountUserReq) ([]*AccountUser, int64, error)
 
 	FindByUsername(ctx context.Context, username string) (*AccountUser, error)
 	FindByEmail(ctx context.Context, email string) (*AccountUser, error)
@@ -60,10 +60,10 @@ func (uc *AccountUserUseCase) GetAccountUser(ctx context.Context, id int64) (*Ac
 	return uc.repo.Get(ctx, id)
 }
 
-func (uc *AccountUserUseCase) ListAccountUser(ctx context.Context, req *pb.ListAccountUserReq) ([]*AccountUser, error) {
+func (uc *AccountUserUseCase) ListAccountUser(ctx context.Context, req *v1.ListAccountUserReq) ([]*AccountUser, error) {
 	return uc.repo.List(ctx, req)
 }
 
-func (uc *AccountUserUseCase) PageListAccountUser(ctx context.Context, req *pb.PageListAccountUserReq) ([]*AccountUser, int64, error) {
+func (uc *AccountUserUseCase) PageListAccountUser(ctx context.Context, req *v1.PageListAccountUserReq) ([]*AccountUser, int64, error) {
 	return uc.repo.PageList(ctx, req)
 }

@@ -7,7 +7,7 @@ import (
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/biz"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/data/ent"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/data/ent/accountuser"
-	pb "github.com/lalifeier/vvgo-mall/gen/api/go/account/service/v1"
+	v1 "github.com/lalifeier/vvgo-mall/gen/api/go/account/service/v1"
 
 	"github.com/lalifeier/vvgo-mall/pkg/util/pagination"
 )
@@ -34,35 +34,34 @@ type accountUserRepo struct {
 func NewAccountUserRepo(data *Data, logger log.Logger) biz.AccountUserRepo {
 	return &accountUserRepo{
 		data: data,
-		log:  log.NewHelper(log.With(logger, "module", "account-service/data")),
+		log:  log.NewHelper(log.With(logger, "module", "account-service/repo/account-user")),
 	}
 }
 
 func (rp *accountUserRepo) Create(ctx context.Context, b *biz.AccountUser) (*biz.AccountUser, error) {
-	p, err := rp.data.db.AccountUser.
+	po, err := rp.data.db.AccountUser.
 		Create().
-		SetUsername(b.Username).
-		SetEmail(b.Email).
-		SetPhone(b.Phone).
-		SetPassword(b.Password).
+		SetNillableUsername(&b.Username).
+		SetNillableEmail(&b.Email).
+		SetNillablePhone(&b.Phone).
+		SetNillablePassword(&b.Password).
 		Save(ctx)
 	if err != nil {
 		return nil, err
 	}
-	return entAccountUser(*p).BizStruct(), nil
+
+	return entAccountUser(*po).BizStruct(), nil
 }
 
 func (rp *accountUserRepo) Update(ctx context.Context, b *biz.AccountUser) (*biz.AccountUser, error) {
-	_, err := rp.data.db.AccountUser.Get(ctx, b.Id)
-	if err != nil {
-		return nil, err
-	}
-	db := rp.data.db.AccountUser.UpdateOneID(b.Id)
+	builder := rp.data.db.AccountUser.UpdateOneID(b.Id).
+		SetNillableUsername(&b.Username)
 
-	p, err := db.Save(ctx)
+	p, err := builder.Save(ctx)
 	if err != nil {
 		return nil, err
 	}
+
 	return entAccountUser(*p).BizStruct(), nil
 }
 
@@ -71,14 +70,14 @@ func (rp *accountUserRepo) Delete(ctx context.Context, id int64) error {
 }
 
 func (rp *accountUserRepo) Get(ctx context.Context, id int64) (*biz.AccountUser, error) {
-	p, err := rp.data.db.AccountUser.Get(ctx, id)
+	po, err := rp.data.db.AccountUser.Get(ctx, id)
 	if err != nil {
 		return nil, err
 	}
-	return entAccountUser(*p).BizStruct(), nil
+	return entAccountUser(*po).BizStruct(), nil
 }
 
-func (rp *accountUserRepo) List(ctx context.Context, req *pb.ListAccountUserReq) ([]*biz.AccountUser, error) {
+func (rp *accountUserRepo) List(ctx context.Context, req *v1.ListAccountUserReq) ([]*biz.AccountUser, error) {
 	query := rp.data.db.AccountUser.Query()
 
 	ps, err := query.All(ctx)
@@ -92,7 +91,7 @@ func (rp *accountUserRepo) List(ctx context.Context, req *pb.ListAccountUserReq)
 	return rv, nil
 }
 
-func (rp *accountUserRepo) PageList(ctx context.Context, req *pb.PageListAccountUserReq) ([]*biz.AccountUser, int64, error) {
+func (rp *accountUserRepo) PageList(ctx context.Context, req *v1.PageListAccountUserReq) ([]*biz.AccountUser, int64, error) {
 	query := rp.data.db.AccountUser.Query()
 
 	query.Order(ent.Desc("id"))

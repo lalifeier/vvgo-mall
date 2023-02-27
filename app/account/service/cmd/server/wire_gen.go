@@ -16,10 +16,14 @@ import (
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/service"
 )
 
+import (
+	_ "go.uber.org/automaxprocs"
+)
+
 // Injectors from wire.go:
 
 // initApp init kratos application.
-func initApp(confServer *conf.Server, confData *conf.Data, registry *conf.Registry, logger log.Logger) (*kratos.App, func(), error) {
+func wireApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Data, logger log.Logger) (*kratos.App, func(), error) {
 	client := data.NewRedisClient(confData, logger)
 	dataData, cleanup, err := data.NewData(confData, client, logger)
 	if err != nil {
@@ -29,9 +33,10 @@ func initApp(confServer *conf.Server, confData *conf.Data, registry *conf.Regist
 	accountUserUseCase := biz.NewAccountUserUseCase(accountUserRepo, logger)
 	authUseCase := biz.NewAuthUseCase(accountUserRepo, logger)
 	accountService := service.NewAccountService(logger, accountUserUseCase, authUseCase)
+	httpServer := server.NewHTTPServer(confServer, logger, accountService)
 	grpcServer := server.NewGRPCServer(confServer, logger, accountService)
 	registrar := server.NewRegistrar(registry)
-	app := newApp(logger, grpcServer, registrar)
+	app := newApp(logger, httpServer, grpcServer, registrar)
 	return app, func() {
 		cleanup()
 	}, nil

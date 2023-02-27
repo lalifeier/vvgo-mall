@@ -35,7 +35,7 @@ func NewPaserClient(cc grpc.ClientConnInterface) PaserClient {
 
 func (c *paserClient) Paser(ctx context.Context, in *PaserReq, opts ...grpc.CallOption) (*PaserReply, error) {
 	out := new(PaserReply)
-	err := c.cc.Invoke(ctx, "/api.paser.service.v1.Paser/Paser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/paser.service.v1.Paser/Paser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +80,7 @@ func _Paser_Paser_Handler(srv interface{}, ctx context.Context, dec func(interfa
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.paser.service.v1.Paser/Paser",
+		FullMethod: "/paser.service.v1.Paser/Paser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PaserServer).Paser(ctx, req.(*PaserReq))
@@ -92,7 +92,7 @@ func _Paser_Paser_Handler(srv interface{}, ctx context.Context, dec func(interfa
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Paser_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.paser.service.v1.Paser",
+	ServiceName: "paser.service.v1.Paser",
 	HandlerType: (*PaserServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
