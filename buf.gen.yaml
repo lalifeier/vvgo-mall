@@ -5,22 +5,27 @@ plugins:
   # generate go struct code
   - name: go
     out: gen/api/go
-    opt: paths=source_relative
+    opt:
+      - paths=source_relative
+
   # generate grpc service code
   - name: go-grpc
     out: gen/api/go
     opt:
       - paths=source_relative
+
   # generate rest service code
   - name: go-http
     out: gen/api/go
     opt:
       - paths=source_relative
+
   # generate kratos errors code
   - name: go-errors
     out: gen/api/go
     opt:
       - paths=source_relative
+
   # generate message validator code
   - name: validate
     out: gen/api/go

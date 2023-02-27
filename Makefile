@@ -33,20 +33,12 @@ PROTO_PATH=${shell echo ${APP_BASE_RELATIVE_PATH}third_party}
 
 # init env
 init:
-	go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
-	go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
-	go install github.com/go-kratos/kratos/cmd/protoc-gen-go-http/v2@latest
-	go install github.com/go-kratos/kratos/cmd/protoc-gen-go-errors/v2@latest
-	go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest
-	go install github.com/google/gnostic/cmd/protoc-gen-openapi@latest
-	go install github.com/envoyproxy/protoc-gen-validate@latest
-	go install github.com/bazelbuild/bazelisk@latest
-	go install github.com/bufbuild/buf/cmd/buf@latest
-	go install github.com/google/gnostic@latest
-	go install github.com/google/wire/cmd/wire@latest
-	go install entgo.io/ent/cmd/ent@latest
-	go install golang.org/x/tools/cmd/goimports@latest
-	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+	@echo "Installing tools from tools/tools.go"
+	@cd tools && cat tools.go |grep _|awk -F '"' '{print $$2}' | xargs -tI % go install %
+
+# generate
+generate:
+	go generate ./...
 
 # generate api proto
 api:
@@ -76,13 +68,10 @@ run:
 build:
 	mkdir -p bin/ && go build -ldflags "-X main.Version=$(VERSION)" -o ./bin/ ./...
 
-# generate
-generate:
-	go generate ./...
-
 # test
 test:
 	go test -v ./app... ./pkg/...
+
 # run coverage tests
 cover:
 	go test -v ./app... ./pkg/... -coverprofile=coverage.out
@@ -93,7 +82,11 @@ vet:
 
 # run lint
 lint:
-	golangci-lint run
+	golangci-lint run -v
+
+# run lint proto
+lintproto:
+	buf lint
 
 # clean build files
 clean:
@@ -121,8 +114,11 @@ openapi:
 # 					--openapiv2_opt json_names_for_fields=false \
 #            $(API_PROTO_FILES)
 
-# build service app
-app: api wire config ent build
+# build service all
+all:
+	make generate;
+	make test;
+	make run;
 
 # show help
 help:

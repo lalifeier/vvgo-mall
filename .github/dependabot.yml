@@ -7,11 +7,22 @@ version: 2
 updates:
   - package-ecosystem: gomod
     directory: / # Location of package manifests
+    labels:
+      - dependencies
+    schedule:
+      interval: weekly
+
+  - package-ecosystem: gomod
+    directory: /tools
+    labels:
+      - dependencies
     schedule:
       interval: weekly
 
   - package-ecosystem: github-actions
     directory: /
+    labels:
+      - dependencies
     schedule:
       # Check for updates to GitHub Actions every weekday
       interval: weekly
