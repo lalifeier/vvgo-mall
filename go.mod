@@ -3,9 +3,8 @@ module github.com/lalifeier/vvgo-mall
 go 1.19
 
 require (
-	entgo.io/ent v0.11.4
-	github.com/Shopify/sarama v1.38.1
 	entgo.io/ent v0.11.8
+	github.com/Shopify/sarama v1.38.1
 	github.com/aliyun/alibaba-cloud-sdk-go v1.62.174
 	github.com/aliyun/aliyun-oss-go-sdk v2.2.6+incompatible
 	github.com/aws/aws-sdk-go-v2 v1.17.4
