@@ -19,7 +19,7 @@ var _ = binding.EncodeURL
 
 const _ = http.SupportPackageIsVersion1
 
-const OperationPaserPaser = "/api.paser.service.v1.Paser/Paser"
+const OperationPaserPaser = "/paser.service.v1.Paser/Paser"
 
 type PaserHTTPServer interface {
 	Paser(context.Context, *PaserReq) (*PaserReply, error)

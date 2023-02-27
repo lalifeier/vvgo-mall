@@ -29,7 +29,7 @@ DOCKER_IMAGE=$(shell echo $(APP_NAME) |awk -F '@' '{print "vvgo-mall/" $$0 ":0.1
 API_PATH=${shell echo ${APP_BASE_RELATIVE_PATH}api/${APP_RELATIVE_PATH}}
 PROTO_PATH=${shell echo ${APP_BASE_RELATIVE_PATH}third_party}
 
-.PHONY: init api wire config ent run build generate test cover vet lint clean docker swagger app
+.PHONY: init api wire config ent run build generate test cover vet lint clean docker openapi app
 
 # init env
 init:
@@ -107,14 +107,19 @@ docker:
 							 -f deploy/build/Dockerfile  \
 							 --build-arg APP_RELATIVE_PATH=$(APP_RELATIVE_PATH)
 
+# generate OpenAPI v3 doc
+openapi:
+	cd ../../../ && \
+	buf generate --path api/account/service/v1 --template api/account/service/v1/buf.openapi.gen.yaml
+
 # generate swagger
-swagger:
-	cd ${API_PATH} && protoc --proto_path=. \
-	        --proto_path=${PROTO_PATH} \
-	        --openapiv2_out . \
-	        --openapiv2_opt logtostderr=true \
-					--openapiv2_opt json_names_for_fields=false \
-           $(API_PROTO_FILES)
+# swagger:
+# 	cd ${API_PATH} && protoc --proto_path=. \
+# 	        --proto_path=${PROTO_PATH} \
+# 	        --openapiv2_out . \
+# 	        --openapiv2_opt logtostderr=true \
+# 					--openapiv2_opt json_names_for_fields=false \
+#            $(API_PROTO_FILES)
 
 # build service app
 app: api wire config ent build

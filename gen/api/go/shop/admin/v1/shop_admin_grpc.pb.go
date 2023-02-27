@@ -78,7 +78,7 @@ func NewShopAdminClient(cc grpc.ClientConnInterface) ShopAdminClient {
 
 func (c *shopAdminClient) Register(ctx context.Context, in *RegisterReq, opts ...grpc.CallOption) (*RegisterResp, error) {
 	out := new(RegisterResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/Register", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/Register", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -87,7 +87,7 @@ func (c *shopAdminClient) Register(ctx context.Context, in *RegisterReq, opts ..
 
 func (c *shopAdminClient) Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error) {
 	out := new(LoginResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/Login", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/Login", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -96,7 +96,7 @@ func (c *shopAdminClient) Login(ctx context.Context, in *LoginReq, opts ...grpc.
 
 func (c *shopAdminClient) CreateUser(ctx context.Context, in *CreateUserReq, opts ...grpc.CallOption) (*CreateUserResp, error) {
 	out := new(CreateUserResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/CreateUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/CreateUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +105,7 @@ func (c *shopAdminClient) CreateUser(ctx context.Context, in *CreateUserReq, opt
 
 func (c *shopAdminClient) UpdateUser(ctx context.Context, in *UpdateUserReq, opts ...grpc.CallOption) (*UpdateUserResp, error) {
 	out := new(UpdateUserResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/UpdateUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/UpdateUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -114,7 +114,7 @@ func (c *shopAdminClient) UpdateUser(ctx context.Context, in *UpdateUserReq, opt
 
 func (c *shopAdminClient) DeleteUser(ctx context.Context, in *DeleteUserReq, opts ...grpc.CallOption) (*DeleteUserResp, error) {
 	out := new(DeleteUserResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/DeleteUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/DeleteUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -123,7 +123,7 @@ func (c *shopAdminClient) DeleteUser(ctx context.Context, in *DeleteUserReq, opt
 
 func (c *shopAdminClient) ListUser(ctx context.Context, in *ListUserReq, opts ...grpc.CallOption) (*ListUserResp, error) {
 	out := new(ListUserResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/ListUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/ListUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -132,7 +132,7 @@ func (c *shopAdminClient) ListUser(ctx context.Context, in *ListUserReq, opts ..
 
 func (c *shopAdminClient) PageListUser(ctx context.Context, in *PageListUserReq, opts ...grpc.CallOption) (*PageListUserResp, error) {
 	out := new(PageListUserResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/PageListUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/PageListUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -141,7 +141,7 @@ func (c *shopAdminClient) PageListUser(ctx context.Context, in *PageListUserReq,
 
 func (c *shopAdminClient) GetUser(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*GetUserResp, error) {
 	out := new(GetUserResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/GetUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/GetUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -150,7 +150,7 @@ func (c *shopAdminClient) GetUser(ctx context.Context, in *GetUserReq, opts ...g
 
 func (c *shopAdminClient) CreateRole(ctx context.Context, in *CreateRoleReq, opts ...grpc.CallOption) (*CreateRoleResp, error) {
 	out := new(CreateRoleResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/CreateRole", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/CreateRole", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -159,7 +159,7 @@ func (c *shopAdminClient) CreateRole(ctx context.Context, in *CreateRoleReq, opt
 
 func (c *shopAdminClient) UpdateRole(ctx context.Context, in *UpdateRoleReq, opts ...grpc.CallOption) (*UpdateRoleResp, error) {
 	out := new(UpdateRoleResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/UpdateRole", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/UpdateRole", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -168,7 +168,7 @@ func (c *shopAdminClient) UpdateRole(ctx context.Context, in *UpdateRoleReq, opt
 
 func (c *shopAdminClient) DeleteRole(ctx context.Context, in *DeleteRoleReq, opts ...grpc.CallOption) (*DeleteRoleResp, error) {
 	out := new(DeleteRoleResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/DeleteRole", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/DeleteRole", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -177,7 +177,7 @@ func (c *shopAdminClient) DeleteRole(ctx context.Context, in *DeleteRoleReq, opt
 
 func (c *shopAdminClient) ListRole(ctx context.Context, in *ListRoleReq, opts ...grpc.CallOption) (*ListRoleResp, error) {
 	out := new(ListRoleResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/ListRole", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/ListRole", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -186,7 +186,7 @@ func (c *shopAdminClient) ListRole(ctx context.Context, in *ListRoleReq, opts ..
 
 func (c *shopAdminClient) PageListRole(ctx context.Context, in *PageListRoleReq, opts ...grpc.CallOption) (*PageListRoleResp, error) {
 	out := new(PageListRoleResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/PageListRole", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/PageListRole", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -195,7 +195,7 @@ func (c *shopAdminClient) PageListRole(ctx context.Context, in *PageListRoleReq,
 
 func (c *shopAdminClient) GetRole(ctx context.Context, in *GetRoleReq, opts ...grpc.CallOption) (*GetRoleResp, error) {
 	out := new(GetRoleResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/GetRole", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/GetRole", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -204,7 +204,7 @@ func (c *shopAdminClient) GetRole(ctx context.Context, in *GetRoleReq, opts ...g
 
 func (c *shopAdminClient) CreateMenu(ctx context.Context, in *CreateMenuReq, opts ...grpc.CallOption) (*CreateMenuResp, error) {
 	out := new(CreateMenuResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/CreateMenu", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/CreateMenu", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -213,7 +213,7 @@ func (c *shopAdminClient) CreateMenu(ctx context.Context, in *CreateMenuReq, opt
 
 func (c *shopAdminClient) UpdateMenu(ctx context.Context, in *UpdateMenuReq, opts ...grpc.CallOption) (*UpdateMenuResp, error) {
 	out := new(UpdateMenuResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/UpdateMenu", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/UpdateMenu", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -222,7 +222,7 @@ func (c *shopAdminClient) UpdateMenu(ctx context.Context, in *UpdateMenuReq, opt
 
 func (c *shopAdminClient) DeleteMenu(ctx context.Context, in *DeleteMenuReq, opts ...grpc.CallOption) (*DeleteMenuResp, error) {
 	out := new(DeleteMenuResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/DeleteMenu", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/DeleteMenu", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -231,7 +231,7 @@ func (c *shopAdminClient) DeleteMenu(ctx context.Context, in *DeleteMenuReq, opt
 
 func (c *shopAdminClient) ListMenu(ctx context.Context, in *ListMenuReq, opts ...grpc.CallOption) (*ListMenuResp, error) {
 	out := new(ListMenuResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/ListMenu", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/ListMenu", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -240,7 +240,7 @@ func (c *shopAdminClient) ListMenu(ctx context.Context, in *ListMenuReq, opts ..
 
 func (c *shopAdminClient) PageListMenu(ctx context.Context, in *PageListMenuReq, opts ...grpc.CallOption) (*PageListMenuResp, error) {
 	out := new(PageListMenuResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/PageListMenu", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/PageListMenu", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -249,7 +249,7 @@ func (c *shopAdminClient) PageListMenu(ctx context.Context, in *PageListMenuReq,
 
 func (c *shopAdminClient) GetMenu(ctx context.Context, in *GetMenuReq, opts ...grpc.CallOption) (*GetMenuResp, error) {
 	out := new(GetMenuResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/GetMenu", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/GetMenu", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -258,7 +258,7 @@ func (c *shopAdminClient) GetMenu(ctx context.Context, in *GetMenuReq, opts ...g
 
 func (c *shopAdminClient) CreateDictData(ctx context.Context, in *CreateDictDataReq, opts ...grpc.CallOption) (*CreateDictDataResp, error) {
 	out := new(CreateDictDataResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/CreateDictData", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/CreateDictData", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -267,7 +267,7 @@ func (c *shopAdminClient) CreateDictData(ctx context.Context, in *CreateDictData
 
 func (c *shopAdminClient) UpdateDictData(ctx context.Context, in *UpdateDictDataReq, opts ...grpc.CallOption) (*UpdateDictDataResp, error) {
 	out := new(UpdateDictDataResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/UpdateDictData", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/UpdateDictData", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -276,7 +276,7 @@ func (c *shopAdminClient) UpdateDictData(ctx context.Context, in *UpdateDictData
 
 func (c *shopAdminClient) DeleteDictData(ctx context.Context, in *DeleteDictDataReq, opts ...grpc.CallOption) (*DeleteDictDataResp, error) {
 	out := new(DeleteDictDataResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/DeleteDictData", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/DeleteDictData", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -285,7 +285,7 @@ func (c *shopAdminClient) DeleteDictData(ctx context.Context, in *DeleteDictData
 
 func (c *shopAdminClient) ListDictData(ctx context.Context, in *ListDictDataReq, opts ...grpc.CallOption) (*ListDictDataResp, error) {
 	out := new(ListDictDataResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/ListDictData", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/ListDictData", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -294,7 +294,7 @@ func (c *shopAdminClient) ListDictData(ctx context.Context, in *ListDictDataReq,
 
 func (c *shopAdminClient) PageListDictData(ctx context.Context, in *PageListDictDataReq, opts ...grpc.CallOption) (*PageListDictDataResp, error) {
 	out := new(PageListDictDataResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/PageListDictData", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/PageListDictData", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -303,7 +303,7 @@ func (c *shopAdminClient) PageListDictData(ctx context.Context, in *PageListDict
 
 func (c *shopAdminClient) GetDictData(ctx context.Context, in *GetDictDataReq, opts ...grpc.CallOption) (*GetDictDataResp, error) {
 	out := new(GetDictDataResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/GetDictData", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/GetDictData", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -312,7 +312,7 @@ func (c *shopAdminClient) GetDictData(ctx context.Context, in *GetDictDataReq, o
 
 func (c *shopAdminClient) CreateAccountUser(ctx context.Context, in *CreateAccountUserReq, opts ...grpc.CallOption) (*CreateAccountUserResp, error) {
 	out := new(CreateAccountUserResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/CreateAccountUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/CreateAccountUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -321,7 +321,7 @@ func (c *shopAdminClient) CreateAccountUser(ctx context.Context, in *CreateAccou
 
 func (c *shopAdminClient) UpdateAccountUser(ctx context.Context, in *UpdateAccountUserReq, opts ...grpc.CallOption) (*UpdateAccountUserResp, error) {
 	out := new(UpdateAccountUserResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/UpdateAccountUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/UpdateAccountUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -330,7 +330,7 @@ func (c *shopAdminClient) UpdateAccountUser(ctx context.Context, in *UpdateAccou
 
 func (c *shopAdminClient) DeleteAccountUser(ctx context.Context, in *DeleteAccountUserReq, opts ...grpc.CallOption) (*DeleteAccountUserResp, error) {
 	out := new(DeleteAccountUserResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/DeleteAccountUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/DeleteAccountUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -339,7 +339,7 @@ func (c *shopAdminClient) DeleteAccountUser(ctx context.Context, in *DeleteAccou
 
 func (c *shopAdminClient) ListAccountUser(ctx context.Context, in *ListAccountUserReq, opts ...grpc.CallOption) (*ListAccountUserResp, error) {
 	out := new(ListAccountUserResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/ListAccountUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/ListAccountUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -348,7 +348,7 @@ func (c *shopAdminClient) ListAccountUser(ctx context.Context, in *ListAccountUs
 
 func (c *shopAdminClient) PageListAccountUser(ctx context.Context, in *PageListAccountUserReq, opts ...grpc.CallOption) (*PageListAccountUserResp, error) {
 	out := new(PageListAccountUserResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/PageListAccountUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/PageListAccountUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -357,7 +357,7 @@ func (c *shopAdminClient) PageListAccountUser(ctx context.Context, in *PageListA
 
 func (c *shopAdminClient) GetAccountUser(ctx context.Context, in *GetAccountUserReq, opts ...grpc.CallOption) (*GetAccountUserResp, error) {
 	out := new(GetAccountUserResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/GetAccountUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/GetAccountUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -366,7 +366,7 @@ func (c *shopAdminClient) GetAccountUser(ctx context.Context, in *GetAccountUser
 
 func (c *shopAdminClient) CreateStaff(ctx context.Context, in *CreateStaffReq, opts ...grpc.CallOption) (*CreateStaffResp, error) {
 	out := new(CreateStaffResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/CreateStaff", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/CreateStaff", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -375,7 +375,7 @@ func (c *shopAdminClient) CreateStaff(ctx context.Context, in *CreateStaffReq, o
 
 func (c *shopAdminClient) UpdateStaff(ctx context.Context, in *UpdateStaffReq, opts ...grpc.CallOption) (*UpdateStaffResp, error) {
 	out := new(UpdateStaffResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/UpdateStaff", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/UpdateStaff", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -384,7 +384,7 @@ func (c *shopAdminClient) UpdateStaff(ctx context.Context, in *UpdateStaffReq, o
 
 func (c *shopAdminClient) DeleteStaff(ctx context.Context, in *DeleteStaffReq, opts ...grpc.CallOption) (*DeleteStaffResp, error) {
 	out := new(DeleteStaffResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/DeleteStaff", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/DeleteStaff", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -393,7 +393,7 @@ func (c *shopAdminClient) DeleteStaff(ctx context.Context, in *DeleteStaffReq, o
 
 func (c *shopAdminClient) ListStaff(ctx context.Context, in *ListStaffReq, opts ...grpc.CallOption) (*ListStaffResp, error) {
 	out := new(ListStaffResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/ListStaff", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/ListStaff", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -402,7 +402,7 @@ func (c *shopAdminClient) ListStaff(ctx context.Context, in *ListStaffReq, opts 
 
 func (c *shopAdminClient) PageListStaff(ctx context.Context, in *PageListStaffReq, opts ...grpc.CallOption) (*PageListStaffResp, error) {
 	out := new(PageListStaffResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/PageListStaff", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/PageListStaff", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -411,7 +411,7 @@ func (c *shopAdminClient) PageListStaff(ctx context.Context, in *PageListStaffRe
 
 func (c *shopAdminClient) GetStaff(ctx context.Context, in *GetStaffReq, opts ...grpc.CallOption) (*GetStaffResp, error) {
 	out := new(GetStaffResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/GetStaff", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/GetStaff", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -420,7 +420,7 @@ func (c *shopAdminClient) GetStaff(ctx context.Context, in *GetStaffReq, opts ..
 
 func (c *shopAdminClient) CreateSystem(ctx context.Context, in *CreateSystemReq, opts ...grpc.CallOption) (*CreateSystemResp, error) {
 	out := new(CreateSystemResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/CreateSystem", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/CreateSystem", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -429,7 +429,7 @@ func (c *shopAdminClient) CreateSystem(ctx context.Context, in *CreateSystemReq,
 
 func (c *shopAdminClient) UpdateSystem(ctx context.Context, in *UpdateSystemReq, opts ...grpc.CallOption) (*UpdateSystemResp, error) {
 	out := new(UpdateSystemResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/UpdateSystem", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/UpdateSystem", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -438,7 +438,7 @@ func (c *shopAdminClient) UpdateSystem(ctx context.Context, in *UpdateSystemReq,
 
 func (c *shopAdminClient) DeleteSystem(ctx context.Context, in *DeleteSystemReq, opts ...grpc.CallOption) (*DeleteSystemResp, error) {
 	out := new(DeleteSystemResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/DeleteSystem", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/DeleteSystem", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -447,7 +447,7 @@ func (c *shopAdminClient) DeleteSystem(ctx context.Context, in *DeleteSystemReq,
 
 func (c *shopAdminClient) ListSystem(ctx context.Context, in *ListSystemReq, opts ...grpc.CallOption) (*ListSystemResp, error) {
 	out := new(ListSystemResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/ListSystem", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/ListSystem", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -456,7 +456,7 @@ func (c *shopAdminClient) ListSystem(ctx context.Context, in *ListSystemReq, opt
 
 func (c *shopAdminClient) PageListSystem(ctx context.Context, in *PageListSystemReq, opts ...grpc.CallOption) (*PageListSystemResp, error) {
 	out := new(PageListSystemResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/PageListSystem", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/PageListSystem", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -465,7 +465,7 @@ func (c *shopAdminClient) PageListSystem(ctx context.Context, in *PageListSystem
 
 func (c *shopAdminClient) GetSystem(ctx context.Context, in *GetSystemReq, opts ...grpc.CallOption) (*GetSystemResp, error) {
 	out := new(GetSystemResp)
-	err := c.cc.Invoke(ctx, "/api.shop.admin.v1.ShopAdmin/GetSystem", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/shop.admin.v1.ShopAdmin/GetSystem", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -682,7 +682,7 @@ func _ShopAdmin_Register_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/Register",
+		FullMethod: "/shop.admin.v1.ShopAdmin/Register",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).Register(ctx, req.(*RegisterReq))
@@ -700,7 +700,7 @@ func _ShopAdmin_Login_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/Login",
+		FullMethod: "/shop.admin.v1.ShopAdmin/Login",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).Login(ctx, req.(*LoginReq))
@@ -718,7 +718,7 @@ func _ShopAdmin_CreateUser_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/CreateUser",
+		FullMethod: "/shop.admin.v1.ShopAdmin/CreateUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).CreateUser(ctx, req.(*CreateUserReq))
@@ -736,7 +736,7 @@ func _ShopAdmin_UpdateUser_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/UpdateUser",
+		FullMethod: "/shop.admin.v1.ShopAdmin/UpdateUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).UpdateUser(ctx, req.(*UpdateUserReq))
@@ -754,7 +754,7 @@ func _ShopAdmin_DeleteUser_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/DeleteUser",
+		FullMethod: "/shop.admin.v1.ShopAdmin/DeleteUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).DeleteUser(ctx, req.(*DeleteUserReq))
@@ -772,7 +772,7 @@ func _ShopAdmin_ListUser_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/ListUser",
+		FullMethod: "/shop.admin.v1.ShopAdmin/ListUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).ListUser(ctx, req.(*ListUserReq))
@@ -790,7 +790,7 @@ func _ShopAdmin_PageListUser_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/PageListUser",
+		FullMethod: "/shop.admin.v1.ShopAdmin/PageListUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).PageListUser(ctx, req.(*PageListUserReq))
@@ -808,7 +808,7 @@ func _ShopAdmin_GetUser_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/GetUser",
+		FullMethod: "/shop.admin.v1.ShopAdmin/GetUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).GetUser(ctx, req.(*GetUserReq))
@@ -826,7 +826,7 @@ func _ShopAdmin_CreateRole_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/CreateRole",
+		FullMethod: "/shop.admin.v1.ShopAdmin/CreateRole",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).CreateRole(ctx, req.(*CreateRoleReq))
@@ -844,7 +844,7 @@ func _ShopAdmin_UpdateRole_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/UpdateRole",
+		FullMethod: "/shop.admin.v1.ShopAdmin/UpdateRole",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).UpdateRole(ctx, req.(*UpdateRoleReq))
@@ -862,7 +862,7 @@ func _ShopAdmin_DeleteRole_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/DeleteRole",
+		FullMethod: "/shop.admin.v1.ShopAdmin/DeleteRole",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).DeleteRole(ctx, req.(*DeleteRoleReq))
@@ -880,7 +880,7 @@ func _ShopAdmin_ListRole_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/ListRole",
+		FullMethod: "/shop.admin.v1.ShopAdmin/ListRole",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).ListRole(ctx, req.(*ListRoleReq))
@@ -898,7 +898,7 @@ func _ShopAdmin_PageListRole_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/PageListRole",
+		FullMethod: "/shop.admin.v1.ShopAdmin/PageListRole",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).PageListRole(ctx, req.(*PageListRoleReq))
@@ -916,7 +916,7 @@ func _ShopAdmin_GetRole_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/GetRole",
+		FullMethod: "/shop.admin.v1.ShopAdmin/GetRole",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).GetRole(ctx, req.(*GetRoleReq))
@@ -934,7 +934,7 @@ func _ShopAdmin_CreateMenu_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/CreateMenu",
+		FullMethod: "/shop.admin.v1.ShopAdmin/CreateMenu",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).CreateMenu(ctx, req.(*CreateMenuReq))
@@ -952,7 +952,7 @@ func _ShopAdmin_UpdateMenu_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/UpdateMenu",
+		FullMethod: "/shop.admin.v1.ShopAdmin/UpdateMenu",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).UpdateMenu(ctx, req.(*UpdateMenuReq))
@@ -970,7 +970,7 @@ func _ShopAdmin_DeleteMenu_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/DeleteMenu",
+		FullMethod: "/shop.admin.v1.ShopAdmin/DeleteMenu",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).DeleteMenu(ctx, req.(*DeleteMenuReq))
@@ -988,7 +988,7 @@ func _ShopAdmin_ListMenu_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/ListMenu",
+		FullMethod: "/shop.admin.v1.ShopAdmin/ListMenu",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).ListMenu(ctx, req.(*ListMenuReq))
@@ -1006,7 +1006,7 @@ func _ShopAdmin_PageListMenu_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/PageListMenu",
+		FullMethod: "/shop.admin.v1.ShopAdmin/PageListMenu",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).PageListMenu(ctx, req.(*PageListMenuReq))
@@ -1024,7 +1024,7 @@ func _ShopAdmin_GetMenu_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/GetMenu",
+		FullMethod: "/shop.admin.v1.ShopAdmin/GetMenu",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).GetMenu(ctx, req.(*GetMenuReq))
@@ -1042,7 +1042,7 @@ func _ShopAdmin_CreateDictData_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/CreateDictData",
+		FullMethod: "/shop.admin.v1.ShopAdmin/CreateDictData",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).CreateDictData(ctx, req.(*CreateDictDataReq))
@@ -1060,7 +1060,7 @@ func _ShopAdmin_UpdateDictData_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/UpdateDictData",
+		FullMethod: "/shop.admin.v1.ShopAdmin/UpdateDictData",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).UpdateDictData(ctx, req.(*UpdateDictDataReq))
@@ -1078,7 +1078,7 @@ func _ShopAdmin_DeleteDictData_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/DeleteDictData",
+		FullMethod: "/shop.admin.v1.ShopAdmin/DeleteDictData",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).DeleteDictData(ctx, req.(*DeleteDictDataReq))
@@ -1096,7 +1096,7 @@ func _ShopAdmin_ListDictData_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/ListDictData",
+		FullMethod: "/shop.admin.v1.ShopAdmin/ListDictData",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).ListDictData(ctx, req.(*ListDictDataReq))
@@ -1114,7 +1114,7 @@ func _ShopAdmin_PageListDictData_Handler(srv interface{}, ctx context.Context, d
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/PageListDictData",
+		FullMethod: "/shop.admin.v1.ShopAdmin/PageListDictData",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).PageListDictData(ctx, req.(*PageListDictDataReq))
@@ -1132,7 +1132,7 @@ func _ShopAdmin_GetDictData_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/GetDictData",
+		FullMethod: "/shop.admin.v1.ShopAdmin/GetDictData",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).GetDictData(ctx, req.(*GetDictDataReq))
@@ -1150,7 +1150,7 @@ func _ShopAdmin_CreateAccountUser_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/CreateAccountUser",
+		FullMethod: "/shop.admin.v1.ShopAdmin/CreateAccountUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).CreateAccountUser(ctx, req.(*CreateAccountUserReq))
@@ -1168,7 +1168,7 @@ func _ShopAdmin_UpdateAccountUser_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/UpdateAccountUser",
+		FullMethod: "/shop.admin.v1.ShopAdmin/UpdateAccountUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).UpdateAccountUser(ctx, req.(*UpdateAccountUserReq))
@@ -1186,7 +1186,7 @@ func _ShopAdmin_DeleteAccountUser_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/DeleteAccountUser",
+		FullMethod: "/shop.admin.v1.ShopAdmin/DeleteAccountUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).DeleteAccountUser(ctx, req.(*DeleteAccountUserReq))
@@ -1204,7 +1204,7 @@ func _ShopAdmin_ListAccountUser_Handler(srv interface{}, ctx context.Context, de
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/ListAccountUser",
+		FullMethod: "/shop.admin.v1.ShopAdmin/ListAccountUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).ListAccountUser(ctx, req.(*ListAccountUserReq))
@@ -1222,7 +1222,7 @@ func _ShopAdmin_PageListAccountUser_Handler(srv interface{}, ctx context.Context
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/PageListAccountUser",
+		FullMethod: "/shop.admin.v1.ShopAdmin/PageListAccountUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).PageListAccountUser(ctx, req.(*PageListAccountUserReq))
@@ -1240,7 +1240,7 @@ func _ShopAdmin_GetAccountUser_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/GetAccountUser",
+		FullMethod: "/shop.admin.v1.ShopAdmin/GetAccountUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).GetAccountUser(ctx, req.(*GetAccountUserReq))
@@ -1258,7 +1258,7 @@ func _ShopAdmin_CreateStaff_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/CreateStaff",
+		FullMethod: "/shop.admin.v1.ShopAdmin/CreateStaff",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).CreateStaff(ctx, req.(*CreateStaffReq))
@@ -1276,7 +1276,7 @@ func _ShopAdmin_UpdateStaff_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/UpdateStaff",
+		FullMethod: "/shop.admin.v1.ShopAdmin/UpdateStaff",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).UpdateStaff(ctx, req.(*UpdateStaffReq))
@@ -1294,7 +1294,7 @@ func _ShopAdmin_DeleteStaff_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/DeleteStaff",
+		FullMethod: "/shop.admin.v1.ShopAdmin/DeleteStaff",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).DeleteStaff(ctx, req.(*DeleteStaffReq))
@@ -1312,7 +1312,7 @@ func _ShopAdmin_ListStaff_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/ListStaff",
+		FullMethod: "/shop.admin.v1.ShopAdmin/ListStaff",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).ListStaff(ctx, req.(*ListStaffReq))
@@ -1330,7 +1330,7 @@ func _ShopAdmin_PageListStaff_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/PageListStaff",
+		FullMethod: "/shop.admin.v1.ShopAdmin/PageListStaff",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).PageListStaff(ctx, req.(*PageListStaffReq))
@@ -1348,7 +1348,7 @@ func _ShopAdmin_GetStaff_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/GetStaff",
+		FullMethod: "/shop.admin.v1.ShopAdmin/GetStaff",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).GetStaff(ctx, req.(*GetStaffReq))
@@ -1366,7 +1366,7 @@ func _ShopAdmin_CreateSystem_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/CreateSystem",
+		FullMethod: "/shop.admin.v1.ShopAdmin/CreateSystem",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).CreateSystem(ctx, req.(*CreateSystemReq))
@@ -1384,7 +1384,7 @@ func _ShopAdmin_UpdateSystem_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/UpdateSystem",
+		FullMethod: "/shop.admin.v1.ShopAdmin/UpdateSystem",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).UpdateSystem(ctx, req.(*UpdateSystemReq))
@@ -1402,7 +1402,7 @@ func _ShopAdmin_DeleteSystem_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/DeleteSystem",
+		FullMethod: "/shop.admin.v1.ShopAdmin/DeleteSystem",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).DeleteSystem(ctx, req.(*DeleteSystemReq))
@@ -1420,7 +1420,7 @@ func _ShopAdmin_ListSystem_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/ListSystem",
+		FullMethod: "/shop.admin.v1.ShopAdmin/ListSystem",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).ListSystem(ctx, req.(*ListSystemReq))
@@ -1438,7 +1438,7 @@ func _ShopAdmin_PageListSystem_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/PageListSystem",
+		FullMethod: "/shop.admin.v1.ShopAdmin/PageListSystem",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).PageListSystem(ctx, req.(*PageListSystemReq))
@@ -1456,7 +1456,7 @@ func _ShopAdmin_GetSystem_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.shop.admin.v1.ShopAdmin/GetSystem",
+		FullMethod: "/shop.admin.v1.ShopAdmin/GetSystem",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ShopAdminServer).GetSystem(ctx, req.(*GetSystemReq))
@@ -1468,7 +1468,7 @@ func _ShopAdmin_GetSystem_Handler(srv interface{}, ctx context.Context, dec func
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ShopAdmin_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.shop.admin.v1.ShopAdmin",
+	ServiceName: "shop.admin.v1.ShopAdmin",
 	HandlerType: (*ShopAdminServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
