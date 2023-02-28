@@ -16,9 +16,6 @@ import (
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/service"
 )
 
-import (
-	_ "go.uber.org/automaxprocs"
-)
 
 // Injectors from wire.go:
 
