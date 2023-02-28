@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package common.conf;
+
+option go_package = "github.com/lalifeier/vvgo-mall/gen/api/go/common/conf;conf";
+
+import "common/conf/tracer.proto";
+import "common/conf/data.proto";
+import "common/conf/server.proto";
+import "common/conf/auth.proto";
+import "common/conf/logger.proto";
+
+// 引导信息
+message Bootstrap {
+  Server server = 1;
+  Data data = 2;
+  Auth auth = 3;
+  Trace trace = 4;
+  Logger logger = 5;
+}

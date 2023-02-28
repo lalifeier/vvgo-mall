@@ -29,13 +29,21 @@ const OperationPayRefund = "/api.pay.service.v1.Pay/Refund"
 const OperationPaySyncNotify = "/api.pay.service.v1.Pay/SyncNotify"
 
 type PayHTTPServer interface {
+	// AsyncNotify 接口异步通知
 	AsyncNotify(context.Context, *GoPayReq) (*GoPayReply, error)
+	// GoPay 发起支付
 	GoPay(context.Context, *GoPayReq) (*GoPayReply, error)
+	// QueryBill 账单获取
 	QueryBill(context.Context, *GoPayReq) (*GoPayReply, error)
+	// QueryRefund 退款查询
 	QueryRefund(context.Context, *GoPayReq) (*GoPayReply, error)
+	// QuerySettle 结算明细
 	QuerySettle(context.Context, *GoPayReq) (*GoPayReply, error)
+	// QueryTrade 交易查询
 	QueryTrade(context.Context, *GoPayReq) (*GoPayReply, error)
+	// Refund 发起退款
 	Refund(context.Context, *GoPayReq) (*GoPayReply, error)
+	// SyncNotify 接口同步通知
 	SyncNotify(context.Context, *GoPayReq) (*GoPayReply, error)
 }
 

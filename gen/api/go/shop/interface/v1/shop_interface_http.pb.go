@@ -24,6 +24,12 @@ const OperationShopInterfaceLogin = "/api.sms.interface.v1.ShopInterface/Login"
 const OperationShopInterfaceRegister = "/api.sms.interface.v1.ShopInterface/Register"
 
 type ShopInterfaceHTTPServer interface {
+	// GetUserInfo rpc QuickLogin(LoginReq) returns (LoginResp) {
+	//   option (google.api.http) = {
+	//     post : "/api/quickLogin"
+	//     body : "*"
+	//   };
+	// }
 	GetUserInfo(context.Context, *GetUserInfoReq) (*GetUserInfoResp, error)
 	Login(context.Context, *LoginReq) (*LoginResp, error)
 	Register(context.Context, *RegisterReq) (*RegisterResp, error)

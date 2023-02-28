@@ -3,8 +3,9 @@ package main
 import (
 	"flag"
 
-	"github.com/lalifeier/vvgo-mall/app/account/service/internal/conf"
+	"github.com/lalifeier/vvgo-mall/gen/api/go/common/conf"
 	"github.com/lalifeier/vvgo-mall/pkg/bootstrap"
+	"github.com/lalifeier/vvgo-mall/pkg/service"
 
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
@@ -18,7 +19,7 @@ import (
 // go build -ldflags "-X main.Version=x.y.z"
 var (
 	Service = bootstrap.NewServiceInfo(
-		"vvgo-mall.account.service",
+		service.AccountService,
 		"1.0.0",
 		"",
 	)
@@ -68,14 +69,14 @@ func loadConfig() (*conf.Bootstrap, *conf.Registry) {
 func main() {
 	flag.Parse()
 
-	logger := bootstrap.NewLoggerProvider(&Service)
-
 	bc, rc := loadConfig()
 	if bc == nil || rc == nil {
 		panic("load config failed")
 	}
 
-	err := bootstrap.NewTracerProvider(bc.Trace.Batcher, bc.Trace.Endpoint, Flags.Env, &Service)
+	logger := bootstrap.NewLoggerProvider(bootstrap.LoggerTypeStd, bc.Logger, &Service)
+
+	err := bootstrap.NewTracerProvider(bc.Trace, &Service)
 	if err != nil {
 		panic(err)
 	}

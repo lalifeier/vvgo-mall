@@ -3,7 +3,7 @@ package server
 import (
 	"github.com/go-kratos/kratos/v2/registry"
 
-	"github.com/lalifeier/vvgo-mall/app/account/service/internal/conf"
+	"github.com/lalifeier/vvgo-mall/gen/api/go/common/conf"
 	"github.com/lalifeier/vvgo-mall/pkg/bootstrap"
 )
 

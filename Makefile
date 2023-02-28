@@ -70,11 +70,11 @@ build:
 
 # test
 test:
-	go test -v ./app... ./pkg/...
+	go test -v ./...
 
 # run coverage tests
 cover:
-	go test -v ./app... ./pkg/... -coverprofile=coverage.out
+	go test -v ./... -coverprofile=coverage.out
 
 # run static analysis
 vet:
@@ -93,13 +93,6 @@ clean:
 	go clean
 	$(if $(IS_WINDOWS), del "coverage.out", rm -f "coverage.out")
 
-# docker
-docker:
-	cd ../../../ && \
-	docker build -t $(DOCKER_IMAGE) . \
-							 -f deploy/build/Dockerfile  \
-							 --build-arg APP_RELATIVE_PATH=$(APP_RELATIVE_PATH)
-
 # generate OpenAPI v3 doc
 openapi:
 	cd ../../../ && \
@@ -113,6 +106,14 @@ openapi:
 # 	        --openapiv2_opt logtostderr=true \
 # 					--openapiv2_opt json_names_for_fields=false \
 #            $(API_PROTO_FILES)
+
+# docker
+docker:
+	cd ../../../ && \
+	docker build -t $(DOCKER_IMAGE) . \
+							 -f deploy/build/Dockerfile  \
+							 --build-arg APP_RELATIVE_PATH=$(APP_RELATIVE_PATH)
+
 
 # build service all
 all:

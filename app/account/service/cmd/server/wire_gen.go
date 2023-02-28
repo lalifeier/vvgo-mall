@@ -10,7 +10,7 @@ import (
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/biz"
-	"github.com/lalifeier/vvgo-mall/app/account/service/internal/conf"
+	"github.com/lalifeier/vvgo-mall/gen/api/go/common/conf"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/data"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/server"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/service"

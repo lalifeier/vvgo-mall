@@ -16,3 +16,6 @@ data:
     write_timeout: 0.2s
 trace:
   endpoint: http://jaeger.docker.localhost:14268/api/traces
+  batcher: jaeger
+  sampler: 1.0
+  env: dev

@@ -7,10 +7,10 @@ import (
 	"strings"
 	"time"
 
+	"google.golang.org/grpc"
+
 	"github.com/go-kratos/kratos/v2/config"
 	"github.com/go-kratos/kratos/v2/log"
-
-	"google.golang.org/grpc"
 
 	// file
 	fileKratos "github.com/go-kratos/kratos/v2/config/file"
@@ -51,20 +51,6 @@ func NewConfigProvider(configType, configHost, configPath, configKey string) con
 	)
 }
 
-// getConfigKey 获取合法的配置名
-func getConfigKey(configKey string, useBackslash bool) string {
-	if useBackslash {
-		return strings.Replace(configKey, `.`, `/`, -1)
-	} else {
-		return configKey
-	}
-}
-
-// NewFileConfigSource 创建一个本地文件配置源
-func NewFileConfigSource(filePath string) config.Source {
-	return fileKratos.NewSource(filePath)
-}
-
 // NewRemoteConfigSource 创建一个远程配置源
 func NewRemoteConfigSource(configType, configHost, configKey string) config.Source {
 	switch configType {
@@ -82,6 +68,20 @@ func NewRemoteConfigSource(configType, configHost, configKey string) config.Sour
 		return NewApolloConfigSource(configHost, configKey)
 	}
 	return nil
+}
+
+// getConfigKey 获取合法的配置名
+func getConfigKey(configKey string, useBackslash bool) string {
+	if useBackslash {
+		return strings.Replace(configKey, `.`, `/`, -1)
+	} else {
+		return configKey
+	}
+}
+
+// NewFileConfigSource 创建一个本地文件配置源
+func NewFileConfigSource(filePath string) config.Source {
+	return fileKratos.NewSource(filePath)
 }
 
 // NewNacosConfigSource 创建一个远程配置源 - Nacos

@@ -6,8 +6,8 @@ import (
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-redis/redis"
 	"github.com/google/wire"
-	"github.com/lalifeier/vvgo-mall/app/account/service/internal/conf"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/data/ent"
+	"github.com/lalifeier/vvgo-mall/gen/api/go/common/conf"
 
 	_ "github.com/lib/pq"
 

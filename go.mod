@@ -23,6 +23,11 @@ require (
 	github.com/go-kratos/kratos/contrib/config/kubernetes/v2 v2.0.0-20230213033822-0a076443cba1
 	github.com/go-kratos/kratos/contrib/config/nacos/v2 v2.0.0-20221220065744-a017ab09576f
 	github.com/go-kratos/kratos/contrib/config/polaris/v2 v2.0.0-20230213033822-0a076443cba1
+	github.com/go-kratos/kratos/contrib/log/aliyun/v2 v2.0.0-20230227131608-c65f823c38de
+	github.com/go-kratos/kratos/contrib/log/fluent/v2 v2.0.0-20230227131608-c65f823c38de
+	github.com/go-kratos/kratos/contrib/log/logrus/v2 v2.0.0-20230227131608-c65f823c38de
+	github.com/go-kratos/kratos/contrib/log/tencent/v2 v2.0.0-20230227131608-c65f823c38de
+	github.com/go-kratos/kratos/contrib/log/zap/v2 v2.0.0-20230227131608-c65f823c38de
 	github.com/go-kratos/kratos/contrib/metrics/prometheus/v2 v2.0.0-20221220065744-a017ab09576f
 	github.com/go-kratos/kratos/contrib/registry/consul/v2 v2.0.0-20230213033822-0a076443cba1
 	github.com/go-kratos/kratos/contrib/registry/etcd/v2 v2.0.0-20230213033822-0a076443cba1
@@ -37,6 +42,7 @@ require (
 	github.com/go-oauth2/oauth2/v4 v4.5.2
 	github.com/go-playground/assert/v2 v2.2.0
 	github.com/go-redis/redis v6.15.9+incompatible
+	github.com/go-redis/redis/extra/redisotel/v8 v8.11.5
 	github.com/go-resty/resty/v2 v2.7.0
 	github.com/go-session/session v3.1.2+incompatible
 	github.com/go-sql-driver/mysql v1.7.0
@@ -58,6 +64,7 @@ require (
 	github.com/polarismesh/polaris-go v1.3.0
 	github.com/prometheus/client_golang v1.14.0
 	github.com/qiniu/go-sdk/v7 v7.14.0
+	github.com/sirupsen/logrus v1.8.1
 	github.com/sony/sonyflake v1.1.0
 	github.com/spf13/cast v1.5.0
 	github.com/stretchr/testify v1.8.1
@@ -79,21 +86,28 @@ require (
 )
 
 require (
+	github.com/aliyun/aliyun-log-go-sdk v0.1.43 // indirect
 	github.com/apolloconfig/agollo/v4 v4.3.0 // indirect
 	github.com/buger/jsonparser v1.1.1 // indirect
+	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
 	github.com/cenkalti/backoff/v4 v4.1.1 // indirect
 	github.com/coreos/go-semver v0.3.0 // indirect
 	github.com/coreos/go-systemd/v22 v22.3.3-0.20220203105225-a9a7ef127534 // indirect
 	github.com/deckarep/golang-set v1.7.1 // indirect
+	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/dlclark/regexp2 v1.7.0 // indirect
 	github.com/emicklei/go-restful/v3 v3.9.0 // indirect
+	github.com/fluent/fluent-logger-golang v1.9.0 // indirect
 	github.com/go-chassis/cari v0.6.0 // indirect
 	github.com/go-chassis/foundation v0.4.0 // indirect
 	github.com/go-chassis/openlog v1.1.3 // indirect
 	github.com/go-errors/errors v1.0.1 // indirect
+	github.com/go-kit/kit v0.10.0 // indirect
+	github.com/go-logfmt/logfmt v0.5.1 // indirect
 	github.com/go-openapi/jsonpointer v0.19.5 // indirect
 	github.com/go-openapi/jsonreference v0.20.0 // indirect
 	github.com/go-openapi/swag v0.19.14 // indirect
+	github.com/go-redis/redis/extra/rediscmd/v8 v8.11.5 // indirect
 	github.com/gofrs/uuid v4.2.0+incompatible // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/google/gofuzz v1.1.0 // indirect
@@ -107,6 +121,8 @@ require (
 	github.com/openzipkin/zipkin-go v0.4.1 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
+	github.com/philhofer/fwd v1.1.1 // indirect
+	github.com/pierrec/lz4 v2.6.1+incompatible // indirect
 	github.com/segmentio/kafka-go v0.4.38 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
 	github.com/spf13/afero v1.9.2 // indirect
@@ -114,6 +130,8 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.14.0 // indirect
 	github.com/subosito/gotenv v1.4.1 // indirect
+	github.com/tencentcloud/tencentcloud-cls-sdk-go v1.0.2 // indirect
+	github.com/tinylib/msgp v1.1.6 // indirect
 	github.com/tx7do/kratos-transport/broker/kafka v1.0.2 // indirect
 	github.com/xdg/scram v1.0.5 // indirect
 	github.com/xdg/stringprep v1.0.3 // indirect
@@ -176,6 +194,7 @@ require (
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/go-playground/validator/v10 v10.11.1 // indirect
+	github.com/go-redis/redis/v8 v8.11.5
 	github.com/goccy/go-json v0.10.0 // indirect
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
 	github.com/golang/glog v1.0.0 // indirect
