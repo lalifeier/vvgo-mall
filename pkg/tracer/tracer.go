@@ -1,4 +1,4 @@
-package bootstrap
+package tracer
 
 import (
 	"errors"
@@ -13,6 +13,7 @@ import (
 	semConv "go.opentelemetry.io/otel/semconv/v1.4.0"
 
 	"github.com/lalifeier/vvgo-mall/gen/api/go/common/conf"
+	"github.com/lalifeier/vvgo-mall/pkg/service"
 )
 
 // NewJaegerExporter 创建一个jaeger导出器
@@ -42,7 +43,7 @@ func NewTracerExporter(exporterName, endpoint string) (traceSdk.SpanExporter, er
 }
 
 // NewTracerProvider 创建一个链路追踪器
-func NewTracerProvider(cfg *conf.Trace, serviceInfo *ServiceInfo) error {
+func NewTracerProvider(cfg *conf.Trace, serviceInfo *service.ServiceInfo) error {
 	if cfg.Sampler == 0 {
 		cfg.Sampler = 1.0
 	}
