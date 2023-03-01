@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-kratos/kratos/v2/errors"
 	"github.com/go-kratos/kratos/v2/log"
-	"github.com/lalifeier/vvgo-mall/pkg/captcha"
+	"github.com/lalifeier/vvgo-mall/pkg/util/captcha"
 )
 
 var (

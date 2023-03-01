@@ -3,7 +3,7 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 go_library(
     name = "base64",
     srcs = ["base64.go"],
-    importpath = "github.com/lalifeier/vvgo-mall/pkg/encoding/base64",
+    importpath = "github.com/lalifeier/vvgo-mall/pkg/util/encoding/base64",
     visibility = ["//visibility:public"],
 )
 

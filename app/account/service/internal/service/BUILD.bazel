@@ -5,7 +5,6 @@ go_library(
     srcs = [
         "account.go",
         "account_user.go",
-        "auth.go",
         "service.go",
     ],
     importpath = "github.com/lalifeier/vvgo-mall/app/account/service/internal/service",

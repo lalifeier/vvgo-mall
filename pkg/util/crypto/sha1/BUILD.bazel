@@ -3,7 +3,7 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 go_library(
     name = "sha1",
     srcs = ["sha1.go"],
-    importpath = "github.com/lalifeier/vvgo-mall/pkg/crypto/sha1",
+    importpath = "github.com/lalifeier/vvgo-mall/pkg/util/crypto/sha1",
     visibility = ["//visibility:public"],
 )
 

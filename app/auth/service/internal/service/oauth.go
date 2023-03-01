@@ -9,7 +9,7 @@ import (
 	// khttp "github.com/go-kratos/kratos/v2/transport/http"
 	"github.com/go-kratos/kratos/v2/errors"
 	"github.com/go-session/session"
-	kgin "github.com/lalifeier/vvgo-mall/pkg/gin"
+	kgin "github.com/lalifeier/vvgo-mall/pkg/bootstrap/server/gin"
 )
 
 type LoginForm struct {
@@ -87,9 +87,10 @@ func (s *AuthService) Authorize(ctx *gin.Context) {
 // // basic auth
 // // - username: `client_id`
 // // - password: `client_secret`
-// func (s *AuthService) Token(ctx khttp.Context) error {
-// 	return s.server.HandleTokenRequest(ctx.Response(), ctx.Request())
-// }
+//
+//	func (s *AuthService) Token(ctx khttp.Context) error {
+//		return s.server.HandleTokenRequest(ctx.Response(), ctx.Request())
+//	}
 func (s *AuthService) Token(ctx *gin.Context) {
 	err := s.server.HandleTokenRequest(ctx.Writer, ctx.Request)
 	if err != nil {
@@ -110,10 +111,11 @@ func (s *AuthService) Token(ctx *gin.Context) {
 // }
 
 // // khttp://localhost:8002/auth/logout
-// func (s *AuthService) Logout(ctx khttp.Context) error {
-// 	accessToken := ctx.Header().Get("Authorization")
-// 	return s.server.Manager.RemoveAccessToken(ctx, accessToken)
-// }
+//
+//	func (s *AuthService) Logout(ctx khttp.Context) error {
+//		accessToken := ctx.Header().Get("Authorization")
+//		return s.server.Manager.RemoveAccessToken(ctx, accessToken)
+//	}
 func (s *AuthService) Logout(ctx *gin.Context) {
 
 }

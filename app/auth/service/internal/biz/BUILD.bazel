@@ -11,7 +11,7 @@ go_library(
     importpath = "github.com/lalifeier/vvgo-mall/app/auth/service/internal/biz",
     visibility = ["//app/auth/service:__subpackages__"],
     deps = [
-        "//pkg/captcha",
+        "//pkg/util/captcha",
         "@com_github_go_kratos_kratos_v2//errors",
         "@com_github_go_kratos_kratos_v2//log",
         "@com_github_go_oauth2_oauth2_v4//server",

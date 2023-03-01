@@ -13,7 +13,7 @@ go_library(
     deps = [
         "//app/auth/service/internal/biz",
         "//gen/api/go/auth/service/v1:service",
-        "//pkg/gin",
+        "//pkg/bootstrap/server/gin",
         "@com_github_gin_gonic_gin//:gin",
         "@com_github_go_kratos_kratos_v2//errors",
         "@com_github_go_kratos_kratos_v2//log",

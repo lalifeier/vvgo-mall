@@ -7,6 +7,7 @@ require (
 	github.com/bazelbuild/bazelisk v1.16.0
 	github.com/bufbuild/buf v1.14.0
 	github.com/envoyproxy/protoc-gen-validate v0.9.1
+	github.com/go-kratos/kratos/cmd/kratos/v2 v2.0.0-20230227131608-c65f823c38de
 	github.com/go-kratos/kratos/cmd/protoc-gen-go-errors/v2 v2.0.0-20230227131608-c65f823c38de
 	github.com/go-kratos/kratos/cmd/protoc-gen-go-http/v2 v2.0.0-20230227131608-c65f823c38de
 	github.com/go-swagger/go-swagger v0.30.4
@@ -27,6 +28,7 @@ require (
 	4d63.com/gochecknoglobals v0.2.1 // indirect
 	ariga.io/atlas v0.9.1-0.20230119145809-92243f7c55cb // indirect
 	github.com/Abirdcfly/dupword v0.0.9 // indirect
+	github.com/AlecAivazis/survey/v2 v2.3.4 // indirect
 	github.com/Antonboom/errname v0.1.7 // indirect
 	github.com/Antonboom/nilnil v0.1.1 // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20230124172434-306776ec8161 // indirect
@@ -71,6 +73,7 @@ require (
 	github.com/docker/docker-credential-helpers v0.7.0 // indirect
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.5.0 // indirect
+	github.com/emicklei/proto v1.10.0 // indirect
 	github.com/esimonov/ifshort v1.0.4 // indirect
 	github.com/ettle/strcase v0.1.1 // indirect
 	github.com/fatih/color v1.14.1 // indirect
@@ -148,6 +151,7 @@ require (
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/julz/importas v0.1.0 // indirect
 	github.com/junk1tm/musttag v0.4.5 // indirect
+	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
 	github.com/kisielk/errcheck v1.6.3 // indirect
 	github.com/kisielk/gotool v1.0.0 // indirect
 	github.com/kkHAIKE/contextcheck v1.1.3 // indirect
@@ -174,6 +178,7 @@ require (
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/mbilski/exhaustivestruct v1.2.0 // indirect
 	github.com/mgechev/revive v1.2.5 // indirect
+	github.com/mgutz/ansi v0.0.0-20170206155736-9520e82c474b // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/go-wordwrap v0.0.0-20150314170334-ad45545899c7 // indirect

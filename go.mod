@@ -50,6 +50,7 @@ require (
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/golang-jwt/jwt/v4 v4.4.3
 	github.com/google/gnostic v0.5.7-v3refs
+	github.com/google/subcommands v1.0.1
 	github.com/google/uuid v1.3.0
 	github.com/google/wire v0.5.0
 	github.com/gorilla/handlers v1.5.1
@@ -60,6 +61,7 @@ require (
 	github.com/magiconair/properties v1.8.7
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/nacos-group/nacos-sdk-go v1.1.3
+	github.com/olekukonko/tablewriter v0.0.5
 	github.com/pkg/errors v0.9.1
 	github.com/polarismesh/polaris-go v1.3.0
 	github.com/prometheus/client_golang v1.14.0
@@ -67,6 +69,7 @@ require (
 	github.com/sirupsen/logrus v1.8.1
 	github.com/sony/sonyflake v1.1.0
 	github.com/spf13/cast v1.5.0
+	github.com/spf13/cobra v1.6.1
 	github.com/stretchr/testify v1.8.1
 	github.com/tencentyun/cos-go-sdk-v5 v0.7.40
 	github.com/tx7do/kratos-transport v1.0.1
@@ -79,6 +82,7 @@ require (
 	go.opentelemetry.io/otel/sdk v1.13.0
 	go.uber.org/zap v1.24.0
 	golang.org/x/crypto v0.6.0
+	golang.org/x/tools v0.3.1-0.20221202221704-aa9f4b2f3d57
 	google.golang.org/genproto v0.0.0-20230110181048-76db0878b65f
 	google.golang.org/grpc v1.53.0
 	google.golang.org/protobuf v1.28.1
@@ -113,9 +117,11 @@ require (
 	github.com/google/gofuzz v1.1.0 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
+	github.com/inconshreveable/mousetrap v1.0.1 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/karlseguin/ccache/v2 v2.0.8 // indirect
 	github.com/mailru/easyjson v0.7.6 // indirect
+	github.com/mattn/go-runewidth v0.0.9 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/natefinch/lumberjack v2.0.0+incompatible // indirect
 	github.com/openzipkin/zipkin-go v0.4.1 // indirect

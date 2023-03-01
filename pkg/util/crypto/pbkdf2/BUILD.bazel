@@ -3,7 +3,7 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 go_library(
     name = "pbkdf2",
     srcs = ["pbkdf2.go"],
-    importpath = "github.com/lalifeier/vvgo-mall/pkg/crypto/pbkdf2",
+    importpath = "github.com/lalifeier/vvgo-mall/pkg/util/crypto/pbkdf2",
     visibility = ["//visibility:public"],
     deps = ["@org_golang_x_crypto//pbkdf2"],
 )

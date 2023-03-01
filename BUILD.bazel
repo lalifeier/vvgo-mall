@@ -1,3 +1,4 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
 load("@bazel_gazelle//:def.bzl", "gazelle")
 
 # gazelle:prefix github.com/lalifeier/vvgo-mall
@@ -27,3 +28,10 @@ push_container = False
 publish_service("account", "service", repository_name, repository_version, push_container)
 
 publish_service("admin", "admin", repository_name, repository_version, push_container)
+
+go_library(
+    name = "vvgo-mall",
+    srcs = ["generate.go"],
+    importpath = "github.com/lalifeier/vvgo-mall",
+    visibility = ["//visibility:public"],
+)

@@ -1,0 +1,22 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "logger",
+    srcs = ["logger.go"],
+    importpath = "github.com/lalifeier/vvgo-mall/pkg/bootstrap/logger",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//gen/api/go/common/conf",
+        "//pkg/service",
+        "@com_github_go_kratos_kratos_contrib_log_aliyun_v2//:aliyun",
+        "@com_github_go_kratos_kratos_contrib_log_fluent_v2//:fluent",
+        "@com_github_go_kratos_kratos_contrib_log_logrus_v2//:logrus",
+        "@com_github_go_kratos_kratos_contrib_log_tencent_v2//:tencent",
+        "@com_github_go_kratos_kratos_contrib_log_zap_v2//:zap",
+        "@com_github_go_kratos_kratos_v2//log",
+        "@com_github_go_kratos_kratos_v2//middleware/tracing",
+        "@com_github_sirupsen_logrus//:logrus",
+        "@org_uber_go_zap//:zap",
+        "@org_uber_go_zap//zapcore",
+    ],
+)

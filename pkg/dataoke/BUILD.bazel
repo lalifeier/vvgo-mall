@@ -13,10 +13,10 @@ go_library(
     importpath = "github.com/lalifeier/vvgo-mall/pkg/dataoke",
     visibility = ["//visibility:public"],
     deps = [
-        "//pkg/crypto/md5",
-        "//pkg/random",
-        "//pkg/request",
         "//pkg/util/convert",
+        "//pkg/util/crypto/md5",
+        "//pkg/util/random",
+        "//pkg/util/request",
     ],
 )
 

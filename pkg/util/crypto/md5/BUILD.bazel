@@ -3,7 +3,7 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 go_library(
     name = "md5",
     srcs = ["md5.go"],
-    importpath = "github.com/lalifeier/vvgo-mall/pkg/crypto/md5",
+    importpath = "github.com/lalifeier/vvgo-mall/pkg/util/crypto/md5",
     visibility = ["//visibility:public"],
 )
 

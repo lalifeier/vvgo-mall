@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/go-kratos/kratos/v2/log"
-	"github.com/lalifeier/vvgo-mall/pkg/crypto/bcrypt"
+	"github.com/lalifeier/vvgo-mall/pkg/util/crypto/bcrypt"
 )
 
 type AccountUser struct {

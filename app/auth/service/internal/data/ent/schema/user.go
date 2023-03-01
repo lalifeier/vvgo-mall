@@ -4,7 +4,7 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/entsql"
 	"entgo.io/ent/schema"
-	"github.com/lalifeier/vvgo-mall/pkg/entgo/mixin"
+	"github.com/lalifeier/vvgo-mall/pkg/util/entgo/mixin"
 )
 
 func (User) Annotations() []schema.Annotation {

@@ -4,11 +4,11 @@ import (
 	"flag"
 
 	"github.com/lalifeier/vvgo-mall/gen/api/go/common/conf"
-	"github.com/lalifeier/vvgo-mall/pkg/config"
-	xflag "github.com/lalifeier/vvgo-mall/pkg/flag"
-	"github.com/lalifeier/vvgo-mall/pkg/logger"
+	"github.com/lalifeier/vvgo-mall/pkg/bootstrap/config"
+	FLAG "github.com/lalifeier/vvgo-mall/pkg/bootstrap/flag"
+	"github.com/lalifeier/vvgo-mall/pkg/bootstrap/logger"
+	"github.com/lalifeier/vvgo-mall/pkg/bootstrap/tracer"
 	"github.com/lalifeier/vvgo-mall/pkg/service"
-	"github.com/lalifeier/vvgo-mall/pkg/tracer"
 
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
@@ -27,7 +27,7 @@ var (
 		"",
 	)
 
-	Flags = xflag.NewCommandFlags()
+	Flags = FLAG.NewCommandFlags()
 )
 
 func init() {

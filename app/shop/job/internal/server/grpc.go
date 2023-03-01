@@ -1,8 +1,8 @@
 package server
 
 import (
-	"github.com/lalifeier/vvgo-mall/app/shop/job/internal/conf"
 	"github.com/lalifeier/vvgo-mall/app/shop/job/internal/service"
+	"github.com/lalifeier/vvgo-mall/gen/api/go/common/conf"
 	v1 "github.com/lalifeier/vvgo-mall/gen/api/go/shop/job/v1"
 
 	"github.com/go-kratos/kratos/v2/log"

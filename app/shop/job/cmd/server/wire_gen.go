@@ -10,10 +10,10 @@ import (
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/lalifeier/vvgo-mall/app/shop/job/internal/biz"
-	"github.com/lalifeier/vvgo-mall/app/shop/job/internal/conf"
 	"github.com/lalifeier/vvgo-mall/app/shop/job/internal/data"
 	"github.com/lalifeier/vvgo-mall/app/shop/job/internal/server"
 	"github.com/lalifeier/vvgo-mall/app/shop/job/internal/service"
+	"github.com/lalifeier/vvgo-mall/gen/api/go/common/conf"
 )
 
 import (
@@ -32,9 +32,8 @@ func wireApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Da
 	fooUseCase := biz.NewFooUseCase(logger, fooRepo)
 	shopJobService := service.NewShopJobService(logger, fooUseCase)
 	grpcServer := server.NewGRPCServer(confServer, logger, shopJobService)
-	registrar := server.NewConsulRegistrar(registry)
-	kafkaServer := server.NewKafkaServer(confServer, logger, shopJobService)
-	app := newApp(logger, grpcServer, registrar, kafkaServer)
+	registrar := server.NewRegistrar(registry)
+	app := newApp(logger, grpcServer, registrar)
 	return app, func() {
 		cleanup()
 	}, nil

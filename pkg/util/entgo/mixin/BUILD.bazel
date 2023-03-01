@@ -3,10 +3,10 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "mixin",
     srcs = ["audit.go"],
-    importpath = "github.com/lalifeier/vvgo-mall/pkg/entgo/mixin",
+    importpath = "github.com/lalifeier/vvgo-mall/pkg/util/entgo/mixin",
     visibility = ["//visibility:public"],
     deps = [
-        "//pkg/entgo/hooks",
+        "//pkg/util/entgo/hooks",
         "@io_entgo_ent//:ent",
         "@io_entgo_ent//dialect",
         "@io_entgo_ent//schema/field",

@@ -10,19 +10,23 @@ import (
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/biz"
-	"github.com/lalifeier/vvgo-mall/gen/api/go/common/conf"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/data"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/server"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/service"
+	"github.com/lalifeier/vvgo-mall/gen/api/go/common/conf"
 )
 
+import (
+	_ "go.uber.org/automaxprocs"
+)
 
 // Injectors from wire.go:
 
 // initApp init kratos application.
 func wireApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Data, logger log.Logger) (*kratos.App, func(), error) {
-	client := data.NewRedisClient(confData, logger)
-	dataData, cleanup, err := data.NewData(confData, client, logger)
+	client := data.NewEntClient(confData, logger)
+	redisClient := data.NewRedisClient(confData, logger)
+	dataData, cleanup, err := data.NewData(logger, client, redisClient)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -31,7 +35,8 @@ func wireApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Da
 	authUseCase := biz.NewAuthUseCase(accountUserRepo, logger)
 	accountService := service.NewAccountService(logger, accountUserUseCase, authUseCase)
 	httpServer := server.NewHTTPServer(confServer, logger, accountService)
-	grpcServer := server.NewGRPCServer(confServer, logger, accountService)
+	accountUserService := service.NewAccountUserService(logger, accountUserUseCase)
+	grpcServer := server.NewGRPCServer(confServer, logger, accountService, accountUserService)
 	registrar := server.NewRegistrar(registry)
 	app := newApp(logger, httpServer, grpcServer, registrar)
 	return app, func() {

@@ -7,10 +7,10 @@ package main
 
 import (
 	"github.com/lalifeier/vvgo-mall/app/shop/job/internal/biz"
-	"github.com/lalifeier/vvgo-mall/app/shop/job/internal/conf"
 	"github.com/lalifeier/vvgo-mall/app/shop/job/internal/data"
 	"github.com/lalifeier/vvgo-mall/app/shop/job/internal/server"
 	"github.com/lalifeier/vvgo-mall/app/shop/job/internal/service"
+	"github.com/lalifeier/vvgo-mall/gen/api/go/common/conf"
 
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"

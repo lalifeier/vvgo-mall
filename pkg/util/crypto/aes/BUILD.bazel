@@ -3,7 +3,7 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 go_library(
     name = "aes",
     srcs = ["aes.go"],
-    importpath = "github.com/lalifeier/vvgo-mall/pkg/crypto/aes",
+    importpath = "github.com/lalifeier/vvgo-mall/pkg/util/crypto/aes",
     visibility = ["//visibility:public"],
 )
 

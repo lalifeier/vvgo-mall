@@ -3,7 +3,7 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "captcha",
     srcs = ["captcha.go"],
-    importpath = "github.com/lalifeier/vvgo-mall/pkg/captcha",
+    importpath = "github.com/lalifeier/vvgo-mall/pkg/util/captcha",
     visibility = ["//visibility:public"],
     deps = ["@com_github_mojocn_base64captcha//:base64Captcha"],
 )

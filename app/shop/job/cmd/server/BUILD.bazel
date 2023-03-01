@@ -1,0 +1,34 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "server_lib",
+    srcs = [
+        "main.go",
+        "wire_gen.go",
+    ],
+    importpath = "github.com/lalifeier/vvgo-mall/app/shop/job/cmd/server",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//app/shop/job/internal/biz",
+        "//app/shop/job/internal/data",
+        "//app/shop/job/internal/server",
+        "//app/shop/job/internal/service",
+        "//gen/api/go/common/conf",
+        "//pkg/bootstrap/config",
+        "//pkg/bootstrap/flag",
+        "//pkg/bootstrap/logger",
+        "//pkg/bootstrap/tracer",
+        "//pkg/service",
+        "@com_github_go_kratos_kratos_v2//:kratos",
+        "@com_github_go_kratos_kratos_v2//log",
+        "@com_github_go_kratos_kratos_v2//registry",
+        "@com_github_go_kratos_kratos_v2//transport/grpc",
+        "@org_uber_go_automaxprocs//:automaxprocs",
+    ],
+)
+
+go_binary(
+    name = "server",
+    embed = [":server_lib"],
+    visibility = ["//visibility:public"],
+)

@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-kratos/kratos/v2/log"
 
-	"github.com/lalifeier/vvgo-mall/pkg/crypto/bcrypt"
+	"github.com/lalifeier/vvgo-mall/pkg/util/crypto/bcrypt"
 	"github.com/lalifeier/vvgo-mall/pkg/validate"
 
 	v1 "github.com/lalifeier/vvgo-mall/gen/api/go/account/service/v1"

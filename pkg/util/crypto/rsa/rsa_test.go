@@ -4,10 +4,10 @@ import (
 	"testing"
 
 	"github.com/go-playground/assert/v2"
-	"github.com/lalifeier/vvgo-mall/pkg/encoding/base64"
+	"github.com/lalifeier/vvgo-mall/pkg/util/encoding/base64"
 )
 
-//openssl rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem
+// openssl rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem
 var publicKey = `
 -----BEGIN PUBLIC KEY-----
 MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgHVJTb438xI/Dcr5XE5HQaTfL0Zj
@@ -17,7 +17,7 @@ DgRuefNJ7tVl11OZAgMBAAE=
 -----END PUBLIC KEY-----
 `
 
-//openssl genrsa -out rsa_private_key.pem 1024
+// openssl genrsa -out rsa_private_key.pem 1024
 var privateKey = `
 -----BEGIN RSA PRIVATE KEY-----
 MIICWwIBAAKBgHVJTb438xI/Dcr5XE5HQaTfL0ZjKsFTxhpt9sC8ri21ZzEYXwkV

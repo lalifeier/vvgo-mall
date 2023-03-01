@@ -1,8 +1,0 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_library")
-
-go_library(
-    name = "service",
-    srcs = ["generate.go"],
-    importpath = "github.com/lalifeier/vvgo-mall/app/ums/service",
-    visibility = ["//visibility:public"],
-)

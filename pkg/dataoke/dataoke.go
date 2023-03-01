@@ -5,10 +5,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/lalifeier/vvgo-mall/pkg/crypto/md5"
-	"github.com/lalifeier/vvgo-mall/pkg/random"
-	"github.com/lalifeier/vvgo-mall/pkg/request"
 	"github.com/lalifeier/vvgo-mall/pkg/util/convert"
+	"github.com/lalifeier/vvgo-mall/pkg/util/crypto/md5"
+	"github.com/lalifeier/vvgo-mall/pkg/util/random"
+	"github.com/lalifeier/vvgo-mall/pkg/util/request"
 )
 
 var defaultClientOptions = clientOptions{
