@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package service;
+option go_package = "github.com/lalifeier/vvgo-mall/gen/api/go/common/service;service";
+
+import "google/protobuf/any.proto";
+
+message Service {
+  message AccountService {
+    string endpoint = 1;
+  }
+  AccountService accountService = 1;
+}

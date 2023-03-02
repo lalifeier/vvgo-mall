@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 
 	"github.com/lalifeier/vvgo-mall/gen/api/go/common/conf"
 	"github.com/lalifeier/vvgo-mall/pkg/bootstrap/config"
@@ -61,10 +62,14 @@ func loadConfig() (*conf.Bootstrap, *conf.Registry) {
 		panic(err)
 	}
 
+	fmt.Printf("Bootstrap: %+v \n", bc)
+
 	var rc conf.Registry
 	if err := c.Scan(&rc); err != nil {
 		panic(err)
 	}
+
+	fmt.Printf("Registry: %+v \n", rc)
 
 	return &bc, &rc
 }
