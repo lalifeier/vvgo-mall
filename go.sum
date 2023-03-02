@@ -1376,8 +1376,8 @@ github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5/go.mod h1
 github.com/tmc/grpc-websocket-proxy v0.0.0-20201229170055-e5319fda7802/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=
 github.com/toolkits/concurrent v0.0.0-20150624120057-a4371d70e3e3/go.mod h1:QDlpd3qS71vYtakd2hmdpqhJ9nwv6mD6A30bQ1BPBFE=
 github.com/tv42/httpunix v0.0.0-20150427012821-b75d8614f926/go.mod h1:9ESjWnEqriFuLhtthL60Sar/7RFoluCcXsuvEwTV5KM=
-github.com/tx7do/kratos-transport v1.0.1 h1:R7WU25QScsHMcDHaXmo/P3RaVuzaE1tOHqlhc/ekvvI=
-github.com/tx7do/kratos-transport v1.0.1/go.mod h1:eTW0l9FG+kwcAQVbyQX8ZdS7DVpY0Sjnk9RNAmFk9Rw=
+github.com/tx7do/kratos-transport v1.0.5 h1:942TM6dzdBlJ+YC4buCS0usFny+L9qRlO8O+txIroa8=
+github.com/tx7do/kratos-transport v1.0.5/go.mod h1:gI68frGFLIwIbVCAm/f/FRc0JfyANIhnSHe2mAQidbM=
 github.com/tx7do/kratos-transport/broker/kafka v1.0.2 h1:OTsEhxNXohTTJCpt66fqTvdsG1L3Lq7UTUA6nACOJg0=
 github.com/tx7do/kratos-transport/broker/kafka v1.0.2/go.mod h1:e4Yoo2W+1iDYB3//0oIDtHsYqmdvmJNOuWVnPAvPG4I=
 github.com/tx7do/kratos-transport/transport/kafka v1.0.2 h1:m+tMqerXqQSxvUq4UcqoRKPF0J1Z5/b0sqDUfOWqa3Q=

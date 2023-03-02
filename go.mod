@@ -69,7 +69,7 @@ require (
 	github.com/spf13/cast v1.5.0
 	github.com/stretchr/testify v1.8.1
 	github.com/tencentyun/cos-go-sdk-v5 v0.7.40
-	github.com/tx7do/kratos-transport v1.0.1
+	github.com/tx7do/kratos-transport v1.0.5
 	github.com/tx7do/kratos-transport/transport/kafka v1.0.2
 	go.etcd.io/etcd/client/v3 v3.5.5
 	go.mongodb.org/mongo-driver v1.11.1
