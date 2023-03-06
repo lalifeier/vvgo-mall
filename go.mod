@@ -56,7 +56,7 @@ require (
 	github.com/gorilla/handlers v1.5.1
 	github.com/gorilla/sessions v1.2.1
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.0
-	github.com/hashicorp/consul/api v1.18.0
+	github.com/hashicorp/consul/api v1.19.1
 	github.com/jinzhu/copier v0.3.5
 	github.com/magiconair/properties v1.8.7
 	github.com/minio/minio-go/v7 v7.0.49
