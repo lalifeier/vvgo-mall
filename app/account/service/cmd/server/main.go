@@ -1,14 +1,7 @@
 package main
 
 import (
-	"flag"
-	"fmt"
-
-	"github.com/lalifeier/vvgo-mall/gen/api/go/common/conf"
-	"github.com/lalifeier/vvgo-mall/pkg/bootstrap/config"
-	FLAG "github.com/lalifeier/vvgo-mall/pkg/bootstrap/flag"
-	"github.com/lalifeier/vvgo-mall/pkg/bootstrap/logger"
-	"github.com/lalifeier/vvgo-mall/pkg/bootstrap/tracer"
+	"github.com/lalifeier/vvgo-mall/pkg/bootstrap"
 	"github.com/lalifeier/vvgo-mall/pkg/service"
 
 	"github.com/go-kratos/kratos/v2"
@@ -22,18 +15,12 @@ import (
 
 // go build -ldflags "-X main.Version=x.y.z"
 var (
-	Service = service.NewServiceInfo(
+	Service = bootstrap.NewServiceInfo(
 		service.AccountService,
 		"1.0.0",
 		"",
 	)
-
-	Flags = FLAG.NewCommandFlags()
 )
-
-func init() {
-	Flags.Init()
-}
 
 func newApp(logger log.Logger, hs *http.Server, gs *grpc.Server, rr registry.Registrar) *kratos.App {
 	return kratos.New(
@@ -50,46 +37,10 @@ func newApp(logger log.Logger, hs *http.Server, gs *grpc.Server, rr registry.Reg
 	)
 }
 
-func loadConfig() (*conf.Bootstrap, *conf.Registry) {
-	c := config.NewConfigProvider(Flags.ConfigType, Flags.ConfigHost, Flags.Conf, Service.Name)
-
-	if err := c.Load(); err != nil {
-		panic(err)
-	}
-
-	var bc conf.Bootstrap
-	if err := c.Scan(&bc); err != nil {
-		panic(err)
-	}
-
-	fmt.Printf("Bootstrap: %+v \n", bc)
-
-	var rc conf.Registry
-	if err := c.Scan(&rc); err != nil {
-		panic(err)
-	}
-
-	fmt.Printf("Registry: %+v \n", rc)
-
-	return &bc, &rc
-}
-
 func main() {
-	flag.Parse()
+	cfg, ll, reg := bootstrap.Bootstrap(Service)
 
-	bc, rc := loadConfig()
-	if bc == nil || rc == nil {
-		panic("load config failed")
-	}
-
-	logger := logger.NewLoggerProvider(logger.LoggerTypeStd, bc.Logger, &Service)
-
-	err := tracer.NewTracerProvider(bc.Trace, &Service)
-	if err != nil {
-		panic(err)
-	}
-
-	app, cleanup, err := wireApp(bc.Server, rc, bc.Data, logger)
+	app, cleanup, err := initApp(ll, reg, cfg)
 	if err != nil {
 		panic(err)
 	}

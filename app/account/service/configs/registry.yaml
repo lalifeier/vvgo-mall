@@ -1,4 +1,7 @@
-consul:
-  address: consul.docker.localhost:8500
-  scheme: http
-  health_check: false
+registry:
+  type: consul
+
+  consul:
+    address: consul.docker.localhost:8500
+    scheme: http
+    health_check: false

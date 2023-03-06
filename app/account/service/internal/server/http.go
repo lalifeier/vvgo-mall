@@ -2,41 +2,28 @@ package server
 
 import (
 	"github.com/go-kratos/kratos/v2/log"
+	"github.com/go-kratos/kratos/v2/middleware"
 	"github.com/go-kratos/kratos/v2/middleware/logging"
-	"github.com/go-kratos/kratos/v2/middleware/recovery"
-	"github.com/go-kratos/kratos/v2/middleware/tracing"
 	"github.com/go-kratos/kratos/v2/transport/http"
-	"github.com/gorilla/handlers"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/service"
 	v1 "github.com/lalifeier/vvgo-mall/gen/api/go/account/service/v1"
 	"github.com/lalifeier/vvgo-mall/gen/api/go/common/conf"
+	"github.com/lalifeier/vvgo-mall/pkg/bootstrap/server"
 )
 
-// NewHTTPServer new a HTTP server.
-func NewHTTPServer(c *conf.Server, logger log.Logger, accountService *service.AccountService) *http.Server {
-	var opts = []http.ServerOption{
-		http.Middleware(
-			recovery.Recovery(),
-			tracing.Server(),
-			logging.Server(logger),
-		),
-		http.Filter(handlers.CORS(
-			handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}),
-			handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"}),
-			handlers.AllowedOrigins([]string{"*"}),
-		)),
-	}
-	if c.Http.Network != "" {
-		opts = append(opts, http.Network(c.Http.Network))
-	}
-	if c.Http.Addr != "" {
-		opts = append(opts, http.Address(c.Http.Addr))
-	}
-	if c.Http.Timeout != nil {
-		opts = append(opts, http.Timeout(c.Http.Timeout.AsDuration()))
-	}
-	srv := http.NewServer(opts...)
+func newHTTPMiddleware(logger log.Logger) []middleware.Middleware {
+	var ms []middleware.Middleware
 
-	v1.RegisterAccountServiceHTTPServer(srv, accountService)
+	ms = append(ms, logging.Server(logger))
+
+	return ms
+}
+
+// NewHTTPServer new a HTTP server.
+func NewHTTPServer(cfg *conf.Bootstrap, logger log.Logger, accountSvc *service.AccountService) *http.Server {
+	srv := server.CreateHttpServer(cfg, newHTTPMiddleware(logger)...)
+
+	v1.RegisterAccountServiceHTTPServer(srv, accountSvc)
+
 	return srv
 }

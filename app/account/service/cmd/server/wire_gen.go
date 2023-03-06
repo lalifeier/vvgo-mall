@@ -9,6 +9,7 @@ package main
 import (
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
+	"github.com/go-kratos/kratos/v2/registry"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/biz"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/data"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/server"
@@ -23,9 +24,9 @@ import (
 // Injectors from wire.go:
 
 // initApp init kratos application.
-func wireApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Data, logger log.Logger) (*kratos.App, func(), error) {
-	client := data.NewEntClient(confData, logger)
-	redisClient := data.NewRedisClient(confData, logger)
+func initApp(logger log.Logger, registrar registry.Registrar, bootstrap *conf.Bootstrap) (*kratos.App, func(), error) {
+	client := data.NewEntClient(bootstrap, logger)
+	redisClient := data.NewRedisClient(bootstrap, logger)
 	dataData, cleanup, err := data.NewData(logger, client, redisClient)
 	if err != nil {
 		return nil, nil, err
@@ -34,10 +35,9 @@ func wireApp(confServer *conf.Server, registry *conf.Registry, confData *conf.Da
 	accountUserUseCase := biz.NewAccountUserUseCase(accountUserRepo, logger)
 	authUseCase := biz.NewAuthUseCase(accountUserRepo, logger)
 	accountService := service.NewAccountService(logger, accountUserUseCase, authUseCase)
-	httpServer := server.NewHTTPServer(confServer, logger, accountService)
+	httpServer := server.NewHTTPServer(bootstrap, logger, accountService)
 	accountUserService := service.NewAccountUserService(logger, accountUserUseCase)
-	grpcServer := server.NewGRPCServer(confServer, logger, accountService, accountUserService)
-	registrar := server.NewRegistrar(registry)
+	grpcServer := server.NewGRPCServer(bootstrap, logger, accountService, accountUserService)
 	app := newApp(logger, httpServer, grpcServer, registrar)
 	return app, func() {
 		cleanup()

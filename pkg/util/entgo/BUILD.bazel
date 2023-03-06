@@ -1,0 +1,12 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "entgo",
+    srcs = ["entgo.go"],
+    importpath = "github.com/lalifeier/vvgo-mall/pkg/util/entgo",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//pkg/util/stringcase",
+        "@io_entgo_ent//dialect/sql",
+    ],
+)

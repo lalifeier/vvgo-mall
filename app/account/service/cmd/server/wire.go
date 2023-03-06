@@ -8,6 +8,7 @@ package main
 import (
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
+	"github.com/go-kratos/kratos/v2/registry"
 	"github.com/google/wire"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/biz"
 	"github.com/lalifeier/vvgo-mall/app/account/service/internal/data"
@@ -17,6 +18,6 @@ import (
 )
 
 // initApp init kratos application.
-func wireApp(*conf.Server, *conf.Registry, *conf.Data, log.Logger) (*kratos.App, func(), error) {
+func initApp(log.Logger, registry.Registrar, *conf.Bootstrap) (*kratos.App, func(), error) {
 	panic(wire.Build(server.ProviderSet, data.ProviderSet, biz.ProviderSet, service.ProviderSet, newApp))
 }

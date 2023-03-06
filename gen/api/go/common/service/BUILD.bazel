@@ -1,12 +1,12 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "pagination",
+    name = "service",
     srcs = [
-        "pagination.pb.go",
-        "pagination.pb.validate.go",
+        "service.pb.go",
+        "service.pb.validate.go",
     ],
-    importpath = "github.com/lalifeier/vvgo-mall/gen/api/go/pagination",
+    importpath = "github.com/lalifeier/vvgo-mall/gen/api/go/common/service",
     visibility = ["//visibility:public"],
     deps = [
         "@org_golang_google_protobuf//reflect/protoreflect",
