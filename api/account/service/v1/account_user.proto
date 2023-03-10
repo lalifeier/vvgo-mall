@@ -4,6 +4,9 @@ package account.service.v1;
 option go_package = "github.com/lalifeier/vvgo-mall/gen/api/go/account/service/v1;v1";
 
 import "google/protobuf/empty.proto";
+import "google/protobuf/field_mask.proto";
+
+import "common/pagination/pagination.proto";
 
 service AccountUserService {
   rpc CreateAccountUser(CreateAccountUserReq) returns (AccountUser);
@@ -15,12 +18,31 @@ service AccountUserService {
       returns (PageListAccountUserResp);
 }
 
-message AccountUser { int64 id = 1; }
+message AccountUser {
+  uint32 id = 1;
+  optional string username = 2;
+  optional string password = 3;
+  optional string email = 4;
+  optional string phone = 5;
+  optional string status = 6 [(openapi.v3.property) = {
+    description: "状态"
+    default: { string: "0" }
+    enum: [{yaml: "0"}, {yaml: "1"}, {yaml: "-1"}]
+  }];
+}
 
-message CreateAccountUserReq {}
-message UpdateAccountUserReq {}
-message DeleteAccountUserReq { int64 id = 1; }
-message GetAccountUserReq { int64 id = 1; }
+message CreateAccountUserReq {
+  AccountUser accountUser = 1;
+}
+message UpdateAccountUserReq {
+  uint32 id = 1;
+  AccountUser accountUser = 2;
+}
+message DeleteAccountUserReq { uint32 id = 1; }
+message GetAccountUserReq {
+  uint32 id = 1;
+  google.protobuf.FieldMask field_mask = 2;
+}
 message ListAccountUserReq {}
 message ListAccountUserResp { repeated AccountUser list = 1; }
 message PageListAccountUserReq {
