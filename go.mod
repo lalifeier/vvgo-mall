@@ -59,7 +59,7 @@ require (
 	github.com/hashicorp/consul/api v1.20.0
 	github.com/jinzhu/copier v0.3.5
 	github.com/magiconair/properties v1.8.7
-	github.com/minio/minio-go/v7 v7.0.49
+	github.com/minio/minio-go/v7 v7.0.50
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/nacos-group/nacos-sdk-go v1.1.4
 	github.com/pkg/errors v0.9.1
@@ -132,7 +132,6 @@ require (
 	github.com/natefinch/lumberjack v2.0.0+incompatible // indirect
 	github.com/openzipkin/zipkin-go v0.4.1 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
-	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/philhofer/fwd v1.1.2 // indirect
 	github.com/pierrec/lz4 v2.6.1+incompatible // indirect
 	github.com/rs/xid v1.4.0 // indirect
