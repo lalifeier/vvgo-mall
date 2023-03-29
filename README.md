@@ -145,3 +145,9 @@ sudo apt install protobuf-compiler
   ```bash
   bazel build //...
   ```
+
+## Thanks & 感谢
+
+Thanks for [JetBrains](https://www.jetbrains.com/?from=lalifeier) for the wonderful IDE.
+
+<a href="https://www.jetbrains.com/?from=lalifeier"><img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg" /></a>
