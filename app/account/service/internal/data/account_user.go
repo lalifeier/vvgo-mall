@@ -16,8 +16,8 @@ var _ biz.AccountUserRepo = (*accountUserRepo)(nil)
 
 type entAccountUser ent.AccountUser
 
-func (e entAccountUser) BizStruct() *biz.AccountUser {
-	return &biz.AccountUser{
+func (e entAccountUser) convertEntToProto() *v1.AccountUser {
+	return &v1.AccountUser{
 		Id:       e.ID,
 		Username: e.Username,
 		Email:    e.Email,

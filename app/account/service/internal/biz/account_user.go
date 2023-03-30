@@ -14,25 +14,17 @@ var (
 	ErrUserNotFound    = errors.New("user not found")
 )
 
-type AccountUser struct {
-	Id       int64
-	Username string
-	Password string
-	Email    string
-	Phone    string
-}
-
 type AccountUserRepo interface {
-	Create(ctx context.Context, accountuser *AccountUser) (*AccountUser, error)
-	Update(ctx context.Context, accountuser *AccountUser) (*AccountUser, error)
-	Delete(ctx context.Context, id int64) error
-	Get(ctx context.Context, id int64) (*AccountUser, error)
-	List(ctx context.Context, req *v1.ListAccountUserReq) ([]*AccountUser, error)
-	PageList(ctx context.Context, req *v1.PageListAccountUserReq) ([]*AccountUser, int64, error)
+	Create(ctx context.Context, req *v1.CreateAccountUserReq) (*v1.AccountUser, error)
+	Update(ctx context.Context, req *v1.UpdateAccountUserReq) (*v1.AccountUser, error)
+	Delete(ctx context.Context, id uint32) error
+	Get(ctx context.Context, id uint32) (*v1.AccountUser, error)
+	List(ctx context.Context, req *v1.ListAccountUserReq) ([]*v1.AccountUser, error)
+	PageList(ctx context.Context, req *v1.PageListAccountUserReq) ([]*v1.AccountUser, int64, error)
 
-	FindByUsername(ctx context.Context, username string) (*AccountUser, error)
-	FindByEmail(ctx context.Context, email string) (*AccountUser, error)
-	FindByPhone(ctx context.Context, phone string) (*AccountUser, error)
+	FindByUsername(ctx context.Context, username string) (*v1.AccountUser, error)
+	FindByEmail(ctx context.Context, email string) (*v1.AccountUser, error)
+	FindByPhone(ctx context.Context, phone string) (*v1.AccountUser, error)
 }
 
 type AccountUserUseCase struct {
@@ -44,26 +36,26 @@ func NewAccountUserUseCase(repo AccountUserRepo, logger log.Logger) *AccountUser
 	return &AccountUserUseCase{repo: repo, log: log.NewHelper(logger)}
 }
 
-func (uc *AccountUserUseCase) CreateAccountUser(ctx context.Context, accountuser *AccountUser) (*AccountUser, error) {
-	return uc.repo.Create(ctx, accountuser)
+func (uc *AccountUserUseCase) CreateAccountUser(ctx context.Context, req *v1.CreateAccountUserReq) (*v1.AccountUser, error) {
+	return uc.repo.Create(ctx, req)
 }
 
-func (uc *AccountUserUseCase) UpdateAccountUser(ctx context.Context, accountuser *AccountUser) (*AccountUser, error) {
-	return uc.repo.Update(ctx, accountuser)
+func (uc *AccountUserUseCase) UpdateAccountUser(ctx context.Context, req *v1.UpdateAccountUserReq) (*v1.AccountUser, error) {
+	return uc.repo.Update(ctx, req)
 }
 
-func (uc *AccountUserUseCase) DeleteAccountUser(ctx context.Context, id int64) error {
+func (uc *AccountUserUseCase) DeleteAccountUser(ctx context.Context, id uint32) error {
 	return uc.repo.Delete(ctx, id)
 }
 
-func (uc *AccountUserUseCase) GetAccountUser(ctx context.Context, id int64) (*AccountUser, error) {
+func (uc *AccountUserUseCase) GetAccountUser(ctx context.Context, id uint32) (*v1.AccountUser, error) {
 	return uc.repo.Get(ctx, id)
 }
 
-func (uc *AccountUserUseCase) ListAccountUser(ctx context.Context, req *v1.ListAccountUserReq) ([]*AccountUser, error) {
+func (uc *AccountUserUseCase) ListAccountUser(ctx context.Context, req *v1.ListAccountUserReq) ([]*v1.AccountUser, error) {
 	return uc.repo.List(ctx, req)
 }
 
-func (uc *AccountUserUseCase) PageListAccountUser(ctx context.Context, req *v1.PageListAccountUserReq) ([]*AccountUser, int64, error) {
+func (uc *AccountUserUseCase) PageListAccountUser(ctx context.Context, req *v1.PageListAccountUserReq) ([]*v1.AccountUser, int64, error) {
 	return uc.repo.PageList(ctx, req)
 }

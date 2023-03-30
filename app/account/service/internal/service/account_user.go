@@ -26,43 +26,29 @@ func NewAccountUserService(logger log.Logger, accountUserUseCase *biz.AccountUse
 
 type bizAccountUser biz.AccountUser
 
-func (b bizAccountUser) protoStruct() *pb.AccountUser {
-	return &pb.AccountUser{
-		Id: b.Id,
-	}
-}
+// func (b bizAccountUser) protoStruct() *v1.AccountUser {
+// 	return &pb.AccountUser{
+// 		Id: b.Id,
+// 	}
+// }
 
-func (s *AccountService) CreateAccountUser(ctx context.Context, req *pb.AccountUser) (*pb.AccountUser, error) {
-	p, err := s.accountUserUseCase.CreateAccountUser(ctx, &biz.AccountUser{})
-	if err != nil {
-		return nil, err
-	}
-	return bizAccountUser(*p).protoStruct(), nil
+func (s *AccountService) CreateAccountUser(ctx context.Context, req *v1.CreateAccountUserReq) (*v1.AccountUser, error) {
+	return s.accountUserUseCase.CreateAccountUser(ctx, req)
 }
-func (s *AccountService) UpdateAccountUser(ctx context.Context, req *pb.AccountUser) (*pb.AccountUser, error) {
-	p, err := s.accountUserUseCase.UpdateAccountUser(ctx, &biz.AccountUser{
-		Id: req.Id,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return bizAccountUser(*p).protoStruct(), nil
+func (s *AccountService) UpdateAccountUser(ctx context.Context, req *v1.UpdateAccountUserReq) (*v1.AccountUser, error) {
+	return s.accountUserUseCase.UpdateAccountUser(ctx, req)
 }
-func (s *AccountService) DeleteAccountUser(ctx context.Context, req *pb.DeleteAccountUserReq) (*emptypb.Empty, error) {
+func (s *AccountService) DeleteAccountUser(ctx context.Context, req *v1.DeleteAccountUserReq) (*emptypb.Empty, error) {
 	err := s.accountUserUseCase.DeleteAccountUser(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}
 	return &emptypb.Empty{}, nil
 }
-func (s *AccountService) GetAccountUser(ctx context.Context, req *pb.GetAccountUserReq) (*pb.AccountUser, error) {
-	p, err := s.accountUserUseCase.GetAccountUser(ctx, req.Id)
-	if err != nil {
-		return nil, err
-	}
-	return bizAccountUser(*p).protoStruct(), nil
+func (s *AccountService) GetAccountUser(ctx context.Context, req *v1.GetAccountUserReq) (*v1.AccountUser, error) {
+	return s.accountUserUseCase.GetAccountUser(ctx, req.Id)
 }
-func (s *AccountService) ListAccountUser(ctx context.Context, req *pb.ListAccountUserReq) (*pb.ListAccountUserResp, error) {
+func (s *AccountService) ListAccountUser(ctx context.Context, req *v1.ListAccountUserReq) (*v1.ListAccountUserResp, error) {
 	rv, err := s.accountUserUseCase.ListAccountUser(ctx, req)
 	if err != nil {
 		return nil, err
@@ -77,7 +63,7 @@ func (s *AccountService) ListAccountUser(ctx context.Context, req *pb.ListAccoun
 		List: rs,
 	}, nil
 }
-func (s *AccountService) PageListAccountUser(ctx context.Context, req *pb.PageListAccountUserReq) (*pb.PageListAccountUserResp, error) {
+func (s *AccountService) PageListAccountUser(ctx context.Context, req *v1.PageListAccountUserReq) (*pb.PageListAccountUserResp, error) {
 	rv, total, err := s.accountUserUseCase.PageListAccountUser(ctx, req)
 	if err != nil {
 		return nil, err
