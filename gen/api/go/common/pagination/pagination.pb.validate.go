@@ -61,8 +61,8 @@ func (m *PagingRequest) validate(all bool) error {
 
 	// no validation rules for OrderBy
 
-	if m.Page != nil {
-		// no validation rules for Page
+	if m.PageNum != nil {
+		// no validation rules for PageNum
 	}
 
 	if m.PageSize != nil {

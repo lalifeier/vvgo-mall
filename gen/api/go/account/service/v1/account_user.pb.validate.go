@@ -59,6 +59,26 @@ func (m *AccountUser) validate(all bool) error {
 
 	// no validation rules for Id
 
+	if m.Username != nil {
+		// no validation rules for Username
+	}
+
+	if m.Password != nil {
+		// no validation rules for Password
+	}
+
+	if m.Email != nil {
+		// no validation rules for Email
+	}
+
+	if m.Phone != nil {
+		// no validation rules for Phone
+	}
+
+	if m.Status != nil {
+		// no validation rules for Status
+	}
+
 	if len(errors) > 0 {
 		return AccountUserMultiError(errors)
 	}
@@ -157,6 +177,35 @@ func (m *CreateAccountUserReq) validate(all bool) error {
 	}
 
 	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetAccountUser()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CreateAccountUserReqValidationError{
+					field:  "AccountUser",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CreateAccountUserReqValidationError{
+					field:  "AccountUser",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAccountUser()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreateAccountUserReqValidationError{
+				field:  "AccountUser",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return CreateAccountUserReqMultiError(errors)
@@ -259,6 +308,37 @@ func (m *UpdateAccountUserReq) validate(all bool) error {
 	}
 
 	var errors []error
+
+	// no validation rules for Id
+
+	if all {
+		switch v := interface{}(m.GetAccountUser()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UpdateAccountUserReqValidationError{
+					field:  "AccountUser",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UpdateAccountUserReqValidationError{
+					field:  "AccountUser",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetAccountUser()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateAccountUserReqValidationError{
+				field:  "AccountUser",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return UpdateAccountUserReqMultiError(errors)
@@ -468,6 +548,35 @@ func (m *GetAccountUserReq) validate(all bool) error {
 
 	// no validation rules for Id
 
+	if all {
+		switch v := interface{}(m.GetFieldMask()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetAccountUserReqValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetAccountUserReqValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFieldMask()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetAccountUserReqValidationError{
+				field:  "FieldMask",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return GetAccountUserReqMultiError(errors)
 	}
@@ -569,6 +678,10 @@ func (m *ListAccountUserReq) validate(all bool) error {
 	}
 
 	var errors []error
+
+	// no validation rules for Query
+
+	// no validation rules for OrderBy
 
 	if len(errors) > 0 {
 		return ListAccountUserReqMultiError(errors)
@@ -812,6 +925,10 @@ func (m *PageListAccountUserReq) validate(all bool) error {
 
 	// no validation rules for PageSize
 
+	// no validation rules for Query
+
+	// no validation rules for OrderBy
+
 	if len(errors) > 0 {
 		return PageListAccountUserReqMultiError(errors)
 	}
@@ -950,7 +1067,7 @@ func (m *PageListAccountUserResp) validate(all bool) error {
 
 	// no validation rules for Total
 
-	// no validation rules for Page
+	// no validation rules for PageNum
 
 	// no validation rules for PageSize
 

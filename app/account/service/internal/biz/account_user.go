@@ -19,8 +19,8 @@ type AccountUserRepo interface {
 	Update(ctx context.Context, req *v1.UpdateAccountUserReq) (*v1.AccountUser, error)
 	Delete(ctx context.Context, id uint32) error
 	Get(ctx context.Context, id uint32) (*v1.AccountUser, error)
-	List(ctx context.Context, req *v1.ListAccountUserReq) ([]*v1.AccountUser, error)
-	PageList(ctx context.Context, req *v1.PageListAccountUserReq) ([]*v1.AccountUser, int64, error)
+	List(ctx context.Context, req *v1.ListAccountUserReq) (*v1.ListAccountUserResp, error)
+	PageList(ctx context.Context, req *v1.PageListAccountUserReq) (*v1.PageListAccountUserResp, error)
 
 	FindByUsername(ctx context.Context, username string) (*v1.AccountUser, error)
 	FindByEmail(ctx context.Context, email string) (*v1.AccountUser, error)
@@ -52,10 +52,10 @@ func (uc *AccountUserUseCase) GetAccountUser(ctx context.Context, id uint32) (*v
 	return uc.repo.Get(ctx, id)
 }
 
-func (uc *AccountUserUseCase) ListAccountUser(ctx context.Context, req *v1.ListAccountUserReq) ([]*v1.AccountUser, error) {
+func (uc *AccountUserUseCase) ListAccountUser(ctx context.Context, req *v1.ListAccountUserReq) (*v1.ListAccountUserResp, error) {
 	return uc.repo.List(ctx, req)
 }
 
-func (uc *AccountUserUseCase) PageListAccountUser(ctx context.Context, req *v1.PageListAccountUserReq) ([]*v1.AccountUser, int64, error) {
+func (uc *AccountUserUseCase) PageListAccountUser(ctx context.Context, req *v1.PageListAccountUserReq) (*v1.PageListAccountUserResp, error) {
 	return uc.repo.PageList(ctx, req)
 }

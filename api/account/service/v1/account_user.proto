@@ -3,6 +3,8 @@ syntax = "proto3";
 package account.service.v1;
 option go_package = "github.com/lalifeier/vvgo-mall/gen/api/go/account/service/v1;v1";
 
+
+import "openapi/v3/annotations.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 
@@ -43,15 +45,20 @@ message GetAccountUserReq {
   uint32 id = 1;
   google.protobuf.FieldMask field_mask = 2;
 }
-message ListAccountUserReq {}
+message ListAccountUserReq {
+  map<string, string> query = 1;
+  map<string, string> orderBy = 2 [json_name = "orderBy"];
+}
 message ListAccountUserResp { repeated AccountUser list = 1; }
 message PageListAccountUserReq {
-  int64 pageNum = 1;
-  int64 pageSize = 4;
+  int32 pageNum = 1 [json_name = "pageNum"];
+  int32 pageSize = 2 [json_name = "pageSize"];
+  map<string, string> query = 3;
+  map<string, string> orderBy = 4 [json_name = "orderBy"];
 }
 message PageListAccountUserResp {
   repeated AccountUser list = 1;
-  int64 total = 2;
-  int64 page = 3;
-  int64 pageSize = 4;
+  int32 total = 2;
+  int32 pageNum = 3;
+  int32 pageSize = 4;
 }

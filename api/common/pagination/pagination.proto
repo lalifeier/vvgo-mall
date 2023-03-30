@@ -18,7 +18,7 @@ enum SortOrder {
 // 分页通用请求
 message PagingRequest {
   // 当前页
-  optional int32 page = 1;
+  optional int32 pageNum = 1 [json_name = "pageNum"];
 
   // 每一页的行数
   optional int32 pageSize = 2 [json_name = "pageSize"];

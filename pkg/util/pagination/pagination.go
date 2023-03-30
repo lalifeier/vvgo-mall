@@ -1,14 +1,14 @@
 package pagination
 
 type Query interface {
-	Offset(offset int64)
-	Limit(limit int64)
+	Offset(offset int32)
+	Limit(limit int32)
 }
 
-func GetPageOffset(pageNum, pageSize int64) int64 {
-	return (pageNum - 1) * pageSize
+func GetPageOffset(pageNum, pageSize int32) int {
+	return int((pageNum - 1) * pageSize)
 }
 
-func GetTotalPages(total, pageSize int64) int64 {
+func GetTotalPages(total, pageSize int32) int32 {
 	return total / pageSize
 }
