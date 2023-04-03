@@ -11,7 +11,7 @@ require (
 	github.com/aws/aws-sdk-go-v2 v1.17.7
 	github.com/aws/aws-sdk-go-v2/config v1.18.19
 	github.com/aws/aws-sdk-go-v2/credentials v1.13.18
-	github.com/aws/aws-sdk-go-v2/service/s3 v1.31.0
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.31.1
 	github.com/casbin/casbin/v2 v2.66.0
 	github.com/casbin/ent-adapter v0.3.0
 	github.com/envoyproxy/protoc-gen-validate v0.10.1
