@@ -63,7 +63,7 @@ require (
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/nacos-group/nacos-sdk-go v1.1.4
 	github.com/pkg/errors v0.9.1
-	github.com/polarismesh/polaris-go v1.3.0
+	github.com/polarismesh/polaris-go v1.5.1
 	github.com/prometheus/client_golang v1.14.0
 	github.com/qiniu/go-sdk/v7 v7.14.0
 	github.com/sirupsen/logrus v1.9.0
@@ -134,6 +134,7 @@ require (
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
 	github.com/philhofer/fwd v1.1.2 // indirect
 	github.com/pierrec/lz4 v2.6.1+incompatible // indirect
+	github.com/polarismesh/specification v1.3.2-alpha.2 // indirect
 	github.com/rs/xid v1.4.0 // indirect
 	github.com/segmentio/kafka-go v0.4.39 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
