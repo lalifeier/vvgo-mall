@@ -74,7 +74,7 @@ require (
 	github.com/tx7do/kratos-transport v1.0.5
 	github.com/tx7do/kratos-transport/transport/kafka v1.0.2
 	go.etcd.io/etcd/client/v3 v3.5.7
-	go.mongodb.org/mongo-driver v1.11.3
+	go.mongodb.org/mongo-driver v1.12.0
 	go.opentelemetry.io/otel v1.14.0
 	go.opentelemetry.io/otel/exporters/jaeger v1.14.0
 	go.opentelemetry.io/otel/exporters/zipkin v1.14.0
